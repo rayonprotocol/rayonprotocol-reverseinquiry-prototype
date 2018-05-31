@@ -1,0 +1,9 @@
+@import '~assets/partial';
+.blueButton {
+  display: inline-block;
+  background-color: $march-blue;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  @include set-font(18px, white, $fontweight-bold);
+}

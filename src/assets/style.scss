@@ -1,0 +1,144 @@
+/*==================== RESET ====================*/
+@charset "UTF-8";
+
+@import "partial";
+
+@import url(//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css);
+@import url(//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css);
+
+*, :before, :after {
+	-webkit-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family:'Roboto';
+}
+html {
+  -webkit-tap-highlight-color: rgba(black, 0.02);
+}
+article, aside, footer, header, nav, section,
+figcaption, figure, main
+details, menu, hgroup, summary {
+	display: block;
+}
+body, section, div, ul, li,
+h1, h2, h3, h4, h5, h6, p, pre,
+table, td, th, tr,
+input, button, select, textarea, label, optgroup {
+	// 	AppleSDGothicNeo-Regular, AppleSDGothic, "Apple SD Gothic Neo", AppleGothic,
+	// 	'Nanum Gothic', 'Malgun Gothic', 'Dotum', Arial, sans-serif;
+	outline: 0 !important;
+	margin: 0;
+  padding: 0;
+}
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button {
+    background: none;
+    border: 0;
+    color: inherit;
+    /* cursor: default; */
+    font: inherit;
+    line-height: normal;
+    overflow: visible;
+    padding: 0;
+    -webkit-appearance: button; /* for input */
+    -webkit-user-select: none; /* for button */
+       -moz-user-select: none;
+        -ms-user-select: none;
+}
+
+li {
+	list-style: none;
+}
+@media screen and (min-width:0\0) {
+	/* IE 9 Hack to avoid poor text-rendering */
+	body, section, div, ul, li,
+	h1, h2, h3, h4, h5, h6, p, pre,
+	table, td, th, tr,
+	input, button, select, textarea, label, optgroup {
+		font-family: 'Malgun Gothic', 'Dotum', Arial, sans-serif;
+		letter-spacing: -0.05em;
+	}
+}
+h1, h2, h3, h4, h5, h6, p, a, span, li, td {
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OTJBQkFGRUZFOTIyMTFFMEJDRDNEQzkxOTVGOTNBODAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OTJBQkFGRjBFOTIyMTFFMEJDRDNEQzkxOTVGOTNBODAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5MkFCQUZFREU5MjIxMUUwQkNEM0RDOTE5NUY5M0E4MCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5MkFCQUZFRUU5MjIxMUUwQkNEM0RDOTE5NUY5M0E4MCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PtrV+I8AAAAQSURBVHjaYvj//z8DQIABAAj8Av7bok0WAAAAAElFTkSuQmCC',sizingMethod=crop);
+	zoom: 1;
+}
+ul {
+	list-style: none;
+}
+table, td, th, tr {
+	border-collapse: collapse;
+}
+a {
+	color: inherit;
+	cursor: pointer;
+&, &:link, &:hover, &:active, &:focus {
+																 text-decoration: none;
+																 outline-width: 0;
+															 }
+}
+img {
+	border: none;
+}
+i {
+	font-family: "FontAwesome";
+}
+button {
+	background: none;
+	border: none;
+	cursor: pointer;
+&:disabled {
+	 opacity: 1;
+	 background: #9c9c9c;
+	 border-color: #9c9c9c;
+ }
+}
+input[type="number"], input[type="tel"] {
+	letter-spacing: 0;
+&::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+																 -webkit-appearance: none;
+																 margin: 0;
+															 }
+}
+select, input[type="text"], input[type="number"], input[type="tel"] {
+	background-color: transparent;
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	text-indent: 1px;
+}
+[hidden] {
+	display: none;
+}
+
+/* FXCK IE */
+:-ms-input-placeholder {
+	color: #AAA !important;
+}
+select::-ms-expand, input::-ms-clear {
+	display: none;
+}
+
+/* FXCK iOS TOO */
+a[x-apple-data-detectors] {
+	color: inherit !important;
+	text-decoration: none !important;
+	font-size: inherit !important;
+	font-family: inherit !important;
+	font-weight: inherit !important;
+	line-height: inherit !important;
+}
+
+@media screen and (max-width: 768px) {
+
+	body, section, div, ul, li,
+	h1, h2, h3, h4, h5, h6, p, pre,
+	table, td, th, tr,
+	input, button, select, textarea, label {
+		letter-spacing: 0;
+		font-family: roboto;
+	}
+
+}

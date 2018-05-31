@@ -1,0 +1,4 @@
+@import '~assets/partial';
+.modal {
+  @include vh-center();
+}

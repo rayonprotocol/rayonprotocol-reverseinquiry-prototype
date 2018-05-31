@@ -1,0 +1,31 @@
+@import '~assets/partial';
+.toggleButton {
+  margin-bottom: 20px;
+  .title {
+    margin-bottom: 10px;
+    @include set-font(16px, $march-black);
+  }
+  input {
+    display: none;
+  }
+  .radioButton {
+    display: inline-block;
+    .toggleLabel {
+      display: inline-block;
+      margin-right: 5px;
+      padding: 5px 10px;
+      border: 2px solid $march-lightgray;
+      border-radius: 10px;
+      color: $march-lightgray;
+      transition: all 0.1s linear;
+      cursor: pointer;
+    }
+  }
+  .selected {
+    .toggleLabel {
+      border: 2px solid $march-blue;
+      background-color: $march-blue;
+      color: white;
+    }
+  }
+}

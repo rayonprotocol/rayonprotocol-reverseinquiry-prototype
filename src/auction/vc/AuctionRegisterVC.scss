@@ -1,0 +1,22 @@
+@import '~assets/partial';
+.contentContainer {
+  .note {
+    margin-bottom: 30px;
+    div {
+      margin-bottom: 12px;
+      @include set-font(24px, $march-black);
+    }
+    p {
+      margin-bottom: 8px;
+      @include set-font(16px, $march-black);
+    }
+  }
+  .FinanceTag {
+    margin-top: 40px;
+  }
+
+  .buttonWrap {
+    margin-top: 20px;
+    text-align: center;
+  }
+}

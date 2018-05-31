@@ -1,0 +1,21 @@
+// media query
+$mobile-width: 768px;
+$device-pc:unquote("min-width: #{$mobile-width - 1px}");
+$device-mobile: unquote("max-width: #{$mobile-width - 1px}");
+$pc: 'pc';
+$mobile: 'mobile';
+// color
+$march-blue: #4C79F7;
+$march-lightblue: #f1f5ff;
+$march-orange: #FFB700;
+$march-green: #2CCBD6;
+$march-puple: #BE6AD3;
+$march-black: #303030;
+
+$march-lightgray: #808080;
+// font-weight
+$fontweight-thin: 100;
+$fontweight-light: 300;
+$fontweight-regular: 300;
+$fontweight-medium: 500;
+$fontweight-bold: 700;

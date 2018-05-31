@@ -1,0 +1,43 @@
+@import '~assets/partial';
+.contentsContainer {
+  position: relative;
+  background-color: white;
+  min-width: initial;
+  .subTitle {
+    margin-bottom: 10px;
+    @include set-font(24px, $march-black);
+  }
+  .value {
+    margin-bottom: 40px;
+  }
+  .financeData,
+  .successAuth,
+  .needAuth,
+  .joinType,
+  .userAddress {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: 1px solid $march-black;
+    border-radius: 10px;
+  }
+
+  .successAuth,
+  .joinType {
+    color: white;
+    border: 1px solid $march-blue;
+    background-color: $march-blue;
+  }
+
+  .needAuth {
+    color: white;
+    border: 1px solid $march-puple;
+    background-color: $march-puple;
+  }
+
+  .userAddress {
+    color: white;
+    border: 1px solid $march-green;
+    background-color: $march-green;
+  }
+}

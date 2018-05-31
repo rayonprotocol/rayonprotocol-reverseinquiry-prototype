@@ -1,0 +1,67 @@
+@import '~assets/partial';
+.contentsContainer {
+  position: relative;
+  background-color: white;
+  min-width: initial;
+  padding: 40px;
+  table {
+    width: 100%;
+    margin-top: 30px;
+    .headerRow {
+      th {
+        padding: 10px 0px;
+        @include set-font(24px, $march-black);
+      }
+    }
+    .inputRow {
+      border-bottom: 1px solid $march-lightgray;
+      text-align: center;
+      td {
+        padding: 10px 15px;
+        @include set-font(16px, $march-black);
+      }
+      input {
+        width: 80%;
+        padding: 10px 15px;
+        outline: 0;
+        border: 0;
+        border-right: 2px solid $march-lightgray;
+        border-left: 2px solid $march-lightgray;
+        border-radius: 10px;
+        transition: 0.2s border-color linear;
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
+      input:focus {
+        border-right: 2px solid $march-blue;
+        border-left: 2px solid $march-blue;
+      }
+    }
+  }
+  .addBtn {
+    margin-right: 45px;
+    text-align: right;
+    div {
+      display: inline-block;
+      padding: 10px 15px;
+      color: white;
+      background-color: $march-green;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  }
+  .removeBtn {
+    div {
+      display: inline-block;
+      padding: 0px 20px;
+      background-color: $march-puple;
+      border-radius: 10px;
+      cursor: pointer;
+      @include set-font(36px, white);
+    }
+  }
+  .buttonWrap {
+    margin-top: 20px;
+    text-align: center;
+  }
+}

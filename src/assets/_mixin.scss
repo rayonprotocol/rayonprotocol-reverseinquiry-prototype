@@ -1,0 +1,119 @@
+@import "./variables";
+
+// media query
+@mixin media($device) {
+  @if $device==$pc {
+    @media ($device-pc) {
+      @content;
+    }
+  }
+  @else if $device==$mobile {
+    @media ($device-mobile) {
+      @content;
+    }
+  }
+}
+
+@mixin clearfix() {
+  &::after {
+    content: '';
+    display: block;
+    clear: left;
+  }
+}
+
+// absolute position 기본 설정
+@mixin pos-abs($t:initial, $r:initial, $b:initial, $l:initial) {
+  position: absolute;
+  top: $t;
+  right: $r;
+  bottom: $b;
+  left: $l;
+}
+
+// 사이즈, 컬러, 웨이트 기본 폰트 설정
+@mixin set-font($size:18px, $color:$march-black, $weight:$fontweight-regular) {
+  font-size: $size;
+  color: $color;
+  font-weight: $weight;
+}
+
+// 색, 굵기, 모양, 곡률 border 값
+@mixin set-border($width, $style, $color, $radius:0px) {
+  border: $width $style $color;
+border-radius: $radius;
+}
+
+// border 상단 곡률
+@mixin border-topside-radius($leftRadius, $rightRadius:$leftRadius) {
+  border-top-left-radius: $leftRadius;
+  border-top-right-radius: $rightRadius;
+}
+
+// border 하단 곡률
+@mixin border-bottomside-radius($leftRadius, $rightRadius:$leftRadius) {
+  border-bottom-left-radius: $leftRadius;
+  border-bottom-right-radius: $rightRadius;
+}
+
+// border 좌측 곡률
+@mixin border-leftside-radius($topRadius, $bottomRadius:$topRadius) {
+  border-top-left-radius: $topRadius;
+  border-bottom-left-radius: $bottomRadius;
+}
+
+// border 우측 곡률
+@mixin border-rightside-radius($topRadius, $bottomRadius:$topRadius) {
+  border-top-right-radius: $topRadius;
+  border-bottom-right-radius: $bottomRadius;
+}
+
+// 길이, 높이, 인자가 1개일때는 동일한 값을 가짐
+@mixin width-height($w, $h:$w) {
+  width: $w;
+  height: $h,
+}
+
+// 상하 같은 마진, 인자가 1개일때는 동일한 값을 가짐
+@mixin margin-vertical($topMargin, $bottomMargin:$topMargin) {
+  margin-top: $topMargin;
+  margin-bottom: $bottomMargin;
+}
+
+// 좌우 같은 마진, 인자가 1개일때는 동일한 값을 가짐
+@mixin margin-horizontal($leftMargin, $rightMargin:$leftMargin) {
+  margin-left: $leftMargin;
+  margin-right: $rightMargin;
+}
+
+// 상하 같은 패딩, 인자가 1개일때는 동일한 값을 가짐
+@mixin padding-vertical($topPadding, $bottomPadding:$topPadding) {
+  padding-top: $topPadding;
+  padding-bottom: $bottomPadding;
+}
+
+// 좌우 같은 패딩, 인자가 1개일때는 동일한 값을 가짐
+@mixin padding-horizontal($leftPadding, $rightPadding:$leftPadding) {
+  padding-left: $leftPadding;
+  padding-right: $rightPadding;
+}
+
+
+@mixin vh-center() {
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+@mixin vertical-center() {
+  position: absolute;
+  left:50%;
+  transform: translateX(-50%);
+}
+
+@mixin horizontal-center() {
+  position: absolute;
+  top:50%;
+  transform: translateY(-50%);
+}

@@ -1,0 +1,46 @@
+@import '~assets/partial';
+.contentsContainer {
+  position: relative;
+  background-color: white;
+  min-width: initial;
+  border-radius: 10px;
+  padding: 40px 40px;
+
+  .closeBtn {
+    font-size: 24px;
+    padding: 10px;
+    border-radius: 20px;
+    background: $march-blue;
+    cursor: pointer;
+    @include pos-abs(35px, 20px, initial, initial);
+    @include width-height(40px);
+  }
+  .title {
+    margin-bottom: 30px;
+    @include set-font(24px, $march-black)
+  }
+  .inputWrapper {
+    margin-bottom: 20px;
+    input,
+    div {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+    .radioButton {
+      label {
+        font-size: 16px;
+        margin-left: 10px;
+      }
+    }
+  }
+  .errorMessage {
+    margin-bottom: 30px;
+    div {
+      color: red;
+    }
+  }
+  .buttonWrap {
+    margin-top: 30px;
+    text-align: center;
+  }
+}

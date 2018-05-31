@@ -1,0 +1,36 @@
+@import '~assets/partial';
+.navigationBar {
+  border-bottom: 1px solid gray;
+  @include clearfix();
+  ul {
+    li {
+      display: inline-block;
+      vertical-align: top;
+      padding: 15px 0px;
+      margin-top: 10px;
+      font-size: 20px;
+      cursor: pointer;
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+      &:hover {
+        color: $march-blue;
+      }
+    }
+  }
+  .mainSection {
+    float: left;
+    .logo {
+      display: inline-block;
+      margin-top: 0px;
+      margin-left: 0px;
+      img {
+        width: 100px;
+        margin-right: 80px;
+      }
+    }
+  }
+  .userSection {
+    float: right;
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "presets": [
+    ["env", {"modules": false}],
+    "react",
+    "latest",
+    "stage-0"
+  ],
+  "plugins": [
+    "transform-runtime"
+  ],
+  "env": {
+    "production": {
+      "plugins":[
+        "transform-react-inline-elements",
+        "transform-react-pure-class-to-function",
+        "transform-react-remove-prop-types"
+      ]
+    },
+    "development": {
+      "plugins":[
+        "react-hot-loader/babel",
+        "transform-react-jsx-source",
+        "transform-react-jsx-self"
+      ]
+    }
+  }
+}

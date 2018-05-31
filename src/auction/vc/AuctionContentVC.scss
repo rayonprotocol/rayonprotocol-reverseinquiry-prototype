@@ -1,0 +1,47 @@
+@import '~assets/partial';
+
+.contentContainer {
+  .block {
+    padding: 15px 0px;
+    border-bottom: 1px solid $march-lightgray;
+    .subtitle {
+      display: inline-block;
+      margin-right: 10px;
+      @include set-font(24px, $march-black);
+    }
+    .inlineValue {
+      display: inline-block;
+      width: 50%;
+    }
+    .value,
+    .bloackValue {
+      display: inline-block;
+      @include set-font(18px, $march-black);
+    }
+    .bloackValue {
+      display: block;
+      margin-top: 10px;
+    }
+    .tag {
+      display: inline-block;
+      margin-right: 5px;
+      padding: 5px 10px;
+      border-radius: 10px;
+      background-color: $march-blue;
+      color: white;
+    }
+  }
+
+  .submitButton {
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 5px;
+    background: $march-blue;
+    width: 280px;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+}

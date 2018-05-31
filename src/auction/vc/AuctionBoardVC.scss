@@ -1,0 +1,46 @@
+@import '~assets/partial';
+.contentContainer {
+  .title {
+    font-size: 24px;
+    margin: 30px 0px;
+  }
+  table {
+    width: 100%;
+    text-align: center;
+    .headerRow {
+      th {
+        padding: 10px 0px;
+        @include set-font(24px, $march-black);
+      }
+    }
+    .contentRow {
+      border-bottom: 1px solid $march-lightgray;
+      text-align: center;
+      td {
+        padding: 10px 15px;
+        @include set-font(16px, $march-black);
+      }
+      .userColumn {
+        width: 20%;
+      }
+      .timeColumn {
+        width: 20%;
+      }
+    }
+  }
+  .contentsTitle {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .listEmptyNote {
+    text-align: center;
+    @include set-font(36px, $march-black);
+  }
+  .buttonWrap {
+    margin-bottom: 30px;
+    margin-right: 70px;
+    text-align: right;
+  }
+}
