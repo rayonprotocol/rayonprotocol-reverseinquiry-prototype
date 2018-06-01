@@ -1,4 +1,4 @@
-# Rayon protocal reverse auction
+# Rayon Protocol reverse auction
 
 This is RayonProtocol's Prototype reverse auction based on Ethereum.
 
