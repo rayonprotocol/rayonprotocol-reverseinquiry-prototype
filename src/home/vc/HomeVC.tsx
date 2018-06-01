@@ -18,7 +18,7 @@ class HomeVC extends Component<{}, {}> {
           <img src={require('../images/bg.png')} />
           <div className={styles.topMainOverlay}>
             <div className={styles.titleWrap}>
-              <p className={styles.title}>March</p>
+              <p className={styles.title}>Rayon Protocol</p>
               <p className={styles.subTitle}>- Reverse Auction -</p>
             </div>
           </div>

@@ -94,7 +94,7 @@ class Nav extends Component<{}, NavState> {
             <ul>
               <li className={styles.logo}>
                 <Link to={'/'}>
-                  <img src={require('../../assets/img/march-logo.png')} />
+                  <img src={require('../../assets/img/rayon-logo.png')} />
                 </Link>
               </li>
               <li>

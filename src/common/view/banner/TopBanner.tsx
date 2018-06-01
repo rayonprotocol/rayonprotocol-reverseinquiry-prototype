@@ -18,7 +18,7 @@ class TopBanner extends Component<TopBannerProps, {}> {
         <Container className={styles.contentContainer}>
           <div className={styles.title}>{this.props.title}</div>
           <div className={styles.description}>{this.props.description}</div>
-          <img src={require('../../../assets/img/march-white-logo.png')} />
+          <img src={require('../../../assets/img/rayon-logo.png')} />
         </Container>
       </div>
     );
