@@ -106,3 +106,8 @@ Personal/FI 인지 선택한 후 서비스에서 사용할 닉네임을 입력�
 FI 로 부터 전송받은 상품 정보를 가지고 유저는 상품 거절/수락을 진행할 수 있다. 상품 수락시 상품에 가입하는 로직이 뒤따를 것이며, 거절시 FI 는 새로운 상품을 전송하거나 이를 포기할 수 있다.
 
 ![image](https://user-images.githubusercontent.com/20614643/40900303-edb70148-6805-11e8-95dc-54098c50b73d.png)
+
+
+### 완료
+
+![image](https://user-images.githubusercontent.com/20614643/40900354-24629fb8-6806-11e8-8892-2931dbde584f.png)
