@@ -19,7 +19,7 @@ class HomeVC extends Component<{}, {}> {
           <div className={styles.topMainOverlay}>
             <div className={styles.titleWrap}>
               <p className={styles.title}>Rayon Protocol</p>
-              <p className={styles.subTitle}>- Reverse Auction -</p>
+              <p className={styles.subTitle}>- Reverse Inquiry -</p>
             </div>
           </div>
         </div>
@@ -33,7 +33,7 @@ class HomeVC extends Component<{}, {}> {
               <p>4. 사용할 이름과 패스워드를 설정합니다</p>
             </div>
           </section>
-          <section>
+          {/* <section>
             <div className={styles.sectionTitle}>역경매</div>
             <div className={styles.description}>
               <p>1-1 개인회원은 경매를 등록하기 위해 좌측 상단 경매공고를 클릭합니다</p>
@@ -42,7 +42,7 @@ class HomeVC extends Component<{}, {}> {
               <p>2-1 금융사는 경매 공고에서 공고 목록중 하나를 클릭합니다</p>
               <p>2-2 들어간 목록의 내용을 확인하고 데이터 요청 버튼을 클릭합니다</p>
             </div>
-          </section>
+          </section> */}
         </Container>
       </div>
     );
