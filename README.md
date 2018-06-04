@@ -1,8 +1,8 @@
-# Rayon Protocol reverse inquiry
+# Rayon Protocol Reverse Inquiry
 
 This is RayonProtocol's Prototype reverse inquiry based on Ethereum.
 
-## The challenge
+## The Challenge
 
 Today, the process of making a loan transaction goes unnoticed, costing individuals time, money, and emotion, and financial institutions pay high costs to the middle class for customer acquisition and customer information.
 
@@ -19,7 +19,7 @@ Today, the process of making a loan transaction goes unnoticed, costing individu
   * Search results that do not take personal financial conditions into account at all
   * High advertising costs that are eventually passed on to individuals
 
-## solution
+## Solution
 
 ### Overview
 
@@ -42,7 +42,7 @@ To arrange financial transactions within the ecosystem, Rayon Protocol consists 
     * Provide smart contract that enables you to close financial transactions by specifying key conditions for each financial product
     * Provide search function to ecosystem participants to help them find the best trading partner
 
-## Rayon protocol reverse inquiry prototype
+## Rayon Protocol Reverse Inquiry Prototype
 
 해당 레포지토리는 Rayon protocol 역경매의 프로토타입 버전이다.
 사용자는 개인 유저인 Personal 과 금융사인 FI(finance institude)로 나뉘며, 역경매가 진행되는 순서는 다음과 같다.
