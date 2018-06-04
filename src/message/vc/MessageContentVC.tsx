@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import classNames from 'classnames';
 
 // model
 import Message, { MsgTypes } from 'message/model/Message';
@@ -42,9 +43,19 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
   }
 
   onClickDataSubmit(message: Message) {
-    const data = localStorage.getItem(ContractDC.getAccount());
-    if (data === null) return alert('금융데이터를 먼저 등록해주세요!');
-    MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.RESPONSE_PERSONAL_DATA, data);
+    const requestFinanceDataKey = message.payload.split('%%');
+    const requestResponeceData = {};
+    const localFinanceData = JSON.parse(localStorage.getItem(ContractDC.getAccount()));
+    requestFinanceDataKey.forEach(item => {
+      requestResponeceData[item] = localFinanceData[item];
+    });
+    if (localFinanceData === null) return alert('금융데이터를 먼저 등록해주세요!');
+    MessageDC.insertMessage(
+      message.fromAddress,
+      message.auctionId,
+      MsgTypes.RESPONSE_PERSONAL_DATA,
+      JSON.stringify(requestResponeceData)
+    );
   }
 
   onClickProductOffer(message: Message) {
@@ -62,7 +73,18 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
 
   renderTag = (msgType: MsgTypes) => {
     const msgTypeNames = ['데이터 신청', '데이터 응답', '상품가입 요청', '상품가입 응답'];
-    return <div className={styles.tag}>{msgTypeNames[msgType - 1]}</div>;
+    return (
+      <div
+        className={classNames(styles.tag, {
+          [styles.orangeTag]: msgType === MsgTypes.RESPONSE_PERSONAL_DATA,
+          [styles.pupleTag]: msgType === MsgTypes.OFFER_PRODUCT,
+          [styles.lightgrayTag]: msgType === MsgTypes.DENY_OFFER,
+          [styles.greenTag]: msgType === MsgTypes.ACCEPT_OFFER,
+        })}
+      >
+        {msgTypeNames[msgType - 1]}
+      </div>
+    );
   };
 
   renderSpecialForm(message: Message) {
@@ -74,7 +96,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
           user.isPersonal && (
             <div className={styles.bottomWrap}>
               <div className={styles.submitButton} onClick={() => this.onClickDataSubmit(message)}>
-                데이터전송하기
+                데이터전송하기 >
               </div>
             </div>
           )
@@ -85,7 +107,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
           !user.isPersonal && (
             <div className={styles.bottomWrap}>
               <div className={styles.submitButton} onClick={() => this.onClickProductOffer(message)}>
-                상품제안전송하기
+                상품제안전송하기 >
               </div>
             </div>
           )
@@ -95,10 +117,10 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
           user.isPersonal && (
             <div className={styles.bottomWrap}>
               <div className={styles.submitButton} onClick={() => this.onClickOfferDeny(message)}>
-                거절하기
+                거절하기 >
               </div>
               <div className={styles.submitButton} onClick={() => this.onClickOfferAccept(message)}>
-                수락하기
+                수락하기 >
               </div>
             </div>
           )
@@ -107,6 +129,31 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
         return <div className={styles.bottomWrap}>신청이 완료되었습니다</div>;
       default:
         break;
+    }
+  }
+
+  renderPayload(msgType: MsgTypes, payload: string) {
+    switch (msgType) {
+      case MsgTypes.REQUEST_PERSONAL_DATA:
+        const offeredData = payload.split('%%');
+        return offeredData.map((item, index) => {
+          return (
+            <div className={styles.payloadTag} key={index}>
+              {item}
+            </div>
+          );
+        });
+      case MsgTypes.RESPONSE_PERSONAL_DATA:
+        const financeData = JSON.parse(payload);
+        return Object.keys(financeData).map((item, index) => {
+          return (
+            <div className={styles.financeData} key={index}>
+              {item} : {financeData[item]}
+            </div>
+          );
+        });
+      default:
+        return;
     }
   }
 
@@ -123,11 +170,15 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
             messages.map((item, index) => {
               return (
                 <div key={index} className={styles.message}>
-                  <div>{this.renderTag(item.msgType)}</div>
-                  <div className={styles.fromAddress}>from : {item.fromAddress}</div>
-                  <div className={styles.toAddress}>to : {item.toAddress}</div>
-                  <div className={styles.payload}>payload :{item.payload}</div>
-                  <div>{this.renderSpecialForm(item)}</div>
+                  <div className={styles.tagWrap}>
+                    {this.renderTag(item.msgType)}
+                    {this.renderSpecialForm(item)}
+                  </div>
+                  <div className={styles.dataWrap}>
+                    <div className={styles.fromAddress}>발신 : {item.fromAddress}</div>
+                    <div className={styles.toAddress}>수신 : {item.toAddress}</div>
+                    <div className={styles.payload}>{this.renderPayload(item.msgType, item.payload)}</div>
+                  </div>
                 </div>
               );
             })

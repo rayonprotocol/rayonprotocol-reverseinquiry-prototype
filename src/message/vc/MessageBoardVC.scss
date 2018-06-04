@@ -61,6 +61,13 @@
       .subTitleValue {
         display: inline-block;
       }
+      .financeData {
+        display: inline-block;
+        margin-right: 5px;
+        padding: 5px 10px;
+        border: 1px solid $march-black;
+        border-radius: 10px;
+      }
     }
   }
   .contentsTitle {

@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from 'react';
 
-// model
-
 // util
 import history from 'common/util/Histroy';
 
@@ -36,6 +34,7 @@ class AuctionRegisterVC extends Component<{}, AuctionRegisterVCState> {
 
   async onClickRegisterButton() {
     const { title, content, selectedTagList } = this.state;
+    if (selectedTagList.length === 0) return alert('요청할 데이터를 선택해야합니다.');
     const registerResult = await AuctionDC.registerContent(title, content, selectedTagList);
     registerResult ? history.goBack() : alert('등록실패, 서버 오류이거나 로그인을 확인해 주세요');
   }

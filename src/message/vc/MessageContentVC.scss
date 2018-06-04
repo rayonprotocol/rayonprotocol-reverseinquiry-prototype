@@ -1,34 +1,68 @@
 @import '~assets/partial';
 
 .message {
-  padding: 20px;
-  border-radius: 5px;
-  background-color: skyblue;
+  padding: 20px 0px;
+  border-bottom: 1px solid black;
   @include margin-vertical(30px);
   .fromAddress,
   .toAddress {
     display: inline-block;
     width: 50%;
   }
+
+  .tagWrap {
+    margin-bottom: 15px;
+    @include clearfix();
+    .bottomWrap {
+      float: right;
+      .submitButton {
+        display: inline-block;
+        padding: 5px 15px;
+        color: #0084dd;
+        cursor: pointer;
+      }
+    }
+    .tag {
+      float: left;
+      padding: 5px 15px;
+      border-radius: 10px;
+      color: white;
+      background-color: $march-blue;
+    }
+    .orangeTag {
+      background-color: $march-orange;
+    }
+    .greenTag {
+      background-color: $march-green;
+    }
+    .pupleTag {
+      background-color: $march-puple;
+    }
+    .lightgrayTag {
+      background-color: $march-lightgray;
+    }
+    .dataWrap {
+      padding: 20px 0px;
+      border-bottom: 1px solid black;
+    }
+  }
+
   .payload {
     margin-top: 20px;
-  }
-  .tag {
-    display: inline-block;
-    padding: 5px 15px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    background-color: #0084dd;
-    color: white;
-  }
-  .bottomWrap {
-    text-align: right;
-    .submitButton {
+    .payloadTag {
       display: inline-block;
-      background-color: aquamarine;
-      border-radius: 4px;
-      padding: 10px 15px;
-      cursor: pointer;
+      padding: 5px 15px;
+      margin-right: 5px;
+      border-radius: 10px;
+      color: white;
+      background-color: #0084dd;
+    }
+    .financeData {
+      display: inline-block;
+      margin-right: 5px;
+      padding: 5px 10px;
+      border: 1px solid $march-black;
+      border-radius: 10px;
     }
   }
 }

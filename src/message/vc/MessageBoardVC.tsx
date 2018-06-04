@@ -47,6 +47,7 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
   }
 
   getLatestMessage(message: Message) {
+    if (message === undefined) return; // 아무 메세지도 도착하지 않은 경우
     const offeredData = message.payload.split('%%').join(', ');
     switch (message.msgType) {
       case MsgTypes.REQUEST_PERSONAL_DATA:
@@ -57,10 +58,17 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
           </div>
         );
       case MsgTypes.RESPONSE_PERSONAL_DATA:
+        const jsonOfferedData = JSON.parse(offeredData);
         return (
           <div className={styles.mailSubTitle}>
             <div className={classNames(styles.tag, styles.orangeTag)}>{'데이터응답'}</div>
-            <div className={styles.subTitleValue}>{offeredData}</div>
+            {Object.keys(jsonOfferedData).map((item, index) => {
+              return (
+                <div className={styles.financeData} key={index}>
+                  {item} : {jsonOfferedData[item]}
+                </div>
+              );
+            })}
           </div>
         );
       case MsgTypes.OFFER_PRODUCT:
