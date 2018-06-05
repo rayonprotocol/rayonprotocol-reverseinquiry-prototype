@@ -8,16 +8,16 @@ Today, the process of making a loan transaction goes unnoticed, costing individu
 
 ## Problem
 
-* Existing Broker Based Transaction Structure
+- Existing Broker Based Transaction Structure
 
-  * A sales incentive structure that recommends high-paid products, not good for individuals
-  * Financial proposal details that are not transparent to individuals
-  * A non-reliable subscription process in which a broker or salesperson can withdraw the performance of a product at any time in a non-facing situation
+  - A sales incentive structure that recommends high-paid products, not good for individuals
+  - Financial proposal details that are not transparent to individuals
+  - A non-reliable subscription process in which a broker or salesperson can withdraw the performance of a product at any time in a non-facing situation
 
-* Existing search-based trading structure
-  * Inconveniency of having to repeat the same product application process
-  * Search results that do not take personal financial conditions into account at all
-  * High advertising costs that are eventually passed on to individuals
+- Existing search-based trading structure
+  - Inconveniency of having to repeat the same product application process
+  - Search results that do not take personal financial conditions into account at all
+  - High advertising costs that are eventually passed on to individuals
 
 ## Solution
 
@@ -28,44 +28,44 @@ To arrange financial transactions within the ecosystem, Rayon Protocol consists 
 
 1.  Data Collection Phase
 
-    * Collect and process data in accordance with predefined data schemas (DB)
-    * The collected personal information is encrypted and stored on a user local device or IPFS network.
-    * FPDB allows users to build up personal information in the form of financial transactions
+    - Collect and process data in accordance with predefined data schemas (DB)
+    - The collected personal information is encrypted and stored on a user local device or IPFS network.
+    - FPDB allows users to build up personal information in the form of financial transactions
 
 2.  Data Processing Phase
 
-    * Users can receive various data processing and processing services provided by Rayon Protocol for personal information stored in DB(eg. Alternative credit rating, internal financial information health measurement, analysis of internal financial consumption patterns, etc.)
+    - Users can receive various data processing and processing services provided by Rayon Protocol for personal information stored in DB(eg. Alternative credit rating, internal financial information health measurement, analysis of internal financial consumption patterns, etc.)
 
 3.  The financial transaction Phase
 
-    * Ensure the authenticity and probability of transactions through deposits and reputation systems
-    * Provide smart contract that enables you to close financial transactions by specifying key conditions for each financial product
-    * Provide search function to ecosystem participants to help them find the best trading partner
+    - Ensure the authenticity and probability of transactions through deposits and reputation systems
+    - Provide smart contract that enables you to close financial transactions by specifying key conditions for each financial product
+    - Provide search function to ecosystem participants to help them find the best trading partner
 
 ## Rayon Protocol Reverse Inquiry Prototype
 
 해당 레포지토리는 Rayon protocol 역경매의 프로토타입 버전이다.
 사용자는 개인 유저인 Personal 과 금융사인 FI(finance institude)로 나뉘며, 역경매가 진행되는 순서는 다음과 같다.
 
-## set dev environment
+## 개발환경 설정
 
--  우선 로컬에 reverse inquiry 파일을 클론
+- 우선 로컬에 reverse inquiry 파일을 클론
 
 ```
 git clone https://github.com/rayonprotocol/rayonprotocol-reverseinquiry.git
 ```
 
-- 컴파일 및 배포에 필요한 truffle을 전역으로 설치
+- 컴파일 및 배포에 필요한 truffle 을 전역으로 설치
 
 ```
 npm install -g truffle
 ```
 
-- 개발용 로컬 노드 사용을 위해 ganache를 설치
+- 개발용 로컬 노드 사용을 위해 ganache 를 설치
 
 http://truffleframework.com/ganache/
 
-- yarn을 설치(mac 기준)
+- yarn 을 설치(mac 기준)
 
 https://yarnpkg.com/lang/en/docs/install/#mac-stable
 
@@ -84,7 +84,6 @@ yarn
 
 ![image](https://user-images.githubusercontent.com/20614643/40952644-fa9c9c04-68b6-11e8-8156-1928a24c79e7.png)
 
-
 - 스마트 컨트랙트 배포 및 reverse inquiry 클라이언트 실행
 
 ```
@@ -95,6 +94,7 @@ yarn truffle
 yarn start
 ```
 
+## 클라이언트 기능 사용법
 
 ### 시작하기
 
@@ -155,7 +155,6 @@ Personal/FI 인지 선택한 후 서비스에서 사용할 닉네임을 입력�
 FI 로 부터 전송받은 상품 정보를 가지고 유저는 상품 거절/수락을 진행할 수 있다. 상품 수락시 상품에 가입하는 로직이 뒤따를 것이며, 거절시 FI 는 새로운 상품을 전송하거나 이를 포기할 수 있다.
 
 ![image](https://user-images.githubusercontent.com/20614643/40900303-edb70148-6805-11e8-95dc-54098c50b73d.png)
-
 
 ### 완료
 
