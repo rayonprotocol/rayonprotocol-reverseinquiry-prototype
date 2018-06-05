@@ -47,6 +47,55 @@ To arrange financial transactions within the ecosystem, Rayon Protocol consists 
 해당 레포지토리는 Rayon protocol 역경매의 프로토타입 버전이다.
 사용자는 개인 유저인 Personal 과 금융사인 FI(finance institude)로 나뉘며, 역경매가 진행되는 순서는 다음과 같다.
 
+## set dev environment
+
+-  우선 로컬에 reverse inquiry 파일을 클론
+
+```
+git clone https://github.com/rayonprotocol/rayonprotocol-reverseinquiry.git
+```
+
+- 컴파일 및 배포에 필요한 truffle을 전역으로 설치
+
+```
+npm install -g truffle
+```
+
+- 개발용 로컬 노드 사용을 위해 ganache를 설치
+
+http://truffleframework.com/ganache/
+
+- yarn을 설치(mac 기준)
+
+https://yarnpkg.com/lang/en/docs/install/#mac-stable
+
+- node_module 설치
+
+```
+cd rayonprotocol-reverseinquiry
+yarn
+```
+
+- ganache 세팅, ganache 실행 후 우측 위의 설정 버튼을 누르고 아래와 같이 값을 설정해준다. 이 값들은 truffle.js 내부에 정의되어있다.
+
+![image](https://user-images.githubusercontent.com/20614643/40952635-f1470cfc-68b6-11e8-9f85-c9b60eb268a7.png)
+
+![image](https://user-images.githubusercontent.com/20614643/40952631-ef11e614-68b6-11e8-9761-d6d0f4312c1e.png)
+
+![image](https://user-images.githubusercontent.com/20614643/40952644-fa9c9c04-68b6-11e8-8156-1928a24c79e7.png)
+
+
+- 스마트 컨트랙트 배포 및 reverse inquiry 클라이언트 실행
+
+```
+# 스마트 컨트랙트 배포
+yarn truffle
+
+# reverse inquiry
+yarn start
+```
+
+
 ### 시작하기
 
 유저는 좌측 상단 가입하기 버튼을 누른다. 이 때 메타마스크와 같은 지갑이 설치/실행 되어 있어야한다.
