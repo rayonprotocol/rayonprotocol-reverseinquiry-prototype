@@ -1,23 +1,20 @@
-# Rayon Protocol Reverse Inquiry
+# Rayon Protocol ("Rayon") Reverse Inquiry
 
-This is RayonProtocol's Prototype reverse inquiry based on Ethereum.
+This is Rayon's reverse inquiry smart contract prototype based on Ethereum.  Parties to the smart contract are borrowers and lenders.
 
 ## The Challenge
 
-Today, the process of making a loan transaction goes unnoticed, costing individuals time, money, and emotion, and financial institutions pay high costs to the middle class for customer acquisition and customer information.
+Currently retail lending transactions proceed without accurate and sufficient information on both borrowers and lenders, resulting in time, money and emotional drain for individuals and significant costs and risk for lenders.
 
-## Problem
+- Signaling Cost of Borrowers
+  - Individuals need to provide their personal data to lenders
+  - Provided personal data is subject to data leak risks
+  - Borrowers also have no clarity on usage of their provided data nor on the transaction process
 
-- Existing Broker Based Transaction Structure
-
-  - A sales incentive structure that recommends high-paid products, not good for individuals
-  - Financial proposal details that are not transparent to individuals
-  - A non-reliable subscription process in which a broker or salesperson can withdraw the performance of a product at any time in a non-facing situation
-
-- Existing search-based trading structure
-  - Inconveniency of having to repeat the same product application process
-  - Search results that do not take personal financial conditions into account at all
-  - High advertising costs that are eventually passed on to individuals
+- Search Cost of Lenders
+  - The financial services industry is one of the top spenders in online advertising
+  - 3 out of the Top 5 most expensive Google keywords are related to loans ("loans", "mortgage", "credit")
+  - However, financial institutions can only conduct advertising on an unspecified basis in today's online advertising market
 
 ## Solution
 
