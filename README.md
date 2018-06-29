@@ -1,6 +1,6 @@
 # Rayon Protocol ("Rayon") Reverse Inquiry
 
-This is Rayon's reverse inquiry smart contract prototype based on Ethereum.  Parties to the smart contract are borrowers and lenders.
+This is Rayon's reverse inquiry smart contract prototype based on Ethereum.  Parties to the smart contract are Borrowers and Lenders.
 
 ## The Challenge
 
@@ -10,6 +10,7 @@ Currently retail lending transactions proceed without accurate and sufficient in
   - Individuals need to provide their personal data to lenders
   - Provided personal data is subject to data leak risks
   - Borrowers also have no clarity on usage of their provided data nor on the transaction process
+  - Borrowers need to go through multiple iterations of the application process on a piecemeal basis in order to receive multiple  quotes
 
 - Search Cost of Lenders
   - The financial services industry is one of the top spenders in online advertising
@@ -18,28 +19,11 @@ Currently retail lending transactions proceed without accurate and sufficient in
 
 ## Solution
 
-### Overview
+Transform the transacting method of retail lending.  Enter Rayon reverse inquiries.
 
-Within the Rayon protocol ecosystem, all personal information is processed with individual consent.
-To arrange financial transactions within the ecosystem, Rayon Protocol consists of three key components :
+Rayon enables the accurate exchange of borrower personal data and lender product data amongst borrowers and lenders, which will allow borrowers to receive loan offers from lenders.  Rayon flips the direction from the current transacting method, whereby borrowers will be able to have loan offers come to them, as opposed to having to apply through available application channels on a piecemeal basis. 
 
-1.  Data Collection Phase
-
-    - Collect and process data in accordance with predefined data schemas (DB)
-    - The collected personal information is encrypted and stored on a user local device or IPFS network.
-    - FPDB allows users to build up personal information in the form of financial transactions
-
-2.  Data Processing Phase
-
-    - Users can receive various data processing and processing services provided by Rayon Protocol for personal information stored in DB(eg. Alternative credit rating, internal financial information health measurement, analysis of internal financial consumption patterns, etc.)
-
-3.  The financial transaction Phase
-
-    - Ensure the authenticity and probability of transactions through deposits and reputation systems
-    - Provide smart contract that enables you to close financial transactions by specifying key conditions for each financial product
-    - Provide search function to ecosystem participants to help them find the best trading partner
-
-## Rayon Protocol Reverse Inquiry Prototype
+### Rayon Reverse Inquiry Process Flow
 
 해당 레포지토리는 Rayon protocol 역경매의 프로토타입 버전이다.
 사용자는 개인 유저인 Personal 과 금융사인 FI(finance institude)로 나뉘며, 역경매가 진행되는 순서는 다음과 같다.
