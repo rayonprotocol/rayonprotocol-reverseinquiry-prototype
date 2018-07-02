@@ -52,7 +52,7 @@ cd rayonprotocol-reverseinquiry
 yarn
 ```
 
-- ganache 세팅, ganache 실행 후 우측 위의 설정 버튼을 누르고 아래와 같이 값을 설정해준다. 이 값들은 truffle.js 내부에 정의되어있다.
+- ganache settings, after executing ganache set values as below by clicking on the settings button on the top right.  These values are defined in truffle.js
 
 ![image](https://user-images.githubusercontent.com/20614643/40952635-f1470cfc-68b6-11e8-9f85-c9b60eb268a7.png)
 
@@ -60,25 +60,36 @@ yarn
 
 ![image](https://user-images.githubusercontent.com/20614643/40952644-fa9c9c04-68b6-11e8-8156-1928a24c79e7.png)
 
-- 스마트 컨트랙트 배포 및 reverse inquiry 클라이언트 실행
+- publish smart contract and executive reverse inquiry client
 
 ```
-# 스마트 컨트랙트 배포
+# publish smart contract
 yarn truffle
 
 # reverse inquiry
 yarn start
 ```
 
-## 클라이언트 기능 사용법
+### Rayon Reverse Inquiry Process Flow
+- Borrower collects, processes and registers his/her personal data
+- Borrower publishes loan request (indication of interest for loan to Lenders)
+- Lenders receive and review loan request from Borrower
+- Interested Lenders request for additional personal data to Borrower
+- Borrower provides requested additional data to Lenders under his/her consent
+- Borrowers provided requested additional data to lenders under consent
+- Lenders provide final binding terms (loan offer) to Borrower on the basis of received addtional data from Borrower
+- Borrower receives and reviews final offers from Lenders
+- Borrower ultimately selects / accepts most competitive offer received from Lenders
 
-### 시작하기
+### Client Functions Manual 
+
+#### Start
 
 유저는 좌측 상단 가입하기 버튼을 누른다. 이 때 메타마스크와 같은 지갑이 설치/실행 되어 있어야한다.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899626-da3ef344-6802-11e8-91ba-b4006f9771d1.png)
 
-### 가입하기
+#### 가입하기
 
 Personal/FI 인지 선택한 후 서비스에서 사용할 닉네임을 입력한다. 이 후 가입하기 버튼을 클릭하고 새로고침하면 가입과 동시에 로그인이 완료된다. 로그인 시 상단의 Navigation bar 의 메뉴가 추가된다.
 
