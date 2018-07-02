@@ -71,7 +71,7 @@ yarn
 
 ![image](https://user-images.githubusercontent.com/20614643/40952644-fa9c9c04-68b6-11e8-8156-1928a24c79e7.png)
 
-- publish smart contract and executive reverse inquiry client
+- publish smart contract and execute reverse inquiry client
 
 ```
 # publish smart contract
