@@ -5,7 +5,7 @@ import TruffleContract from 'truffle-contract';
 // util
 import getWeb3 from '../util/getWeb3';
 
-//contract
+// contract
 const UserContract = TruffleContract(require('../../../build/contracts/User.json'));
 const AuctionContract = TruffleContract(require('../../../build/contracts/Auction.json'));
 const MessageContract = TruffleContract(require('../../../build/contracts/Message.json'));

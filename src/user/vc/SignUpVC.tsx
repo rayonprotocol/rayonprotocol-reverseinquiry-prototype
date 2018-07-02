@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // dc
-import ContractDC, { ContractInstance } from 'common/dc/ContractDC';
+import ContractDC from 'common/dc/ContractDC';
 import UserDC from 'user/dc/UserDC';
 
 // view
@@ -20,16 +20,16 @@ interface SignUpVCProps {
 
 interface SignUpVCState {
   userName: string;
-  isPersonal: boolean;
+  isBorrower: boolean;
   isExistUser: boolean;
 }
 
 class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
-  public FI = 'FI';
-  public Personal = 'Personal';
+  public Lender = 'Lender';
+  public Borrower = 'Borrower';
   public RADIOBUTTON = 'radioButton';
 
-  radioButton = [this.FI, this.Personal];
+  radioButton = [this.Lender, this.Borrower];
 
   constructor(props) {
     super(props);
@@ -41,8 +41,8 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
 
   // Change Input Events
   onChangeUserStatus(event) {
-    const isPersonal = event.target.value === this.Personal;
-    this.setState({ ...this.state, isPersonal });
+    const isBorrower = event.target.value === this.Borrower;
+    this.setState({ ...this.state, isBorrower });
   }
 
   onChangeUserName(event) {
@@ -52,8 +52,8 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
 
   // Click Button Events
   async onClickSubmitButton() {
-    const { userName, isPersonal } = this.state;
-    const resultSignUp = await UserDC.userSignUp(userName, isPersonal);
+    const { userName, isBorrower } = this.state;
+    const resultSignUp = await UserDC.userSignUp(userName, isBorrower);
     resultSignUp
       ? this.props.onClickModal(ModalForm.SIGNUP_MODAL)
       : this.setState({ ...this.state, isExistUser: true });

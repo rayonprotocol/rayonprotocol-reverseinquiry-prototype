@@ -66,12 +66,12 @@ class UserDC {
   }
 
   // 회원 가입
-  async userSignUp(userName: string, isPersonal: boolean): Promise<boolean> {
+  async userSignUp(userName: string, isBorrower: boolean): Promise<boolean> {
     const userAddress = ContractDC.getAccount();
     const instance = ContractDC.getInstance(ContractInstance.UserInstance);
     console.log('userName', userName);
     // 가스를 소모하지 않고 유저가 가입되어있는지 확인
-    const callResult = await instance.signUpUser.call(userName, isPersonal, {
+    const callResult = await instance.signUpUser.call(userName, isBorrower, {
       from: userAddress,
     });
     console.log('callResult', callResult);
@@ -79,7 +79,7 @@ class UserDC {
       return false;
     } else {
       // 가입 되어있지않다면 정상적인 트랜잭션을 다시 보냄
-      const transactionResult = await instance.signUpUser(userName, isPersonal, {
+      const transactionResult = await instance.signUpUser(userName, isBorrower, {
         from: userAddress,
       });
       console.log('transactionResult', transactionResult);
@@ -91,12 +91,12 @@ class UserDC {
     let newUser;
     const userAddress = ContractDC.getAccount();
     const instance = ContractDC.getInstance(ContractInstance.UserInstance);
-    const [userName, isPersonal, isPassKyc, isExist] = await instance.getUser(userAddress, { from: userAddress });
+    const [userName, isBorrower, isPassKyc, isExist] = await instance.getUser(userAddress, { from: userAddress });
 
     if (isExist) {
       newUser = new User();
       newUser.userName = userName;
-      newUser.isPersonal = isPersonal;
+      newUser.isBorrower = isBorrower;
       newUser.isPassKyc = isPassKyc;
       newUser.userAddress = userAddress;
     } else {

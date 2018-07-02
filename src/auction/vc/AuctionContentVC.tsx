@@ -55,7 +55,7 @@ class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVC
   }
 
   onChangeCheckBox(event) {
-    if (UserDC.getUser().isPersonal) return;
+    if (UserDC.getUser().isBorrower) return;
     const value = event.target.value;
     const { selectedTagList } = this.state;
     const valueIndex = selectedTagList.indexOf(value);
@@ -99,7 +99,7 @@ class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVC
               />
             </div>
 
-            {!user.isPersonal && (
+            {!user.isBorrower && (
               <div
                 className={styles.submitButton}
                 onClick={() => this.onClickRequestButton(content.userAddress, content.id)}

@@ -1,6 +1,6 @@
 export default class User {
   isPassKyc: boolean;
-  isPersonal: boolean;
+  isBorrower: boolean;
   userAddress: string;
   userName: string;
 }

@@ -48,7 +48,7 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
         <TopBanner title={'경매공고'} description={'개인 회원이 필요한 상품에 대해 역경매를 등록할 수 있습니다.'} />
         <Container className={styles.contentContainer}>
           {user === undefined ||
-            (user.isPersonal && (
+            (user.isBorrower && (
               <div className={styles.buttonWrap}>
                 <MarchBlueButton onClick={this.onClickRegisterButton.bind(this)} title={'글쓰기'} />
               </div>

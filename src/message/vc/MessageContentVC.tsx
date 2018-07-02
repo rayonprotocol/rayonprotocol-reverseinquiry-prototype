@@ -93,7 +93,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     switch (message.msgType) {
       case MsgTypes.REQUEST_PERSONAL_DATA:
         return (
-          user.isPersonal && (
+          user.isBorrower && (
             <div className={styles.bottomWrap}>
               <div className={styles.submitButton} onClick={() => this.onClickDataSubmit(message)}>
                 데이터전송하기 >
@@ -104,7 +104,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
       case MsgTypes.RESPONSE_PERSONAL_DATA:
       case MsgTypes.DENY_OFFER:
         return (
-          !user.isPersonal && (
+          !user.isBorrower && (
             <div className={styles.bottomWrap}>
               <div className={styles.submitButton} onClick={() => this.onClickProductOffer(message)}>
                 상품제안전송하기 >
@@ -114,7 +114,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
         );
       case MsgTypes.OFFER_PRODUCT:
         return (
-          user.isPersonal && (
+          user.isBorrower && (
             <div className={styles.bottomWrap}>
               <div className={styles.submitButton} onClick={() => this.onClickOfferDeny(message)}>
                 거절하기 >

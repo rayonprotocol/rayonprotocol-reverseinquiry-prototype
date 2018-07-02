@@ -58,7 +58,7 @@ class MyPageVC extends Component<MyPageVCProps, MyPageVCState> {
           </div>
           <div className={styles.value}>
             <div className={styles.subTitle}>가입유형</div>
-            <div className={styles.joinType}>{user.isPersonal ? 'Personal' : 'FI'}</div>
+            <div className={styles.joinType}>{user.isBorrower ? 'Borrower' : 'Lender'}</div>
           </div>
           <div className={styles.value}>
             <div className={styles.subTitle}>인증 상태</div>

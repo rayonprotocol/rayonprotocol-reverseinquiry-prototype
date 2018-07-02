@@ -14,10 +14,10 @@ contract('User', async () => {
   });
 
   context('signing up', async () => {
-    const [_userName, _isPersonal] = ['asdf', true];
+    const [_userName, _isBorrower] = ['asdf', true];
 
     before(async () => {
-      await userContract.signUpUser(_userName, _isPersonal);
+      await userContract.signUpUser(_userName, _isBorrower);
     })
 
     it('verifies a registered user', async () => {
@@ -27,10 +27,10 @@ contract('User', async () => {
 
     it('gets registered user', async () => {
       const result = await userContract.getUser(msgSender);
-      const [userName, isPersonal, isPassKyc, isExist]  = result;
+      const [userName, isBorrower, isPassKyc, isExist]  = result;
 
       assert.equal(userName, _userName, `should match userName`);
-      assert.equal(isPersonal, _isPersonal, `should match isPersonal`);
+      assert.equal(isBorrower, _isBorrower, `should match isBorrower`);
       assert.isFalse(isPassKyc, `KYC should be not passed yet`);
       assert.isTrue(isExist, `should exist`);
     });

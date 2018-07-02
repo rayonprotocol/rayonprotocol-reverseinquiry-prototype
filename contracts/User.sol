@@ -7,7 +7,7 @@ contract User {
     struct UserStruct {
         uint index;
         string userName;
-        bool isPersonal;
+        bool isBorrower;
         bool isPassKyc;
         bool isExist;
     }
@@ -17,7 +17,7 @@ contract User {
     address[] userAddressList;
 
     // events
-    event LogSignUpUser (address userAddress, string userName, bool isPersonal);
+    event LogSignUpUser (address userAddress, string userName, bool isBorrower);
     event LogAuthUser (bool isPassKyc);
 
     function isUser(address _userAddress) public view returns(bool) {
@@ -27,7 +27,7 @@ contract User {
     function getUser(address _userAddress) public view returns(string, bool, bool, bool) {
         return (
             userList[_userAddress].userName,
-            userList[_userAddress].isPersonal,
+            userList[_userAddress].isBorrower,
             userList[_userAddress].isPassKyc,
             userList[_userAddress].isExist
         );
@@ -35,13 +35,13 @@ contract User {
 
     function signUpUser(
         string _userName,
-        bool _isPersonal
+        bool _isBorrower
         ) public returns(bool) {
         address userAddress = msg.sender;
         // validation
         if (isUser(userAddress)) return false;
         userList[userAddress].userName = _userName;
-        userList[userAddress].isPersonal = _isPersonal;
+        userList[userAddress].isBorrower = _isBorrower;
         userList[userAddress].isPassKyc = false;
         userList[userAddress].index = userAddressList.push(userAddress)-1;
         userList[userAddress].isExist = true;
@@ -49,7 +49,7 @@ contract User {
         emit LogSignUpUser(
             userAddress,
             _userName,
-            _isPersonal);
+            _isBorrower);
         return true;
     }
 

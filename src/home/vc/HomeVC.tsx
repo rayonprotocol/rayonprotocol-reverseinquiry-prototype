@@ -29,7 +29,7 @@ class HomeVC extends Component<{}, {}> {
             <div className={styles.description}>
               <p>1. 메타마스크를 설치해주세요</p>
               <p>2. 우측 상단의 가입하기를 선택해주세요</p>
-              <p>3. 금융사는 FI, 개인 회원은 Persional을 선택해야합니다</p>
+              <p>3. 금융사는 Lender, 개인 회원은 Persional을 선택해야합니다</p>
               <p>4. 사용할 이름과 패스워드를 설정합니다</p>
             </div>
           </section>
