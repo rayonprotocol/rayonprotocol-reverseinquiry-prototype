@@ -14,43 +14,38 @@ Currently retail lending transactions proceed without accurate and sufficient in
 
 - Search Cost of Lenders
   - The financial services industry is one of the top spenders in online advertising
-  - 3 out of the Top 5 most expensive Google keywords are related to loans ("loans", "mortgage", "credit")
+  - 3 out of the top 5 most expensive Google keywords are related to loans ("loans", "mortgage", "credit")
   - However, financial institutions can only conduct advertising on an unspecified basis in today's online advertising market
 
 ## Solution
 
 Transform the transacting method of retail lending.  Enter Rayon reverse inquiries.
 
-Rayon enables the accurate exchange of borrower personal data and lender product data amongst borrowers and lenders, which will allow borrowers to receive loan offers from lenders.  Rayon flips the direction from the current transacting method, whereby borrowers will be able to have loan offers come to them, as opposed to having to apply through available application channels on a piecemeal basis. 
+Rayon enables the accurate exchange of borrower personal data and lender product data amongst borrowers and lenders, which will allow borrowers to reversely receive loan offers from lenders.  Rayon flips the direction from the current transacting method, whereby borrowers will be able to have loan offers come to them, as opposed to having to apply through available application channels on a piecemeal basis. 
 
-### Rayon Reverse Inquiry Process Flow
+### Development Environment Settings
 
-해당 레포지토리는 Rayon protocol 역경매의 프로토타입 버전이다.
-사용자는 개인 유저인 Personal 과 금융사인 FI(finance institude)로 나뉘며, 역경매가 진행되는 순서는 다음과 같다.
-
-## 개발환경 설정
-
-- 우선 로컬에 reverse inquiry 파일을 클론
+- first clone the reverse inquiry file to your local drive
 
 ```
 git clone https://github.com/rayonprotocol/rayonprotocol-reverseinquiry.git
 ```
 
-- 컴파일 및 배포에 필요한 truffle 을 전역으로 설치
+- install truffle used for COM file and publishing
 
 ```
 npm install -g truffle
 ```
 
-- 개발용 로컬 노드 사용을 위해 ganache 를 설치
+- install ganache for use of local development node
 
 http://truffleframework.com/ganache/
 
-- yarn 을 설치(mac 기준)
+- install yarn (for mac)
 
 https://yarnpkg.com/lang/en/docs/install/#mac-stable
 
-- node_module 설치
+- install node_module
 
 ```
 cd rayonprotocol-reverseinquiry
