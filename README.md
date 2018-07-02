@@ -1,82 +1,58 @@
-# Rayon Protocol Reverse Inquiry
+# Rayon Protocol ("Rayon") Reverse Inquiry
 
-This is RayonProtocol's Prototype reverse inquiry based on Ethereum.
+This is Rayon's reverse inquiry smart contract prototype based on Ethereum.  Parties to the smart contract are Borrowers and Lenders.
 
 ## The Challenge
 
-Today, the process of making a loan transaction goes unnoticed, costing individuals time, money, and emotion, and financial institutions pay high costs to the middle class for customer acquisition and customer information.
+Currently retail lending transactions proceed without accurate and sufficient information on both borrowers and lenders, resulting in time, money and emotional drain for individuals and significant costs and risk for lenders.
 
-## Problem
+- Signaling Cost of Borrowers
+  - Individuals need to provide their personal data to lenders
+  - Provided personal data is subject to data leak risks
+  - Borrowers also have no clarity on usage of their provided data nor on the transaction process
+  - Borrowers need to go through multiple iterations of the application process on a piecemeal basis in order to receive multiple  quotes
 
-- Existing Broker Based Transaction Structure
-
-  - A sales incentive structure that recommends high-paid products, not good for individuals
-  - Financial proposal details that are not transparent to individuals
-  - A non-reliable subscription process in which a broker or salesperson can withdraw the performance of a product at any time in a non-facing situation
-
-- Existing search-based trading structure
-  - Inconveniency of having to repeat the same product application process
-  - Search results that do not take personal financial conditions into account at all
-  - High advertising costs that are eventually passed on to individuals
+- Search Cost of Lenders
+  - The financial services industry is one of the top spenders in online advertising
+  - 3 out of the top 5 most expensive Google keywords are related to loans ("loans", "mortgage", "credit")
+  - However, financial institutions can only conduct advertising on an unspecified basis in today's online advertising market
 
 ## Solution
 
-### Overview
+Transform the transacting method of retail lending.  Enter Rayon reverse inquiries.
 
-Within the Rayon protocol ecosystem, all personal information is processed with individual consent.
-To arrange financial transactions within the ecosystem, Rayon Protocol consists of three key components :
+Rayon enables the accurate exchange of borrower personal data and lender product data amongst borrowers and lenders, which will allow borrowers to reversely receive loan offers from lenders.  Rayon flips the direction from the current transacting method, whereby borrowers will be able to have loan offers come to them, as opposed to having to apply through available application channels on a piecemeal basis. 
 
-1.  Data Collection Phase
+### Development Environment Settings
 
-    - Collect and process data in accordance with predefined data schemas (DB)
-    - The collected personal information is encrypted and stored on a user local device or IPFS network.
-    - FPDB allows users to build up personal information in the form of financial transactions
-
-2.  Data Processing Phase
-
-    - Users can receive various data processing and processing services provided by Rayon Protocol for personal information stored in DB(eg. Alternative credit rating, internal financial information health measurement, analysis of internal financial consumption patterns, etc.)
-
-3.  The financial transaction Phase
-
-    - Ensure the authenticity and probability of transactions through deposits and reputation systems
-    - Provide smart contract that enables you to close financial transactions by specifying key conditions for each financial product
-    - Provide search function to ecosystem participants to help them find the best trading partner
-
-## Rayon Protocol Reverse Inquiry Prototype
-
-해당 레포지토리는 Rayon protocol 역경매의 프로토타입 버전이다.
-사용자는 개인 유저인 Personal 과 금융사인 FI(finance institude)로 나뉘며, 역경매가 진행되는 순서는 다음과 같다.
-
-## 개발환경 설정
-
-- 우선 로컬에 reverse inquiry 파일을 클론
+- first clone the reverse inquiry file to your local drive
 
 ```
 git clone https://github.com/rayonprotocol/rayonprotocol-reverseinquiry.git
 ```
 
-- 컴파일 및 배포에 필요한 truffle 을 전역으로 설치
+- install truffle used for COM file and publishing
 
 ```
 npm install -g truffle
 ```
 
-- 개발용 로컬 노드 사용을 위해 ganache 를 설치
+- install ganache for use of local development node
 
 http://truffleframework.com/ganache/
 
-- yarn 을 설치(mac 기준)
+- install yarn (for mac)
 
 https://yarnpkg.com/lang/en/docs/install/#mac-stable
 
-- node_module 설치
+- install node_module
 
 ```
 cd rayonprotocol-reverseinquiry
 yarn
 ```
 
-- ganache 세팅, ganache 실행 후 우측 위의 설정 버튼을 누르고 아래와 같이 값을 설정해준다. 이 값들은 truffle.js 내부에 정의되어있다.
+- ganache settings, after executing ganache set values as below by clicking on the settings button on the top right.  These values are defined in truffle.js
 
 ![image](https://user-images.githubusercontent.com/20614643/40952635-f1470cfc-68b6-11e8-9f85-c9b60eb268a7.png)
 
@@ -84,27 +60,38 @@ yarn
 
 ![image](https://user-images.githubusercontent.com/20614643/40952644-fa9c9c04-68b6-11e8-8156-1928a24c79e7.png)
 
-- 스마트 컨트랙트 배포 및 reverse inquiry 클라이언트 실행
+- publish smart contract and executive reverse inquiry client
 
 ```
-# 스마트 컨트랙트 배포
+# publish smart contract
 yarn truffle
 
 # reverse inquiry
 yarn start
 ```
 
-## 클라이언트 기능 사용법
+### Rayon Reverse Inquiry Process Flow
+- Borrower collects, processes and registers his/her personal data
+- Borrower publishes loan request (indication of interest for loan to Lenders)
+- Lenders receive and review loan request from Borrower
+- Interested Lenders request for additional personal data to Borrower
+- Borrower provides requested additional data to Lenders under his/her consent
+- Borrowers provided requested additional data to lenders under consent
+- Lenders provide final binding terms (loan offer) to Borrower on the basis of received addtional data from Borrower
+- Borrower receives and reviews final offers from Lenders
+- Borrower ultimately selects / accepts most competitive offer received from Lenders
 
-### 시작하기
+### Client Functions Manual 
+
+#### Start
 
 유저는 좌측 상단 가입하기 버튼을 누른다. 이 때 메타마스크와 같은 지갑이 설치/실행 되어 있어야한다.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899626-da3ef344-6802-11e8-91ba-b4006f9771d1.png)
 
-### 가입하기
+#### 가입하기
 
-Personal/FI 인지 선택한 후 서비스에서 사용할 닉네임을 입력한다. 이 후 가입하기 버튼을 클릭하고 새로고침하면 가입과 동시에 로그인이 완료된다. 로그인 시 상단의 Navigation bar 의 메뉴가 추가된다.
+Borrower/Lender 인지 선택한 후 서비스에서 사용할 닉네임을 입력한다. 이 후 가입하기 버튼을 클릭하고 새로고침하면 가입과 동시에 로그인이 완료된다. 로그인 시 상단의 Navigation bar 의 메뉴가 추가된다.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899656-0572ddf0-6803-11e8-8fd1-490a49f974f9.png)
 
@@ -114,9 +101,9 @@ Personal/FI 인지 선택한 후 서비스에서 사용할 닉네임을 입력�
 
 ![image](https://user-images.githubusercontent.com/20614643/40899713-442df048-6803-11e8-8a9f-98fca9aa07a1.png)
 
-### 경매 공고 등록(Personal)
+### 경매 공고 등록(Borrower)
 
-경매공고를 클릭하면 현재까지 작성된 글의 목록이 나온다. 경매 공고는 Personal 만 작성이 가능하며 FI 로 접속했을떄는 글쓰기 버튼이 나오지 않는다. 우측 상단 글쓰기 버튼을 클릭하면 아래와 같이 글쓰기 폼이 나온다. 여기서 제목과 내용, 본인이 제공할 수 있는 금융데이터를 선택하여 블록체인에 등록하자.
+경매공고를 클릭하면 현재까지 작성된 글의 목록이 나온다. 경매 공고는 Borrower 만 작성이 가능하며 Lender 로 접속했을떄는 글쓰기 버튼이 나오지 않는다. 우측 상단 글쓰기 버튼을 클릭하면 아래와 같이 글쓰기 폼이 나온다. 여기서 제목과 내용, 본인이 제공할 수 있는 금융데이터를 선택하여 블록체인에 등록하자.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899756-6f4b0d6a-6803-11e8-9c12-d2ab821c30a1.png)
 
@@ -126,9 +113,9 @@ Personal/FI 인지 선택한 후 서비스에서 사용할 닉네임을 입력�
 
 ![image](https://user-images.githubusercontent.com/20614643/40899778-8aa3eb40-6803-11e8-92f9-f29033055d14.png)
 
-### 개인 데이터 요청(FI)
+### 개인 데이터 요청(Lender)
 
-이번에는 계정을 바꾸어 FI 로 회원가입/로그인 한 후 먼저 작성한 공고의 상세페이지로 들어가면, 하단에 데이터 요청 버튼이 보인다. 은행이 필요한 데이터들을 선택하고 이를 클릭하면, 작성자에게 데이터 요청이 전송된다.
+이번에는 계정을 바꾸어 Lender 로 회원가입/로그인 한 후 먼저 작성한 공고의 상세페이지로 들어가면, 하단에 데이터 요청 버튼이 보인다. 은행이 필요한 데이터들을 선택하고 이를 클릭하면, 작성자에게 데이터 요청이 전송된다.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899830-d6522278-6803-11e8-9a3a-9d0bd909592c.png)
 
@@ -138,21 +125,21 @@ Personal/FI 인지 선택한 후 서비스에서 사용할 닉네임을 입력�
 
 ![image](https://user-images.githubusercontent.com/20614643/40899857-faecc6c4-6803-11e8-830c-03648f64dc3c.png)
 
-### 데이터 응답(Personal)
+### 데이터 응답(Borrower)
 
 요청 받은 메세지에 응답하기 위해 다시 개인 계정으로 접속 후, 메세지 함에 해당 글을 클릭하여 데이터 전송하기를 누른다.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899988-88b11e42-6804-11e8-9d44-7a673bd4a369.png)
 
-### 상품 제안(FI)
+### 상품 제안(Lender)
 
-전송 받은 데이터를 기반으로 FI 는 상품을 기획한 후 다시 유저에게 전송하게 된다. 따라서 이는 FI 가 수행해야하므로, FI 계정으로 변경 후 메세지 상세에서 상품 제안 전송하기를 클릭한다. 현재는 코드 내에 string 값으로 고정되어있지만, 추후 변경될 예정이다.
+전송 받은 데이터를 기반으로 Lender 는 상품을 기획한 후 다시 유저에게 전송하게 된다. 따라서 이는 Lender 가 수행해야하므로, Lender 계정으로 변경 후 메세지 상세에서 상품 제안 전송하기를 클릭한다. 현재는 코드 내에 string 값으로 고정되어있지만, 추후 변경될 예정이다.
 
 ![image](https://user-images.githubusercontent.com/20614643/40900239-9ad08c9c-6805-11e8-8253-e096d5706929.png)
 
-### 상품 거절/수락(Personal)
+### 상품 거절/수락(Borrower)
 
-FI 로 부터 전송받은 상품 정보를 가지고 유저는 상품 거절/수락을 진행할 수 있다. 상품 수락시 상품에 가입하는 로직이 뒤따를 것이며, 거절시 FI 는 새로운 상품을 전송하거나 이를 포기할 수 있다.
+Lender 로 부터 전송받은 상품 정보를 가지고 유저는 상품 거절/수락을 진행할 수 있다. 상품 수락시 상품에 가입하는 로직이 뒤따를 것이며, 거절시 Lender 는 새로운 상품을 전송하거나 이를 포기할 수 있다.
 
 ![image](https://user-images.githubusercontent.com/20614643/40900303-edb70148-6805-11e8-95dc-54098c50b73d.png)
 
