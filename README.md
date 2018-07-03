@@ -80,7 +80,7 @@ yarn truffle
 yarn start
 ```
 
-### Client Functions Manual 
+### Client Function Manual 
 
 #### Start
 
