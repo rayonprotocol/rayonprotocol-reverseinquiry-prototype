@@ -90,58 +90,58 @@ User clicks on the sign up button on the top left.  A wallet application such as
 
 #### Sign Up
 
-Type nickname after selecting "Borrower" or "Lender". After clicking the Sign Up button and refreshing the page, the sign up and login processes are completed simultaneously. After logging in, the Navigation bar menu at the top gets added.
+Type nickname after selecting "Borrower" or "Lender". After clicking the sign up button and refreshing the page, the sign up and login processes are completed simultaneously. After logging in, the Navigation Bar menu at the top gets added.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899656-0572ddf0-6803-11e8-8fd1-490a49f974f9.png)
 
 ### Registering Personal Financial Data
 
-First the Borrower must register his/her personal financial data. To do this, the Borrower clicks on the Register Personal Data menu on the Navigation bar after logging in.  Clicking the  menu provides the following list.  After inputting data for selected fields, such registered data gets recorded on the local drive, not on the blockchain.
+First the Borrower must register his/her personal financial data. To do this, the Borrower clicks on the Register Personal Data menu on the Navigation Bar after logging in.  Clicking the  menu provides the following list.  After inputting data for selected fields, such registered data gets recorded on the local drive, not on the blockchain.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899713-442df048-6803-11e8-8a9f-98fca9aa07a1.png)
 
-### Loan Request Publishing (Borrower)
+### Publish Loan Request (Borrower)
 
-경매공고를 클릭하면 현재까지 작성된 글의 목록이 나온다. 경매 공고는 Borrower 만 작성이 가능하며 Lender 로 접속했을떄는 글쓰기 버튼이 나오지 않는다. 우측 상단 글쓰기 버튼을 클릭하면 아래와 같이 글쓰기 폼이 나온다. 여기서 제목과 내용, 본인이 제공할 수 있는 금융데이터를 선택하여 블록체인에 등록하자.
+Clicking on Loan Requests displays the list of loan requests published to date. Only Borrowers can write loan requests and the write button does not appear when logged in as a Lender. Clicking on the write button on the top right displays the loan request write form. Here the Borrower writes the title and content of the loan request as well as selects the personal data fields to make available with the loan request. Completing the write form publishes this loan request data to the blockchain.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899756-6f4b0d6a-6803-11e8-9c12-d2ab821c30a1.png)
 
-### 경매 공고 확인
+### Checking / Viewing Published Loan Requests
 
-블록체인에 등록되기 위해 어느정도의 시간이 필요하다. private 네트워크에서는 그 시간이 짧지만, 실제 메인넷에서 구동될 경우 등록되기 위한 적당한 시간이 필요할 것이다. 블록체인에 경매 공고가 등록이 된다면 경매공고 페이지에서 아래와 같이 내가 등록한 글을 볼 수 있다. 제목을 클릭하면 상세페이지로 넘어간다.
+Publishing data to the blockchain requires time. While this will be short for a private network, publishing data to the actual Rayon mainnet will require some time.  Once a loan request is successfully published, it will appear in the list of the Loan Requests page.  Clicking on the title takes you to the details page.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899778-8aa3eb40-6803-11e8-92f9-f29033055d14.png)
 
-### 개인 데이터 요청(Lender)
+### Requesting for Additional Personal Data (Lender)
 
-이번에는 계정을 바꾸어 Lender 로 회원가입/로그인 한 후 먼저 작성한 공고의 상세페이지로 들어가면, 하단에 데이터 요청 버튼이 보인다. 은행이 필요한 데이터들을 선택하고 이를 클릭하면, 작성자에게 데이터 요청이 전송된다.
+Let's switch accounts and this time sign up and login as a Lender. Click on the Loan Requests menu and view the details on the recently published loan request.  A Request Data button will be available to Lenders. Clicking on specific data fields which are available for the requesting Borrower sends data requests for the selected data to the Borrower.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899830-d6522278-6803-11e8-9a3a-9d0bd909592c.png)
 
-### 메세지 함
+### Mailbox
 
-우측 상당 메세지 함을 클릭하면 메세지 스레드에 대한 이력을 열람할 수 있다. 글 제목 옆의 태그는 최신 메세지에 대한 태그를 나타낸다.
+Clicking on the Mailbox on the upper right displays the user's message thread. Tags next to message titles display new or recent messages.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899857-faecc6c4-6803-11e8-830c-03648f64dc3c.png)
 
-### 데이터 응답(Borrower)
+### Check Addtional Data Requests and Send Requested Data (Borrower)
 
-요청 받은 메세지에 응답하기 위해 다시 개인 계정으로 접속 후, 메세지 함에 해당 글을 클릭하여 데이터 전송하기를 누른다.
+In order to respond to the addtional data requests by Lenders, login as a Borrower and check your Mailbox.  View the data request message and click on Send Data.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899988-88b11e42-6804-11e8-9d44-7a673bd4a369.png)
 
-### 상품 제안(Lender)
+### Loan Offer (Lender)
 
-전송 받은 데이터를 기반으로 Lender 는 상품을 기획한 후 다시 유저에게 전송하게 된다. 따라서 이는 Lender 가 수행해야하므로, Lender 계정으로 변경 후 메세지 상세에서 상품 제안 전송하기를 클릭한다. 현재는 코드 내에 string 값으로 고정되어있지만, 추후 변경될 예정이다.
+After receiving the requested addtional data from the Borrower, the Lender performs its internal credit assessment procedure to confirm final terms & conditions.  This final loan offer is then sent to the Borrower. Given that this function is performed by Lenders, re-login as a Lender and send this final loan offer to the Borrower from the Lender's Mailbox.  While terms are currently fixed as string values within the code, this will be changed in the future.
 
 ![image](https://user-images.githubusercontent.com/20614643/40900239-9ad08c9c-6805-11e8-8253-e096d5706929.png)
 
-### 상품 거절/수락(Borrower)
+### Loan Offer Reject/Accept (Borrower)
 
-Lender 로 부터 전송받은 상품 정보를 가지고 유저는 상품 거절/수락을 진행할 수 있다. 상품 수락시 상품에 가입하는 로직이 뒤따를 것이며, 거절시 Lender 는 새로운 상품을 전송하거나 이를 포기할 수 있다.
+Borrowers are able to either reject or accept loan offers received from Lenders. If accepted, loan applicaion logic for the selected offer will follow. If rejected, Lenders can either resend revised offers or give up.
 
 ![image](https://user-images.githubusercontent.com/20614643/40900303-edb70148-6805-11e8-95dc-54098c50b73d.png)
 
-### 완료
+### Complete
 
 ![image](https://user-images.githubusercontent.com/20614643/40900354-24629fb8-6806-11e8-8892-2931dbde584f.png)
