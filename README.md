@@ -24,13 +24,12 @@ Transform the transacting method of retail lending.  Enter Rayon reverse inquiri
 Rayon enables the accurate exchange of borrower personal data and lender product data amongst borrowers and lenders, which will allow borrowers to reversely receive loan offers from lenders.  Rayon flips the direction from the current transacting method, whereby borrowers will be able to have loan offers come to them, as opposed to having to apply through available application channels on a piecemeal basis. 
 
 ### Rayon Reverse Inquiry Process Flow
-- Borrower collects, processes and registers his/her personal data
+- Borrower registers his/her personal data
 - Borrower publishes loan request (indication of interest for loan to Lenders)
 - Lenders receive and review loan request from Borrower
 - Interested Lenders request for additional personal data to Borrower
 - Borrower provides requested additional data to Lenders under his/her consent
-- Borrowers provided requested additional data to lenders under consent
-- Lenders provide final binding terms (loan offer) to Borrower on the basis of received addtional data from Borrower
+- Lenders provide final binding terms (loan offers) to Borrower on the basis of received addtional data from Borrower
 - Borrower receives and reviews final offers from Lenders
 - Borrower ultimately selects / accepts most competitive offer received from Lenders
 
