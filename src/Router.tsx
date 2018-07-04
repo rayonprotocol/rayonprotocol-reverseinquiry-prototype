@@ -15,6 +15,7 @@ import MessageContentVC from 'message/vc/MessageContentVC';
 
 // etc
 import MyPageVC from 'user/vc/MyPageVC';
+import AuthVC from 'user/vc/AuthVC';
 import RegisterFinanceInfoVC from 'user/vc/RegisterFinanceInfoVC';
 
 interface RouterModel {
@@ -64,6 +65,11 @@ class Router extends Component<{}, {}> {
       path: '/message/content/:id',
       component: MessageContentVC,
       exact: false,
+    },
+    {
+      path: '/auth',
+      component: AuthVC,
+      exact: true,
     },
   ];
 

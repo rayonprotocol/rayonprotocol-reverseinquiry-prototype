@@ -66,7 +66,7 @@ class Nav extends Component<{}, NavState> {
     if (!user) {
       return (
         <ul>
-          <li onClick={() => this.onClickModal(ModalForm.SIGNUP_MODAL)}>회원가입</li>
+          <li onClick={() => this.onClickModal(ModalForm.SIGNUP_MODAL)}>Create Account</li>
         </ul>
       );
     }
@@ -75,12 +75,9 @@ class Nav extends Component<{}, NavState> {
         <li>
           <Link to={'/mypage'}>{user.userName}</Link>
         </li>
-        {!user.isPassKyc && <li onClick={() => this.onClickModal(ModalForm.AUTH_MODAL)}>인증하기</li>}
+        <li>{user.isBorrower && <Link to={'/finacedata/register'}>{'Register Data'}</Link>}</li>
         <li>
-          <Link to={'/finacedata/register'}>{'금융정보등록'}</Link>
-        </li>
-        <li>
-          <Link to={'/message'}>{'메세지함'}</Link>
+          <Link to={'/message'}>{'Inbox'}</Link>
         </li>
       </ul>
     );
@@ -98,7 +95,7 @@ class Nav extends Component<{}, NavState> {
                 </Link>
               </li>
               <li>
-                <Link to={'/auction'}>경매공고</Link>
+                <Link to={'/auction'}>Loan Requests</Link>
               </li>
             </ul>
           </div>

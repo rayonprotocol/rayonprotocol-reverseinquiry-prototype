@@ -46,42 +46,46 @@ class MyPageVC extends Component<MyPageVCProps, MyPageVCState> {
     console.log('financeData', financeData);
     return (
       <Fragment>
-        <TopBanner title={'마이페이지'} description={'회원님의 정보는 암호화되어 관리됩니다'} />
+        <TopBanner title={'My Page'} description={''} />
         <Container className={styles.contentsContainer}>
           <div className={styles.value}>
-            <div className={styles.subTitle}>닉네임</div>
+            <div className={styles.subTitle}>User ID</div>
             <div>{user.userName}</div>
           </div>
           <div className={styles.value}>
-            <div className={styles.subTitle}>계좌 주소</div>
+            <div className={styles.subTitle}>Wallet Address</div>
             <div className={styles.userAddress}>{user.userAddress}</div>
           </div>
           <div className={styles.value}>
-            <div className={styles.subTitle}>가입유형</div>
+            <div className={styles.subTitle}>Account Type</div>
             <div className={styles.joinType}>{user.isBorrower ? 'Borrower' : 'Lender'}</div>
           </div>
-          <div className={styles.value}>
-            <div className={styles.subTitle}>인증 상태</div>
-            {user.isPassKyc ? (
-              <div className={styles.successAuth}>인증완료</div>
-            ) : (
-              <div className={styles.needAuth}>인증필요</div>
-            )}
-          </div>
-          <div className={styles.value}>
-            <div className={styles.subTitle}>회원님의 금융데이터</div>
-            {financeData === null ? (
-              <div>{'아직 금융데이터가 등록되지 않았습니다'}</div>
-            ) : (
-              Object.keys(JSON.parse(financeData)).map((item, index) => {
-                return (
-                  <div className={styles.financeData} key={index}>
-                    {item} : {JSON.parse(financeData)[item]}
-                  </div>
-                );
-              })
-            )}
-          </div>
+          {user.isBorrower && (
+            <Fragment>
+              <div className={styles.value}>
+                <div className={styles.subTitle}>KYC Status</div>
+                {user.isPassKyc ? (
+                  <div className={styles.successAuth}>Complete</div>
+                ) : (
+                  <div className={styles.needAuth}>Required</div>
+                )}
+              </div>
+              <div className={styles.value}>
+                <div className={styles.subTitle}>My Personal Data</div>
+                {financeData === null ? (
+                  <div>{'No personal data registered'}</div>
+                ) : (
+                  Object.keys(JSON.parse(financeData)).map((item, index) => {
+                    return (
+                      <div className={styles.financeData} key={index}>
+                        {item} : {JSON.parse(financeData)[item]}
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+            </Fragment>
+          )}
         </Container>
       </Fragment>
     );

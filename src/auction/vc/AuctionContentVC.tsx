@@ -68,30 +68,30 @@ class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVC
     const user = UserDC.getUser();
     return (
       <Fragment>
-        <TopBanner title={'공고 상세'} description={'역경매 내역을 상세하게 볼 수 있습니다'} />
+        <TopBanner title={'Loan Request Details'} description={''} />
         {content !== undefined && (
           <Container className={styles.contentContainer}>
             <div className={styles.block}>
               <div className={styles.inlineValue}>
-                <div className={styles.subtitle}>작성자</div>
+                <div className={styles.subtitle}>User ID</div>
                 <div className={styles.value}>{content.userName}</div>
               </div>
               <div className={styles.inlineValue}>
-                <div className={styles.subtitle}>작성일</div>
+                <div className={styles.subtitle}>Date</div>
                 <div className={styles.value}>{TimeConverter(content.timeStamp)}</div>
               </div>
             </div>
             <div className={styles.block}>
-              <div className={styles.subtitle}>제목</div>
+              <div className={styles.subtitle}>Title</div>
               <div className={styles.value}>{content.title}</div>
             </div>
             <div className={styles.block}>
-              <div className={styles.subtitle}>내용</div>
+              <div className={styles.subtitle}>Content</div>
               <div className={styles.bloackValue}>{content.content}</div>
             </div>
             <div className={styles.block}>
               <TagCheckBox
-                title={'제공 가능한 데이터'}
+                title={'Available Personal Data'}
                 dataList={content.financeData}
                 selectedList={selectedTagList}
                 name={'financeData'}
@@ -104,7 +104,7 @@ class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVC
                 className={styles.submitButton}
                 onClick={() => this.onClickRequestButton(content.userAddress, content.id)}
               >
-                데이터 요청
+                Request Personal Data
               </div>
             )}
           </Container>

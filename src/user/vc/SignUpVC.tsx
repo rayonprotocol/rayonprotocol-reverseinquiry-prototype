@@ -74,23 +74,23 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
           onClick={() => this.props.onClickModal(ModalForm.SIGNUP_MODAL)}
         />
         <div className={styles.signUpSection}>
-          <div className={styles.title}>회원가입</div>
+          <div className={styles.title}>Create Account</div>
           {/* SignUP View */}
           <div className={styles.signUp}>
             <ToggleButton
               dataList={this.radioButton}
-              title={'가입 유형'}
+              title={'Account Type'}
               name={'signup'}
               onChangeToggleButton={this.onChangeUserStatus.bind(this)}
             />
-            <FocusAniInput title={'닉네임'} onChangeInput={this.onChangeUserName.bind(this)} />
+            <FocusAniInput title={'User ID'} onChangeInput={this.onChangeUserName.bind(this)} />
             {isExistUser && (
               <div className={styles.errorMessage}>
                 <div>your account is already exist on blockchain</div>
               </div>
             )}
             <div className={styles.buttonWrap}>
-              <MarchBlueButton onClick={this.onClickSubmitButton.bind(this)} title={'가입하기'} />
+              <MarchBlueButton onClick={this.onClickSubmitButton.bind(this)} title={'Submit'} />
             </div>
           </div>
         </div>

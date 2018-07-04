@@ -65,3 +65,21 @@
     text-align: center;
   }
 }
+
+.kycRegister {
+  text-align: center;
+}
+
+.kycDescription {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.kycButton {
+  display: inline-block;
+  padding: 10px 15px;
+  color: white;
+  background-color: $march-green;
+  border-radius: 10px;
+  cursor: pointer;
+}

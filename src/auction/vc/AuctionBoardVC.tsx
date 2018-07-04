@@ -32,7 +32,6 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
 
   onClickRegisterButton() {
     history.push('/auction/register');
-    console.log('글쓰기버튼 누름');
   }
 
   async componentWillMount() {
@@ -45,24 +44,24 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
     const user = UserDC.getUser();
     return (
       <Fragment>
-        <TopBanner title={'경매공고'} description={'개인 회원이 필요한 상품에 대해 역경매를 등록할 수 있습니다.'} />
+        <TopBanner title={'Loan Requests'} description={''} />
         <Container className={styles.contentContainer}>
           {user === undefined ||
             (user.isBorrower && (
               <div className={styles.buttonWrap}>
-                <MarchBlueButton onClick={this.onClickRegisterButton.bind(this)} title={'글쓰기'} />
+                <MarchBlueButton onClick={this.onClickRegisterButton.bind(this)} title={'New Request'} />
               </div>
             ))}
           {auctionContents.length === 0 ? (
-            <div className={styles.listEmptyNote}>등록된 글이 없습니다.</div>
+            <div className={styles.listEmptyNote}>No Requests To Date</div>
           ) : (
             <table>
               <tbody>
                 <tr className={styles.headerRow}>
-                  <th>번호</th>
-                  <th>제목</th>
-                  <th>유저명</th>
-                  <th>작성일</th>
+                  <th>No.</th>
+                  <th>Title</th>
+                  <th>User ID</th>
+                  <th>Date</th>
                 </tr>
                 {auctionContents.map((item, index) => {
                   return (
