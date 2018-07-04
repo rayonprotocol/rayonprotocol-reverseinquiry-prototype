@@ -90,7 +90,7 @@ User clicks on the Create Account button on the top right-hand corner. A wallet 
 
 #### Create Account
 
-Click the Create Account button on the top right-hand corner of the screen. Type user ID after selecting "Borrower" or "Lender" for account type. Click the Submit button and confirm the data publishing transaction on Metamask. Note that this confirmation will take some time. After confirming the transaction on your browser console, refresh the page which will complete the Create Account and login processes simultaneously.  Once logged in, the Navigation Bar menu will be added and viewable at the top of the screen.
+Type user ID after selecting "Borrower" or "Lender" for account type. For demonstration purposes of this prototype, first create a Borrower account. Click the Submit button and confirm the data publishing transaction on Metamask. Note that this confirmation will take some time. After confirming the transaction on your browser console, refresh the page which will complete the Create Account and login processes simultaneously.  Once logged in, the Navigation Bar menu will be added and viewable at the top of the screen.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899656-0572ddf0-6803-11e8-8fd1-490a49f974f9.png)
 
