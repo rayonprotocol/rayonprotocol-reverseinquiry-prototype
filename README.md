@@ -102,23 +102,25 @@ First the Borrower must register his/her personal financial data. To do this, th
 
 ### Publish Loan Request (Borrower)
 
-Clicking on Loan Requests displays the list of loan requests published to date. Only Borrowers can write loan requests and the write button does not appear when logged in as a Lender. Clicking on the write button on the top right displays the loan request write form. Here the Borrower writes the title and content of the loan request as well as selects the personal data fields to make available with the loan request. Completing the write form publishes this loan request data to the blockchain.
+Clicking on Loan Requests displays the list of loan requests published to date. Only Borrowers can write loan requests and the New Request button does not appear when logged in as a Lender. Clicking on the New Request button on the right displays the loan request write form. Here the Borrower writes the title and content of the loan request as well as selects the personal data fields to make available with the loan request. Complete the write form by clicking the Submit button.  This prompts you to confirm the loan request publishing transaction to the blockchain on Metamask. Confirm on Metamask and wait for transaction to publish on the blockchain. Transaction confirmation can be checked on your browser console.  Once confirmed, refreshing the page displays the recently published loan request in the Loan Requests list.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899756-6f4b0d6a-6803-11e8-9c12-d2ab821c30a1.png)
 
 ### Checking / Viewing Published Loan Requests
 
-Publishing data to the blockchain requires time. While this will be short for a private network, publishing data to the actual Rayon mainnet will require some time.  Once a loan request is successfully published, it will appear in the list of the Loan Requests page.  Clicking on the title takes you to the details page.
+Publishing data to the blockchain requires time. While this will be short for a private network, publishing data to the actual Rayon MainNet will require some time.  Once a loan request is successfully published, it will appear in the list of the Loan Requests page.  Clicking on the title takes you to the details page.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899778-8aa3eb40-6803-11e8-92f9-f29033055d14.png)
 
 ### Requesting for Additional Personal Data (Lender)
 
-Let's switch accounts and this time sign up and login as a Lender. Click on the Loan Requests menu and view the details on the recently published loan request.  A Request Data button will be available to Lenders. Clicking on specific data fields which are available for the requesting Borrower sends data requests for the selected data to the Borrower.
+Let's switch accounts and this time sign up and login as a Lender. Be advised that you must first logout of Metamask. Once logged out, click on the Create Account menu on the top right-hand corner. This time, select Lender and input your User ID. Click the Submit buttion and confirm the transaction on Metamask. Wait for transaction confirmation, which can be checked on your brower console. After transaction confirmation, refresh the page to complete the sign-up and login processes.
+
+Now as a Lender, click on the Loan Requests menu and view the details on the recently published loan request by the Borrower.  A Request Personal Data button will be available only to Lenders. Select specific data fields which are available for the requesting Borrower  then click the Request Personal Data button. Confirm the transaction on Metamask to send the data request for the selected data to the Borrower.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899830-d6522278-6803-11e8-9a3a-9d0bd909592c.png)
 
-### Mailbox
+### Inbox
 
 Clicking on the Mailbox on the upper right displays the user's message thread. Tags next to message titles display new or recent messages.
 
