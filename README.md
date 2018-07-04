@@ -41,7 +41,7 @@ Rayon enables the accurate exchange of borrower personal data and lender product
 git clone https://github.com/rayonprotocol/rayonprotocol-reverseinquiry.git
 ```
 
-- install truffle used for COM file and publishing
+- install truffle used for COM file and deployment
 
 ```
 npm install -g truffle
@@ -62,7 +62,7 @@ cd rayonprotocol-reverseinquiry
 yarn
 ```
 
-- ganache settings, after executing ganache set values as below by clicking on the settings button on the top right. These values are defined in truffle.js
+- after executing ganache, set values as below by clicking on the settings button on the top right. These values are defined in truffle.js
 
 ![image](https://user-images.githubusercontent.com/20614643/40952635-f1470cfc-68b6-11e8-9f85-c9b60eb268a7.png)
 
@@ -84,41 +84,43 @@ yarn start
 
 #### Start
 
-User clicks on the sign up button on the top left.  A wallet application such as MetaMask must be installed and running.
+User clicks on the Create Account button on the top right-hand corner. A wallet application such as MetaMask must be installed and running.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899626-da3ef344-6802-11e8-91ba-b4006f9771d1.png)
 
-#### Sign Up
+#### Create Account
 
-Type nickname after selecting "Borrower" or "Lender". After clicking the sign up button and refreshing the page, the sign up and login processes are completed simultaneously. After logging in, the Navigation Bar menu at the top gets added.
+Type user ID after selecting "Borrower" or "Lender" for account type. For demonstration purposes of this prototype, first create a Borrower account. Click the Submit button and confirm the data publishing transaction on Metamask. Note that this confirmation will take some time. After confirming the transaction on your browser console, refresh the page which will complete the Create Account and login processes simultaneously.  Once logged in, the Navigation Bar menu will be added and viewable at the top of the screen.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899656-0572ddf0-6803-11e8-8fd1-490a49f974f9.png)
 
 ### Registering Personal Financial Data
 
-First the Borrower must register his/her personal financial data. To do this, the Borrower clicks on the Register Personal Data menu on the Navigation Bar after logging in.  Clicking the  menu provides the following list.  After inputting data for selected fields, such registered data gets recorded on the local drive, not on the blockchain.
+First the Borrower must register his/her personal financial data. To do this, the Borrower clicks on the Register Data menu on the right-hand side of the Navigation Bar after logging in. Clicking the menu launches the KYC screen. Borrower must successfully complete KYC in order to register his/her personal data. Given this is a prototype, we have implemented a simple KYC procedure where the Borrower simply types "agree" in order to successfully perform KYC validation.  Once KYC is complete, the personal data input screen will load.  While there will be multiple methods to gather and input personal user data either sourced from open APIs or through third party data providers, we have currently implemented our prototype so that Borrowers directly input their personal data. A Borrower can freely input key-value pairs for test purposes (e.g. income-$50,000; age-26; gender-male; existing debt-$10,000). Such registered data gets recorded on the local drive, not on the blockchain.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899713-442df048-6803-11e8-8a9f-98fca9aa07a1.png)
 
 ### Publish Loan Request (Borrower)
 
-Clicking on Loan Requests displays the list of loan requests published to date. Only Borrowers can write loan requests and the write button does not appear when logged in as a Lender. Clicking on the write button on the top right displays the loan request write form. Here the Borrower writes the title and content of the loan request as well as selects the personal data fields to make available with the loan request. Completing the write form publishes this loan request data to the blockchain.
+Clicking on Loan Requests displays the list of loan requests published to date. Only Borrowers can write loan requests and the New Request button does not appear when logged in as a Lender. Clicking on the New Request button on the right displays the loan request write form. Here the Borrower writes the title and content of the loan request as well as selects the personal data fields to make available with the loan request. Complete the write form by clicking the Submit button.  This prompts you to confirm the loan request publishing transaction to the blockchain on Metamask. Confirm on Metamask and wait for transaction to publish on the blockchain. Transaction confirmation can be checked on your browser console.  Once confirmed, refreshing the page displays the recently published loan request in the Loan Requests list.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899756-6f4b0d6a-6803-11e8-9c12-d2ab821c30a1.png)
 
 ### Checking / Viewing Published Loan Requests
 
-Publishing data to the blockchain requires time. While this will be short for a private network, publishing data to the actual Rayon mainnet will require some time.  Once a loan request is successfully published, it will appear in the list of the Loan Requests page.  Clicking on the title takes you to the details page.
+Publishing data to the blockchain requires time. While this will be short for a private network, publishing data to the actual Rayon MainNet will require some time.  Once a loan request is successfully published, it will appear in the list of the Loan Requests page.  Clicking on the title takes you to the details page.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899778-8aa3eb40-6803-11e8-92f9-f29033055d14.png)
 
 ### Requesting for Additional Personal Data (Lender)
 
-Let's switch accounts and this time sign up and login as a Lender. Click on the Loan Requests menu and view the details on the recently published loan request.  A Request Data button will be available to Lenders. Clicking on specific data fields which are available for the requesting Borrower sends data requests for the selected data to the Borrower.
+Let's switch accounts and this time sign up and login as a Lender. Be advised that you must first logout of Metamask. Once logged out, click on the Create Account menu on the top right-hand corner. This time, select Lender and input your User ID. Click the Submit buttion and confirm the transaction on Metamask. Wait for transaction confirmation, which can be checked on your brower console. After transaction confirmation, refresh the page to complete the sign-up and login processes.
+
+Now as a Lender, click on the Loan Requests menu and view the details on the recently published loan request by the Borrower.  A Request Personal Data button will be available only to Lenders. Select specific data fields which are available for the requesting Borrower  then click the Request Personal Data button. Confirm the transaction on Metamask to send the data request for the selected data to the Borrower.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899830-d6522278-6803-11e8-9a3a-9d0bd909592c.png)
 
-### Mailbox
+### Inbox
 
 Clicking on the Mailbox on the upper right displays the user's message thread. Tags next to message titles display new or recent messages.
 
