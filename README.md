@@ -122,19 +122,19 @@ Now as a Lender, click on the Loan Requests menu and view the details on the rec
 
 ### Inbox
 
-Clicking on the Mailbox on the upper right displays the user's message thread. Tags next to message titles display new or recent messages.
+Clicking on the Inbox menu on the right side of the Navigation Bar displays the user's message thread. Tags next to message titles display the current status and transaction stage of the message.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899857-faecc6c4-6803-11e8-830c-03648f64dc3c.png)
 
 ### Check Addtional Data Requests and Send Requested Data (Borrower)
 
-In order to respond to the addtional data requests by Lenders, login as a Borrower and check your Mailbox.  View the data request message and click on Send Data.
+In order to respond to the addtional data requests by Lenders, login as a Borrower and check your Inbox. You need to logout of Metamask first. View the data request message in your Inbox and click on the Send Data button to send the requested additional data from the Lender. You also need to confirm the transaction on Metamask to send the data.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899988-88b11e42-6804-11e8-9d44-7a673bd4a369.png)
 
 ### Loan Offer (Lender)
 
-After receiving the requested addtional data from the Borrower, the Lender performs its internal credit assessment procedure to confirm final terms & conditions.  This final loan offer is then sent to the Borrower. Given that this function is performed by Lenders, re-login as a Lender and send this final loan offer to the Borrower from the Lender's Mailbox.  While terms are currently fixed as string values within the code, this will be changed in the future.
+After receiving the requested addtional data from the Borrower, the Lender performs its internal credit assessment procedure to confirm final terms & conditions.  This final loan offer is then sent to the Borrower. Given that this function is performed by Lenders, re-login as a Lender and send this final loan offer to the Borrower from the Lender's Inbox.  While terms are currently fixed as string values within the code, this will be changed in the future.
 
 ![image](https://user-images.githubusercontent.com/20614643/40900239-9ad08c9c-6805-11e8-8253-e096d5706929.png)
 
