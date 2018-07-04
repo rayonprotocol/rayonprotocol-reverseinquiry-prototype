@@ -90,13 +90,13 @@ User clicks on the sign up button on the top left.  A wallet application such as
 
 #### Create Account
 
-Click the Create Account button on the top right-hand corner of the screen. Type user ID after selecting "Borrower" or "Lender" for account type. Click the Submit button and confirm the data publishing transaction on Metamask. After confirming the transaction on your browser console, refresh the page which will complete the Create Account and login processes simultaneously.  Once logged in, the Navigation Bar menu will be added and viewable at the top of the screen.
+Click the Create Account button on the top right-hand corner of the screen. Type user ID after selecting "Borrower" or "Lender" for account type. Click the Submit button and confirm the data publishing transaction on Metamask. Note that this confirmation will take some time. After confirming the transaction on your browser console, refresh the page which will complete the Create Account and login processes simultaneously.  Once logged in, the Navigation Bar menu will be added and viewable at the top of the screen.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899656-0572ddf0-6803-11e8-8fd1-490a49f974f9.png)
 
 ### Registering Personal Financial Data
 
-First the Borrower must register his/her personal financial data. To do this, the Borrower clicks on the Register Personal Data menu on the Navigation Bar after logging in.  Clicking the  menu provides the following list.  After inputting data for selected fields, such registered data gets recorded on the local drive, not on the blockchain.
+First the Borrower must register his/her personal financial data. To do this, the Borrower clicks on the Register Data menu on the right-hand side of the Navigation Bar after logging in.  Clicking the menu launches the KYC screen. Borrower must successfully complete KYC in order to register his/her personal data. Given this is a prototype, we have implemented a simple KYC procedure where the Borrower simply types "agree" in order to successfully perform KYC validation.  Once KYC is complete, the personal data input screen will load.  While there will be multiple methods to gather and input personal user data either sourced from open APIs or through third party data providers, we have currently implemented our prototype so that Borrowers directly input their personal data. A Borrower can freely input key-value pairs for test purposes (e.g. income-$50,000; age-26; gender-male; existing debt-$10,000). Such registered data gets recorded on the local drive, not on the blockchain.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899713-442df048-6803-11e8-8a9f-98fca9aa07a1.png)
 
