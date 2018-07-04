@@ -88,9 +88,9 @@ User clicks on the sign up button on the top left.  A wallet application such as
 
 ![image](https://user-images.githubusercontent.com/20614643/40899626-da3ef344-6802-11e8-91ba-b4006f9771d1.png)
 
-#### Sign Up
+#### Create Account
 
-Type nickname after selecting "Borrower" or "Lender". After clicking the sign up button and refreshing the page, the sign up and login processes are completed simultaneously. After logging in, the Navigation Bar menu at the top gets added.
+Click the Create Account button on the top right-hand corner of the screen. Type user ID after selecting "Borrower" or "Lender" for account type. Click the Submit button and confirm the data publishing transaction on Metamask. After confirming the transaction on your browser console, refresh the page which will complete the Create Account and login processes simultaneously.  Once logged in, the Navigation Bar menu will be added and viewable at the top of the screen.
 
 ![image](https://user-images.githubusercontent.com/20614643/40899656-0572ddf0-6803-11e8-8fd1-490a49f974f9.png)
 
