@@ -28,6 +28,7 @@ class AuctionDC {
 
   async getContentList() {
     const instance = ContractDC.getInstance(ContractInstance.AuctionInstance);
+    console.log('hihihi');
     const getContentResult = await instance.getContentList({
       from: ContractDC.getAccount(),
     });

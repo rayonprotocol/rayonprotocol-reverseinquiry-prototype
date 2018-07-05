@@ -87,3 +87,29 @@
     padding-bottom: 5px;
   }
 }
+
+.modal {
+  @include vh-center();
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  .title {
+    font-size: 20px;
+    font-weight: $fontweight-bold;
+  }
+  .formWarpper {
+    margin-top: 25px;
+  }
+  .button {
+    text-align: center;
+    div {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 5px 10px;
+      color: white;
+      background-color: $march-blue;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  }
+}

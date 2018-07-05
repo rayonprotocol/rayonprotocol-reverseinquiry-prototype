@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import classNames from 'classnames';
+import Modal from 'react-modal';
 
 // model
 import Message, { MsgTypes } from 'message/model/Message';
@@ -13,6 +14,7 @@ import UserDC from 'user/dc/UserDC';
 // view
 import Container from 'common/view/Container';
 import TopBanner from 'common/view/banner/TopBanner';
+import FocusAniInput from 'common/view/input/FocusAniInput';
 
 // styles
 import styles from './MessageContentVC.scss';
@@ -24,6 +26,8 @@ interface MessageContentVCProps {
 interface MessageContentVCState {
   messages: Message[];
   contentIndex: number;
+  productOfferInput: string[];
+  isModalOpen: boolean;
   user: User;
 }
 
@@ -32,6 +36,8 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     ...this.state,
     messages: [],
     user: UserDC.getUser(),
+    isModalOpen: false,
+    productOfferInput:['', '', ''],
   };
 
   async componentWillMount() {
@@ -61,10 +67,10 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     );
   }
 
-  onClickProductOffer(message: Message) {
-    const data = 'Offer: My Offer is ...';
-    MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.OFFER_PRODUCT, data);
-  }
+  // onClickProductOffer(message: Message) {
+  //   const data = 'Offer: My Offer is ...';
+  //   MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.OFFER_PRODUCT, data);
+  // }
 
   onClickOfferAccept(message: Message) {
     MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.ACCEPT_OFFER, 'true');
@@ -72,6 +78,14 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
 
   onClickOfferDeny(message: Message) {
     MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.DENY_OFFER, 'false');
+  }
+
+  onRequestCloseModal() {
+    this.setState({...this.state, isModalOpen : false});
+  }
+
+  onClickOpenModal(){
+    this.setState({...this.state, isModalOpen : true});
   }
 
   renderTag = (msgType: MsgTypes) => {
@@ -116,7 +130,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
         return (
           !user.isBorrower && (
             <div className={styles.bottomWrap}>
-              <div className={styles.submitButton} onClick={() => this.onClickProductOffer(message)}>
+              <div className={styles.submitButton} onClick={() => this.onClickOpenModal()}>
                 Send Offer >
               </div>
             </div>
@@ -136,7 +150,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
           )
         );
       case MsgTypes.ACCEPT_OFFER:
-        return <div className={styles.bottomWrap}>Application Completed</div>;
+        return <div className={styles.bottomWrap} onClick={this.onClickOpenModal.bind(this)}>Application Completed</div>;
       default:
         break;
     }
@@ -162,6 +176,15 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
             </div>
           );
         });
+      case MsgTypes.OFFER_PRODUCT:
+        const offeredProductData = payload.split('||');
+          return offeredProductData.map((item, index) => {
+            return (
+              <div className={styles.financeData} key={index}>
+                {item}
+              </div>
+            );
+        });
       case MsgTypes.ACCEPT_OFFER:
         return (<div>
           product link: <a href="https://www.rayonprotocol.io/">https://www.rayonprotocol.io/</a>
@@ -169,6 +192,19 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
       default:
         return;
     }
+  }
+
+  onClickOfferSubmit() {
+    const data = this.state.productOfferInput.join('||');
+    const message = MessageDC.getUserMessagesByAuctionId(this.state.contentIndex)[0];
+    MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.OFFER_PRODUCT, data);
+    this.setState({...this.state, isOpen : false});
+  }
+
+  onChangeProductOfferInput(event, index) {
+    let { productOfferInput } = this.state;
+    productOfferInput[index] = event.target.value;
+    this.setState({ ...this.state, productOfferInput });
   }
 
   render() {
@@ -205,6 +241,34 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
             })
           )}
         </Container>
+        <Modal
+              ariaHideApp={false}
+              className={styles.modal}
+              isOpen={this.state.isModalOpen}
+              onRequestClose={this.onRequestCloseModal.bind(this)}
+              shouldCloseOnOverlayClick={true}
+              style={{
+                overlay: {
+                  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                },
+              }}
+            >
+              <div>
+                <div className={styles.title}>Product Offer</div>
+                <div className={styles.formWarpper}>
+                <FocusAniInput title={'한도'} onChangeInput={(event) => this.onChangeProductOfferInput(event, 0)} />
+                </div>
+                <div className={styles.formWarpper}>
+                <FocusAniInput title={'금리'} onChangeInput={(event) => this.onChangeProductOfferInput(event, 1)} />
+                </div>
+                <div className={styles.formWarpper}>
+                <FocusAniInput title={'만기'} onChangeInput={(event) => this.onChangeProductOfferInput(event, 2)} />
+                </div>
+                <div className={styles.button}>
+                  <div>Submit</div>
+                </div>
+              </div>
+        </Modal>
       </Fragment>
     );
   }

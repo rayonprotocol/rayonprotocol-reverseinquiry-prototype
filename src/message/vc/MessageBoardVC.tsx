@@ -40,10 +40,12 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
   };
 
   async componentWillMount() {
+    await AuctionDC.getContentList();
     await MessageDC.getUserMessages();
     const auctionContents = await AuctionDC.getAuctionContents();
     const messages = MessageDC.getSortedMessageByAuctionContent();
-    this.setState({ ...this.state, messages, auctionContents, isLoading: false });
+    console.log('auctionContents', auctionContents);
+    this.setState({ ...this.state, messages, auctionContents, user: UserDC.getUser(), isLoading: false });
   }
 
   onClickTitle(id: number) {
@@ -111,6 +113,7 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
 
   render() {
     const { messages, auctionContents, isLoading } = this.state;
+    console.log('auctionContents in render', auctionContents);
     return (
       <Fragment>
         <TopBanner title={'Inbox'} description={''} />
