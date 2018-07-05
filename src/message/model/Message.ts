@@ -15,6 +15,8 @@ class Message {
   msgType: MsgTypes;
   timeStamp: number;
   payload: string;
+  msgIndex: number;
+  isComplete: boolean;
 }
 
 export default Message;

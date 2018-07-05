@@ -131,7 +131,7 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
                 {auctionContents.map((item, index) => {
                   return (
                     <tr key={index} className={styles.contentRow}>
-                      <td>{item.id}</td>
+                      <td>{item.id + 1}</td>
                       <td className={styles.contentsTitle}>
                         <Link to={`/message/content/${item.id}`}>
                           <span className={styles.mailTitle}>{item.title}</span>

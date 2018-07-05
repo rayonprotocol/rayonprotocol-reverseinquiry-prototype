@@ -16,6 +16,9 @@ import Container from 'common/view/Container';
 import TopBanner from 'common/view/banner/TopBanner';
 import FocusAniInput from 'common/view/input/FocusAniInput';
 
+// util
+import history from 'common/util/Histroy';
+
 // styles
 import styles from './MessageContentVC.scss';
 
@@ -37,7 +40,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     messages: [],
     user: UserDC.getUser(),
     isModalOpen: false,
-    productOfferInput:['', '', ''],
+    productOfferInput: ['', '', ''],
   };
 
   async componentWillMount() {
@@ -178,6 +181,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
         });
       case MsgTypes.OFFER_PRODUCT:
         const offeredProductData = payload.split('||');
+        console.log(offeredProductData)
           return offeredProductData.map((item, index) => {
             return (
               <div className={styles.financeData} key={index}>
@@ -186,8 +190,9 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
             );
         });
       case MsgTypes.ACCEPT_OFFER:
-        return (<div>
-          product link: <a href="https://www.rayonprotocol.io/">https://www.rayonprotocol.io/</a>
+        return (<div className={styles.complete}>
+          <div className={styles.note}>Thank you for choosing our offer. You can sign up for your product by clicking on the link below</div>
+          <div className={styles.link}>product link: <a href="https://www.rayonprotocol.io/">https://www.rayonprotocol.io/</a></div>
         </div>);
       default:
         return;
@@ -199,6 +204,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     const message = MessageDC.getUserMessagesByAuctionId(this.state.contentIndex)[0];
     MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.OFFER_PRODUCT, data);
     this.setState({...this.state, isOpen : false});
+    history.push('/');
   }
 
   onChangeProductOfferInput(event, index) {
@@ -256,16 +262,16 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
               <div>
                 <div className={styles.title}>Product Offer</div>
                 <div className={styles.formWarpper}>
-                <FocusAniInput title={'한도'} onChangeInput={(event) => this.onChangeProductOfferInput(event, 0)} />
+                <FocusAniInput title={'Amount'} onChangeInput={(event) => this.onChangeProductOfferInput(event, 0)} />
                 </div>
                 <div className={styles.formWarpper}>
-                <FocusAniInput title={'금리'} onChangeInput={(event) => this.onChangeProductOfferInput(event, 1)} />
+                <FocusAniInput title={'Interest'} onChangeInput={(event) => this.onChangeProductOfferInput(event, 1)} />
                 </div>
                 <div className={styles.formWarpper}>
-                <FocusAniInput title={'만기'} onChangeInput={(event) => this.onChangeProductOfferInput(event, 2)} />
+                <FocusAniInput title={'Maturity'} onChangeInput={(event) => this.onChangeProductOfferInput(event, 2)} />
                 </div>
                 <div className={styles.button}>
-                  <div>Submit</div>
+                  <div onClick={this.onClickOfferSubmit.bind(this)}>Submit</div>
                 </div>
               </div>
         </Modal>

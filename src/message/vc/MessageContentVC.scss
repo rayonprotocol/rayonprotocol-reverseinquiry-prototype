@@ -86,6 +86,20 @@
     border-bottom: 1px solid $march-blue;
     padding-bottom: 5px;
   }
+  .complete {
+    text-align: center;
+    .note {
+      text-align: center;
+      font-size: 18px;
+      color: blue;
+      margin-bottom: 20px;
+    }
+    .link {
+      text-align: center;
+      font-size: 24px;
+      color: red;
+    }
+  }
 }
 
 .modal {

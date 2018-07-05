@@ -7,6 +7,7 @@ import User from 'user/model/User';
 // dc
 import UserDC from 'user/dc/UserDC';
 import ContractDC, { ContractInstance } from 'common/dc/ContractDC';
+import { version } from 'react-dom';
 
 class MessageDC {
   _messages: Message[];
@@ -51,11 +52,7 @@ class MessageDC {
   }
 
   async getUserMessages() {
-    const instance = ContractDC.getInstance(ContractInstance.MessageInstance);
-    const getContentResult = await instance.getUserMessages({
-      from: ContractDC.getAccount(),
-    });
-    return this.makeContentList(getContentResult, instance);
+    return this.makeContentList();
   }
 
   getUserMessagesByAuctionId(auctionId: number): Message[] {
@@ -65,25 +62,35 @@ class MessageDC {
     });
   }
 
-  async makeContentList(getContentResult, instance) {
-    const [fromAddresses, toAddresses, auctionIds, msgTypes, timeStamps, payloadsString] = getContentResult;
+  async makeContentList() {
+    const instance = ContractDC.getInstance(ContractInstance.MessageInstance);
+    const [msgIndexes, auctionIds, msgTypes, timeStamps, isCompletes, payloadsString] = await instance.getUserMessages({
+      from: ContractDC.getAccount(),
+    });
+
+    const [fromAddresses, toAddresses] = await instance.getMessageAddresses({
+      from: ContractDC.getAccount(),
+    });
     const userInstance = ContractDC.getInstance(ContractInstance.UserInstance);
     const user: User = UserDC.getUser();
     const payloads = payloadsString.split('||');
-    const messageLength = fromAddresses.length;
     const messages: Message[] = [];
 
-    const userName = {};
-
-    for (let i = 0; i < messageLength; i++) {
+    for (let i = 0; i < fromAddresses.length; i++) {
       const newMessage = new Message();
-      newMessage.fromUserID = (await userInstance.getUser(fromAddresses[i], { from: user.userAddress }))[0];
-      newMessage.toUserID = (await userInstance.getUser(toAddresses[i], { from: user.userAddress }))[0];
+
+      if (fromAddresses[i] !== user.userAddress && toAddresses[i] !== user.userAddress) continue;
       newMessage.fromAddress = fromAddresses[i];
       newMessage.toAddress = toAddresses[i];
+
+      newMessage.fromUserID = (await userInstance.getUser(fromAddresses[i], { from: user.userAddress }))[0];
+      newMessage.toUserID = (await userInstance.getUser(toAddresses[i], { from: user.userAddress }))[0];
+
+      newMessage.msgIndex = msgIndexes[i].toNumber();
       newMessage.auctionId = auctionIds[i].toNumber();
       newMessage.msgType = msgTypes[i].toNumber();
       newMessage.timeStamp = timeStamps[i].toNumber();
+      newMessage.isComplete = isCompletes[i];
       newMessage.payload = payloads[i];
       messages.push(newMessage);
     }

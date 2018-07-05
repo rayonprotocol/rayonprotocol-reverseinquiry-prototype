@@ -30,7 +30,7 @@ class HomeVC extends Component<{}, {}> {
               <p>1. Install Metamask</p>
               <p>2. Click on Create Account on top right</p>
               <p>3. Select account type as Borrower or Lender</p>
-              <p>4. Set user ID and password</p>
+              <p>4. Set user ID</p>
             </div>
           </section>
         </Container>

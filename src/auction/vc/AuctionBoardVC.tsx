@@ -66,7 +66,7 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
                 {auctionContents.map((item, index) => {
                   return (
                     <tr className={styles.contentRow} key={index}>
-                      <td>{item.id}</td>
+                      <td>{item.id + 1}</td>
                       <td className={styles.contentsTitle}>
                         <Link to={`/auction/content/${item.id}`}>{item.title}</Link>
                       </td>

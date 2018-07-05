@@ -77,7 +77,7 @@ class Nav extends Component<{}, NavState> {
         </li>
         <li>{user.isBorrower && <Link to={'/finacedata/register'}>{'Register Data'}</Link>}</li>
         <li>
-          <Link to={'/message'}>{'Inbox'}</Link>
+          <Link to={'/message'}>{'Mailbox'}</Link>
         </li>
       </ul>
     );
