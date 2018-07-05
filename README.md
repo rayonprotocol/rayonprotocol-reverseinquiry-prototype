@@ -33,6 +33,8 @@ Rayon enables the accurate exchange of borrower personal data and lender product
 - Borrower receives and reviews final offers from Lenders
 - Borrower ultimately selects / accepts most competitive offer received from Lenders
 
+Kindly note that this is a prototype and as such, certain processes are currently implemented in rudimentary form. Such processes will be updated in accordance with the overall development schedule of the Rayon Protocol project.
+
 ### Development Environment Settings
 
 - first clone the reverse inquiry file to your local drive
