@@ -66,6 +66,7 @@ class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVC
   render() {
     const { content, selectedTagList } = this.state;
     const user = UserDC.getUser();
+    console.log('content', content);
     return (
       <Fragment>
         <TopBanner title={'Loan Request Details'} description={''} />

@@ -23,12 +23,12 @@ class AuctionDC {
   }
 
   getAuctionContent(index: number) {
+    console.log('call', this.auctionContents[index], index);
     return this.auctionContents[index];
   }
 
   async getContentList() {
     const instance = ContractDC.getInstance(ContractInstance.AuctionInstance);
-    console.log('hihihi');
     const getContentResult = await instance.getContentList({
       from: ContractDC.getAccount(),
     });
@@ -54,8 +54,7 @@ class AuctionDC {
       newAuctionContent.timeStamp = getContentResult[ContentIndex.timeStamp][i].toNumber();
       auctionContents.push(newAuctionContent);
     }
-    console.log('auctionContents', auctionContents);
-    this.auctionContents = auctionContents.sort((a, b) => b.id - a.id);
+    this.auctionContents = auctionContents;
     return this.auctionContents;
   }
 

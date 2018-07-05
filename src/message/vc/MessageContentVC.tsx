@@ -73,17 +73,12 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
 
   }
 
-  // onClickProductOffer(message: Message) {
-  //   const data = 'Offer: My Offer is ...';
-  //   MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.OFFER_PRODUCT, data);
-  // }
-
   onClickOfferAccept(message: Message) {
-    MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.ACCEPT_OFFER,message.msgIndex, 'true');
+    MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.ACCEPT_OFFER, message.msgIndex, 'true');
   }
 
   onClickOfferDeny(message: Message) {
-    MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.DENY_OFFER,message.msgIndex, 'false');
+    MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.DENY_OFFER, message.msgIndex, 'false');
   }
 
   onRequestCloseModal() {
@@ -95,11 +90,11 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
   }
 
   onClickOfferSubmit() {
-    const data = this.state.productOfferInput.join('||');
+    const data = this.state.productOfferInput.join('##');
     const message = MessageDC.getUserMessagesByAuctionId(this.state.contentIndex)[0];
-    MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.OFFER_PRODUCT, message.msgIndex,data);
+    console.log(data);
+    MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.OFFER_PRODUCT, message.msgIndex, data);
     this.setState({...this.state, isOpen : false});
-    history.push('/');
   }
 
   onChangeProductOfferInput(event, index) {
@@ -196,12 +191,14 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
           );
         });
       case MsgTypes.OFFER_PRODUCT:
-        const offeredProductData = payload.split('||');
+      console.log('payload',payload)  
+      const offeredProductData = payload.split('##');
+        const prefixStr = ['Amount', 'Interest', 'Maturity'];
         console.log(offeredProductData)
           return offeredProductData.map((item, index) => {
             return (
               <div className={styles.financeData} key={index}>
-                {item}
+                {prefixStr[index] + ':' + item}
               </div>
             );
         });

@@ -10,6 +10,7 @@ import ContractDC, { ContractInstance } from 'common/dc/ContractDC';
 import { version } from 'react-dom';
 
 class MessageDC {
+  _messagesGroupByAuction;
   _messages: Message[];
 
   getMessages(): Message[] {
@@ -90,6 +91,14 @@ class MessageDC {
     }
     console.log('Messages', messages);
     this._messages = messages.sort((a, b) => b.timeStamp - a.timeStamp);
+    console.log(this._messages);
+    // this._messages.map(item => {
+    //   if (this._messagesGroupByAuction[item.auctionId] === undefined) {
+    //     this._messagesGroupByAuction[item.auctionId] = [item];
+    //   } else {
+    //     this._messagesGroupByAuction[item.auctionId].push(item);
+    //   }
+    // });
     return this._messages;
   }
 

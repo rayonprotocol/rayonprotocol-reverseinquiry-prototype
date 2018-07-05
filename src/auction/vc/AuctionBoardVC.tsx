@@ -63,7 +63,7 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
                   <th>User ID</th>
                   <th>Date</th>
                 </tr>
-                {auctionContents.map((item, index) => {
+                {auctionContents.sort((a, b) => b.id - a.id).map((item, index) => {
                   return (
                     <tr className={styles.contentRow} key={index}>
                       <td>{item.id + 1}</td>
