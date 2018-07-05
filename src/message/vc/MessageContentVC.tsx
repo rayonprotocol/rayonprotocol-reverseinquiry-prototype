@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 // model
 import Message, { MsgTypes } from 'message/model/Message';
+import User from 'user/model/User';
 
 // dc
 import ContractDC from 'common/dc/ContractDC';
@@ -23,12 +24,14 @@ interface MessageContentVCProps {
 interface MessageContentVCState {
   messages: Message[];
   contentIndex: number;
+  user: User;
 }
 
 class MessageContentVC extends Component<MessageContentVCProps, MessageContentVCState> {
   state = {
     ...this.state,
     messages: [],
+    user: UserDC.getUser(),
   };
 
   async componentWillMount() {
@@ -49,7 +52,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     requestFinanceDataKey.forEach(item => {
       requestResponeceData[item] = localFinanceData[item];
     });
-    if (localFinanceData === null) return alert('금융데이터를 먼저 등록해주세요!');
+    if (localFinanceData === null) return alert('Register your personal data first!');
     MessageDC.insertMessage(
       message.fromAddress,
       message.auctionId,
@@ -59,7 +62,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
   }
 
   onClickProductOffer(message: Message) {
-    const data = '제안사항: 이구아나 이구이구';
+    const data = 'Offer: My Offer is ...';
     MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.OFFER_PRODUCT, data);
   }
 
@@ -72,7 +75,14 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
   }
 
   renderTag = (msgType: MsgTypes) => {
-    const msgTypeNames = ['데이터 신청', '데이터 응답', '상품가입 요청', '상품가입 응답'];
+    const borrowerMsgTypeNames = [
+      'Received Data Request',
+      'Sent Data',
+      'Offer Received',
+      'Accepted Offer',
+      'Rejected Offer',
+    ];
+    const lenderMsgTypeNames = ['Requested Data', 'Received Data', 'Loan Offered', 'Accepted Offer', 'Rejected Offer'];
     return (
       <div
         className={classNames(styles.tag, {
@@ -82,7 +92,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
           [styles.greenTag]: msgType === MsgTypes.ACCEPT_OFFER,
         })}
       >
-        {msgTypeNames[msgType - 1]}
+        {this.state.user.isBorrower ? borrowerMsgTypeNames[msgType - 1] : lenderMsgTypeNames[msgType - 1]}
       </div>
     );
   };
@@ -96,7 +106,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
           user.isBorrower && (
             <div className={styles.bottomWrap}>
               <div className={styles.submitButton} onClick={() => this.onClickDataSubmit(message)}>
-                데이터전송하기 >
+                Send Data >
               </div>
             </div>
           )
@@ -107,7 +117,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
           !user.isBorrower && (
             <div className={styles.bottomWrap}>
               <div className={styles.submitButton} onClick={() => this.onClickProductOffer(message)}>
-                상품제안전송하기 >
+                Send Offer >
               </div>
             </div>
           )
@@ -117,16 +127,16 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
           user.isBorrower && (
             <div className={styles.bottomWrap}>
               <div className={styles.submitButton} onClick={() => this.onClickOfferDeny(message)}>
-                거절하기 >
+                Reject >
               </div>
               <div className={styles.submitButton} onClick={() => this.onClickOfferAccept(message)}>
-                수락하기 >
+                Accept >
               </div>
             </div>
           )
         );
       case MsgTypes.ACCEPT_OFFER:
-        return <div className={styles.bottomWrap}>신청이 완료되었습니다</div>;
+        return <div className={styles.bottomWrap}>Application Completed</div>;
       default:
         break;
     }
@@ -159,24 +169,29 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
 
   render() {
     const messages = MessageDC.getUserMessagesByAuctionId(this.state.contentIndex);
-    console.log('messagesmessagesmessages', messages);
     return (
       <Fragment>
-        <TopBanner title={'메세지이력'} description={'역경매 공고글의 상세 메세지 이력'} />
+        <TopBanner title={'Inbox'} description={''} />
         <Container className={styles.contentContainer}>
           {messages.length === 0 ? (
-            <div>메세지가 없습니다</div>
+            <div>No Messages</div>
           ) : (
             messages.map((item, index) => {
               return (
                 <div key={index} className={styles.message}>
                   <div className={styles.tagWrap}>
                     {this.renderTag(item.msgType)}
-                    {this.renderSpecialForm(item)}
+                    {index === 0 && this.renderSpecialForm(item)}
                   </div>
                   <div className={styles.dataWrap}>
-                    <div className={styles.fromAddress}>발신 : {item.fromAddress}</div>
-                    <div className={styles.toAddress}>수신 : {item.toAddress}</div>
+                    <div className={styles.fromAddress}>
+                      <div>from</div>
+                      <div>{item.fromAddress}</div>
+                    </div>
+                    <div className={styles.toAddress}>
+                      <div>to</div>
+                      <div>{item.toAddress}</div>
+                    </div>
                     <div className={styles.payload}>{this.renderPayload(item.msgType, item.payload)}</div>
                   </div>
                 </div>

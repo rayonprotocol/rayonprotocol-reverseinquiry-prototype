@@ -5,10 +5,12 @@ import classNames from 'classnames';
 // model
 import Message, { MsgTypes } from 'message/model/Message';
 import Auction from 'auction/model/Auction';
+import User from 'user/model/User';
 
 // dc
 import MessageDC from 'message/dc/MessageDC';
 import AuctionDC from 'auction/dc/AuctionDC';
+import UserDC from 'user/dc/UserDC';
 
 // util
 import history from 'common/util/Histroy';
@@ -25,6 +27,7 @@ interface MessageBoardVCState {
   messages: Object;
   auctionContents: Auction[];
   isLoading: boolean;
+  user: User;
 }
 
 class MessageBoardVC extends Component<{}, MessageBoardVCState> {
@@ -33,6 +36,7 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
     messages: {},
     auctionContents: [],
     isLoading: true,
+    user: UserDC.getUser(),
   };
 
   async componentWillMount() {
@@ -49,11 +53,22 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
   getLatestMessage(message: Message) {
     if (message === undefined) return; // 아무 메세지도 도착하지 않은 경우
     const offeredData = message.payload.split('%%').join(', ');
+    const borrowerMsgTypeNames = [
+      'Received Data Request',
+      'Sent Data',
+      'Offer Received',
+      'Accepted Offer',
+      'Rejected Offer',
+    ];
+    const lenderMsgTypeNames = ['Requested Data', 'Received Data', 'Loan Offered', 'Accepted Offer', 'Rejected Offer'];
+    const tagMsg = this.state.user.isBorrower
+      ? borrowerMsgTypeNames[message.msgType - 1]
+      : lenderMsgTypeNames[message.msgType - 1];
     switch (message.msgType) {
       case MsgTypes.REQUEST_PERSONAL_DATA:
         return (
           <div className={styles.mailSubTitle}>
-            <div className={classNames(styles.tag)}>{'데이터요청'}</div>
+            <div className={classNames(styles.tag)}>{tagMsg}</div>
             <div className={styles.subTitleValue}>{offeredData}</div>
           </div>
         );
@@ -61,7 +76,7 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
         const jsonOfferedData = JSON.parse(offeredData);
         return (
           <div className={styles.mailSubTitle}>
-            <div className={classNames(styles.tag, styles.orangeTag)}>{'데이터응답'}</div>
+            <div className={classNames(styles.tag, styles.orangeTag)}>{tagMsg}</div>
             {Object.keys(jsonOfferedData).map((item, index) => {
               return (
                 <div className={styles.financeData} key={index}>
@@ -74,19 +89,19 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
       case MsgTypes.OFFER_PRODUCT:
         return (
           <div className={styles.mailSubTitle}>
-            <div className={classNames(styles.tag, styles.pupleTag)}>{'상품제안'}</div>
+            <div className={classNames(styles.tag, styles.pupleTag)}>{tagMsg}</div>
           </div>
         );
       case MsgTypes.DENY_OFFER:
         return (
           <div className={styles.mailSubTitle}>
-            <div className={classNames(styles.tag, styles.lightgrayTag)}>{'제안거절'}</div>
+            <div className={classNames(styles.tag, styles.lightgrayTag)}>{tagMsg}</div>
           </div>
         );
       case MsgTypes.ACCEPT_OFFER:
         return (
           <div className={styles.mailSubTitle}>
-            <div className={classNames(styles.tag, styles.greenTag)}>{'제안수락'}</div>
+            <div className={classNames(styles.tag, styles.greenTag)}>{tagMsg}</div>
           </div>
         );
       default:
@@ -98,17 +113,17 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
     const { messages, auctionContents, isLoading } = this.state;
     return (
       <Fragment>
-        <TopBanner title={'메세지함'} description={'회원님의 메세지 이력입니다'} />
+        <TopBanner title={'Inbox'} description={''} />
         <Container className={styles.contentContainer}>
           {isLoading ? (
-            <div>로딩중입니다</div>
+            <div>Loading...</div>
           ) : (
             <table>
               <tbody>
                 <tr className={styles.headerRow}>
-                  <th>번호</th>
-                  <th>제목</th>
-                  <th>작성일</th>
+                  <th>No.</th>
+                  <th>Title</th>
+                  <th>Date</th>
                 </tr>
                 {auctionContents.map((item, index) => {
                   return (

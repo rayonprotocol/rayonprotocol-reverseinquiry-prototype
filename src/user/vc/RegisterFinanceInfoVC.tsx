@@ -34,6 +34,23 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
     };
   }
 
+  componentWillMount() {
+    const storeData = JSON.parse(localStorage.getItem(ContractDC.getAccount()));
+    const keys = Object.keys(storeData);
+    let financeData: FinanceData[] = [];
+
+    if (storeData === null) return;
+
+    keys.map(item => {
+      let newFinanceData: FinanceData = new FinanceData();
+      newFinanceData.dataKeys = item;
+      newFinanceData.dataValues = storeData[item];
+      financeData.push(newFinanceData);
+    });
+
+    this.setState({ ...this.state, financeData });
+  }
+
   onChangeDataKeyText(event, index: number) {
     this.state.financeData[index].dataKeys = event.target.value;
     this.setState(this.state);
@@ -62,6 +79,7 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
 
   onClickRemoveInputButton(index: number) {
     const { financeData } = this.state;
+    if (financeData.length === 1) return alert("can't remove last property");
     financeData.splice(index, 1);
     this.setState({ ...this.state, financeData });
   }
