@@ -50,7 +50,7 @@ class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVC
 
   async onClickRequestButton(toAddress: string, auctionId: number) {
     const payload = this.state.selectedTagList.join('%%');
-    await MessageDC.insertMessage(toAddress, auctionId, MsgTypes.REQUEST_PERSONAL_DATA, payload);
+    await MessageDC.insertStartMessage(toAddress, auctionId, MsgTypes.REQUEST_PERSONAL_DATA, payload);
     history.goBack();
   }
 

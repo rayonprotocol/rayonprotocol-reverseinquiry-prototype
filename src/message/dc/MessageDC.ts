@@ -34,12 +34,6 @@ class MessageDC {
     return result;
   }
 
-  /*
-    {
-      auctionId: latestAuctionContent,
-      auctionId: latestAuctionContent,
-    }
-  */
   getSortedMessageByAuctionContent() {
     if (this._messages === undefined) return [];
     const msgs = this._messages;
@@ -99,12 +93,24 @@ class MessageDC {
     return this._messages;
   }
 
-  async insertMessage(toAddress: string, auctionId: number, msgType: number, payload: string) {
+  async insertStartMessage(toAddress: string, auctionId: number, msgType: number, payload: string) {
     const instance = ContractDC.getInstance(ContractInstance.MessageInstance);
-    const insertMessageResult = await instance.insertMessage(toAddress, auctionId, msgType, payload, {
+    const insertMessageResult = await instance.insertStartMessage(toAddress, auctionId, msgType, payload, {
       from: ContractDC.getAccount(),
     });
-    console.log('insertMessageResult', insertMessageResult);
+  }
+
+  async insertMessage(
+    toAddress: string,
+    auctionId: number,
+    msgType: number,
+    priviousMsgIndex: number,
+    payload: string
+  ) {
+    const instance = ContractDC.getInstance(ContractInstance.MessageInstance);
+    const insertMessageResult = await instance.insertMessage(toAddress, auctionId, msgType, priviousMsgIndex, payload, {
+      from: ContractDC.getAccount(),
+    });
   }
 }
 

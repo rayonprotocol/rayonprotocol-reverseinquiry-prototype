@@ -113,7 +113,6 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
 
   render() {
     const { messages, auctionContents, isLoading } = this.state;
-    console.log('auctionContents in render', auctionContents);
     return (
       <Fragment>
         <TopBanner title={'Inbox'} description={''} />

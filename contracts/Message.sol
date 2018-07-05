@@ -28,12 +28,34 @@ contract Message {
         auction = Auction(_auctionContractAddress);
     }
 
-    function insertMessage(
+    function insertStartMessage(
         address _toAddress,
         uint _auctionId,
         uint _msgType,
         string _payload
     ) public returns (bool) {
+        pushMessage(_toAddress, _auctionId, _msgType, _payload);
+        return true;
+    }
+
+    function insertMessage(
+        address _toAddress,
+        uint _auctionId,
+        uint _msgType,
+        uint _previousMsgIndex,
+        string _payload
+    ) public returns (bool) {   
+        pushMessage(_toAddress, _auctionId, _msgType, _payload); 
+        setComplete(_previousMsgIndex);        
+        return true;
+    }
+
+    function pushMessage(
+        address _toAddress,
+        uint _auctionId,
+        uint _msgType,
+        string _payload
+    ) public {
         address _fromAddress = msg.sender;
         uint timeStamp;
         (,,,,timeStamp) = auction.contentList(_auctionId);
@@ -42,6 +64,10 @@ contract Message {
         Msg memory _msg = Msg(_fromAddress, _toAddress, _auctionId, _msgType, _payload, now, msgs.length, false);
         msgs.push(_msg);
         emit LogInsterMessage(_fromAddress, _toAddress, _auctionId, _msgType, _payload);
+    }
+
+    function setComplete(uint _msgIndex) public returns(bool){
+        msgs[_msgIndex].isComplete = true;
         return true;
     }
 

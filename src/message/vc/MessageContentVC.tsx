@@ -62,12 +62,15 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
       requestResponeceData[item] = localFinanceData[item];
     });
     if (localFinanceData === null) return alert('Register your personal data first!');
+    console.log('message.msgIndex',message.msgIndex)
     MessageDC.insertMessage(
       message.fromAddress,
       message.auctionId,
       MsgTypes.RESPONSE_PERSONAL_DATA,
+      message.msgIndex,
       JSON.stringify(requestResponeceData)
     );
+
   }
 
   // onClickProductOffer(message: Message) {
@@ -76,11 +79,11 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
   // }
 
   onClickOfferAccept(message: Message) {
-    MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.ACCEPT_OFFER, 'true');
+    MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.ACCEPT_OFFER,message.msgIndex, 'true');
   }
 
   onClickOfferDeny(message: Message) {
-    MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.DENY_OFFER, 'false');
+    MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.DENY_OFFER,message.msgIndex, 'false');
   }
 
   onRequestCloseModal() {
@@ -89,6 +92,20 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
 
   onClickOpenModal(){
     this.setState({...this.state, isModalOpen : true});
+  }
+
+  onClickOfferSubmit() {
+    const data = this.state.productOfferInput.join('||');
+    const message = MessageDC.getUserMessagesByAuctionId(this.state.contentIndex)[0];
+    MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.OFFER_PRODUCT, message.msgIndex,data);
+    this.setState({...this.state, isOpen : false});
+    history.push('/');
+  }
+
+  onChangeProductOfferInput(event, index) {
+    let { productOfferInput } = this.state;
+    productOfferInput[index] = event.target.value;
+    this.setState({ ...this.state, productOfferInput });
   }
 
   renderTag = (msgType: MsgTypes) => {
@@ -116,7 +133,6 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
 
   renderSpecialForm(message: Message) {
     const user = UserDC.getUser();
-    console.log(user, 'user');
     switch (message.msgType) {
       case MsgTypes.REQUEST_PERSONAL_DATA:
         return (
@@ -199,20 +215,6 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     }
   }
 
-  onClickOfferSubmit() {
-    const data = this.state.productOfferInput.join('||');
-    const message = MessageDC.getUserMessagesByAuctionId(this.state.contentIndex)[0];
-    MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.OFFER_PRODUCT, data);
-    this.setState({...this.state, isOpen : false});
-    history.push('/');
-  }
-
-  onChangeProductOfferInput(event, index) {
-    let { productOfferInput } = this.state;
-    productOfferInput[index] = event.target.value;
-    this.setState({ ...this.state, productOfferInput });
-  }
-
   render() {
     const messages = MessageDC.getUserMessagesByAuctionId(this.state.contentIndex);
     return (
@@ -227,7 +229,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
                 <div key={index} className={styles.message}>
                   <div className={styles.tagWrap}>
                     {this.renderTag(item.msgType)}
-                    {index === 0 && this.renderSpecialForm(item)}
+                    {!item.isComplete && this.renderSpecialForm(item)}
                   </div>
                   <div className={styles.dataWrap}>
                     <div className={styles.fromAddress}>
