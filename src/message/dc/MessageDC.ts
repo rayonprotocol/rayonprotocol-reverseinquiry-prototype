@@ -1,6 +1,8 @@
 import Message from '../model/Message';
-// import sortBy from 'lodash.sortby';
 import groupBy from 'lodash.groupby';
+
+// model
+import User from 'user/model/User';
 
 // dc
 import UserDC from 'user/dc/UserDC';
@@ -65,13 +67,18 @@ class MessageDC {
 
   async makeContentList(getContentResult, instance) {
     const [fromAddresses, toAddresses, auctionIds, msgTypes, timeStamps, payloadsString] = getContentResult;
-    console.log(getContentResult);
+    const userInstance = ContractDC.getInstance(ContractInstance.UserInstance);
+    const user: User = UserDC.getUser();
     const payloads = payloadsString.split('||');
     const messageLength = fromAddresses.length;
     const messages: Message[] = [];
 
+    const userName = {};
+
     for (let i = 0; i < messageLength; i++) {
       const newMessage = new Message();
+      newMessage.fromUserID = (await userInstance.getUser(fromAddresses[i], { from: user.userAddress }))[0];
+      newMessage.toUserID = (await userInstance.getUser(toAddresses[i], { from: user.userAddress }))[0];
       newMessage.fromAddress = fromAddresses[i];
       newMessage.toAddress = toAddresses[i];
       newMessage.auctionId = auctionIds[i].toNumber();

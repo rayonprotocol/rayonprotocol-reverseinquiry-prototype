@@ -65,4 +65,25 @@
       border-radius: 10px;
     }
   }
+
+  .fromto {
+    margin-bottom: 8px;
+    font-size: 20px;
+    font-weight: $fontweight-bold;
+  }
+
+  .userID {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid $march-green;
+    border-radius: 10px;
+  }
+
+  .userAddress {
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 8px;
+    border-bottom: 1px solid $march-blue;
+    padding-bottom: 5px;
+  }
 }

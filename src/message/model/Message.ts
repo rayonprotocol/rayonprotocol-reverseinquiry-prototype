@@ -7,6 +7,8 @@ export enum MsgTypes {
 }
 
 class Message {
+  fromUserID: string;
+  toUserID: string;
   fromAddress: string;
   toAddress: string;
   auctionId: number;

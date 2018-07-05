@@ -162,6 +162,10 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
             </div>
           );
         });
+      case MsgTypes.ACCEPT_OFFER:
+        return (<div>
+          product link: <a href="https://www.rayonprotocol.io/">https://www.rayonprotocol.io/</a>
+        </div>);
       default:
         return;
     }
@@ -185,12 +189,14 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
                   </div>
                   <div className={styles.dataWrap}>
                     <div className={styles.fromAddress}>
-                      <div>from</div>
-                      <div>{item.fromAddress}</div>
+                      <div className={styles.fromto}>From</div>
+                      <div className={styles.userID}>{item.fromUserID}</div>
+                      <div className={styles.userAddress}>{item.fromAddress}</div>
                     </div>
                     <div className={styles.toAddress}>
-                      <div>to</div>
-                      <div>{item.toAddress}</div>
+                      <div className={styles.fromto}>To</div>
+                      <div className={styles.userID}>{item.toUserID}</div>
+                      <div className={styles.userAddress}>{item.toAddress}</div>
                     </div>
                     <div className={styles.payload}>{this.renderPayload(item.msgType, item.payload)}</div>
                   </div>
