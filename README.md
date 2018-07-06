@@ -106,7 +106,7 @@ First the Borrower must register his/her personal financial data. To do this, th
 
 ![2018-07-06 4 23 38](https://user-images.githubusercontent.com/39897681/42373904-3b18f19e-8151-11e8-8475-1718fabaa610.png)
 
-While there will be multiple methods to gather and input personal data of borrowers either sourced from open APIs or through third party data providers, we have currently implemented our prototype so that Borrowers directly input their personal data. A Borrower can freely input key-value pairs for test purposes (e.g. income-$50,000; age-26; gender-male; existing debt-$10,000). Click the **Add** button to add new personal data fields to input and make sure to click the **Save** button at the bottom once all inputs are complete. Such registered data gets recorded on the local drive, not on the blockchain.
+While there will be multiple methods to gather and input personal data of borrowers either sourced from open APIs or through third party data providers, we have currently implemented our prototype so that Borrowers directly input their personal data. A Borrower can freely input key-value pairs for test purposes (e.g. Income-$50,000; Age-34; Credit Score-3; Existing Debt-$20,000; Monthly Credit Card Usage-$2,000). Click the **Add** button to add new personal data fields to input and make sure to click the **Save** button at the bottom once all inputs are complete. Such registered data gets recorded on the local drive, not on the blockchain.
 
 ![2018-07-06 4 26 25](https://user-images.githubusercontent.com/39897681/42373970-6cd07f68-8151-11e8-94cb-847c8a5486f7.png)
 
@@ -116,37 +116,45 @@ Kindly note that Rayon will be developed so that no raw data of Rayon borrowers 
 
 Clicking on the **Loan Requests** menu on the Navigation Bar displays the list of loan requests published to date. Only Borrowers can write loan requests and the **New Request** button does not appear when logged in as a Lender. Clicking on the **New Request** button on the right displays the loan request write form. Here the Borrower writes the title and content of the loan request as well as selects the personal data fields to make available with the loan request. Complete the write form by clicking the **Submit** button.  This prompts you to confirm the transaction on Metamask. Confirm on Metamask and wait for the transaction to publish to the blockchain. Transaction confirmation can be checked on your browser console.  Once confirmed, refreshing the page will display the freshly published loan request in the Loan Requests list.
 
-![image](https://user-images.githubusercontent.com/20614643/40899756-6f4b0d6a-6803-11e8-9c12-d2ab821c30a1.png)
+![2018-07-06 4 27 51](https://user-images.githubusercontent.com/39897681/42374096-f3210ba0-8151-11e8-9994-906eeea8de5b.png)
+
+![2018-07-06 4 29 41](https://user-images.githubusercontent.com/39897681/42374134-1c39cd7e-8152-11e8-9d20-80dfbf55c95f.png)
 
 ### Check / View Published Loan Requests
 
-Publishing data to the blockchain requires time. While this will be short for a private network, publishing data to the actual Rayon MainNet will require some time.  Successfully published loan requests will appear in the list of the Loan Requests page and clicking on the title takes you to the details page of the clicked loan request. Both Borrowers and Lenders have access to the Loan Requests menu and the published loan requests list and can view details. Borrowers will be able to check that their loan requests are correctly and successfully published. Lenders will be able to view published loan requets by Borrowers.
+Publishing data to the blockchain requires time. While this will be short for a private network, publishing data to the actual Rayon MainNet will require some time.  Successfully published loan requests will appear in the list of the Loan Requests page and clicking on the title area takes you to the details page of the clicked loan request. Both Borrowers and Lenders have access to the Loan Requests menu and the published loan requests list and can view details. Borrowers will be able to check that their loan requests are correctly and successfully published. Lenders will be able to view published loan requests & details by Borrowers.
 
-![image](https://user-images.githubusercontent.com/20614643/40899778-8aa3eb40-6803-11e8-92f9-f29033055d14.png)
+![2018-07-06 4 35 27](https://user-images.githubusercontent.com/39897681/42374201-5fcad484-8152-11e8-9345-73a5ca18d3f3.png)
 
 ### Request for Additional Personal Data (Lender)
 
 Let's switch accounts and this time sign up and login as a Lender. Be advised that you must first logout of Metamask. Once logged out, click on the **Create Account** menu on the top right-hand corner. This time, select Lender and input your User ID. Click the **Submit** button and confirm the transaction on Metamask. Wait for transaction confirmation, which can be checked on your brower console. After transaction confirmation, refresh the page to complete the sign up and login processes.
 
+![2018-07-06 4 30 28](https://user-images.githubusercontent.com/39897681/42374222-797d36c4-8152-11e8-8644-5cd203990d39.png)
+
 Now as a Lender, click on the **Loan Requests** menu and view the details on the recently published loan request by the Borrower by clicking on the title. A **Request Personal Data** button will be available only to Lenders. Select specific data fields which are available for the requesting Borrower then click on the **Request Personal Data** button. Confirm the transaction on Metamask to send the data request for the selected data to the Borrower.
+
+![2018-07-06 4 36 16](https://user-images.githubusercontent.com/39897681/42374239-8dc495b4-8152-11e8-8f47-cc7318eb1aba.png)
 
 Please note that this entire process can be repeated as another Lender. Multiple lenders are expected to participate in the Rayon ecosystem and as a result, Rayon borrowers will be able to receive multiple loan offers. Our prototype allows for the creation of multiple Borrower and Lender accounts for testing purposes. As such, create a new account as another Lender, click on the **Loan Requests** menu, view the loan request details of the single loan request currently published by clicking on the title and request for additional personal data of the borrower who published the loan request. For comparison purposes, request for different personal data fields from the earlier request already sent from the first Lender account.
 
-![image](https://user-images.githubusercontent.com/20614643/40899830-d6522278-6803-11e8-9a3a-9d0bd909592c.png)
-
 ### Mailbox
 
-Clicking on the **Mailbox** menu on the right side of the Navigation Bar displays the logged in user's message thread. Tags next to message titles display the current status and transaction stage of the message.  As a Lender, you will be able to view your recently published additional data request message sent to the Borrower who published the loan request.
+Clicking on the **Mailbox** menu on the right side of the Navigation Bar displays the logged in user's message thread. Tags next to message titles display the current status and transaction stage of the message.  As a Lender, you will be able to view your recently published additional data request message sent to the Borrower who published the loan request. Clicking on the title area of the message will display its details.
 
-![image](https://user-images.githubusercontent.com/20614643/40899857-faecc6c4-6803-11e8-830c-03648f64dc3c.png)
+![2018-07-06 4 37 41](https://user-images.githubusercontent.com/39897681/42374285-b587f14a-8152-11e8-9ecb-8756d753db6c.png)
+
+![2018-07-06 4 38 47](https://user-images.githubusercontent.com/39897681/42374363-e2b71006-8152-11e8-8d12-070ebe584456.png)
 
 ### Check Addtional Data Requests and Send Requested Data (Borrower)
 
-In order to respond to the addtional data requests by Lenders, first logout of Metamask and re-login as a Borrower then check your **Mailbox**. View the data request messages sent from the two lenders in your Mailbox and click on the **Send Data** button to send the requested additional data to the Lender. You also need to confirm the transaction on Metamask.
+In order to respond to the addtional data requests by Lenders, first logout of Metamask and re-login as a Borrower then check your **Mailbox**. View the data request messages sent from the lender in your Mailbox and click on the **Send Data** button to send the requested additional data to the Lender. You also need to confirm the transaction on Metamask.
+
+![2018-07-06 4 39 14](https://user-images.githubusercontent.com/39897681/42374401-02de6546-8153-11e8-8a24-b26d957ea28b.png)
+
+![2018-07-06 4 42 31](https://user-images.githubusercontent.com/39897681/42374457-25670ad2-8153-11e8-90f5-124b5fe19882.png)
 
 Please note that while we have implemented the direct sending of borrower data for this prototype, we will utilize a randomly generated PKI encryption system for the actual transmitting of borrower data through IPFS or cloud storage.
-
-![image](https://user-images.githubusercontent.com/20614643/40899988-88b11e42-6804-11e8-9d44-7a673bd4a369.png)
 
 ### Loan Offer (Lender)
 
