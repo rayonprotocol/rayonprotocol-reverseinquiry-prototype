@@ -95,17 +95,22 @@ User clicks on the **Create Account** button on the top right-hand corner. A wal
 Type user ID after selecting "Borrower" or "Lender" for account type. For demonstration purposes of this prototype, first create a Borrower account. Click the **Submit** button and confirm the data publishing transaction on Metamask. Note that this confirmation will take some time. After confirming the transaction on your browser console, refresh the page which will complete the Create Account and login processes simultaneously.  Once logged in, the Navigation Bar menu will be added and viewable at the top of the screen.
 
 ![2018-07-06 4 22 46](https://user-images.githubusercontent.com/39897681/42372518-5a843a60-814d-11e8-991e-9357a7008a7b.png)
+
 ![2018-07-06 4 23 04](https://user-images.githubusercontent.com/39897681/42372577-8d359666-814d-11e8-8bcb-2f11a5568136.png)
 
 ### Registering Personal Data
 
 First the Borrower must register his/her personal financial data. To do this, the Borrower clicks on the **Register Data** menu on the right-hand side of the Navigation Bar. Clicking the menu launches the KYC screen. Borrower must successfully complete KYC in order to register his/her personal data. Given this is a prototype, we have implemented a simple KYC procedure where the Borrower simply types "agree", clicks the **Validate** button and then submits the transaction on Metamask in order to successfully perform KYC validation.  Once you submit on Metamask, the home screen will load. Wait for transaction confirmation and once confirmed from your browser console, click on the **Register Data** menu again which will load the personal data input screen. 
 
+![2018-07-06 4 23 31](https://user-images.githubusercontent.com/39897681/42373863-1dbac9a6-8151-11e8-8514-962d10e0dee5.png)
+
+![2018-07-06 4 23 38](https://user-images.githubusercontent.com/39897681/42373904-3b18f19e-8151-11e8-8475-1718fabaa610.png)
+
 While there will be multiple methods to gather and input personal data of borrowers either sourced from open APIs or through third party data providers, we have currently implemented our prototype so that Borrowers directly input their personal data. A Borrower can freely input key-value pairs for test purposes (e.g. income-$50,000; age-26; gender-male; existing debt-$10,000). Click the **Add** button to add new personal data fields to input and make sure to click the **Save** button at the bottom once all inputs are complete. Such registered data gets recorded on the local drive, not on the blockchain.
 
-Kindly note that Rayon will be developed so that no raw data of Rayon borrowers will be stored on Rayon Protocol. Personal borrower data in raw or processed formats will either be stored on users' local devices or on the servers of Rayon borrower DApps. Personal data of Rayon borrowers published on the Rayon blockchain will strictly be limited to data hash values and pseudonymized formats. 
+![2018-07-06 4 26 25](https://user-images.githubusercontent.com/39897681/42373970-6cd07f68-8151-11e8-94cb-847c8a5486f7.png)
 
-![image](https://user-images.githubusercontent.com/20614643/40899713-442df048-6803-11e8-8a9f-98fca9aa07a1.png)
+Kindly note that Rayon will be developed so that no raw data of Rayon borrowers will be stored on Rayon Protocol. Personal borrower data in raw or processed formats will either be stored on users' local devices or on the servers of Rayon borrower DApps. Personal data of Rayon borrowers published on the Rayon blockchain will strictly be limited to data hash values and pseudonymized formats. 
 
 ### Publish Loan Request (Borrower)
 
