@@ -120,12 +120,11 @@ Clicking on the **Loan Requests** menu on the Navigation Bar displays the list o
 
 ![2018-07-06 4 35 27](https://user-images.githubusercontent.com/39897681/42374201-5fcad484-8152-11e8-9345-73a5ca18d3f3.png)
 
-![2018-07-06 4 29 41](https://user-images.githubusercontent.com/39897681/42374134-1c39cd7e-8152-11e8-9d20-80dfbf55c95f.png)
-
 ### Check / View Published Loan Requests
 
 Publishing data to the blockchain requires time. While this will be short for a private network, publishing data to the actual Rayon Mainnet will require some time.  Successfully published loan requests will appear in the list of the Loan Requests page and clicking on the title area takes you to the details page of the clicked loan request. Both Borrowers and Lenders have access to the Loan Requests menu and published loan requests. Borrowers will be able to check that their loan requests are correctly and successfully published, while Lenders will be able to view published loan requests & request details posted by Borrowers.
 
+![2018-07-06 4 29 41](https://user-images.githubusercontent.com/39897681/42374134-1c39cd7e-8152-11e8-9d20-80dfbf55c95f.png)
 
 ### Request for Additional Personal Data (Lender1)
 
