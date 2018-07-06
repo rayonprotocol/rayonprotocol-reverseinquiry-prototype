@@ -114,9 +114,11 @@ Kindly note that Rayon will be developed so that no raw data of Rayon borrowers 
 
 ### Publish Loan Request (Borrower)
 
-Clicking on the **Loan Requests** menu on the Navigation Bar displays the list of loan requests published to date. Only Borrowers can write loan requests and the **New Request** button does not appear when logged in as a Lender. Clicking on the **New Request** button on the right displays the loan request write form. Here the Borrower writes the title and content of the loan request as well as selects the personal data fields to make available with the loan request. Complete the write form by clicking the **Submit** button.  This prompts you to confirm the transaction on Metamask. Confirm on Metamask and wait for the transaction to publish to the blockchain. Transaction confirmation can be checked on your browser console.  Once confirmed, refreshing the page will display the freshly published loan request in the Loan Requests list. In the screenshot below, we created a loan request for a 1 year, $10,000 credit loan.
+Clicking on the **Loan Requests** menu on the Navigation Bar displays the list of loan requests published to date. Only Borrowers can write loan requests and the **New Request** button does not appear when logged in as a Lender. Clicking on the **New Request** button on the right displays the loan request write form. Here the Borrower writes the title and content of the loan request as well as selects the personal data fields to make available with the loan request. Complete the write form by clicking the **Submit** button.  This prompts you to confirm the transaction on Metamask. Confirm on Metamask and wait for the transaction to publish to the blockchain. Transaction confirmation can be checked on your browser console.  Once confirmed, refreshing the page will display the freshly published loan request in the Loan Requests list. In the screenshots below, Borrower created a loan request for a 1 year, $10,000 credit loan and indicated that his/her income, credit score, existing debt and monthly credit card usage data are available to lenders.
 
 ![2018-07-06 4 27 51](https://user-images.githubusercontent.com/39897681/42374096-f3210ba0-8151-11e8-9994-906eeea8de5b.png)
+
+![2018-07-06 4 35 27](https://user-images.githubusercontent.com/39897681/42374201-5fcad484-8152-11e8-9345-73a5ca18d3f3.png)
 
 ![2018-07-06 4 29 41](https://user-images.githubusercontent.com/39897681/42374134-1c39cd7e-8152-11e8-9d20-80dfbf55c95f.png)
 
@@ -124,7 +126,6 @@ Clicking on the **Loan Requests** menu on the Navigation Bar displays the list o
 
 Publishing data to the blockchain requires time. While this will be short for a private network, publishing data to the actual Rayon Mainnet will require some time.  Successfully published loan requests will appear in the list of the Loan Requests page and clicking on the title area takes you to the details page of the clicked loan request. Both Borrowers and Lenders have access to the Loan Requests menu and published loan requests. Borrowers will be able to check that their loan requests are correctly and successfully published, while Lenders will be able to view published loan requests & request details posted by Borrowers.
 
-![2018-07-06 4 35 27](https://user-images.githubusercontent.com/39897681/42374201-5fcad484-8152-11e8-9345-73a5ca18d3f3.png)
 
 ### Request for Additional Personal Data (Lender1)
 
