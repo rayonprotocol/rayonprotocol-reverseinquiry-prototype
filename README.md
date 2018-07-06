@@ -92,13 +92,13 @@ User clicks on the **Create Account** button on the top right-hand corner. A wal
 
 #### Create Account
 
-Type user ID after selecting "Borrower" or "Lender" for account type. For demonstration purposes of this prototype, first create a Borrower account. Click the **Submit** button and confirm the data publishing transaction on Metamask. Note that this confirmation will take some time. After confirming the transaction on your browser console, refresh the page which will complete the Create Account and login processes simultaneously.  Once logged in, the Navigation Bar menu will be added and viewable at the top of the screen.
+Type user ID after selecting "Borrower" or "Lender" for account type. For demonstration purposes of this prototype, first create a Borrower account (we used "Borrower" as the user ID). Click the **Submit** button and confirm the data publishing transaction on Metamask. Note that this confirmation will take some time. After confirming the transaction on your browser console, refresh the page which will complete the Create Account and login processes simultaneously.  Once logged in, the Navigation Bar menu will be added and viewable at the top of the screen.
 
 ![2018-07-06 4 22 46](https://user-images.githubusercontent.com/39897681/42372518-5a843a60-814d-11e8-991e-9357a7008a7b.png)
 
 ![2018-07-06 4 23 04](https://user-images.githubusercontent.com/39897681/42372577-8d359666-814d-11e8-8bcb-2f11a5568136.png)
 
-### Registering Personal Data
+### Registering Personal Data (Borrower)
 
 First the Borrower must register his/her personal financial data. To do this, the Borrower clicks on the **Register Data** menu on the right-hand side of the Navigation Bar. Clicking the menu launches the KYC screen. Borrower must successfully complete KYC in order to register his/her personal data. Given this is a prototype, we have implemented a simple KYC procedure where the Borrower simply types "agree", clicks the **Validate** button and then submits the transaction on Metamask in order to successfully perform KYC validation.  Once you submit on Metamask, the home screen will load. Wait for transaction confirmation and once confirmed from your browser console, click on the **Register Data** menu again which will load the personal data input screen. 
 
@@ -126,17 +126,15 @@ Publishing data to the blockchain requires time. While this will be short for a 
 
 ![2018-07-06 4 35 27](https://user-images.githubusercontent.com/39897681/42374201-5fcad484-8152-11e8-9345-73a5ca18d3f3.png)
 
-### Request for Additional Personal Data (Lender)
+### Request for Additional Personal Data (Lender1)
 
-Let's switch accounts and this time sign up and login as a Lender. Be advised that you must first logout of Metamask. Once logged out, click on the **Create Account** menu on the top right-hand corner. This time, select Lender and input your User ID. Click the **Submit** button and confirm the transaction on Metamask. Wait for transaction confirmation, which can be checked on your brower console. After transaction confirmation, refresh the page to complete the sign up and login processes.
+Let's switch accounts and this time sign up and login as a Lender. Be advised that you must first logout of Metamask. Once logged out, click on the **Create Account** menu on the top right-hand corner. This time, select Lender and input your User ID. (we used "Lender1" as our user ID) Click the **Submit** button and confirm the transaction on Metamask. Wait for transaction confirmation, which can be checked on your brower console. After transaction confirmation, refresh the page to complete the sign up and login processes.
 
 ![2018-07-06 4 30 28](https://user-images.githubusercontent.com/39897681/42374222-797d36c4-8152-11e8-8644-5cd203990d39.png)
 
 Now as a Lender, click on the **Loan Requests** menu and view the details on the recently published loan request by the Borrower by clicking on the title. A **Request Personal Data** button will be available only to Lenders. Select specific data fields which are available for the requesting Borrower then click on the **Request Personal Data** button. Confirm the transaction on Metamask to send the data request for the selected data to the Borrower.
 
 ![2018-07-06 4 36 16](https://user-images.githubusercontent.com/39897681/42374239-8dc495b4-8152-11e8-8f47-cc7318eb1aba.png)
-
-Please note that this entire process can be repeated as another Lender. Multiple lenders are expected to participate in the Rayon ecosystem and as a result, Rayon borrowers will be able to receive multiple loan offers. Our prototype allows for the creation of multiple Borrower and Lender accounts for testing purposes. As such, create a new account as another Lender, click on the **Loan Requests** menu, view the loan request details of the single loan request currently published by clicking on the title and request for additional personal data of the borrower who published the loan request. For comparison purposes, request for different personal data fields from the earlier request already sent from the first Lender account.
 
 ### Mailbox
 
@@ -148,7 +146,7 @@ Clicking on the **Mailbox** menu on the right side of the Navigation Bar display
 
 ### Check Addtional Data Requests and Send Requested Data (Borrower)
 
-In order to respond to the addtional data requests by Lenders, first logout of Metamask and re-login as a Borrower then check your **Mailbox**. View the data request messages sent from the lender in your Mailbox and click on the **Send Data** button to send the requested additional data to the Lender. You also need to confirm the transaction on Metamask.
+In order to respond to the addtional data request by the Lenders, first logout of Metamask and re-login as a Borrower then check your **Mailbox**. View the data request message sent from the lender in your Mailbox and click on the **Send Data** button to send the requested additional data to the Lender. You also need to confirm the transaction on Metamask. Once successfully sent, the Borrower can confirm his/her message thread with Lender by clicking on the **Mailbox**. Current status will be updated and displayed as message tags and details can be viewed by clicking on the title area. 
 
 ![2018-07-06 4 39 14](https://user-images.githubusercontent.com/39897681/42374401-02de6546-8153-11e8-8a24-b26d957ea28b.png)
 
@@ -156,22 +154,54 @@ In order to respond to the addtional data requests by Lenders, first logout of M
 
 Please note that while we have implemented the direct sending of borrower data for this prototype, we will utilize a randomly generated PKI encryption system for the actual transmitting of borrower data through IPFS or cloud storage.
 
-### Loan Offer (Lender)
+### Loan Offer (Lender1)
 
-After receiving the requested addtional data from the Borrower, the Lender performs its internal credit assessment procedure to confirm final terms & conditions.  This final loan offer is then sent to the Borrower. Given that these functions are performed by Lenders, first log out of Metamask and re-login as a Lender. Check the received additional personal data sent by the Borrower in your **Mailbox**. Based on this data, formulate your final binding offer as a result of your internal credit assessment system and click on the **Send Offer** button. A modal dialogue window will pop up where you can input your proposed loan amount, annual interest rate and maturity. Click the **Submit** button and confirm the transaction on Metamask. Repeat this process for your second Lender account.
+After receiving the requested addtional data from the Borrower, the Lender performs its internal credit assessment procedure to confirm final loan terms & conditions.  This final loan offer is then sent to the Borrower. Given that these functions are performed by Lenders, first log out of Metamask and re-login as Lender1. Check the received additional personal data sent by the Borrower in your **Mailbox**. Based on this data, formulate your final binding offer as a result of your internal credit assessment system and click on the **Send Offer** button. A modal dialogue window will pop up where you can input your proposed loan amount, annual interest rate and maturity. Click the **Submit** button and confirm the transaction on Metamask. 
 
-![image](https://user-images.githubusercontent.com/20614643/40900239-9ad08c9c-6805-11e8-8253-e096d5706929.png)
+![2018-07-06 4 43 12](https://user-images.githubusercontent.com/39897681/42383650-cb683fb8-8172-11e8-82f5-12e82ea85e63.png)
+
+![2018-07-06 4 43 52](https://user-images.githubusercontent.com/39897681/42383664-db19a672-8172-11e8-81fa-8641e9b6ce69.png)
+
+You can confirm that your loan offer was successfully sent to the Borrower by clicking on your **Mailbox**.
+
+![2018-07-06 4 44 07](https://user-images.githubusercontent.com/39897681/42383735-1d5dbd3e-8173-11e8-8072-bb322be9ec3d.png)
+
+### Participation by Second Lender (Lender2)
+
+Please note that this entire lender-side process can be repeated as another Lender. Multiple lenders are expected to participate in the Rayon ecosystem and as a result, Rayon borrowers will be able to receive multiple loan offers. Our prototype allows for the creation of multiple Borrower and Lender accounts for testing purposes. As such, create a new account as another Lender (this time we used "Lender2" as the user ID. Also note that you will need a new / different Metamask address to create a new lender account from the one used to create the "Lender1" ID), click on the **Loan Requests** menu, view the loan request details of the single loan request currently published by clicking on the title area and request for additional personal data of the borrower who published the loan request. For comparison purposes, request for different personal data fields from the earlier request already sent from the first Lender account. Request for additional personal data of the requesting
+
+![2018-07-06 4 45 40](https://user-images.githubusercontent.com/39897681/42380203-082cc50a-8168-11e8-8aaf-81243419b445.png)
+
+![2018-07-06 4 48 34](https://user-images.githubusercontent.com/39897681/42380242-313fa76e-8168-11e8-88d4-ff7b884329c7.png)
+
+### Check Additional Data Request and Send Requested Data (Borrower)
+
+In order to respond to the addtional data request by Lender2, logout of Metamask, re-login as a Borrower then check your **Mailbox**. View the data request message sent from Lender2 in your Mailbox and click on the **Send Data** button to send the requested additional data to Lender2. You also need to confirm the transaction on Metamask. Once successfully sent, the Borrower can confirm his/her message thread with Lender2 by clicking on the **Mailbox**. Current status will be updated and displayed as message tags and details can be viewed by clicking on the title area. 
+
+![2018-07-06 4 48 34](https://user-images.githubusercontent.com/39897681/42384102-145e0e90-8174-11e8-878b-8e282122a6a8.png)
+
+![2018-07-06 4 49 21](https://user-images.githubusercontent.com/39897681/42384133-24505e48-8174-11e8-9a62-677b62838b28.png)
+
+### Loan Offer (Lender2)
+
+Log out of Metamask and re-login as Lender2. After receiving & checking the requested addtional data from the Borrower in its **Mailbox**, Lender2 performs its internal credit assessment procedure to formulate & confirm final loan terms & conditions. This final loan offer can sent to the Borrower by clicking on the **Send Offer** button. A modal dialogue window will pop up where you can input your proposed loan amount, annual interest rate and maturity. Click the **Submit** button and confirm the transaction on Metamask. 
+
+![2018-07-06 4 48 21](https://user-images.githubusercontent.com/39897681/42384537-37c3162c-8175-11e8-958d-8da3b89fda77.png)
+
+![2018-07-06 4 48 34](https://user-images.githubusercontent.com/39897681/42384547-4069b07e-8175-11e8-80c7-693b8b3367e0.png)
 
 ### Loan Offer Reject/Accept (Borrower)
 
-Borrowers are able to either reject or accept loan offers received from Lenders. If the Borrower clicks on the **Accept** button, the transaction needs to be published to the blockchain, so confirm the transaction on Metamask. Once confirmed, the Borrower will see a brief message from the Lender as well as a link which will take the Borrower to the online product registration screen to sign up for the loan under the terms as provided by the Lender.
+Borrowers are able to view all loan offers received from Lenders in their **Mailbox**.
 
-If the Borrower clicks the **Reject** button, the rejected lender will be notified accordingly and the rejection will also be published to the blockchain which needs to be confirmed on Metamask.
+![2018-07-06 4 49 21](https://user-images.githubusercontent.com/39897681/42384638-84409eb6-8175-11e8-8e69-55a4b4b38586.png)
 
-![image](https://user-images.githubusercontent.com/20614643/40900303-edb70148-6805-11e8-95dc-54098c50b73d.png)
+Borrowers then either reject or accept loan offers received. If the Borrower clicks the **Reject** button for a received offer, the rejected lender will be notified accordingly and the rejection will also be published to the blockchain which needs to be confirmed on Metamask. We rejected the offer from Lender2.
 
-### Offer Result Notification (Lenders)
+![2018-07-06 4 49 59](https://user-images.githubusercontent.com/39897681/42384777-ddf7d488-8175-11e8-9499-d11893256e43.png)
 
-Offer acceptance or rejection results as selected by the Borrower will be notified to Lenders and can be checked in their respective Mailboxes.
+If the Borrower clicks on the **Accept** button for a received offer, the transaction needs to be published to the blockchain, so confirm the transaction on Metamask. Once confirmed, the Borrower will see a brief message from the Lender as well as a link which will take the Borrower to the online product registration screen to sign up for the loan under the terms as provided by the Lender. We accepted the offer from Lender1.
 
-![image](https://user-images.githubusercontent.com/20614643/40900354-24629fb8-6806-11e8-8892-2931dbde584f.png)
+![2018-07-06 4 50 33](https://user-images.githubusercontent.com/39897681/42384866-261ef34a-8176-11e8-8cba-af17ab83af10.png)
+
+
