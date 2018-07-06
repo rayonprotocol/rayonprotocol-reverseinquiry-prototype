@@ -156,7 +156,7 @@ Please note that while we have implemented the direct sending of borrower data t
 
 ### Loan Offer (Lender1)
 
-Log out of Metamask and re-login as Lender1. After checking & receiving the requested addtional data from the Borrower in its **Mailbox**, Lender1 runs its internal credit assessment process to formulate its final loan terms & conditions. Clicking on the **Send Offer** displays a modal dialogue window where you can input your proposed loan amount, annual interest rate and maturity. Click the **Submit** button and confirm the transaction on Metamask. 
+Log out of Metamask and re-login as Lender1. After checking & receiving the requested addtional data from the Borrower in its **Mailbox**, Lender1 runs its internal credit assessment process to formulate its final loan terms & conditions. Clicking on the **Send Offer** displays a modal dialogue window where you can input your proposed loan amount, annual interest rate and maturity. Click the **Submit** button and confirm the transaction on Metamask. In the screenshot below, Lender1 provided an offer for a 1 year, $12,000 loan at 5.4% interest.
 
 ![2018-07-06 4 43 12](https://user-images.githubusercontent.com/39897681/42383650-cb683fb8-8172-11e8-82f5-12e82ea85e63.png)
 
