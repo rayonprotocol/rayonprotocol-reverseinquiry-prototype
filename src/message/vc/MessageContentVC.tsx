@@ -16,9 +16,6 @@ import Container from 'common/view/Container';
 import TopBanner from 'common/view/banner/TopBanner';
 import FocusAniInput from 'common/view/input/FocusAniInput';
 
-// util
-import history from 'common/util/Histroy';
-
 // styles
 import styles from './MessageContentVC.scss';
 
@@ -164,7 +161,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
           )
         );
       case MsgTypes.ACCEPT_OFFER:
-        return <div className={styles.bottomWrap} onClick={this.onClickOpenModal.bind(this)}>Application Completed</div>;
+        return <div className={styles.bottomWrap}>Application Completed</div>;
       default:
         break;
     }

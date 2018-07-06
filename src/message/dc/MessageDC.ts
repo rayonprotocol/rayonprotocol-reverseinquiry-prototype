@@ -3,11 +3,12 @@ import groupBy from 'lodash.groupby';
 
 // model
 import User from 'user/model/User';
+import Auction from 'auction/model/Auction';
 
 // dc
 import UserDC from 'user/dc/UserDC';
 import ContractDC, { ContractInstance } from 'common/dc/ContractDC';
-import { version } from 'react-dom';
+import AuctionDC from 'auction/dc/AuctionDC';
 
 class MessageDC {
   _messagesGroupByAuction;
@@ -33,6 +34,16 @@ class MessageDC {
       });
     console.log('real result', result);
     return result;
+  }
+
+  async getUserAuctionContents() {
+    const uniqueId = [...new Set(this._messages.map(item => item.auctionId))];
+    const auctionList: Auction[] = await AuctionDC.getAuctionContents();
+    const user = UserDC.getUser();
+
+    return user.isBorrower
+      ? auctionList.filter(item => item.userAddress === user.userAddress)
+      : auctionList.filter(item => uniqueId.indexOf(item.id) !== -1);
   }
 
   getSortedMessageByAuctionContent() {
@@ -89,22 +100,13 @@ class MessageDC {
       newMessage.payload = payloads[i];
       messages.push(newMessage);
     }
-    console.log('Messages', messages);
     this._messages = messages.sort((a, b) => b.timeStamp - a.timeStamp);
-    console.log(this._messages);
-    // this._messages.map(item => {
-    //   if (this._messagesGroupByAuction[item.auctionId] === undefined) {
-    //     this._messagesGroupByAuction[item.auctionId] = [item];
-    //   } else {
-    //     this._messagesGroupByAuction[item.auctionId].push(item);
-    //   }
-    // });
     return this._messages;
   }
 
   async insertStartMessage(toAddress: string, auctionId: number, msgType: number, payload: string) {
     const instance = ContractDC.getInstance(ContractInstance.MessageInstance);
-    const insertMessageResult = await instance.insertStartMessage(toAddress, auctionId, msgType, payload, {
+    await instance.insertStartMessage(toAddress, auctionId, msgType, payload, {
       from: ContractDC.getAccount(),
     });
   }
@@ -117,7 +119,7 @@ class MessageDC {
     payload: string
   ) {
     const instance = ContractDC.getInstance(ContractInstance.MessageInstance);
-    const insertMessageResult = await instance.insertMessage(toAddress, auctionId, msgType, priviousMsgIndex, payload, {
+    await instance.insertMessage(toAddress, auctionId, msgType, priviousMsgIndex, payload, {
       from: ContractDC.getAccount(),
     });
   }

@@ -72,7 +72,7 @@ class AuctionDC {
       return false;
     } else {
       // 가입 되어있지않다면 정상적인 트랜잭션을 다시 보냄
-      const transactionResult = await instance.registContent(title, content, financeData, user.userName, userAddress, {
+      await instance.registContent(title, content, financeData, user.userName, userAddress, {
         from: userAddress,
       });
       return true;

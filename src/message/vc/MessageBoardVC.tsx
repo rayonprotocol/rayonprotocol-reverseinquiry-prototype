@@ -42,9 +42,8 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
   async componentWillMount() {
     await AuctionDC.getContentList();
     await MessageDC.getUserMessages();
-    const auctionContents = await AuctionDC.getAuctionContents();
+    const auctionContents = await MessageDC.getUserAuctionContents();
     const messages = MessageDC.getSortedMessageByAuctionContent();
-    console.log('auctionContents', auctionContents);
     this.setState({ ...this.state, messages, auctionContents, user: UserDC.getUser(), isLoading: false });
   }
 
