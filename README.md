@@ -156,7 +156,7 @@ Please note that while we have implemented the direct sending of borrower data t
 
 ### Loan Offer (Lender1)
 
-After receiving the requested addtional data from the Borrower, the Lender performs its internal credit assessment procedure to confirm final loan terms & conditions.  This final loan offer is then sent to the Borrower. Given that these functions are performed by Lenders, first log out of Metamask and re-login as Lender1. Check the received additional personal data sent by the Borrower in your **Mailbox**. Based on this data, formulate your final binding offer as a result of your internal credit assessment system and click on the **Send Offer** button. A modal dialogue window will pop up where you can input your proposed loan amount, annual interest rate and maturity. Click the **Submit** button and confirm the transaction on Metamask. 
+Log out of Metamask and re-login as Lender1. After checking & receiving the requested addtional data from the Borrower in its **Mailbox**, Lender1 runs its internal credit assessment process to formulate its final loan terms & conditions. Clicking on the **Send Offer** displays a modal dialogue window where you can input your proposed loan amount, annual interest rate and maturity. Click the **Submit** button and confirm the transaction on Metamask. 
 
 ![2018-07-06 4 43 12](https://user-images.githubusercontent.com/39897681/42383650-cb683fb8-8172-11e8-82f5-12e82ea85e63.png)
 
