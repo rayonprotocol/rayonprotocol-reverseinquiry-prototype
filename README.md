@@ -146,7 +146,7 @@ Clicking on the **Mailbox** menu on the right side of the Navigation Bar display
 
 ### Check Addtional Data Requests and Send Requested Data (Borrower)
 
-In order to respond to the addtional data request by the Lenders, first logout of Metamask and re-login as a Borrower then check your **Mailbox**. View the data request message sent from the lender in your Mailbox and click on the **Send Data** button to send the requested additional data to the Lender. You also need to confirm the transaction on Metamask. Once successfully sent, the Borrower can confirm his/her message thread with Lender by clicking on the **Mailbox**. Current status will be updated and displayed as message tags and details can be viewed by clicking on the title area. 
+In order to respond to the addtional data request by Lender1, first logout of Metamask and re-login as a Borrower then check your **Mailbox**. View the data request message sent from Lender1 in your Mailbox and click on the **Send Data** button to send the requested additional data to Lender1. You also need to confirm the transaction on Metamask. Once successfully sent, the Borrower can confirm his/her message thread with Lender1 by clicking on the **Mailbox**. Current status will be updated and displayed as tags next to message titles and details can be viewed by clicking on the title area of the message. 
 
 ![2018-07-06 4 39 14](https://user-images.githubusercontent.com/39897681/42374401-02de6546-8153-11e8-8a24-b26d957ea28b.png)
 
