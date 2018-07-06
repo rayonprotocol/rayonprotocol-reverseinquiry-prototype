@@ -172,8 +172,6 @@ Please note that this entire lender-side process can be repeated as another Lend
 
 ![2018-07-06 4 45 40](https://user-images.githubusercontent.com/39897681/42380203-082cc50a-8168-11e8-8aaf-81243419b445.png)
 
-![2018-07-06 4 48 34](https://user-images.githubusercontent.com/39897681/42380242-313fa76e-8168-11e8-88d4-ff7b884329c7.png)
-
 ### Check Additional Data Request and Send Requested Data (Borrower)
 
 In order to respond to the addtional data request by Lender2, logout of Metamask, re-login as a Borrower then check your **Mailbox**. View the data request message sent from Lender2 in your Mailbox and click on the **Send Data** button to send the requested additional data to Lender2. You also need to confirm the transaction on Metamask. Once successfully sent, the Borrower can confirm his/her message thread with Lender2 by clicking on the **Mailbox**. Current status will be updated and displayed as message tags and details can be viewed by clicking on the title area. 
