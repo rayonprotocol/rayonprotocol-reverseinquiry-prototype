@@ -146,13 +146,13 @@ Clicking on the **Mailbox** menu on the right side of the Navigation Bar display
 
 ### Check Addtional Data Requests and Send Requested Data (Borrower)
 
-In order to respond to the addtional data request by Lender1, first logout of Metamask and re-login as a Borrower then check your **Mailbox**. View the data request message sent from Lender1 in your Mailbox and click on the **Send Data** button to send the requested additional data to Lender1. You also need to confirm the transaction on Metamask. Once successfully sent, the Borrower can confirm his/her message thread with Lender1 by clicking on the **Mailbox**. Current status will be updated and displayed as tags next to message titles and details can be viewed by clicking on the title area of the message. 
+In order to respond to the addtional data request by Lender1, first log out of Metamask and re-login as a Borrower then check your **Mailbox**. View the data request message sent from Lender1 in your Mailbox and click on the **Send Data** button to send the requested additional data to Lender1. You also need to confirm the transaction on Metamask. Once successfully sent, the Borrower can confirm his/her message thread with Lender1 by clicking on the **Mailbox**. Current status will be updated and displayed as tags next to message titles and details can be viewed by clicking on the title area of the message. 
 
 ![2018-07-06 4 39 14](https://user-images.githubusercontent.com/39897681/42374401-02de6546-8153-11e8-8a24-b26d957ea28b.png)
 
 ![2018-07-06 4 42 31](https://user-images.githubusercontent.com/39897681/42374457-25670ad2-8153-11e8-90f5-124b5fe19882.png)
 
-Please note that while we have implemented the direct sending of borrower data for this prototype, we will utilize a randomly generated PKI encryption system for the actual transmitting of borrower data through IPFS or cloud storage.
+Please note that while we have implemented the direct sending of borrower data to lenders at this stage of our prototype, we plan to utilize a randomly generated PKI encryption system for the actual sending of borrower data to lenders through IPFS or cloud storage.
 
 ### Loan Offer (Lender1)
 
