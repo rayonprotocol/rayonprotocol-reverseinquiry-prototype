@@ -68,7 +68,7 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
     });
     localStorage.setItem(ContractDC.getAccount(), JSON.stringify(object));
     this.setState({ ...this.state, financeData: [new FinanceData()] });
-    alert('성공적으로 금융 데이터 등록이 완료되었습니다!');
+    alert('Your personal data was successfully saved');
   }
 
   onClickAddInputButton() {
@@ -138,7 +138,7 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
             <div className={styles.kycRegister}>
               <div className={styles.kycDescription}>Need KYC Validation</div>
               <div className={styles.kycButton}>
-                <Link to={'/auth'}>button</Link>
+                <Link to={'/auth'}>Go</Link>
               </div>
             </div>
           )}

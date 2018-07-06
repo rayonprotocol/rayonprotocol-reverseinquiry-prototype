@@ -114,7 +114,7 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
     const { messages, auctionContents, isLoading } = this.state;
     return (
       <Fragment>
-        <TopBanner title={'Inbox'} description={''} />
+        <TopBanner title={'Mailbox'} description={''} />
         <Container className={styles.contentContainer}>
           {isLoading ? (
             <div>Loading...</div>

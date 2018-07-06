@@ -46,9 +46,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     } = this.props;
     const contentIndex = parseInt(params.id);
     const messages = await MessageDC.getUserMessages();
-    this.setState({ ...this.state, messages, contentIndex }, () =>
-      console.log('after set State', this.state.contentIndex)
-    );
+    this.setState({ ...this.state, messages, contentIndex });
   }
 
   onClickDataSubmit(message: Message) {
@@ -137,7 +135,6 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
           )
         );
       case MsgTypes.RESPONSE_PERSONAL_DATA:
-      case MsgTypes.DENY_OFFER:
         return (
           !user.isBorrower && (
             <div className={styles.bottomWrap}>
@@ -188,10 +185,8 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
           );
         });
       case MsgTypes.OFFER_PRODUCT:
-      console.log('payload',payload)  
       const offeredProductData = payload.split('##');
         const prefixStr = ['Amount', 'Interest', 'Maturity'];
-        console.log(offeredProductData)
           return offeredProductData.map((item, index) => {
             return (
               <div className={styles.financeData} key={index}>
@@ -213,7 +208,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     const messages = MessageDC.getUserMessagesByAuctionId(this.state.contentIndex);
     return (
       <Fragment>
-        <TopBanner title={'Inbox'} description={''} />
+        <TopBanner title={'Mailbox'} description={''} />
         <Container className={styles.contentContainer}>
           {messages.length === 0 ? (
             <div>No Messages</div>
