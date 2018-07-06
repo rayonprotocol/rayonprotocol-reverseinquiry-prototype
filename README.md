@@ -182,7 +182,7 @@ In order to respond to the addtional data request by Lender2, log out of Metamas
 
 ### Loan Offer (Lender2)
 
-Log out of Metamask and re-login as Lender2. After receiving & checking the requested addtional data from the Borrower in its **Mailbox**, Lender2 performs its internal credit assessment procedure to formulate & confirm final loan terms & conditions. This final loan offer can be sent to the Borrower by clicking on the **Send Offer** button. A modal dialogue window will pop up where you can input your proposed loan amount, annual interest rate and maturity. Click the **Submit** button and confirm the transaction on Metamask. 
+Log out of Metamask and re-login as Lender2. After receiving & checking the requested addtional data from the Borrower in its **Mailbox**, Lender2 performs its internal credit assessment procedure to formulate & confirm final loan terms & conditions. This final loan offer can be sent to the Borrower by clicking on the **Send Offer** button. A modal dialogue window will pop up where you can input your proposed loan amount, annual interest rate and maturity. Click the **Submit** button and confirm the transaction on Metamask. In the screenshot below, Lender2 sent a 1 year, $10,000 loan offer at 4.8% interest. 
 
 ![2018-07-06 4 48 21](https://user-images.githubusercontent.com/39897681/42384537-37c3162c-8175-11e8-958d-8da3b89fda77.png)
 
