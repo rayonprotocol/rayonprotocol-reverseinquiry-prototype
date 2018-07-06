@@ -26,7 +26,7 @@ Rayon enables the accurate exchange of borrower personal data and lender product
 ### Rayon Reverse Inquiry Process Flow
 - Borrower registers his/her personal data
 - Borrower publishes loan request (indication of interest for loan to Lenders)
-- Lenders receive and review loan request from Borrower
+- Lenders review loan request from Borrower
 - Interested Lenders request for additional personal data to Borrower
 - Borrower provides requested additional data to Lenders under his/her consent
 - Lenders provide final binding terms (loan offers) to Borrower on the basis of received addtional data from Borrower
@@ -88,13 +88,14 @@ yarn start
 
 User clicks on the **Create Account** button on the top right-hand corner. A wallet application such as MetaMask must be installed and running.
 
-![image](https://user-images.githubusercontent.com/20614643/40899626-da3ef344-6802-11e8-91ba-b4006f9771d1.png)
+![2018-07-06 4 21 30](https://user-images.githubusercontent.com/39897681/42370625-35c4f6c4-8148-11e8-80b0-1e201d4b01dd.png)
 
 #### Create Account
 
 Type user ID after selecting "Borrower" or "Lender" for account type. For demonstration purposes of this prototype, first create a Borrower account. Click the **Submit** button and confirm the data publishing transaction on Metamask. Note that this confirmation will take some time. After confirming the transaction on your browser console, refresh the page which will complete the Create Account and login processes simultaneously.  Once logged in, the Navigation Bar menu will be added and viewable at the top of the screen.
 
-![image](https://user-images.githubusercontent.com/20614643/40899656-0572ddf0-6803-11e8-8fd1-490a49f974f9.png)
+![2018-07-06 4 22 46](https://user-images.githubusercontent.com/39897681/42372518-5a843a60-814d-11e8-991e-9357a7008a7b.png)
+![2018-07-06 4 23 04](https://user-images.githubusercontent.com/39897681/42372577-8d359666-814d-11e8-8bcb-2f11a5568136.png)
 
 ### Registering Personal Data
 
