@@ -2,22 +2,22 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 
 // styles
-import styles from './MarchBlueButton.scss';
+import styles from './RayonBlueButton.scss';
 
-interface MarchBlueButtonProps {
+interface RayonBlueButtonProps {
   className?: string;
   title: string;
   onClick: () => void;
 }
 
-class MarchBlueButton extends Component<MarchBlueButtonProps, {}>{
+class RayonBlueButton extends Component<RayonBlueButtonProps, {}> {
   render() {
     return (
       <div onClick={this.props.onClick} className={classNames(styles.blueButton, this.props.className)}>
         {this.props.title}
       </div>
-    )
+    );
   }
 }
 
-export default MarchBlueButton;
+export default RayonBlueButton;

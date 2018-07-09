@@ -14,7 +14,7 @@ import TimeConverter from 'common/util/TimeConverter';
 
 // view
 import Container from 'common/view/container/Container';
-import MarchBlueButton from 'common/view/button/MarchBlueButton';
+import RayonBlueButton from 'common/view/button/RayonBlueButton';
 import TopBanner from 'common/view/banner/TopBanner';
 
 // styles
@@ -49,7 +49,7 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
           {user === undefined ||
             (user.isBorrower && (
               <div className={styles.buttonWrap}>
-                <MarchBlueButton onClick={this.onClickRegisterButton.bind(this)} title={'New Request'} />
+                <RayonBlueButton onClick={this.onClickRegisterButton.bind(this)} title={'New Request'} />
               </div>
             ))}
           {auctionContents.length === 0 ? (

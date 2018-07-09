@@ -5,7 +5,7 @@ import UserDC from 'user/dc/UserDC';
 
 // view
 import Container from 'common/view/container/Container';
-import MarchBlueButton from 'common/view/button/MarchBlueButton';
+import RayonBlueButton from 'common/view/button/RayonBlueButton';
 import FocusAniInput from 'common/view/input/FocusAniInput';
 import ToggleButton from 'common/view/input/ToggleButton';
 
@@ -80,7 +80,7 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
               </div>
             )}
             <div className={styles.buttonWrap}>
-              <MarchBlueButton onClick={this.onClickSubmitButton.bind(this)} title={'Submit'} />
+              <RayonBlueButton onClick={this.onClickSubmitButton.bind(this)} title={'Submit'} />
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@ import UserDC from 'user/dc/UserDC';
 
 // view
 import Container from 'common/view/container/Container';
-import MarchBlueButton from 'common/view/button/MarchBlueButton';
+import RayonBlueButton from 'common/view/button/RayonBlueButton';
 import TopBanner from 'common/view/banner/TopBanner';
 
 // util
@@ -64,7 +64,7 @@ class AuthVC extends Component<{}, AuthVCState> {
               <div>Check Spelling</div>
             </div>
           )}
-          <MarchBlueButton onClick={this.onClickSubmitButton.bind(this)} title={'Validate'} />
+          <RayonBlueButton onClick={this.onClickSubmitButton.bind(this)} title={'Validate'} />
         </Container>
       </Fragment>
     );

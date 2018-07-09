@@ -5,7 +5,7 @@ import history from 'common/util/Histroy';
 
 // view
 import Container from 'common/view/container/Container';
-import MarchBlueButton from 'common/view/button/MarchBlueButton';
+import RayonBlueButton from 'common/view/button/RayonBlueButton';
 import TopBanner from 'common/view/banner/TopBanner';
 import FocusAniInput from 'common/view/input/FocusAniInput';
 import TagCheckBox from 'common/view/input/TagCheckBox';
@@ -80,7 +80,7 @@ class AuctionRegisterVC extends Component<{}, AuctionRegisterVCState> {
             selectedList={selectedTagList}
           />
           <div className={styles.buttonWrap}>
-            <MarchBlueButton onClick={this.onClickRegisterButton.bind(this)} title={'Submit'} />
+            <RayonBlueButton onClick={this.onClickRegisterButton.bind(this)} title={'Submit'} />
           </div>
         </Container>
       </Fragment>

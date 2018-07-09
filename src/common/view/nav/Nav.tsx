@@ -37,7 +37,7 @@ class Nav extends Component<{}, NavState> {
 
   onUpdateUser = (user: User) => {
     this.setState({ ...this.state, user });
-  };
+  }
 
   onClickModal(isClose?: boolean) {
     this.setState({ ...this.state, isSignUpModalOpen: !this.state.isSignUpModalOpen });

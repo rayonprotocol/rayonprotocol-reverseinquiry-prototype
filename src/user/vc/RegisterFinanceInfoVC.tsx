@@ -11,7 +11,7 @@ import UserDC from 'user/dc/UserDC';
 
 // view
 import Container from 'common/view/container/Container';
-import MarchBlueButton from 'common/view/button/MarchBlueButton';
+import RayonBlueButton from 'common/view/button/RayonBlueButton';
 import TopBanner from 'common/view/banner/TopBanner';
 
 // styles
@@ -131,7 +131,7 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
               </table>
 
               <div className={styles.buttonWrap}>
-                <MarchBlueButton onClick={this.onClickSubmitButton.bind(this)} title={'Save'} />
+                <RayonBlueButton onClick={this.onClickSubmitButton.bind(this)} title={'Save'} />
               </div>
             </Fragment>
           ) : (
