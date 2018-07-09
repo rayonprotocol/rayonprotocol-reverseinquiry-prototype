@@ -5,7 +5,7 @@ import ContractDC from 'common/dc/ContractDC';
 
 // view
 import Router from './Router';
-import Nav from './common/view/Nav';
+import Nav from './common/view/nav/Nav';
 
 interface AppState {
   isInstanceReady: boolean;

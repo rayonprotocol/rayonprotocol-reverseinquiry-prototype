@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // view
-import Container from 'common/view/Container';
+import Container from 'common/view/container/Container';
 
 // styles
 import styles from './HomeVC.scss';

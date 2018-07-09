@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react';
 import history from 'common/util/Histroy';
 
 // view
-import Container from 'common/view/Container';
+import Container from 'common/view/container/Container';
 import MarchBlueButton from 'common/view/button/MarchBlueButton';
 import TopBanner from 'common/view/banner/TopBanner';
 import FocusAniInput from 'common/view/input/FocusAniInput';

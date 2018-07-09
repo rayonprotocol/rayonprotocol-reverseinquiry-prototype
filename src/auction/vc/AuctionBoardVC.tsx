@@ -13,7 +13,7 @@ import history from 'common/util/Histroy';
 import TimeConverter from 'common/util/TimeConverter';
 
 // view
-import Container from 'common/view/Container';
+import Container from 'common/view/container/Container';
 import MarchBlueButton from 'common/view/button/MarchBlueButton';
 import TopBanner from 'common/view/banner/TopBanner';
 

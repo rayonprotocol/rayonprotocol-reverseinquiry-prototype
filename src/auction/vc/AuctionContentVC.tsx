@@ -14,7 +14,7 @@ import TimeConverter from 'common/util/TimeConverter';
 import history from 'common/util/Histroy';
 
 // view
-import Container from 'common/view/Container';
+import Container from 'common/view/container/Container';
 import TopBanner from 'common/view/banner/TopBanner';
 import TagCheckBox from 'common/view/input/TagCheckBox';
 

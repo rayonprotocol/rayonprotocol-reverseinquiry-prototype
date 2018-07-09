@@ -10,7 +10,7 @@ import User, { FinanceData } from 'user/model/User';
 import UserDC from 'user/dc/UserDC';
 
 // view
-import Container from 'common/view/Container';
+import Container from 'common/view/container/Container';
 import MarchBlueButton from 'common/view/button/MarchBlueButton';
 import TopBanner from 'common/view/banner/TopBanner';
 

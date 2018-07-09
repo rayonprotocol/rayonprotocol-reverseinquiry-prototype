@@ -5,7 +5,7 @@ import ContractDC from 'common/dc/ContractDC';
 import UserDC from 'user/dc/UserDC';
 
 // view
-import Container from 'common/view/Container';
+import Container from 'common/view/container/Container';
 import TopBanner from 'common/view/banner/TopBanner';
 
 // model

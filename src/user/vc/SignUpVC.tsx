@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
 // dc
-import ContractDC from 'common/dc/ContractDC';
 import UserDC from 'user/dc/UserDC';
 
 // view
-import Container from 'common/view/Container';
+import Container from 'common/view/container/Container';
 import MarchBlueButton from 'common/view/button/MarchBlueButton';
 import FocusAniInput from 'common/view/input/FocusAniInput';
 import ToggleButton from 'common/view/input/ToggleButton';
@@ -26,9 +25,6 @@ interface SignUpVCState {
 class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
   public Lender = 'Lender';
   public Borrower = 'Borrower';
-  public RADIOBUTTON = 'radioButton';
-
-  radioButton = [this.Lender, this.Borrower];
 
   constructor(props) {
     super(props);
@@ -53,17 +49,12 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
   async onClickSubmitButton() {
     const { userName, isBorrower } = this.state;
     const resultSignUp = await UserDC.userSignUp(userName, isBorrower);
-    resultSignUp
-      ? this.props.onClickModal()
-      : this.setState({ ...this.state, isExistUser: true });
-  }
-
-  async onClickGetUserButton() {
-    console.log(UserDC.getUserFromBlockchain(ContractDC.getAccount()));
+    resultSignUp ? this.props.onClickModal() : this.setState({ ...this.state, isExistUser: true });
   }
 
   render() {
     const { isExistUser } = this.state;
+    const radioButton = [this.Lender, this.Borrower];
 
     return (
       <Container className={styles.contentsContainer}>
@@ -77,7 +68,7 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
           {/* SignUP View */}
           <div className={styles.signUp}>
             <ToggleButton
-              dataList={this.radioButton}
+              dataList={radioButton}
               title={'Account Type'}
               name={'signup'}
               onChangeToggleButton={this.onChangeUserStatus.bind(this)}

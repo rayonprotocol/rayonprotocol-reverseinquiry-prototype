@@ -17,7 +17,7 @@ import history from 'common/util/Histroy';
 import TimeConverter from 'common/util/TimeConverter';
 
 // view
-import Container from 'common/view/Container';
+import Container from 'common/view/container/Container';
 import TopBanner from 'common/view/banner/TopBanner';
 
 // styles

@@ -6,7 +6,7 @@ import Modal from 'react-modal';
 import UserDC from 'user/dc/UserDC';
 
 // view
-import Container from './Container';
+import Container from 'common/view/container/Container';
 import SignUpVC from 'user/vc/SignUpVC';
 
 // styles
@@ -78,7 +78,7 @@ class Nav extends Component<{}, NavState> {
             <ul>
               <li className={styles.logo}>
                 <Link to={'/'}>
-                  <img src={require('../../assets/img/rayon-logo.png')} />
+                  <img src={require('../../../assets/img/rayon-logo.png')} />
                 </Link>
               </li>
               <li>

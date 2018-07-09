@@ -12,7 +12,7 @@ import MessageDC from '../dc/MessageDC';
 import UserDC from 'user/dc/UserDC';
 
 // view
-import Container from 'common/view/Container';
+import Container from 'common/view/container/Container';
 import TopBanner from 'common/view/banner/TopBanner';
 import FocusAniInput from 'common/view/input/FocusAniInput';
 
