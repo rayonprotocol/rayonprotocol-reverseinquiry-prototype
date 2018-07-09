@@ -3,9 +3,6 @@ import React, { Component, Fragment } from 'react';
 // dc
 import ContractDC from 'common/dc/ContractDC';
 
-// model
-import User from './user/model/User';
-
 // view
 import Router from './Router';
 import Nav from './common/view/Nav';
@@ -20,6 +17,7 @@ class App extends Component<{}, AppState> {
   };
 
   componentWillMount() {
+    // add contract instance listner for instance loading
     ContractDC.setInstanceReadyListner(this.instanceGetReady.bind(this));
     ContractDC.contractInit();
   }

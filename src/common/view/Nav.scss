@@ -35,3 +35,7 @@
     float: right;
   }
 }
+
+.modal {
+  @include vh-center();
+}

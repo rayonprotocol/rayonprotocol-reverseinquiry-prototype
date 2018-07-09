@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Modal from 'react-modal';
 
 // dc
 import UserDC from 'user/dc/UserDC';
 
-// model
-import ModalForm from 'modal/model/ModalForm';
-
 // view
 import Container from './Container';
-import ModalVC from '../../modal/vc/ModalVC';
+import SignUpVC from 'user/vc/SignUpVC';
 
 // styles
 import styles from './Nav.scss';
 import User from 'user/model/User';
 
 interface NavState {
-  isOpenModal: boolean[];
+  isSignUpModalOpen: boolean;
   user: User;
 }
 
@@ -25,7 +23,6 @@ class Nav extends Component<{}, NavState> {
     super(props);
     this.state = {
       ...this.state,
-      isOpenModal: [false, false, false, false, false],
       user: UserDC.getUser(),
     };
   }
@@ -42,23 +39,12 @@ class Nav extends Component<{}, NavState> {
     this.setState({ ...this.state, user });
   };
 
-  onClickModal(modalType: number) {
-    const { isOpenModal } = this.state;
-    switch (modalType) {
-      case ModalForm.SIGNUP_MODAL:
-        isOpenModal[ModalForm.SIGNUP_MODAL] = !isOpenModal[ModalForm.SIGNUP_MODAL];
-        break;
-      case ModalForm.AUTH_MODAL:
-        isOpenModal[ModalForm.AUTH_MODAL] = !isOpenModal[ModalForm.AUTH_MODAL];
-        break;
-      default:
-        break;
-    }
-    this.setState({ ...this.state, isOpenModal });
+  onClickModal(isClose?: boolean) {
+    this.setState({ ...this.state, isSignUpModalOpen: !this.state.isSignUpModalOpen });
   }
 
-  getIsModalOpen(modalType: number) {
-    return this.state.isOpenModal[modalType];
+  onRequestCloseModal() {
+    this.setState({ ...this.state, isSignUpModalOpen: false });
   }
 
   renderUserSection() {
@@ -66,21 +52,22 @@ class Nav extends Component<{}, NavState> {
     if (!user) {
       return (
         <ul>
-          <li onClick={() => this.onClickModal(ModalForm.SIGNUP_MODAL)}>Create Account</li>
+          <li onClick={this.onClickModal.bind(this)}>Create Account</li>
+        </ul>
+      );
+    } else {
+      return (
+        <ul>
+          <li>
+            <Link to={'/mypage'}>{user.userName}</Link>
+          </li>
+          <li>{user.isBorrower && <Link to={'/finacedata/register'}>{'Register Data'}</Link>}</li>
+          <li>
+            <Link to={'/message'}>{'Mailbox'}</Link>
+          </li>
         </ul>
       );
     }
-    return (
-      <ul>
-        <li>
-          <Link to={'/mypage'}>{user.userName}</Link>
-        </li>
-        <li>{user.isBorrower && <Link to={'/finacedata/register'}>{'Register Data'}</Link>}</li>
-        <li>
-          <Link to={'/message'}>{'Mailbox'}</Link>
-        </li>
-      </ul>
-    );
   }
 
   render() {
@@ -101,7 +88,21 @@ class Nav extends Component<{}, NavState> {
           </div>
           <div className={styles.userSection}>{this.renderUserSection()}</div>
         </Container>
-        <ModalVC getIsModalOpen={this.getIsModalOpen.bind(this)} onClickModal={this.onClickModal.bind(this)} />
+        {/* modal */}
+        <Modal
+          ariaHideApp={false}
+          className={styles.modal}
+          isOpen={this.state.isSignUpModalOpen}
+          onRequestClose={this.onRequestCloseModal.bind(this)}
+          shouldCloseOnOverlayClick={true}
+          style={{
+            overlay: {
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            },
+          }}
+        >
+          <SignUpVC onClickModal={this.onClickModal.bind(this)} />
+        </Modal>
       </nav>
     );
   }

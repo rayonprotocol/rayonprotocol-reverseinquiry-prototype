@@ -5,7 +5,6 @@ import ContractDC from 'common/dc/ContractDC';
 import UserDC from 'user/dc/UserDC';
 
 // view
-import ModalForm from 'modal/model/ModalForm';
 import Container from 'common/view/Container';
 import MarchBlueButton from 'common/view/button/MarchBlueButton';
 import FocusAniInput from 'common/view/input/FocusAniInput';
@@ -15,7 +14,7 @@ import ToggleButton from 'common/view/input/ToggleButton';
 import styles from './SignUpVC.scss';
 
 interface SignUpVCProps {
-  onClickModal: (modalType: number) => void;
+  onClickModal: () => void;
 }
 
 interface SignUpVCState {
@@ -55,7 +54,7 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
     const { userName, isBorrower } = this.state;
     const resultSignUp = await UserDC.userSignUp(userName, isBorrower);
     resultSignUp
-      ? this.props.onClickModal(ModalForm.SIGNUP_MODAL)
+      ? this.props.onClickModal()
       : this.setState({ ...this.state, isExistUser: true });
   }
 
@@ -71,7 +70,7 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
         <img
           className={styles.closeBtn}
           src={require('../../assets/img/closeIcon.png')}
-          onClick={() => this.props.onClickModal(ModalForm.SIGNUP_MODAL)}
+          onClick={() => this.props.onClickModal()}
         />
         <div className={styles.signUpSection}>
           <div className={styles.title}>Create Account</div>
