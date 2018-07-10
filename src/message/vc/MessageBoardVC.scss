@@ -1,76 +1,72 @@
 @import '~assets/partial';
 .contentContainer {
-  .title {
-    font-size: 24px;
-    margin: 30px 0px;
-  }
-  table {
-    width: 100%;
-    text-align: center;
-    .headerRow {
-      th {
-        padding: 10px 0px;
-        @include set-font(24px, $march-black);
-      }
+  .titleSection {
+    position: relative;
+    margin-bottom: 24px;
+    .title {
+      font-size: 24px;
     }
+  }
+  .emptyNote {
+    margin-top: 70px;
+    text-align: center;
+    font-size: 20px;
+    &.borrower {
+      color: $rayon-lake;
+    }
+    &.lender {
+      color: $rayon-berry;
+    }
+  }
+  .contentTable {
+    width: 100%;
     .contentRow {
-      text-align: center;
-      td {
-        padding: 10px 15px;
+      border-top: 1px solid #f1f1f1;
+      &:last-child {
+        border-bottom: 1px solid #f1f1f1;
+      }
+      p {
+        display: inline-block;
+        padding-top: 5px;
         @include set-font(16px, $march-black);
       }
-    }
-    .latestMessageRow {
-      column-span: 3;
-      background-color: #b0b0b0;
-      .latestMessage {
-        padding: 20px 0px;
+      .rightSection {
+        width: 90%;
+        display: inline-block;
+      }
+      .contentsTitle {
+        cursor: pointer;
+      }
+      .contentNumber {
+        display: inline-block;
+        width: 10%;
+      }
+      .bottomSection {
+        @include clearfix();
+        .latestMessageType {
+          float: left;
+        }
+        .timeColumn {
+          float: right;
+        }
+        text-align: right;
+        padding-bottom: 5px;
+        font-size: 14px;
       }
     }
-    .dateColumn {
-      width: 20%;
-    }
-    .mailTitle {
-      font-weight: $fontweight-bold;
-    }
+
     .mailSubTitle {
       display: inline-block;
       .tag {
         display: inline-block;
-        margin: 0px 10px;
-        padding: 5px 15px;
-        background-color: $march-blue;
-        border-radius: 10px;
-        @include set-font(16px, white, $fontweight-bold);
-      }
-      .orangeTag {
-        background-color: $march-orange;
-      }
-      .greenTag {
-        background-color: $march-green;
-      }
-      .pupleTag {
-        background-color: $march-puple;
-      }
-      .lightblueTag {
-        background-color: $march-lightblue;
-      }
-      .lightgrayTag {
-        background-color: $march-lightgray;
-      }
-      .subTitleValue {
-        display: inline-block;
-      }
-      .financeData {
-        display: inline-block;
-        margin-right: 5px;
-        padding: 5px 10px;
-        border: 1px solid $march-black;
-        border-radius: 10px;
+        @include set-font(16px, $rayon-berry);
+        &.borrower {
+          color: $rayon-lake;
+        }
+        &.lender {
+          color: $rayon-berry;
+        }
       }
     }
-  }
-  .contentsTitle {
-    cursor: pointer;
   }
 }

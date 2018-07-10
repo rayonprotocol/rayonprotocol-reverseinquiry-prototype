@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 import Modal from 'react-modal';
 
 // dc
@@ -70,9 +70,9 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
           </div>
           {auctionContents.length === 0 ? (
             <div
-              className={ClassNames(styles.emptyNote, {
-                [styles.borrowerColor]: user.isBorrower,
-                [styles.lenderColor]: !user.isBorrower,
+              className={classNames(styles.emptyNote, {
+                [styles.borrower]: user.isBorrower,
+                [styles.lender]: !user.isBorrower,
               })}
             >
               No Requests To Data

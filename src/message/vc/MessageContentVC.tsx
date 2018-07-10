@@ -208,7 +208,6 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     const messages = MessageDC.getUserMessagesByAuctionId(this.state.contentIndex);
     return (
       <Fragment>
-        <TopBanner title={'Mailbox'} description={''} />
         <Container className={styles.contentContainer}>
           {messages.length === 0 ? (
             <div>No Messages</div>

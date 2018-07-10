@@ -16,6 +16,7 @@ import RegisterFinanceInfoVC from 'user/vc/RegisterFinanceInfoVC';
 import AuctionBoardVC from 'auction/vc/AuctionBoardVC';
 import AuctionContentVC from 'auction/vc/AuctionContentVC';
 import MessageBoardVC from 'message/vc/MessageBoardVC';
+import MessageContentVC from 'message/vc/MessageContentVC';
 
 interface RouterState {
   user: User;
@@ -33,7 +34,7 @@ class Router extends Component<{}, RouterState> {
   route = [
     {
       path: '/',
-      component: HomeVC,
+      component: RegisterFinanceInfoVC,
       exact: true,
     },
     {
@@ -55,6 +56,11 @@ class Router extends Component<{}, RouterState> {
       path: '/mailbox',
       component: MessageBoardVC,
       exact: true,
+    },
+    {
+      path: '/message/content/:id',
+      component: MessageContentVC,
+      exact: false,
     },
   ];
 
