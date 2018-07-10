@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 import UserDC from 'user/dc/UserDC';
 
 // view
-import Container from 'common/view/container/Container';
 import ArrayTabView from 'common/view/tab/ArrayTabView';
+import RegisterFinanceInfoVC from 'user/vc/RegisterFinanceInfoVC';
+import AuctionBoardVC from 'auction/vc/AuctionBoardVC';
+import MessageBoardVC from 'message/vc/MessageBoardVC';
 
 // styles
 import styles from './TabNav.scss';
@@ -39,23 +41,26 @@ class TabNav extends Component<{}, TabNavState> {
     this.setState({ ...this.state, user });
   };
 
-  // renderUserSection() {
-  //   const { user } = this.state;
-  //   return (
-  //     <ul>
-  //       <li>
-  //         <Link to={'/mypage'}>{user.userName}</Link>
-  //       </li>
-  //       <li>{user.isBorrower && <Link to={'/finacedata/register'}>{'Register Data'}</Link>}</li>
-  //       <li>
-  //         <Link to={'/message'}>{'Mailbox'}</Link>
-  //       </li>
-  //     </ul>
-  //   );
-  // }
-
   onClickTabMenu(index: number) {
     this.setState({ ...this.state, activedTabIndex: index });
+  }
+
+  renderBorrowerContents(activedTabIndex: number) {
+    if (activedTabIndex === 0) {
+      return <RegisterFinanceInfoVC />;
+    } else if (activedTabIndex === 1) {
+      return <AuctionBoardVC />;
+    } else {
+      return <MessageBoardVC />;
+    }
+  }
+
+  renderLenderContents(activedTabIndex: number) {
+    if (activedTabIndex === 0) {
+      return <AuctionBoardVC />;
+    } else {
+      return <MessageBoardVC />;
+    }
   }
 
   render() {
@@ -72,16 +77,13 @@ class TabNav extends Component<{}, TabNavState> {
             <p className={styles.userName}>{user.userName}</p>
           </div>
           <div />
-          {/* <div>
-                <Link to={'/auction'}>Loan Requests</Link>
-              </div> */}
-          {/* <div className={styles.userSection}>{this.renderUserSection()}</div> */}
         </nav>
         <ArrayTabView
           tabMenus={tabMenus}
           activedIndex={activedTabIndex}
           onClickTabMenu={this.onClickTabMenu.bind(this)}
         />
+        {user.isBorrower ? this.renderBorrowerContents(activedTabIndex) : this.renderLenderContents(activedTabIndex)}
       </Fragment>
     );
   }

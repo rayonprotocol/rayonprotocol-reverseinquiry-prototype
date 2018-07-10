@@ -12,7 +12,7 @@ import UserDC from 'user/dc/UserDC';
 // view
 import Container from 'common/view/container/Container';
 import RayonBlueButton from 'common/view/button/RayonBlueButton';
-import TopBanner from 'common/view/banner/TopBanner';
+import CommonRayonButton from 'common/view/button/CommonRayonButton';
 
 // styles
 import styles from './RegisterFinanceInfoVC.scss';
@@ -88,60 +88,67 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
     const { financeData, user } = this.state;
     return (
       <Fragment>
-        <TopBanner title={'Register Personal Data'} description={''} />
         <Container className={styles.contentsContainer}>
-          {user.isPassKyc ? (
-            <Fragment>
-              <div className={styles.addBtn}>
-                <div onClick={this.onClickAddInputButton.bind(this)}>Add</div>
-              </div>
-              <table>
-                <tbody>
-                  <tr className={styles.headerRow}>
-                    <th>ID</th>
-                    <th>key</th>
-                    <th>value</th>
-                    <th>remove</th>
-                  </tr>
-                  {this.state.financeData.map((item, index) => {
-                    return (
-                      <tr key={index} className={styles.inputRow}>
-                        <td className={styles.id}>{index + 1}</td>
-                        <td>
-                          <input
-                            onChange={event => this.onChangeDataKeyText(event, index)}
-                            type={'text'}
-                            value={financeData[index].dataKeys}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            onChange={event => this.onChangeDataValueText(event, index)}
-                            type={'text'}
-                            value={financeData[index].dataValues}
-                          />
-                        </td>
-                        <td className={styles.removeBtn}>
-                          <div onClick={() => this.onClickRemoveInputButton(index)}>-</div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-
-              <div className={styles.buttonWrap}>
-                <RayonBlueButton onClick={this.onClickSubmitButton.bind(this)} title={'Save'} />
-              </div>
-            </Fragment>
-          ) : (
-            <div className={styles.kycRegister}>
-              <div className={styles.kycDescription}>Need KYC Validation</div>
-              <div className={styles.kycButton}>
-                <Link to={'/auth'}>Go</Link>
-              </div>
+          {/* {user.isPassKyc ? ( */}
+          <Fragment>
+            <div className={styles.titleSection}>
+              <p className={styles.title}>Register Data</p>
+              <CommonRayonButton
+                className={styles.addBtn}
+                title={'Add Data'}
+                onClickButton={this.onClickAddInputButton.bind(this)}
+                isBorrower={true}
+              />
             </div>
-          )}
+            <table>
+              <tbody>
+                <tr className={styles.headerRow}>
+                  <th>ID</th>
+                  <th>Data</th>
+                  <th>Value</th>
+                  <th>Remove</th>
+                </tr>
+                {this.state.financeData.map((item, index) => {
+                  return (
+                    <tr key={index} className={styles.inputRow}>
+                      <td className={styles.id}>{index + 1}</td>
+                      <td>
+                        <input
+                          onChange={event => this.onChangeDataKeyText(event, index)}
+                          type={'text'}
+                          value={financeData[index].dataKeys}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          onChange={event => this.onChangeDataValueText(event, index)}
+                          type={'text'}
+                          value={financeData[index].dataValues}
+                        />
+                      </td>
+                      <td className={styles.removeBtn}>
+                        <div onClick={() => this.onClickRemoveInputButton(index)}>x</div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+            <CommonRayonButton
+              className={styles.dataSaveBtn}
+              title={'Save'}
+              onClickButton={this.onClickSubmitButton.bind(this)}
+              isBorrower={true}
+            />
+          </Fragment>
+          {/* : (
+          <div className={styles.kycRegister}>
+          <div className={styles.kycDescription}>Need KYC Validation</div>
+          <div className={styles.kycButton}>
+          <Link to={'/auth'}>Go</Link>
+          </div>
+          </div>
+          )} */}
         </Container>
       </Fragment>
     );
