@@ -1,9 +1,9 @@
 {
-  "name": "march-web",
+  "name": "rayon-reverseinquiry",
   "version": "0.1.0",
-  "description": "march website",
+  "description": "rayon reverse inquiry",
   "author": "Finda product team",
-  "homepage": "https://www.march.eco",
+  "homepage": "https://www.rayonprotocol.io",
   "scripts": {
     "build": "npm run clean-dist && NODE_ENV=production webpack -p --config=configs/webpack/prod.js",
     "clean-dist": "rm -f -r -d dist",

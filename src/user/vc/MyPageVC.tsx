@@ -38,7 +38,6 @@ class MyPageVC extends Component<MyPageVCProps, MyPageVCState> {
   }
 
   onUpdateUser = (user: User) => {
-    console.log({ user });
     this.setState({ ...this.state, user });
   };
   render() {

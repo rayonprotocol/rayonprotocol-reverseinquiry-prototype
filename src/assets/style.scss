@@ -10,7 +10,7 @@
 	-webkit-box-sizing: border-box;
 	-ms-box-sizing: border-box;
   box-sizing: border-box;
-  font-family:'Roboto';
+  font-family:'sofia-pro';
 }
 html {
   -webkit-tap-highlight-color: rgba(black, 0.02);
@@ -57,7 +57,7 @@ li {
 	h1, h2, h3, h4, h5, h6, p, pre,
 	table, td, th, tr,
 	input, button, select, textarea, label, optgroup {
-		font-family: 'Malgun Gothic', 'Dotum', Arial, sans-serif;
+		font-family: 'sofia-pro', 'Malgun Gothic', 'Dotum', Arial, sans-serif;
 		letter-spacing: -0.05em;
 	}
 }
@@ -138,7 +138,6 @@ a[x-apple-data-detectors] {
 	table, td, th, tr,
 	input, button, select, textarea, label {
 		letter-spacing: 0;
-		font-family: roboto;
+		font-family: sofia-pro;
 	}
-
 }

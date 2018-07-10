@@ -37,8 +37,7 @@ class AuthVC extends Component<{}, AuthVCState> {
 
   validationAgreeText() {
     const { agreeText } = this.state;
-    if (agreeText === undefined || agreeText !== this.REQUIRE_AGREE_TEXT) return false;
-    return true;
+    return agreeText === undefined || agreeText !== this.REQUIRE_AGREE_TEXT;
   }
 
   async onClickSubmitButton() {

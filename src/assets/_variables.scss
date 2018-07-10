@@ -4,7 +4,16 @@ $device-pc:unquote("min-width: #{$mobile-width - 1px}");
 $device-mobile: unquote("max-width: #{$mobile-width - 1px}");
 $pc: 'pc';
 $mobile: 'mobile';
+
 // color
+$rayon-berry: rgb(240, 102, 111);
+$rayon-lake: rgb(0, 151, 198);
+$rayon-cream: rgb(240, 102, 111);
+$rayon-black: rgb(51, 51, 51);
+$rayon-gray: rgb(156, 156, 156);
+$rayon-deepblue: rgb(7, 129, 158);
+$rayon-lightblue: rgb(133, 209, 221);
+
 $march-blue: #4C79F7;
 $march-lightblue: #f1f5ff;
 $march-orange: #FFB700;
