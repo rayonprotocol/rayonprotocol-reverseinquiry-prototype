@@ -66,16 +66,14 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
       : lenderMsgTypeNames[message.msgType - 1];
 
     return (
-      <div className={styles.mailSubTitle}>
-        <div
-          className={classNames(styles.tag, {
-            [styles.borrower]: user.isBorrower,
-            [styles.lender]: !user.isBorrower,
-          })}
-        >
-          {tagMsg}
-        </div>
-      </div>
+      <p
+        className={classNames(styles.tag, {
+          [styles.borrower]: user.isBorrower,
+          [styles.lender]: !user.isBorrower,
+        })}
+      >
+        {tagMsg}
+      </p>
     );
   }
 
@@ -111,7 +109,7 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
                         <Link to={`/message/content/${item.id}`}>{item.title}</Link>
                       </div>
                       <div className={styles.bottomSection}>
-                        <p className={styles.latestMessageType}>{this.getLatestMessage(messages[item.id])}</p>
+                        {this.getLatestMessage(messages[item.id])}
                         <p className={styles.timeColumn}>{TimeConverter(item.timeStamp)}</p>
                       </div>
                     </div>

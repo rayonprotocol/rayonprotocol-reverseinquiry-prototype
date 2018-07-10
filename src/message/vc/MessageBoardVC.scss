@@ -21,13 +21,13 @@
   .contentTable {
     width: 100%;
     .contentRow {
+      padding: 8px 0px;
       border-top: 1px solid #f1f1f1;
       &:last-child {
         border-bottom: 1px solid #f1f1f1;
       }
       p {
         display: inline-block;
-        padding-top: 5px;
         @include set-font(16px, $march-black);
       }
       .rightSection {
@@ -39,32 +39,24 @@
       }
       .contentNumber {
         display: inline-block;
+        vertical-align: top;
         width: 10%;
       }
       .bottomSection {
         @include clearfix();
-        .latestMessageType {
+        .tag {
           float: left;
+          @include set-font(16px, $rayon-berry);
+          &.borrower {
+            color: $rayon-lake;
+          }
+          &.lender {
+            color: $rayon-berry;
+          }
         }
         .timeColumn {
           float: right;
-        }
-        text-align: right;
-        padding-bottom: 5px;
-        font-size: 14px;
-      }
-    }
-
-    .mailSubTitle {
-      display: inline-block;
-      .tag {
-        display: inline-block;
-        @include set-font(16px, $rayon-berry);
-        &.borrower {
-          color: $rayon-lake;
-        }
-        &.lender {
-          color: $rayon-berry;
+          font-size: 14px;
         }
       }
     }

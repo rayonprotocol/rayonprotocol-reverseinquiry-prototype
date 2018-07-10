@@ -34,7 +34,7 @@ class Router extends Component<{}, RouterState> {
   route = [
     {
       path: '/',
-      component: RegisterFinanceInfoVC,
+      component: HomeVC,
       exact: true,
     },
     {
