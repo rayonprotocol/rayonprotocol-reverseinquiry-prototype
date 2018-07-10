@@ -1,0 +1,27 @@
+@import '~assets/partial';
+.navigationBar {
+  position: relative;
+  padding: 26px 15px;
+  background-color: $rayon-lake;
+
+  .logo {
+    margin-top: 3px;
+    width: 85px;
+  }
+  .user {
+    @include pos-abs(26px, 15px, initial, initial);
+    .profileImg {
+      display: inline-block;
+      vertical-align: top;
+      margin-right: 13px;
+      background-color: white;
+      border-radius: 12px;
+      @include width-height(24px);
+    }
+    .userName {
+      display: inline-block;
+      vertical-align: top;
+      @include set-font(16px, white);
+    }
+  }
+}

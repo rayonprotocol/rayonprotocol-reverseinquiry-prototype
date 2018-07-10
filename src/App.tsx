@@ -5,7 +5,6 @@ import ContractDC from 'common/dc/ContractDC';
 
 // view
 import Router from './Router';
-import Nav from './common/view/nav/Nav';
 
 interface AppState {
   isInstanceReady: boolean;
@@ -13,9 +12,9 @@ interface AppState {
 
 class App extends Component<{}, AppState> {
   state = {
-    ...this.state,
+    isInstanceReady: false,
   };
-
+  
   componentWillMount() {
     // add contract instance listner for instance loading
     ContractDC.setInstanceReadyListner(this.instanceGetReady.bind(this));
@@ -32,7 +31,6 @@ class App extends Component<{}, AppState> {
       <div>
         {isInstanceReady && (
           <Fragment>
-            <Nav />
             <Router />
           </Fragment>
         )}
