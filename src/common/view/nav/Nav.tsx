@@ -37,7 +37,7 @@ class Nav extends Component<{}, NavState> {
 
   onUpdateUser = (user: User) => {
     this.setState({ ...this.state, user });
-  }
+  };
 
   onClickModal(isClose?: boolean) {
     this.setState({ ...this.state, isSignUpModalOpen: !this.state.isSignUpModalOpen });
@@ -72,38 +72,40 @@ class Nav extends Component<{}, NavState> {
 
   render() {
     return (
-      <nav className={styles.navigationBar}>
-        <Container noTopPadding={true}>
-          <div className={styles.mainSection}>
-            <ul>
-              <li className={styles.logo}>
-                <Link to={'/'}>
-                  <img src={require('../../../assets/img/rayon-logo.png')} />
-                </Link>
-              </li>
-              <li>
-                <Link to={'/auction'}>Loan Requests</Link>
-              </li>
-            </ul>
-          </div>
-          <div className={styles.userSection}>{this.renderUserSection()}</div>
-        </Container>
-        {/* modal */}
-        <Modal
-          ariaHideApp={false}
-          className={styles.modal}
-          isOpen={this.state.isSignUpModalOpen}
-          onRequestClose={this.onRequestCloseModal.bind(this)}
-          shouldCloseOnOverlayClick={true}
-          style={{
-            overlay: {
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            },
-          }}
-        >
-          <SignUpVC onClickModal={this.onClickModal.bind(this)} />
-        </Modal>
-      </nav>
+      this.state.user !== undefined && (
+        <nav className={styles.navigationBar}>
+          <Container noTopPadding={true}>
+            <div className={styles.mainSection}>
+              <ul>
+                <li className={styles.logo}>
+                  <Link to={'/'}>
+                    <img src={require('../../../assets/img/rayon-logo.png')} />
+                  </Link>
+                </li>
+                <li>
+                  <Link to={'/auction'}>Loan Requests</Link>
+                </li>
+              </ul>
+            </div>
+            <div className={styles.userSection}>{this.renderUserSection()}</div>
+          </Container>
+          {/* modal */}
+          <Modal
+            ariaHideApp={false}
+            className={styles.modal}
+            isOpen={this.state.isSignUpModalOpen}
+            onRequestClose={this.onRequestCloseModal.bind(this)}
+            shouldCloseOnOverlayClick={true}
+            style={{
+              overlay: {
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              },
+            }}
+          >
+            <SignUpVC onClickModal={this.onClickModal.bind(this)} />
+          </Modal>
+        </nav>
+      )
     );
   }
 }

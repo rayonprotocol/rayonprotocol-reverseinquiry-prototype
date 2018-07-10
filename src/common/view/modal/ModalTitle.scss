@@ -1,0 +1,13 @@
+@import '~assets/partial';
+
+.modalTitle {
+  @include clearfix();
+  .title {
+    font-size: 24px;
+    float: left;
+  }
+  .closeBtn {
+    font-size: 24px;
+    float: right;
+  }
+}

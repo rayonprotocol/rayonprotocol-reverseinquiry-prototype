@@ -2,39 +2,25 @@
 
 .contentContainer {
   .topMain {
-    position: relative;
+    text-align: center;
+    margin-top: 40%;
     img {
-      width: 100%;
-    }
-    .topMainOverlay {
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      @include vh-center();
-    }
-    .titleWrap {
-      text-align: center;
-      @include vh-center();
-      .title {
-        @include set-font(84px, white, $fontweight-bold);
-      }
-      .subTitle {
-        @include set-font(48px, white, $fontweight-bold);
-      }
+      width: 150px;
     }
   }
-  section {
-    margin-bottom: 80px;
-    .sectionTitle {
-      margin-top: 20px;
-      margin-bottom: 20px;
-      border-bottom: 1px solid #808080;
-      @include set-font(36px, $march-blue, $fontweight-bold);
-    }
-    .description {
-      p {
-        margin-bottom: 10px;
-      }
+  .signUp {
+    position: absolute;
+    bottom: 10%;
+    width: 100%;
+    padding: 34px;
+    text-align: center;
+    .signUpButton {
+      width: 100%;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      border: 1px solid $rayon-lake;
+      border-radius: 4px;
+      @include set-font(16px, $rayon-lake);
     }
   }
 }

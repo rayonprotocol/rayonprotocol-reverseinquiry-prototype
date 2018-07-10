@@ -9,6 +9,8 @@ import RayonBlueButton from 'common/view/button/RayonBlueButton';
 import FocusAniInput from 'common/view/input/FocusAniInput';
 import ToggleButton from 'common/view/input/ToggleButton';
 
+import ModalTitle from 'common/view/modal/ModalTitle';
+
 // styles
 import styles from './SignUpVC.scss';
 
@@ -57,15 +59,15 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
     const radioButton = [this.Lender, this.Borrower];
 
     return (
-      <Container className={styles.contentsContainer}>
-        <img
+      <div className={styles.contentsContainer}>
+        <ModalTitle title={'Sign Up'} onCloseRequest={this.props.onClickModal} />
+        {/* <img
           className={styles.closeBtn}
           src={require('../../assets/img/closeIcon.png')}
           onClick={() => this.props.onClickModal()}
         />
         <div className={styles.signUpSection}>
           <div className={styles.title}>Create Account</div>
-          {/* SignUP View */}
           <div className={styles.signUp}>
             <ToggleButton
               dataList={radioButton}
@@ -83,8 +85,8 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
               <RayonBlueButton onClick={this.onClickSubmitButton.bind(this)} title={'Submit'} />
             </div>
           </div>
-        </div>
-      </Container>
+        </div> */}
+      </div>
     );
   }
 }
