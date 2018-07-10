@@ -1,0 +1,17 @@
+@import '~assets/partial';
+
+.commonRayonButton {
+  width: 110px;
+  padding: 8px 0px;
+  border-radius: 4px;
+  text-align: center;
+  @include set-font(16px, white);
+}
+
+.borrower {
+  background-color: $rayon-lake;
+}
+
+.lender {
+  background-color: $rayon-berry;
+}

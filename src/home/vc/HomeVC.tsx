@@ -77,6 +77,7 @@ class HomeVC extends Component<{}, HomeState> {
               right: 'auto',
               bottom: 'auto',
               marginRight: '-50%',
+              borderRadius: '0px',
               transform: 'translate(-50%, -50%)',
             },
           }}

@@ -4,12 +4,11 @@ import React, { Component } from 'react';
 import UserDC from 'user/dc/UserDC';
 
 // view
-import Container from 'common/view/container/Container';
-import RayonBlueButton from 'common/view/button/RayonBlueButton';
-import FocusAniInput from 'common/view/input/FocusAniInput';
-import ToggleButton from 'common/view/input/ToggleButton';
 
 import ModalTitle from 'common/view/modal/ModalTitle';
+import CommonSelectInput from 'common/view/input/CommonSelectInput';
+import CommonTextInput from 'common/view/input/CommonTextInput';
+import CommonRayonButton from 'common/view/button/CommonRayonButton';
 
 // styles
 import styles from './SignUpVC.scss';
@@ -21,7 +20,6 @@ interface SignUpVCProps {
 interface SignUpVCState {
   userName: string;
   isBorrower: boolean;
-  isExistUser: boolean;
 }
 
 class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
@@ -32,12 +30,12 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
     super(props);
     this.state = {
       ...this.state,
-      isExistUser: false,
+      isBorrower: true,
     };
   }
 
-  // Change Input Events
-  onChangeUserStatus(event) {
+  // Change Event
+  onChangeOption(event) {
     const isBorrower = event.target.value === this.Borrower;
     this.setState({ ...this.state, isBorrower });
   }
@@ -47,45 +45,41 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
     this.setState({ ...this.state, userName });
   }
 
-  // Click Button Events
+  // Click Event
   async onClickSubmitButton() {
     const { userName, isBorrower } = this.state;
-    const resultSignUp = await UserDC.userSignUp(userName, isBorrower);
-    resultSignUp ? this.props.onClickModal() : this.setState({ ...this.state, isExistUser: true });
+    if (!this.validInputValues(userName, isBorrower)) return alert('type all input values');
+    await UserDC.userSignUp(userName, isBorrower);
+    this.props.onClickModal();
+  }
+
+  validInputValues(userName: string, isBorrower: boolean) {
+    return userName !== '' && userName !== undefined && isBorrower !== undefined;
   }
 
   render() {
-    const { isExistUser } = this.state;
-    const radioButton = [this.Lender, this.Borrower];
+    const options = [this.Borrower, this.Lender];
 
     return (
       <div className={styles.contentsContainer}>
         <ModalTitle title={'Sign Up'} onCloseRequest={this.props.onClickModal} />
-        {/* <img
-          className={styles.closeBtn}
-          src={require('../../assets/img/closeIcon.png')}
-          onClick={() => this.props.onClickModal()}
+        <CommonSelectInput
+          className={styles.selectInput}
+          title={'type'}
+          options={options}
+          onChangeOption={this.onChangeOption.bind(this)}
         />
-        <div className={styles.signUpSection}>
-          <div className={styles.title}>Create Account</div>
-          <div className={styles.signUp}>
-            <ToggleButton
-              dataList={radioButton}
-              title={'Account Type'}
-              name={'signup'}
-              onChangeToggleButton={this.onChangeUserStatus.bind(this)}
-            />
-            <FocusAniInput title={'User ID'} onChangeInput={this.onChangeUserName.bind(this)} />
-            {isExistUser && (
-              <div className={styles.errorMessage}>
-                <div>your account is already exist on blockchain</div>
-              </div>
-            )}
-            <div className={styles.buttonWrap}>
-              <RayonBlueButton onClick={this.onClickSubmitButton.bind(this)} title={'Submit'} />
-            </div>
-          </div>
-        </div> */}
+        <CommonTextInput
+          className={styles.selectInput}
+          title={'User Name'}
+          onChangeInputValue={this.onChangeUserName.bind(this)}
+        />
+        <CommonRayonButton
+          className={styles.submitButton}
+          title={'Submit'}
+          isBorrower={true}
+          onClickButton={this.onClickSubmitButton.bind(this)}
+        />
       </div>
     );
   }
