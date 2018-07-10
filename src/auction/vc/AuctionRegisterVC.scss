@@ -1,22 +1,19 @@
 @import '~assets/partial';
-.contentContainer {
-  .note {
-    margin-bottom: 30px;
-    div {
-      margin-bottom: 12px;
-      @include set-font(24px, $march-black);
-    }
-    p {
-      margin-bottom: 8px;
-      @include set-font(16px, $march-black);
-    }
-  }
-  .FinanceTag {
-    margin-top: 40px;
-  }
 
-  .buttonWrap {
-    margin-top: 20px;
-    text-align: center;
+.note {
+  margin-bottom: 30px;
+  .noticeTitle {
+    margin-bottom: 24px;
   }
+  p {
+    @include set-font(12px, $rayon-deepgray);
+  }
+}
+.FinanceTag {
+  margin-top: 10px;
+}
+
+.buttonWrap {
+  margin: 20px auto 0px;
+  text-align: center;
 }

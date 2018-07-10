@@ -3,7 +3,7 @@
   margin-bottom: 20px;
   .title {
     margin-bottom: 10px;
-    @include set-font(16px, $march-black);
+    @include set-font(14px, $rayon-deepgray);
   }
   input {
     display: none;
@@ -12,20 +12,35 @@
     display: inline-block;
     .checkBoxLabel {
       display: inline-block;
+      padding: 4px 12px;
       margin-right: 5px;
-      padding: 5px 10px;
-      border: 2px solid $march-lightgray;
-      border-radius: 10px;
-      color: $march-lightgray;
+      margin-bottom: 8px;
+      border-radius: 14px;
+      font-size: 12px;
       transition: all 0.1s linear;
       cursor: pointer;
+      &.borrower {
+        border: 1px solid $rayon-lake;
+        color: $rayon-lake;
+      }
+      &.lender {
+        border: 1px solid $rayon-berry;
+        color: $rayon-berry;
+      }
     }
   }
   .selected {
     .checkBoxLabel {
-      border: 2px solid $march-blue;
-      background-color: $march-blue;
-      color: white;
+      &.borrower {
+        border: 1px solid $rayon-lake;
+        background-color: $rayon-lake;
+        color: white;
+      }
+      &.lender {
+        border: 1px solid $rayon-berry;
+        background-color: $rayon-berry;
+        color: white;
+      }
     }
   }
 }

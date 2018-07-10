@@ -10,6 +10,7 @@ interface TagCheckBoxProps {
   dataList: string[];
   selectedList: string[];
   name: string;
+  isBorrower: boolean;
   onChangeCheckBox: (event) => void;
 }
 
@@ -20,21 +21,29 @@ class TagCheckBox extends Component<TagCheckBoxProps, {}> {
   };
 
   render() {
-    const { dataList, name, title, selectedList } = this.props;
+    const { dataList, name, title, selectedList, isBorrower } = this.props;
     return (
       <div className={classNames(styles.tagCheckBox, this.props.className)}>
         <div className={styles.title}>{title}</div>
         {dataList === undefined ? (
-          <div>태그 데이터가 없습니다</div>
+          <div>There is no tag data</div>
         ) : (
           dataList.map((item, index) => {
             return (
               <div
                 key={index}
-                className={classNames(styles.checkBox, { [styles.selected]: selectedList.indexOf(item) !== -1 })}
+                className={classNames(styles.checkBox, {
+                  [styles.selected]: selectedList.indexOf(item) !== -1,
+                })}
               >
                 <input onChange={this.props.onChangeCheckBox} type={'checkbox'} id={item} name={name} value={item} />
-                <label className={styles.checkBoxLabel} htmlFor={item}>
+                <label
+                  className={classNames(styles.checkBoxLabel, {
+                    [styles.borrower]: isBorrower,
+                    [styles.lender]: !isBorrower,
+                  })}
+                  htmlFor={item}
+                >
                   {item}
                 </label>
               </div>

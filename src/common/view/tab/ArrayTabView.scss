@@ -1,9 +1,14 @@
 @import '~assets/partial';
 
 .arrayTabView {
-  background-color: $rayon-lake;
   display: flex;
   flex-direction: row;
+  &.borrower {
+    background-color: $rayon-lake;
+  }
+  &.lender {
+    background-color: $rayon-berry;
+  }
   .tab {
     padding: 5px 0px;
     flex: 1;

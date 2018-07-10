@@ -1,43 +1,62 @@
 @import '~assets/partial';
 .contentContainer {
-  .title {
-    font-size: 24px;
-    margin: 30px 0px;
-  }
-  table {
-    width: 100%;
-    text-align: center;
-    .headerRow {
-      th {
-        padding: 10px 0px;
-        @include set-font(24px, $march-black);
-      }
+  .titleSection {
+    position: relative;
+    margin-bottom: 24px;
+    .title {
+      font-size: 24px;
     }
+    .registerBtn {
+      @include pos-abs(0px, 0px, initial, initial);
+    }
+  }
+  .emptyNote {
+    margin-top: 70px;
+    text-align: center;
+    font-size: 20px;
+  }
+  .auctionTable {
+    width: 100%;
+    text-align: left;
     .contentRow {
-      border-bottom: 1px solid $march-lightgray;
-      text-align: center;
-      td {
-        padding: 10px 15px;
+      border-top: 1px solid #f1f1f1;
+      &:last-child {
+        border-bottom: 1px solid #f1f1f1;
+      }
+      p {
+        display: inline-block;
+        padding-top: 5px;
         @include set-font(16px, $march-black);
       }
-      .userColumn {
-        width: 20%;
+      .contentNumber {
+        width: 10%;
+      }
+      .contentsTitle {
+        width: 90%;
       }
       .timeColumn {
-        width: 20%;
+        text-align: right;
+        padding-bottom: 5px;
+        font-size: 14px;
       }
     }
   }
+
+  .borrowerColor {
+    color: $rayon-lake;
+  }
+
+  .lenderColor {
+    color: $rayon-berry;
+  }
+
   .contentsTitle {
     cursor: pointer;
     &:hover {
       text-decoration: underline;
     }
   }
-  .listEmptyNote {
-    text-align: center;
-    @include set-font(36px, $march-black);
-  }
+
   .buttonWrap {
     margin-bottom: 30px;
     margin-right: 70px;

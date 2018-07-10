@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import ClassNames from 'classnames';
+import Modal from 'react-modal';
 
 // dc
 import AuctionDC from '../dc/AuctionDC';
@@ -9,19 +11,19 @@ import UserDC from 'user/dc/UserDC';
 import Auction from 'auction/model/Auction';
 
 // util
-import history from 'common/util/Histroy';
 import TimeConverter from 'common/util/TimeConverter';
 
 // view
 import Container from 'common/view/container/Container';
-import RayonBlueButton from 'common/view/button/RayonBlueButton';
-import TopBanner from 'common/view/banner/TopBanner';
+import CommonRayonButton from 'common/view/button/CommonRayonButton';
+import AuctionRegisterVC from 'auction/vc/AuctionRegisterVC';
 
 // styles
 import styles from './AuctionBoardVC.scss';
 
 interface AuctionBoardVCState {
   auctionContents: Auction[];
+  isSignUpModalOpen: boolean;
 }
 
 class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
@@ -31,7 +33,7 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
   };
 
   onClickRegisterButton() {
-    history.push('/auction/register');
+    this.setState({ ...this.state, isSignUpModalOpen: true });
   }
 
   async componentWillMount() {
@@ -39,46 +41,82 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
     this.setState({ ...this.state, auctionContents });
   }
 
+  onClickModal(isClose?: boolean) {
+    this.setState({ ...this.state, isSignUpModalOpen: !this.state.isSignUpModalOpen });
+  }
+
+  onRequestCloseModal() {
+    this.setState({ ...this.state, isSignUpModalOpen: false });
+  }
+
   render() {
     const { auctionContents } = this.state;
     const user = UserDC.getUser();
     return (
       <Fragment>
-        <TopBanner title={'Loan Requests'} description={''} />
         <Container className={styles.contentContainer}>
-          {user === undefined ||
-            (user.isBorrower && (
+          <div className={styles.titleSection}>
+            <p className={styles.title}>Loan Request</p>
+            {user.isBorrower && (
               <div className={styles.buttonWrap}>
-                <RayonBlueButton onClick={this.onClickRegisterButton.bind(this)} title={'New Request'} />
+                <CommonRayonButton
+                  className={styles.registerBtn}
+                  title={'New Request'}
+                  isBorrower={true}
+                  onClickButton={this.onClickRegisterButton.bind(this)}
+                />
               </div>
-            ))}
+            )}
+          </div>
           {auctionContents.length === 0 ? (
-            <div className={styles.listEmptyNote}>No Requests To Date</div>
+            <div
+              className={ClassNames(styles.emptyNote, {
+                [styles.borrowerColor]: user.isBorrower,
+                [styles.lenderColor]: !user.isBorrower,
+              })}
+            >
+              No Requests To Data
+            </div>
           ) : (
-            <table>
-              <tbody>
-                <tr className={styles.headerRow}>
-                  <th>No.</th>
-                  <th>Title</th>
-                  <th>User ID</th>
-                  <th>Date</th>
-                </tr>
-                {auctionContents.sort((a, b) => b.id - a.id).map((item, index) => {
-                  return (
-                    <tr className={styles.contentRow} key={index}>
-                      <td>{item.id + 1}</td>
-                      <td className={styles.contentsTitle}>
-                        <Link to={`/auction/content/${item.id}`}>{item.title}</Link>
-                      </td>
-                      <td className={styles.userColumn}>{item.userName}</td>
-                      <td className={styles.timeColumn}>{TimeConverter(item.timeStamp)}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+            <div className={styles.auctionTable}>
+              {auctionContents.sort((a, b) => b.id - a.id).map((item, index) => {
+                return (
+                  <div className={styles.contentRow} key={index}>
+                    <p className={styles.contentNumber}>{item.id + 1}</p>
+                    <p className={styles.contentsTitle}>
+                      <Link to={`/auction/content/${item.id}`}>{item.title}</Link>
+                    </p>
+                    <div className={styles.timeColumn}>{TimeConverter(item.timeStamp)}</div>
+                  </div>
+                );
+              })}
+            </div>
           )}
         </Container>
+        <Modal
+          ariaHideApp={false}
+          className={styles.modal}
+          isOpen={this.state.isSignUpModalOpen}
+          onRequestClose={this.onRequestCloseModal.bind(this)}
+          shouldCloseOnOverlayClick={true}
+          style={{
+            overlay: {
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            },
+            content: {
+              width: '85%',
+              top: '50%',
+              left: '50%',
+              right: 'auto',
+              bottom: 'auto',
+              marginRight: '-50%',
+              borderRadius: '0px',
+              transform: 'translate(-50%, -50%)',
+            },
+          }}
+        >
+          <AuctionRegisterVC onClickModal={this.onClickModal.bind(this)} />
+        </Modal>
       </Fragment>
     );
   }

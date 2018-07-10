@@ -1,14 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 // dc
 import UserDC from 'user/dc/UserDC';
 
 // view
 import ArrayTabView from 'common/view/tab/ArrayTabView';
-import RegisterFinanceInfoVC from 'user/vc/RegisterFinanceInfoVC';
-import AuctionBoardVC from 'auction/vc/AuctionBoardVC';
-import MessageBoardVC from 'message/vc/MessageBoardVC';
 
 // styles
 import styles from './TabNav.scss';
@@ -45,30 +43,17 @@ class TabNav extends Component<{}, TabNavState> {
     this.setState({ ...this.state, activedTabIndex: index });
   }
 
-  renderBorrowerContents(activedTabIndex: number) {
-    if (activedTabIndex === 0) {
-      return <RegisterFinanceInfoVC />;
-    } else if (activedTabIndex === 1) {
-      return <AuctionBoardVC />;
-    } else {
-      return <MessageBoardVC />;
-    }
-  }
-
-  renderLenderContents(activedTabIndex: number) {
-    if (activedTabIndex === 0) {
-      return <AuctionBoardVC />;
-    } else {
-      return <MessageBoardVC />;
-    }
-  }
-
   render() {
     const { user, activedTabIndex } = this.state;
-    const tabMenus = user.isBorrower ? ['Register Data', 'Loan', 'Mailbox'] : ['Loan Request', 'Mailbox'];
+    const tabMenus = user.isBorrower ? ['Register Data', 'Loan Request', 'Mailbox'] : ['Loan Request', 'Mailbox'];
     return (
       <Fragment>
-        <nav className={styles.navigationBar}>
+        <nav
+          className={classNames(styles.navigationBar, {
+            [styles.borrower]: user.isBorrower,
+            [styles.lender]: !user.isBorrower,
+          })}
+        >
           <Link to={'/'}>
             <img className={styles.logo} src={require('../../../assets/img/rayon-white-logo.png')} />
           </Link>
@@ -81,9 +66,9 @@ class TabNav extends Component<{}, TabNavState> {
         <ArrayTabView
           tabMenus={tabMenus}
           activedIndex={activedTabIndex}
+          isBorrower={user.isBorrower}
           onClickTabMenu={this.onClickTabMenu.bind(this)}
         />
-        {user.isBorrower ? this.renderBorrowerContents(activedTabIndex) : this.renderLenderContents(activedTabIndex)}
       </Fragment>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 // model
-import Message, { MsgTypes } from 'message/model/Message';
+import { MsgTypes } from 'message/model/Message';
 import Auction from 'auction/model/Auction';
 
 // dc
@@ -10,13 +10,13 @@ import MessageDC from 'message/dc/MessageDC';
 import UserDC from 'user/dc/UserDC';
 
 // util
-import TimeConverter from 'common/util/TimeConverter';
 import history from 'common/util/Histroy';
 
 // view
 import Container from 'common/view/container/Container';
-import TopBanner from 'common/view/banner/TopBanner';
 import TagCheckBox from 'common/view/input/TagCheckBox';
+import CommonKeyValueText from 'common/view/text/CommonKeyValueText';
+import CommonRayonButton from 'common/view/button/CommonRayonButton';
 
 // styles
 import styles from './AuctionContentVC.scss';
@@ -63,50 +63,39 @@ class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVC
     this.setState({ ...this.state, selectedTagList });
   }
 
+  onClickTitle() {
+    history.goBack();
+  }
+
   render() {
     const { content, selectedTagList } = this.state;
     const user = UserDC.getUser();
     console.log('content', content);
     return (
       <Fragment>
-        <TopBanner title={'Loan Request Details'} description={''} />
         {content !== undefined && (
           <Container className={styles.contentContainer}>
-            <div className={styles.block}>
-              <div className={styles.inlineValue}>
-                <div className={styles.subtitle}>User ID</div>
-                <div className={styles.value}>{content.userName}</div>
-              </div>
-              <div className={styles.inlineValue}>
-                <div className={styles.subtitle}>Date</div>
-                <div className={styles.value}>{TimeConverter(content.timeStamp)}</div>
-              </div>
+            <div className={styles.goBackTitle} onClick={this.onClickTitle}>
+              {'<   ' + content.title}
             </div>
-            <div className={styles.block}>
-              <div className={styles.subtitle}>Title</div>
-              <div className={styles.value}>{content.title}</div>
-            </div>
-            <div className={styles.block}>
-              <div className={styles.subtitle}>Content</div>
-              <div className={styles.bloackValue}>{content.content}</div>
-            </div>
-            <div className={styles.block}>
-              <TagCheckBox
-                title={'Available Personal Data'}
-                dataList={content.financeData}
-                selectedList={selectedTagList}
-                name={'financeData'}
-                onChangeCheckBox={this.onChangeCheckBox.bind(this)}
-              />
-            </div>
-
+            <CommonKeyValueText className={styles.contentValue} title={'User ID'} value={content.userName} />
+            <CommonKeyValueText className={styles.contentValue} title={'Title'} value={content.title} />
+            <CommonKeyValueText className={styles.contentValue} title={'Content'} value={content.content} />
+            <TagCheckBox
+              title={'Available Personal Data'}
+              dataList={content.financeData}
+              selectedList={selectedTagList}
+              name={'financeData'}
+              onChangeCheckBox={this.onChangeCheckBox.bind(this)}
+              isBorrower={user.isBorrower}
+            />
             {!user.isBorrower && (
-              <div
-                className={styles.submitButton}
-                onClick={() => this.onClickRequestButton(content.userAddress, content.id)}
-              >
-                Request Personal Data
-              </div>
+              <CommonRayonButton
+              className={styles.requestBtn}
+                onClickButton={() => this.onClickRequestButton(content.userAddress, content.id)}
+                isBorrower={user.isBorrower}
+                title={'Request Personal Data'}
+              />
             )}
           </Container>
         )}

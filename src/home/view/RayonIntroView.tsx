@@ -16,6 +16,7 @@ class RayonIntroView extends Component<{}, RayonIntroViewState> {
     super(props);
     this.state = {
       ...this.state,
+      isSignUpModalOpen: false,
     };
   }
 

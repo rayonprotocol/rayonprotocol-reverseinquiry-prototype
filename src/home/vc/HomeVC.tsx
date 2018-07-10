@@ -7,11 +7,6 @@ import User from 'user/model/User';
 import UserDC from 'user/dc/UserDC';
 
 // view
-import TabNav from 'common/view/nav/TabNav';
-import RayonIntroView from 'home/view/RayonIntroView';
-
-// styles
-import styles from './HomeVC.scss';
 
 interface HomeState {
   isSignUpModalOpen: boolean;
@@ -49,11 +44,9 @@ class HomeVC extends Component<{}, HomeState> {
 
   render() {
     const { user } = this.state;
-    return user === undefined ? (
-      <RayonIntroView />
-    ) : (
+    return (
       <div>
-        <TabNav />
+        asdf
       </div>
     );
   }

@@ -1,0 +1,15 @@
+@import '~assets/partial';
+
+.commonKeyValueText {
+  padding-bottom: 5px;
+  .title {
+    display: inline-block;
+    width: 30%;
+    @include set-font(14px, $rayon-deepgray);
+  }
+  .value {
+    display: inline-block;
+    width: 70%;
+    font-size: 16px;
+  }
+}
