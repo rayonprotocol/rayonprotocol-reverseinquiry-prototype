@@ -14,8 +14,11 @@ import UserDC from 'user/dc/UserDC';
 
 // view
 import Container from 'common/view/container/Container';
-import FocusAniInput from 'common/view/input/FocusAniInput';
 import ThreeValueText from 'common/view/text/ThreeValueText';
+import CommonRayonButton from 'common/view/button/CommonRayonButton';
+import RayonModalView from 'common/view/modal/RayonModalView';
+import ModalTitle from 'common/view/modal/ModalTitle';
+import CommonTextInput from 'common/view/input/CommonTextInput';
 
 // util
 import history from 'common/util/Histroy';
@@ -122,38 +125,27 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
 
   renderSpecialForm(message: Message) {
     const user = UserDC.getUser();
+    const isBorrower = user.isBorrower;
     switch (message.msgType) {
       case MsgTypes.REQUEST_PERSONAL_DATA:
         return (
-          user.isBorrower && (
-            <div className={styles.bottomWrap}>
-            <div className={styles.submitButton} onClick={() => this.onClickDataSubmit(message)}>
-                Send Data >
-              </div>
-            </div>
+          isBorrower && (
+            <CommonRayonButton className={styles.messageBtn} title={'Send Data'} onClickButton={() => this.onClickDataSubmit(message)} isBorrower={isBorrower}/>
           )
         );
       case MsgTypes.RESPONSE_PERSONAL_DATA:
         return (
-          !user.isBorrower && (
-            <div className={styles.bottomWrap}>
-              <div className={styles.submitButton} onClick={() => this.onClickOpenModal()}>
-                Send Offer >
-              </div>
-            </div>
+          !isBorrower && (
+            <CommonRayonButton className={styles.messageBtn} title={'Send Offer'} onClickButton={this.onClickOpenModal.bind(this)} isBorrower={isBorrower}/>
           )
         );
       case MsgTypes.OFFER_PRODUCT:
         return (
-          user.isBorrower && (
-            <div className={styles.bottomWrap}>
-              <div className={styles.submitButton} onClick={() => this.onClickOfferDeny(message)}>
-                Reject >
-              </div>
-              <div className={styles.submitButton} onClick={() => this.onClickOfferAccept(message)}>
-                Accept >
-              </div>
-            </div>
+          isBorrower && (
+            <Fragment>
+            <CommonRayonButton className={styles.messageBtn} title={'Reject'} onClickButton={() => this.onClickOfferDeny(message)} isBorrower={isBorrower}/>
+            <CommonRayonButton className={styles.messageBtn} title={'Accept'} onClickButton={() => this.onClickOfferAccept(message)} isBorrower={isBorrower}/>
+            </Fragment>
           )
         );
       case MsgTypes.ACCEPT_OFFER:
@@ -211,7 +203,6 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
   render() {
     const messages = MessageDC.getUserMessagesByAuctionId(this.state.contentIndex);
     const content = AuctionDC.getAuctionContentByIndex(this.state.contentIndex);
-    
     return (
       <Fragment>
         <Container className={styles.contentContainer}>
@@ -224,44 +215,25 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
             messages.map((item, index) => {
               return (
                 <div key={index} className={styles.message}>
-                  {this.renderMessageType(item.msgType)}
-                  <ThreeValueText title={'From'} firstValue={item.fromUserID} secondValue={item.fromAddress}/>                    
-                  <ThreeValueText title={'to'} firstValue={item.toUserID} secondValue={item.toAddress}/>
-                  {this.renderPayload(item.msgType, item.payload)}
+                  <div className={styles.messageBody}>
+                    {this.renderMessageType(item.msgType)}
+                    <ThreeValueText title={'From'} firstValue={item.fromUserID} secondValue={item.fromAddress}/>                    
+                    <ThreeValueText title={'to'} firstValue={item.toUserID} secondValue={item.toAddress}/>
+                    {this.renderPayload(item.msgType, item.payload)}
+                  </div>
                   {!item.isComplete && this.renderSpecialForm(item)}
                 </div>
               );
             })
           )}
         </Container>
-        <Modal
-              ariaHideApp={false}
-              className={styles.modal}
-              isOpen={this.state.isModalOpen}
-              onRequestClose={this.onRequestCloseModal.bind(this)}
-              shouldCloseOnOverlayClick={true}
-              style={{
-                overlay: {
-                  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                },
-              }}
-            >
-              <div>
-                <div className={styles.title}>Product Offer</div>
-                <div className={styles.formWarpper}>
-                <FocusAniInput title={'Amount'} onChangeInput={(event) => this.onChangeProductOfferInput(event, 0)} />
-                </div>
-                <div className={styles.formWarpper}>
-                <FocusAniInput title={'Interest'} onChangeInput={(event) => this.onChangeProductOfferInput(event, 1)} />
-                </div>
-                <div className={styles.formWarpper}>
-                <FocusAniInput title={'Maturity'} onChangeInput={(event) => this.onChangeProductOfferInput(event, 2)} />
-                </div>
-                <div className={styles.button}>
-                  <div onClick={this.onClickOfferSubmit.bind(this)}>Submit</div>
-                </div>
-              </div>
-        </Modal>
+        <RayonModalView isModalOpen={this.state.isModalOpen} onRequestClose={this.onRequestCloseModal.bind(this)}>
+                <ModalTitle className={styles.noticeTitle} title={'Product Offer'} onCloseRequest={this.onRequestCloseModal.bind(this)} />
+                <CommonTextInput className={styles.offerModalInput} title={'Amount'} onChangeInputValue={(event) => this.onChangeProductOfferInput(event, 0)} />
+                <CommonTextInput className={styles.offerModalInput} title={'Interest'} onChangeInputValue={(event) => this.onChangeProductOfferInput(event, 1)} />
+                <CommonTextInput className={styles.offerModalInput} title={'Maturity'} onChangeInputValue={(event) => this.onChangeProductOfferInput(event, 2)} />
+                <CommonRayonButton className={styles.sendOfferBtn} title={'Submit'} onClickButton={this.onClickOfferSubmit.bind(this)} isBorrower={false}/>
+        </RayonModalView>
       </Fragment>
     );
   }

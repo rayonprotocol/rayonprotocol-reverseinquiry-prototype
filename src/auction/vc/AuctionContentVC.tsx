@@ -91,7 +91,7 @@ class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVC
             />
             {!user.isBorrower && (
               <CommonRayonButton
-              className={styles.requestBtn}
+                className={styles.requestBtn}
                 onClickButton={() => this.onClickRequestButton(content.userAddress, content.id)}
                 isBorrower={user.isBorrower}
                 title={'Request Personal Data'}
