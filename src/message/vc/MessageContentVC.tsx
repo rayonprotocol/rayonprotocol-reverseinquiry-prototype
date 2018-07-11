@@ -9,12 +9,16 @@ import User from 'user/model/User';
 // dc
 import ContractDC from 'common/dc/ContractDC';
 import MessageDC from '../dc/MessageDC';
+import AuctionDC from 'auction/dc/AuctionDC';
 import UserDC from 'user/dc/UserDC';
 
 // view
 import Container from 'common/view/container/Container';
-import TopBanner from 'common/view/banner/TopBanner';
 import FocusAniInput from 'common/view/input/FocusAniInput';
+import ThreeValueText from 'common/view/text/ThreeValueText';
+
+// util
+import history from 'common/util/Histroy';
 
 // styles
 import styles from './MessageContentVC.scss';
@@ -57,7 +61,6 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
       requestResponeceData[item] = localFinanceData[item];
     });
     if (localFinanceData === null) return alert('Register your personal data first!');
-    console.log('message.msgIndex',message.msgIndex)
     MessageDC.insertMessage(
       message.fromAddress,
       message.auctionId,
@@ -98,7 +101,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     this.setState({ ...this.state, productOfferInput });
   }
 
-  renderTag = (msgType: MsgTypes) => {
+  renderMessageType = (msgType: MsgTypes) => {
     const borrowerMsgTypeNames = [
       'Received Data Request',
       'Sent Data',
@@ -107,14 +110,10 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
       'Rejected Offer',
     ];
     const lenderMsgTypeNames = ['Requested Data', 'Received Data', 'Loan Offered', 'Accepted Offer', 'Rejected Offer'];
+    const user = UserDC.getUser();
     return (
       <div
-        className={classNames(styles.tag, {
-          [styles.orangeTag]: msgType === MsgTypes.RESPONSE_PERSONAL_DATA,
-          [styles.pupleTag]: msgType === MsgTypes.OFFER_PRODUCT,
-          [styles.lightgrayTag]: msgType === MsgTypes.DENY_OFFER,
-          [styles.greenTag]: msgType === MsgTypes.ACCEPT_OFFER,
-        })}
+        className={classNames(styles.messageType, { [styles.borrower]: user.isBorrower, [styles.lender]: !user.isBorrower })}
       >
         {this.state.user.isBorrower ? borrowerMsgTypeNames[msgType - 1] : lenderMsgTypeNames[msgType - 1]}
       </div>
@@ -128,7 +127,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
         return (
           user.isBorrower && (
             <div className={styles.bottomWrap}>
-              <div className={styles.submitButton} onClick={() => this.onClickDataSubmit(message)}>
+            <div className={styles.submitButton} onClick={() => this.onClickDataSubmit(message)}>
                 Send Data >
               </div>
             </div>
@@ -164,24 +163,27 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     }
   }
 
+  renderPayloadTag(item: string, index: number) {
+    const user = UserDC.getUser();
+    return (<div className={classNames(styles.tag, { [styles.borrower]: user.isBorrower, [styles.lender]: !user.isBorrower })} key={index}>
+      {item}
+    </div>);
+  }
+
   renderPayload(msgType: MsgTypes, payload: string) {
     switch (msgType) {
       case MsgTypes.REQUEST_PERSONAL_DATA:
         const offeredData = payload.split('%%');
         return offeredData.map((item, index) => {
           return (
-            <div className={styles.payloadTag} key={index}>
-              {item}
-            </div>
+            this.renderPayloadTag(item, index)
           );
         });
       case MsgTypes.RESPONSE_PERSONAL_DATA:
         const financeData = JSON.parse(payload);
         return Object.keys(financeData).map((item, index) => {
           return (
-            <div className={styles.financeData} key={index}>
-              {item} : {financeData[item]}
-            </div>
+            this.renderPayloadTag(item + ':' + financeData[item], index)
           );
         });
       case MsgTypes.OFFER_PRODUCT:
@@ -189,9 +191,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
         const prefixStr = ['Amount', 'Interest', 'Maturity'];
           return offeredProductData.map((item, index) => {
             return (
-              <div className={styles.financeData} key={index}>
-                {prefixStr[index] + ':' + item}
-              </div>
+              this.renderPayloadTag(prefixStr[index] + ':' + item, index)
             );
         });
       case MsgTypes.ACCEPT_OFFER:
@@ -204,34 +204,31 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     }
   }
 
+  onClickTitle(){
+    history.goBack();
+  }
+
   render() {
     const messages = MessageDC.getUserMessagesByAuctionId(this.state.contentIndex);
+    const content = AuctionDC.getAuctionContentByIndex(this.state.contentIndex);
+    
     return (
       <Fragment>
         <Container className={styles.contentContainer}>
+        {content && <div className={styles.goBackTitle} onClick={this.onClickTitle}>
+          {'<   ' + content.title}
+        </div>}
           {messages.length === 0 ? (
             <div>No Messages</div>
           ) : (
             messages.map((item, index) => {
               return (
                 <div key={index} className={styles.message}>
-                  <div className={styles.tagWrap}>
-                    {this.renderTag(item.msgType)}
-                    {!item.isComplete && this.renderSpecialForm(item)}
-                  </div>
-                  <div className={styles.dataWrap}>
-                    <div className={styles.fromAddress}>
-                      <div className={styles.fromto}>From</div>
-                      <div className={styles.userID}>{item.fromUserID}</div>
-                      <div className={styles.userAddress}>{item.fromAddress}</div>
-                    </div>
-                    <div className={styles.toAddress}>
-                      <div className={styles.fromto}>To</div>
-                      <div className={styles.userID}>{item.toUserID}</div>
-                      <div className={styles.userAddress}>{item.toAddress}</div>
-                    </div>
-                    <div className={styles.payload}>{this.renderPayload(item.msgType, item.payload)}</div>
-                  </div>
+                  {this.renderMessageType(item.msgType)}
+                  <ThreeValueText title={'From'} firstValue={item.fromUserID} secondValue={item.fromAddress}/>                    
+                  <ThreeValueText title={'to'} firstValue={item.toUserID} secondValue={item.toAddress}/>
+                  {this.renderPayload(item.msgType, item.payload)}
+                  {!item.isComplete && this.renderSpecialForm(item)}
                 </div>
               );
             })

@@ -22,7 +22,7 @@ class AuctionDC {
     return this.auctionContents === undefined ? [] : this.auctionContents;
   }
 
-  getAuctionContent(index: number) {
+  getAuctionContentByIndex(index: number) {
     console.log('call', this.auctionContents[index], index);
     return this.auctionContents[index];
   }
@@ -32,7 +32,6 @@ class AuctionDC {
     const getContentResult = await instance.getContentList({
       from: ContractDC.getAccount(),
     });
-    console.log('getContentResult', getContentResult);
     return this.makeContentList(getContentResult, instance);
   }
 

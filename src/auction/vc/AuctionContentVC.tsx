@@ -44,7 +44,7 @@ class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVC
     } = this.props;
     const contentIndex = params.id;
     await AuctionDC.getContentList();
-    const content = AuctionDC.getAuctionContent(contentIndex);
+    const content = AuctionDC.getAuctionContentByIndex(contentIndex);
     this.setState({ ...this.state, contentIndex, content });
   }
 

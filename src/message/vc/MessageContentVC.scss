@@ -1,91 +1,46 @@
 @import '~assets/partial';
 
+.goBackTitle {
+  margin-top: 6px;
+  font-size: 18px;
+}
+
 .message {
-  padding: 20px 0px;
-  border-bottom: 1px solid black;
-  @include margin-vertical(30px);
-  .fromAddress,
-  .toAddress {
-    display: inline-block;
-    width: 50%;
-  }
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f1f1f1;
+  @include margin-vertical(24px);
 
-  .tagWrap {
-    margin-bottom: 15px;
-    @include clearfix();
-    .bottomWrap {
-      float: right;
-      .submitButton {
-        display: inline-block;
-        padding: 5px 15px;
-        color: #0084dd;
-        cursor: pointer;
-      }
-    }
-    .tag {
-      float: left;
-      padding: 5px 15px;
-      border-radius: 10px;
-      color: white;
-      background-color: $march-blue;
-    }
-    .orangeTag {
-      background-color: $march-orange;
-    }
-    .greenTag {
-      background-color: $march-green;
-    }
-    .pupleTag {
-      background-color: $march-puple;
-    }
-    .lightgrayTag {
-      background-color: $march-lightgray;
-    }
-    .dataWrap {
-      padding: 20px 0px;
-      border-bottom: 1px solid black;
-    }
-  }
-
-  .payload {
-    margin-top: 20px;
-    .payloadTag {
-      display: inline-block;
-      padding: 5px 15px;
-      margin-right: 5px;
-      border-radius: 10px;
-      color: white;
-      background-color: #0084dd;
-    }
-    .financeData {
-      display: inline-block;
-      margin-right: 5px;
-      padding: 5px 10px;
-      border: 1px solid $march-black;
-      border-radius: 10px;
-    }
-  }
-
-  .fromto {
-    margin-bottom: 8px;
-    font-size: 20px;
-    font-weight: $fontweight-bold;
-  }
-
-  .userID {
-    display: inline-block;
-    padding: 5px 10px;
-    border: 1px solid $march-green;
-    border-radius: 10px;
-  }
-
-  .userAddress {
-    display: inline-block;
-    margin-top: 10px;
-    margin-left: 8px;
-    border-bottom: 1px solid $march-blue;
+  .messageType {
     padding-bottom: 5px;
+    border-bottom: 1px solid #f1f1f1;
+    @include set-font(16px, $rayon-lake);
+    &.borrower {
+      color: $rayon-lake;
+    }
+    &.lender {
+      color: $rayon-berry;
+    }
   }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 14px;
+    margin-right: 5px;
+    &.borrower {
+      color: $rayon-lake;
+      border: 1px solid $rayon-lake;
+    }
+    &.lender {
+      color: $rayon-berry;
+      border: 1px solid $rayon-berry;
+    }
+  }
+  .dataWrap {
+    padding: 20px 0px;
+    border-bottom: 1px solid black;
+  }
+
   .complete {
     text-align: center;
     .note {

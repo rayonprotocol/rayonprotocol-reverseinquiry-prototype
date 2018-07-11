@@ -1,0 +1,25 @@
+@import '~assets/partial';
+
+.multipleValueText {
+  padding-bottom: 8px;
+  .title {
+    display: inline-block;
+    vertical-align: bottom;
+    width: 20%;
+    @include set-font(14px, $rayon-deepgray);
+  }
+  .firstValue {
+    display: inline-block;
+    vertical-align: bottom;
+    width: 30%;
+    font-size: 16px;
+  }
+  .secondValue {
+    display: inline-block;
+    vertical-align: bottom;
+    width: 50%;
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
