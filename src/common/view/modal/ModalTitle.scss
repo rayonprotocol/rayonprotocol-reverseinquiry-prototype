@@ -1,6 +1,7 @@
 @import '~assets/partial';
 
 .modalTitle {
+  font-weight: 700;
   @include clearfix();
   .title {
     font-size: 24px;

@@ -32,6 +32,7 @@ class ArrayTabView extends Component<ArrayTabViewProps, {}> {
         {tabMenus.map((item, index) => {
           return (
             <li
+              key={index}
               className={classNames(styles.tab, { [styles.activated]: index === activedIndex })}
               onClick={() => this.props.onClickTabMenu(index)}
             >

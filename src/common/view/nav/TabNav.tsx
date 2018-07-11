@@ -18,13 +18,34 @@ interface TabNavState {
 }
 
 class TabNav extends Component<{}, TabNavState> {
+  borrowerTabMenus = ['Register Data', 'Loan Request', 'Mailbox'];
+  lenderTabMenus = ['Loan Request', 'Mailbox'];
+
   constructor(props) {
     super(props);
     this.state = {
       ...this.state,
-      activedTabIndex: 0,
+      activedTabIndex: this.getActivatedTabIndexByUrl(),
       user: UserDC.getUser(),
     };
+  }
+
+  getActivatedTabIndexByUrl() {
+    const user = UserDC.getUser();
+    const currentBaseUrl = window.location.pathname.split('/')[1];
+    const tabMenus = user.isBorrower
+      ? this.mekeLowerCaseList(this.borrowerTabMenus)
+      : this.mekeLowerCaseList(this.lenderTabMenus);
+    return tabMenus.indexOf(currentBaseUrl) === -1 ? tabMenus.indexOf('loanrequest') : tabMenus.indexOf(currentBaseUrl);
+  }
+
+  mekeLowerCaseList(list: string[]) {
+    return list.map(item =>
+      item
+        .toLowerCase()
+        .split(' ')
+        .join('')
+    );
   }
 
   componentDidMount() {
@@ -45,7 +66,7 @@ class TabNav extends Component<{}, TabNavState> {
 
   render() {
     const { user, activedTabIndex } = this.state;
-    const tabMenus = user.isBorrower ? ['Register Data', 'Loan Request', 'Mailbox'] : ['Loan Request', 'Mailbox'];
+    const tabMenus = user.isBorrower ? this.borrowerTabMenus : this.lenderTabMenus;
     return (
       <Fragment>
         <nav

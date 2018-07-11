@@ -75,7 +75,7 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
                 [styles.lender]: !user.isBorrower,
               })}
             >
-              No Requests To Data
+              No Requests To Date
             </div>
           ) : (
             <div className={styles.auctionTable}>

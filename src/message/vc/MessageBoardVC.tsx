@@ -70,6 +70,7 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
         className={classNames(styles.tag, {
           [styles.borrower]: user.isBorrower,
           [styles.lender]: !user.isBorrower,
+          [styles.rejected]: tagMsg === 'Rejected Offer',
         })}
       >
         {tagMsg}

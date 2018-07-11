@@ -206,19 +206,21 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
           return this.renderPayloadTag(prefixStr[index] + ':' + item, index);
         });
       case MsgTypes.ACCEPT_OFFER:
-        return (
-          <div className={styles.complete}>
-            <div className={styles.note}>
-              Thank you for choosing our offer. You can sign up for your product by clicking on the link below
+        if (user.isBorrower) {
+          return (
+            <div className={styles.complete}>
+              <div className={styles.note}>
+                Thank you for choosing our offer. You can sign up for your product by clicking on the link below
+              </div>
+              <CommonRayonButton
+                className={styles.productLinkBtn}
+                title={'Product Link'}
+                onClickButton={() => history.goBack()}
+                isBorrower={user.isBorrower}
+              />
             </div>
-            <CommonRayonButton
-              className={styles.productLinkBtn}
-              title={'Product Link'}
-              onClickButton={() => history.goBack()}
-              isBorrower={user.isBorrower}
-            />
-          </div>
-        );
+          );
+        }
       default:
         return;
     }
@@ -231,6 +233,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
   render() {
     const messages = MessageDC.getUserMessagesByAuctionId(this.state.contentIndex);
     const content = AuctionDC.getAuctionContentByIndex(this.state.contentIndex);
+    const user = UserDC.getUser();
     return (
       <Fragment>
         <Container className={styles.contentContainer}>
@@ -247,8 +250,13 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
                 <div key={index} className={classNames(styles.message)}>
                   <div
                     className={classNames(styles.messageBody, {
-                      [styles.latestMessage]:
+                      [styles.latestBorrowerMessage]:
                         index === 0 &&
+                        user.isBorrower &&
+                        (item.msgType === MsgTypes.ACCEPT_OFFER || item.msgType === MsgTypes.OFFER_PRODUCT),
+                      [styles.latestLenderMessage]:
+                        index === 0 &&
+                        !user.isBorrower &&
                         (item.msgType === MsgTypes.ACCEPT_OFFER || item.msgType === MsgTypes.OFFER_PRODUCT),
                     })}
                   >

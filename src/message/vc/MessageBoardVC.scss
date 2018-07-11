@@ -53,6 +53,9 @@
           &.lender {
             color: $rayon-berry;
           }
+          &.rejected {
+            color: $rayon-deepgray;
+          }
         }
         .timeColumn {
           float: right;

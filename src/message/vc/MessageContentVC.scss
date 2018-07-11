@@ -4,6 +4,7 @@
   .goBackTitle {
     margin-top: 6px;
     font-size: 18px;
+    font-weight: $fontweight-bold;
   }
 
   .message {
@@ -14,10 +15,21 @@
       margin-bottom: 9px;
       padding-bottom: 20px;
       border-bottom: 1px solid #f1f1f1;
-      &.latestMessage {
+      &.latestBorrowerMessage,
+      &.latestLenderMessage {
         background-color: #e4f2f7;
         border-radius: 4px;
         padding: 10px 10px;
+        border-bottom: 1px solid white;
+        .messageType {
+          border-bottom: 1px solid white;
+        }
+        &.latestBorrowerMessage {
+          background-color: #e4f2f7;
+        }
+        &.latestLenderMessage {
+          background-color: #fae7e8;
+        }
       }
       .messageType {
         padding-bottom: 5px;
@@ -62,11 +74,12 @@
       margin: 0px 0px 0px auto;
     }
     .offerChoiceBlock {
-      text-align: right;
+      text-align: center;
       .rejectBtn {
         display: inline-block;
         margin-right: 10px;
-        background-color: $rayon-deepgray;
+        color: black;
+        background-color: #d8d8d8;
       }
       .acceptBtn {
         display: inline-block;
