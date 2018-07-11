@@ -23,4 +23,22 @@
       @include set-font(16px, $rayon-lake);
     }
   }
+  .displayBtn {
+    margin-bottom: 10px;
+    .borrowerBtn,
+    .lenderBtn {
+      display: inline-block;
+      width: 49%;
+      padding: 12px 0px;
+      color: white;
+      border-radius: 4px;
+    }
+    .borrowerBtn {
+      margin-right: 2%;
+      background-color: $rayon-lake;
+    }
+    .lenderBtn {
+      background-color: $rayon-berry;
+    }
+  }
 }

@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 
 // view
 import SignUpVC from 'user/vc/SignUpVC';
+import RayonModalView from 'common/view/modal/RayonModalView';
 
 // styles
 import styles from './RayonIntroView.scss';
@@ -35,35 +36,18 @@ class RayonIntroView extends Component<{}, RayonIntroViewState> {
           <img src={require('../images/rayon-logo.png')} />
         </div>
         <div className={styles.signUp}>
+          <div className={styles.displayBtn}>
+            <div className={styles.borrowerBtn}>Borrower</div>
+            <div className={styles.lenderBtn}>Lender</div>
+          </div>
           <div className={styles.signUpButton} onClick={this.onClickModal.bind(this)}>
             Sign Up
           </div>
         </div>
         {/* modal */}
-        <Modal
-          ariaHideApp={false}
-          className={styles.modal}
-          isOpen={this.state.isSignUpModalOpen}
-          onRequestClose={this.onRequestCloseModal.bind(this)}
-          shouldCloseOnOverlayClick={true}
-          style={{
-            overlay: {
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            },
-            content: {
-              width: '85%',
-              top: '50%',
-              left: '50%',
-              right: 'auto',
-              bottom: 'auto',
-              marginRight: '-50%',
-              borderRadius: '0px',
-              transform: 'translate(-50%, -50%)',
-            },
-          }}
-        >
+        <RayonModalView isModalOpen={this.state.isSignUpModalOpen} onRequestClose={this.onRequestCloseModal.bind(this)}>
           <SignUpVC onClickModal={this.onClickModal.bind(this)} />
-        </Modal>
+        </RayonModalView>
       </div>
     );
   }

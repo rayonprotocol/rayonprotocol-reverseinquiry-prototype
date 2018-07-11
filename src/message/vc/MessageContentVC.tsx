@@ -71,7 +71,6 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
       message.msgIndex,
       JSON.stringify(requestResponeceData)
     );
-
   }
 
   onClickOfferAccept(message: Message) {
@@ -83,19 +82,18 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
   }
 
   onRequestCloseModal() {
-    this.setState({...this.state, isModalOpen : false});
+    this.setState({ ...this.state, isModalOpen: false });
   }
 
-  onClickOpenModal(){
-    this.setState({...this.state, isModalOpen : true});
+  onClickOpenModal() {
+    this.setState({ ...this.state, isModalOpen: true });
   }
 
   onClickOfferSubmit() {
     const data = this.state.productOfferInput.join('##');
     const message = MessageDC.getUserMessagesByAuctionId(this.state.contentIndex)[0];
-    console.log(data);
     MessageDC.insertMessage(message.fromAddress, message.auctionId, MsgTypes.OFFER_PRODUCT, message.msgIndex, data);
-    this.setState({...this.state, isOpen : false});
+    this.setState({ ...this.state, isModalOpen: false });
   }
 
   onChangeProductOfferInput(event, index) {
@@ -116,7 +114,10 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     const user = UserDC.getUser();
     return (
       <div
-        className={classNames(styles.messageType, { [styles.borrower]: user.isBorrower, [styles.lender]: !user.isBorrower })}
+        className={classNames(styles.messageType, {
+          [styles.borrower]: user.isBorrower,
+          [styles.lender]: !user.isBorrower,
+        })}
       >
         {this.state.user.isBorrower ? borrowerMsgTypeNames[msgType - 1] : lenderMsgTypeNames[msgType - 1]}
       </div>
@@ -130,26 +131,44 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
       case MsgTypes.REQUEST_PERSONAL_DATA:
         return (
           isBorrower && (
-            <CommonRayonButton className={styles.messageBtn} title={'Send Data'} onClickButton={() => this.onClickDataSubmit(message)} isBorrower={isBorrower}/>
+            <CommonRayonButton
+              className={styles.messageBtn}
+              title={'Send Data'}
+              onClickButton={() => this.onClickDataSubmit(message)}
+              isBorrower={isBorrower}
+            />
           )
         );
       case MsgTypes.RESPONSE_PERSONAL_DATA:
         return (
           !isBorrower && (
-            <CommonRayonButton className={styles.messageBtn} title={'Send Offer'} onClickButton={this.onClickOpenModal.bind(this)} isBorrower={isBorrower}/>
+            <CommonRayonButton
+              className={styles.messageBtn}
+              title={'Send Offer'}
+              onClickButton={this.onClickOpenModal.bind(this)}
+              isBorrower={isBorrower}
+            />
           )
         );
       case MsgTypes.OFFER_PRODUCT:
         return (
           isBorrower && (
-            <Fragment>
-            <CommonRayonButton className={styles.messageBtn} title={'Reject'} onClickButton={() => this.onClickOfferDeny(message)} isBorrower={isBorrower}/>
-            <CommonRayonButton className={styles.messageBtn} title={'Accept'} onClickButton={() => this.onClickOfferAccept(message)} isBorrower={isBorrower}/>
-            </Fragment>
+            <div className={styles.offerChoiceBlock}>
+              <CommonRayonButton
+                className={classNames(styles.messageBtn, styles.rejectBtn)}
+                title={'Reject'}
+                onClickButton={() => this.onClickOfferDeny(message)}
+                isBorrower={isBorrower}
+              />
+              <CommonRayonButton
+                className={classNames(styles.messageBtn, styles.acceptBtn)}
+                title={'Accept'}
+                onClickButton={() => this.onClickOfferAccept(message)}
+                isBorrower={isBorrower}
+              />
+            </div>
           )
         );
-      case MsgTypes.ACCEPT_OFFER:
-        return <div className={styles.bottomWrap}>Application Completed</div>;
       default:
         break;
     }
@@ -157,46 +176,55 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
 
   renderPayloadTag(item: string, index: number) {
     const user = UserDC.getUser();
-    return (<div className={classNames(styles.tag, { [styles.borrower]: user.isBorrower, [styles.lender]: !user.isBorrower })} key={index}>
-      {item}
-    </div>);
+    return (
+      <div
+        className={classNames(styles.tag, { [styles.borrower]: user.isBorrower, [styles.lender]: !user.isBorrower })}
+        key={index}
+      >
+        {item}
+      </div>
+    );
   }
 
   renderPayload(msgType: MsgTypes, payload: string) {
+    const user = UserDC.getUser();
     switch (msgType) {
       case MsgTypes.REQUEST_PERSONAL_DATA:
         const offeredData = payload.split('%%');
         return offeredData.map((item, index) => {
-          return (
-            this.renderPayloadTag(item, index)
-          );
+          return this.renderPayloadTag(item, index);
         });
       case MsgTypes.RESPONSE_PERSONAL_DATA:
         const financeData = JSON.parse(payload);
         return Object.keys(financeData).map((item, index) => {
-          return (
-            this.renderPayloadTag(item + ':' + financeData[item], index)
-          );
+          return this.renderPayloadTag(item + ':' + financeData[item], index);
         });
       case MsgTypes.OFFER_PRODUCT:
-      const offeredProductData = payload.split('##');
+        const offeredProductData = payload.split('##');
         const prefixStr = ['Amount', 'Interest', 'Maturity'];
-          return offeredProductData.map((item, index) => {
-            return (
-              this.renderPayloadTag(prefixStr[index] + ':' + item, index)
-            );
+        return offeredProductData.map((item, index) => {
+          return this.renderPayloadTag(prefixStr[index] + ':' + item, index);
         });
       case MsgTypes.ACCEPT_OFFER:
-        return (<div className={styles.complete}>
-          <div className={styles.note}>Thank you for choosing our offer. You can sign up for your product by clicking on the link below</div>
-          <div className={styles.link}>product link: <a href="https://www.rayonprotocol.io/">https://www.rayonprotocol.io/</a></div>
-        </div>);
+        return (
+          <div className={styles.complete}>
+            <div className={styles.note}>
+              Thank you for choosing our offer. You can sign up for your product by clicking on the link below
+            </div>
+            <CommonRayonButton
+              className={styles.productLinkBtn}
+              title={'Product Link'}
+              onClickButton={() => history.goBack()}
+              isBorrower={user.isBorrower}
+            />
+          </div>
+        );
       default:
         return;
     }
   }
 
-  onClickTitle(){
+  onClickTitle() {
     history.goBack();
   }
 
@@ -206,19 +234,27 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     return (
       <Fragment>
         <Container className={styles.contentContainer}>
-        {content && <div className={styles.goBackTitle} onClick={this.onClickTitle}>
-          {'<   ' + content.title}
-        </div>}
+          {content && (
+            <div className={styles.goBackTitle} onClick={this.onClickTitle}>
+              {'<   ' + content.title}
+            </div>
+          )}
           {messages.length === 0 ? (
             <div>No Messages</div>
           ) : (
             messages.map((item, index) => {
               return (
-                <div key={index} className={styles.message}>
-                  <div className={styles.messageBody}>
+                <div key={index} className={classNames(styles.message)}>
+                  <div
+                    className={classNames(styles.messageBody, {
+                      [styles.latestMessage]:
+                        index === 0 &&
+                        (item.msgType === MsgTypes.ACCEPT_OFFER || item.msgType === MsgTypes.OFFER_PRODUCT),
+                    })}
+                  >
                     {this.renderMessageType(item.msgType)}
-                    <ThreeValueText title={'From'} firstValue={item.fromUserID} secondValue={item.fromAddress}/>                    
-                    <ThreeValueText title={'to'} firstValue={item.toUserID} secondValue={item.toAddress}/>
+                    <ThreeValueText title={'From'} firstValue={item.fromUserID} secondValue={item.fromAddress} />
+                    <ThreeValueText title={'to'} firstValue={item.toUserID} secondValue={item.toAddress} />
                     {this.renderPayload(item.msgType, item.payload)}
                   </div>
                   {!item.isComplete && this.renderSpecialForm(item)}
@@ -228,11 +264,32 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
           )}
         </Container>
         <RayonModalView isModalOpen={this.state.isModalOpen} onRequestClose={this.onRequestCloseModal.bind(this)}>
-                <ModalTitle className={styles.noticeTitle} title={'Product Offer'} onCloseRequest={this.onRequestCloseModal.bind(this)} />
-                <CommonTextInput className={styles.offerModalInput} title={'Amount'} onChangeInputValue={(event) => this.onChangeProductOfferInput(event, 0)} />
-                <CommonTextInput className={styles.offerModalInput} title={'Interest'} onChangeInputValue={(event) => this.onChangeProductOfferInput(event, 1)} />
-                <CommonTextInput className={styles.offerModalInput} title={'Maturity'} onChangeInputValue={(event) => this.onChangeProductOfferInput(event, 2)} />
-                <CommonRayonButton className={styles.sendOfferBtn} title={'Submit'} onClickButton={this.onClickOfferSubmit.bind(this)} isBorrower={false}/>
+          <ModalTitle
+            className={styles.noticeTitle}
+            title={'Product Offer'}
+            onCloseRequest={this.onRequestCloseModal.bind(this)}
+          />
+          <CommonTextInput
+            className={styles.offerModalInput}
+            title={'Amount'}
+            onChangeInputValue={event => this.onChangeProductOfferInput(event, 0)}
+          />
+          <CommonTextInput
+            className={styles.offerModalInput}
+            title={'Interest'}
+            onChangeInputValue={event => this.onChangeProductOfferInput(event, 1)}
+          />
+          <CommonTextInput
+            className={styles.offerModalInput}
+            title={'Maturity'}
+            onChangeInputValue={event => this.onChangeProductOfferInput(event, 2)}
+          />
+          <CommonRayonButton
+            className={styles.sendOfferBtn}
+            title={'Submit'}
+            onClickButton={this.onClickOfferSubmit.bind(this)}
+            isBorrower={false}
+          />
         </RayonModalView>
       </Fragment>
     );

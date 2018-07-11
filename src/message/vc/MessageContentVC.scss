@@ -14,6 +14,11 @@
       margin-bottom: 9px;
       padding-bottom: 20px;
       border-bottom: 1px solid #f1f1f1;
+      &.latestMessage {
+        background-color: #e4f2f7;
+        border-radius: 4px;
+        padding: 10px 10px;
+      }
       .messageType {
         padding-bottom: 5px;
         border-bottom: 1px solid #f1f1f1;
@@ -43,22 +48,29 @@
       }
 
       .complete {
-        text-align: center;
         .note {
-          text-align: center;
-          font-size: 18px;
-          color: blue;
           margin-bottom: 20px;
+          @include set-font(14px, $rayon-lake);
         }
-        .link {
-          text-align: center;
-          font-size: 24px;
-          color: red;
+        .productLinkBtn {
+          width: 240px;
+          margin: 0px auto;
         }
       }
     }
     .messageBtn {
       margin: 0px 0px 0px auto;
+    }
+    .offerChoiceBlock {
+      text-align: right;
+      .rejectBtn {
+        display: inline-block;
+        margin-right: 10px;
+        background-color: $rayon-deepgray;
+      }
+      .acceptBtn {
+        display: inline-block;
+      }
     }
   }
 }

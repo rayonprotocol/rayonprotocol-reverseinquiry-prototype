@@ -4,12 +4,15 @@
   padding-bottom: 5px;
   .title {
     display: inline-block;
+    vertical-align: top;
     width: 30%;
     @include set-font(14px, $rayon-deepgray);
   }
   .value {
     display: inline-block;
+    vertical-align: top;
     width: 70%;
+    word-break: break-word;
     font-size: 16px;
   }
 }
