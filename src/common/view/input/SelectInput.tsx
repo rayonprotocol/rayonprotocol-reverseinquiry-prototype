@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 
 // styles
-import styles from './CommonSelectInput.scss';
+import styles from './SelectInput.scss';
 
-interface CommonSelectInputProps {
+interface SelectInputProps {
   options: string[];
   title: string;
   className?: string;
   onChangeOption: (event) => void;
 }
 
-class CommonSelectInput extends Component<CommonSelectInputProps, {}> {
+class SelectInput extends Component<SelectInputProps, {}> {
   render() {
     const { options, title } = this.props;
     return (
@@ -31,4 +31,4 @@ class CommonSelectInput extends Component<CommonSelectInputProps, {}> {
   }
 }
 
-export default CommonSelectInput;
+export default SelectInput;

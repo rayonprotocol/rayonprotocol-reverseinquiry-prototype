@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 
 // styles
-import styles from './CommonKeyValueText.scss';
+import styles from './KeyValueText.scss';
 
-interface CommonKeyValueTextProps {
+interface KeyValueTextProps {
   title: string;
   value: string;
   className?: string;
 }
 
-class CommonKeyValueText extends Component<CommonKeyValueTextProps, {}> {
+class KeyValueText extends Component<KeyValueTextProps, {}> {
   render() {
     console.log('key', this.props.title);
     return (
@@ -22,4 +22,4 @@ class CommonKeyValueText extends Component<CommonKeyValueTextProps, {}> {
   }
 }
 
-export default CommonKeyValueText;
+export default KeyValueText;

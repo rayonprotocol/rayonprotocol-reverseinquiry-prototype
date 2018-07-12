@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react';
 
 // model
-import { MsgTypes } from 'message/model/Message';
 import Auction from 'auction/model/Auction';
+import { MsgTypes } from 'message/model/Message';
 
 // dc
+import UserDC from 'user/dc/UserDC';
 import AuctionDC from 'auction/dc/AuctionDC';
 import MessageDC from 'message/dc/MessageDC';
-import UserDC from 'user/dc/UserDC';
 
 // util
 import history from 'common/util/Histroy';
@@ -15,8 +15,8 @@ import history from 'common/util/Histroy';
 // view
 import Container from 'common/view/container/Container';
 import TagCheckBox from 'common/view/input/TagCheckBox';
-import CommonKeyValueText from 'common/view/text/CommonKeyValueText';
-import CommonRayonButton from 'common/view/button/CommonRayonButton';
+import KeyValueText from 'common/view/text/KeyValueText';
+import RayonButton from 'common/view/button/RayonButton';
 
 // styles
 import styles from './AuctionContentVC.scss';
@@ -77,9 +77,9 @@ class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVC
             <div className={styles.goBackTitle} onClick={this.onClickTitle}>
               {'<   ' + content.title}
             </div>
-            <CommonKeyValueText className={styles.contentValue} title={'User ID'} value={content.userName} />
-            <CommonKeyValueText className={styles.contentValue} title={'Title'} value={content.title} />
-            <CommonKeyValueText className={styles.contentValue} title={'Content'} value={content.content} />
+            <KeyValueText className={styles.contentValue} title={'User ID'} value={content.userName} />
+            <KeyValueText className={styles.contentValue} title={'Title'} value={content.title} />
+            <KeyValueText className={styles.contentValue} title={'Content'} value={content.content} />
             <TagCheckBox
               title={'Available Personal Data'}
               dataList={content.financeData}
@@ -89,7 +89,7 @@ class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVC
               isBorrower={user.isBorrower}
             />
             {!user.isBorrower && (
-              <CommonRayonButton
+              <RayonButton
                 className={styles.requestBtn}
                 onClickButton={() => this.onClickRequestButton(content.userAddress, content.id)}
                 isBorrower={user.isBorrower}

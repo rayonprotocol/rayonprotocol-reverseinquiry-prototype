@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import Modal from 'react-modal';
 
 // dc
 import AuctionDC from '../dc/AuctionDC';
@@ -15,8 +14,9 @@ import TimeConverter from 'common/util/TimeConverter';
 
 // view
 import Container from 'common/view/container/Container';
-import CommonRayonButton from 'common/view/button/CommonRayonButton';
 import AuctionRegisterVC from 'auction/vc/AuctionRegisterVC';
+import RayonModalView from 'common/view/modal/RayonModalView';
+import RayonButton from 'common/view/button/RayonButton';
 
 // styles
 import styles from './AuctionBoardVC.scss';
@@ -30,6 +30,7 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
   state = {
     ...this.state,
     auctionContents: [],
+    isSignUpModalOpen: false,
   };
 
   onClickRegisterButton() {
@@ -59,7 +60,7 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
             <p className={styles.title}>Loan Request</p>
             {user.isBorrower && (
               <div className={styles.buttonWrap}>
-                <CommonRayonButton
+                <RayonButton
                   className={styles.registerBtn}
                   title={'New Request'}
                   isBorrower={true}
@@ -93,30 +94,9 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
             </div>
           )}
         </Container>
-        <Modal
-          ariaHideApp={false}
-          className={styles.modal}
-          isOpen={this.state.isSignUpModalOpen}
-          onRequestClose={this.onRequestCloseModal.bind(this)}
-          shouldCloseOnOverlayClick={true}
-          style={{
-            overlay: {
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            },
-            content: {
-              width: '85%',
-              top: '50%',
-              left: '50%',
-              right: 'auto',
-              bottom: 'auto',
-              marginRight: '-50%',
-              borderRadius: '0px',
-              transform: 'translate(-50%, -50%)',
-            },
-          }}
-        >
+        <RayonModalView isModalOpen={this.state.isSignUpModalOpen} onRequestClose={this.onRequestCloseModal.bind(this)}>
           <AuctionRegisterVC onClickModal={this.onClickModal.bind(this)} />
-        </Modal>
+        </RayonModalView>
       </Fragment>
     );
   }

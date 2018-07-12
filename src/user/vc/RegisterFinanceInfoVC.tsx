@@ -10,7 +10,7 @@ import UserDC from 'user/dc/UserDC';
 
 // view
 import Container from 'common/view/container/Container';
-import CommonRayonButton from 'common/view/button/CommonRayonButton';
+import RayonButton from 'common/view/button/RayonButton';
 import RayonModalView from 'common/view/modal/RayonModalView';
 
 // styles
@@ -95,7 +95,7 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
           <Fragment>
             <div className={styles.titleSection}>
               <p className={styles.title}>Register Data</p>
-              <CommonRayonButton
+              <RayonButton
                 className={styles.addBtn}
                 title={'Add Data'}
                 onClickButton={this.onClickAddInputButton.bind(this)}
@@ -136,7 +136,7 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
                 })}
               </tbody>
             </table>
-            <CommonRayonButton
+            <RayonButton
               className={styles.dataSaveBtn}
               title={'Save'}
               onClickButton={this.onClickSubmitButton.bind(this)}
@@ -146,7 +146,7 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
         </Container>
         <RayonModalView onRequestClose={this.onRequestCloseModal.bind(this)} isModalOpen={isModalOpen}>
           <p> Your personal data was successfully saved</p>
-          <CommonRayonButton
+          <RayonButton
             className={styles.confirmButton}
             title={'Confirm'}
             onClickButton={this.onRequestCloseModal.bind(this)}

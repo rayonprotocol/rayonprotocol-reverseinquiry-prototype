@@ -5,8 +5,7 @@ import UserDC from 'user/dc/UserDC';
 
 // view
 import Container from 'common/view/container/Container';
-import RayonBlueButton from 'common/view/button/RayonBlueButton';
-import TopBanner from 'common/view/banner/TopBanner';
+// import RayonBlueButton from 'common/view/button/RayonBlueButton';
 
 // util
 import history from 'common/util/Histroy';
@@ -51,7 +50,6 @@ class AuthVC extends Component<{}, AuthVCState> {
 
     return (
       <Fragment>
-        <TopBanner title={'KYC Validation'} description={'KYC authentication required for personal data attestation'} />
         <Container className={styles.contentsContainer}>
           <div>Performing KYC authentication. Type "{this.REQUIRE_AGREE_TEXT}" to consent</div>
           <div className={styles.inputWrapper}>
@@ -63,7 +61,7 @@ class AuthVC extends Component<{}, AuthVCState> {
               <div>Check Spelling</div>
             </div>
           )}
-          <RayonBlueButton onClick={this.onClickSubmitButton.bind(this)} title={'Validate'} />
+          {/* <RayonBlueButton onClick={this.onClickSubmitButton.bind(this)} title={'Validate'} /> */}
         </Container>
       </Fragment>
     );

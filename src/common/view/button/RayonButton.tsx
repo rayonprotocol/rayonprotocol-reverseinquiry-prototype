@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 
 // styles
-import styles from './CommonRayonButton.scss';
+import styles from './RayonButton.scss';
 
-interface CommonRayonButtonProps {
+interface RayonButtonProps {
   title: string;
   className?: string;
   isBorrower: boolean;
   onClickButton: () => void;
 }
 
-class CommonRayonButton extends Component<CommonRayonButtonProps, {}> {
+class RayonButton extends Component<RayonButtonProps, {}> {
   render() {
     return (
       <div
@@ -27,4 +27,4 @@ class CommonRayonButton extends Component<CommonRayonButtonProps, {}> {
   }
 }
 
-export default CommonRayonButton;
+export default RayonButton;

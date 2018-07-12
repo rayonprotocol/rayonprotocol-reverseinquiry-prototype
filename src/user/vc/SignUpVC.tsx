@@ -6,9 +6,9 @@ import UserDC from 'user/dc/UserDC';
 // view
 
 import ModalTitle from 'common/view/modal/ModalTitle';
-import CommonSelectInput from 'common/view/input/CommonSelectInput';
-import CommonTextInput from 'common/view/input/CommonTextInput';
-import CommonRayonButton from 'common/view/button/CommonRayonButton';
+import SelectInput from 'common/view/input/SelectInput';
+import TextInput from 'common/view/input/TextInput';
+import RayonButton from 'common/view/button/RayonButton';
 
 // styles
 import styles from './SignUpVC.scss';
@@ -64,18 +64,18 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
     return (
       <div className={styles.contentsContainer}>
         <ModalTitle title={'Sign Up'} onCloseRequest={this.props.onClickModal} />
-        <CommonSelectInput
+        <SelectInput
           className={styles.selectInput}
           title={'type'}
           options={options}
           onChangeOption={this.onChangeOption.bind(this)}
         />
-        <CommonTextInput
+        <TextInput
           className={styles.selectInput}
           title={'User Name'}
           onChangeInputValue={this.onChangeUserName.bind(this)}
         />
-        <CommonRayonButton
+        <RayonButton
           className={styles.submitButton}
           title={'Submit'}
           isBorrower={true}

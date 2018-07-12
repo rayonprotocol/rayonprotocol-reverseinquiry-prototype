@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 
 // styles
-import styles from './CommonTextInput.scss';
+import styles from './TextInput.scss';
 
-interface CommonTextInputProps {
+interface TextInputProps {
   title: string;
   className?: string;
   onChangeInputValue: (event) => void;
 }
 
-class CommonTextInput extends Component<CommonTextInputProps, {}> {
+class TextInput extends Component<TextInputProps, {}> {
   render() {
     return (
       <div className={classNames(styles.commonInputText, this.props.className)}>
@@ -21,4 +21,4 @@ class CommonTextInput extends Component<CommonTextInputProps, {}> {
   }
 }
 
-export default CommonTextInput;
+export default TextInput;

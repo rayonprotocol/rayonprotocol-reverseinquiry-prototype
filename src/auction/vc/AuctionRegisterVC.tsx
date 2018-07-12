@@ -1,23 +1,17 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
-// util
-import history from 'common/util/Histroy';
+// dc
+import AuctionDC from 'auction/dc/AuctionDC';
+import ContractDC from 'common/dc/ContractDC';
 
 // view
-import Container from 'common/view/container/Container';
-import RayonBlueButton from 'common/view/button/RayonBlueButton';
-import TopBanner from 'common/view/banner/TopBanner';
-import FocusAniInput from 'common/view/input/FocusAniInput';
-import TagCheckBox from 'common/view/input/TagCheckBox';
-
-import CommonTextInput from 'common/view/input/CommonTextInput';
-import CommonRayonButton from 'common/view/button/CommonRayonButton';
+import TextInput from 'common/view/input/TextInput';
 import ModalTitle from 'common/view/modal/ModalTitle';
+import TagCheckBox from 'common/view/input/TagCheckBox';
+import RayonButton from 'common/view/button/RayonButton';
 
 // styles
 import styles from './AuctionRegisterVC.scss';
-import AuctionDC from 'auction/dc/AuctionDC';
-import ContractDC from 'common/dc/ContractDC';
 
 interface AuctionRegisterVCProps {
   onClickModal: () => void;
@@ -78,8 +72,8 @@ class AuctionRegisterVC extends Component<AuctionRegisterVCProps, AuctionRegiste
           <p>1. Wallet Address and User ID are automatically filled in</p>
           <p>2. Revisions cannot be made once published so user attention is advised</p>
         </div>
-        <CommonTextInput title={'Title'} onChangeInputValue={this.onChangeTitle.bind(this)} />
-        <CommonTextInput title={'Content'} onChangeInputValue={this.onChangeContent.bind(this)} />
+        <TextInput title={'Title'} onChangeInputValue={this.onChangeTitle.bind(this)} />
+        <TextInput title={'Content'} onChangeInputValue={this.onChangeContent.bind(this)} />
         <TagCheckBox
           className={styles.FinanceTag}
           title={'personal data to be provided'}
@@ -89,7 +83,7 @@ class AuctionRegisterVC extends Component<AuctionRegisterVCProps, AuctionRegiste
           selectedList={selectedTagList}
           isBorrower={true}
         />
-        <CommonRayonButton
+        <RayonButton
           title={'Submit'}
           className={styles.buttonWrap}
           isBorrower={true}

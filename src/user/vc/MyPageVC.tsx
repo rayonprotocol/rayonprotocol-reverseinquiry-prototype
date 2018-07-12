@@ -6,7 +6,6 @@ import UserDC from 'user/dc/UserDC';
 
 // view
 import Container from 'common/view/container/Container';
-import TopBanner from 'common/view/banner/TopBanner';
 
 // model
 import User from 'user/model/User';
@@ -45,7 +44,6 @@ class MyPageVC extends Component<MyPageVCProps, MyPageVCState> {
     console.log('financeData', financeData);
     return (
       <Fragment>
-        <TopBanner title={'My Page'} description={''} />
         <Container className={styles.contentsContainer}>
           <div className={styles.value}>
             <div className={styles.subTitle}>User ID</div>

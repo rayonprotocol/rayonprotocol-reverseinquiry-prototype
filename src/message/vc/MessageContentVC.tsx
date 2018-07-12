@@ -15,10 +15,10 @@ import UserDC from 'user/dc/UserDC';
 // view
 import Container from 'common/view/container/Container';
 import ThreeValueText from 'common/view/text/ThreeValueText';
-import CommonRayonButton from 'common/view/button/CommonRayonButton';
+import RayonButton from 'common/view/button/RayonButton';
 import RayonModalView from 'common/view/modal/RayonModalView';
 import ModalTitle from 'common/view/modal/ModalTitle';
-import CommonTextInput from 'common/view/input/CommonTextInput';
+import TextInput from 'common/view/input/TextInput';
 
 // util
 import history from 'common/util/Histroy';
@@ -134,7 +134,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
       case MsgTypes.REQUEST_PERSONAL_DATA:
         return (
           isBorrower && (
-            <CommonRayonButton
+            <RayonButton
               className={styles.messageBtn}
               title={'Send Data'}
               onClickButton={() => this.onClickDataSubmit(message)}
@@ -145,7 +145,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
       case MsgTypes.RESPONSE_PERSONAL_DATA:
         return (
           !isBorrower && (
-            <CommonRayonButton
+            <RayonButton
               className={styles.messageBtn}
               title={'Send Offer'}
               onClickButton={this.onClickOpenModal.bind(this)}
@@ -157,13 +157,13 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
         return (
           isBorrower && (
             <div className={styles.offerChoiceBlock}>
-              <CommonRayonButton
+              <RayonButton
                 className={classNames(styles.messageBtn, styles.rejectBtn)}
                 title={'Reject'}
                 onClickButton={() => this.onClickOfferDeny(message)}
                 isBorrower={isBorrower}
               />
-              <CommonRayonButton
+              <RayonButton
                 className={classNames(styles.messageBtn, styles.acceptBtn)}
                 title={'Accept'}
                 onClickButton={() => this.onClickOfferAccept(message)}
@@ -215,7 +215,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
               <div className={styles.note}>
                 Thank you for choosing our offer. You can sign up for your product by clicking on the link below
               </div>
-              <CommonRayonButton
+              <RayonButton
                 className={styles.productLinkBtn}
                 title={'Product Link'}
                 onClickButton={() => history.goBack()}
@@ -282,22 +282,22 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
             title={'Product Offer'}
             onCloseRequest={this.onRequestCloseModal.bind(this)}
           />
-          <CommonTextInput
+          <TextInput
             className={styles.offerModalInput}
             title={'Amount'}
             onChangeInputValue={event => this.onChangeProductOfferInput(event, 0)}
           />
-          <CommonTextInput
+          <TextInput
             className={styles.offerModalInput}
             title={'Interest'}
             onChangeInputValue={event => this.onChangeProductOfferInput(event, 1)}
           />
-          <CommonTextInput
+          <TextInput
             className={styles.offerModalInput}
             title={'Maturity'}
             onChangeInputValue={event => this.onChangeProductOfferInput(event, 2)}
           />
-          <CommonRayonButton
+          <RayonButton
             className={styles.sendOfferBtn}
             title={'Submit'}
             onClickButton={this.onClickOfferSubmit.bind(this)}

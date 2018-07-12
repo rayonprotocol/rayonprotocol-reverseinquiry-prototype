@@ -8,7 +8,7 @@ const getWeb3 = (): Web3 => {
     const provider = new Web3.providers.HttpProvider('http://localhost:7545');
     web3 = new Web3(provider);
   }
-  return web3
+  return web3;
 };
 
 export default getWeb3;
