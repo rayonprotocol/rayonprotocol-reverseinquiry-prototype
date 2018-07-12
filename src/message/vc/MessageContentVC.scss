@@ -40,7 +40,7 @@
       .messageType {
         padding-bottom: 5px;
         border-bottom: 1px solid #f1f1f1;
-        @include set-font(16px, #046d86);
+        @include set-font(16px, #046d86, $fontweight-bold);
         &.borrower {
           color: #046d86;
         }
