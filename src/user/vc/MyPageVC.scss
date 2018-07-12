@@ -5,7 +5,7 @@
   min-width: initial;
   .subTitle {
     margin-bottom: 10px;
-    @include set-font(24px, $march-black);
+    @include set-font(24px, $rayon-black);
   }
   .value {
     margin-bottom: 40px;
@@ -18,7 +18,7 @@
     display: inline-block;
     margin-right: 5px;
     padding: 5px 10px;
-    border: 1px solid $march-black;
+    border: 1px solid $rayon-black;
     border-radius: 10px;
   }
 

@@ -5,7 +5,7 @@
     margin-bottom: 24px;
     .title {
       font-size: 24px;
-      font-weight:bold;
+      font-weight: bold;
     }
   }
   .emptyNote {
@@ -29,7 +29,7 @@
       }
       p {
         display: inline-block;
-        @include set-font(16px, $march-black);
+        @include set-font(16px, $rayon-black);
       }
       .rightSection {
         width: 90%;

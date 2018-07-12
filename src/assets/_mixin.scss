@@ -31,7 +31,7 @@
 }
 
 // 사이즈, 컬러, 웨이트 기본 폰트 설정
-@mixin set-font($size: 18px, $color: $march-black, $weight: $fontweight-regular) {
+@mixin set-font($size: 18px, $color: $rayon-black, $weight: $fontweight-regular) {
   font-size: $size;
   color: $color;
   font-weight: $weight;
