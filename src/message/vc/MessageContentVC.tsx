@@ -102,7 +102,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     this.setState({ ...this.state, productOfferInput });
   }
 
-  renderMessageType = (msgType: MsgTypes) => {
+  renderMessageType = (msgType: MsgTypes, isLatestMsg?: boolean) => {
     const borrowerMsgTypeNames = [
       'Received Data Request',
       'Sent Data',
@@ -119,7 +119,10 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
           [styles.lender]: !user.isBorrower,
         })}
       >
-        {this.state.user.isBorrower ? borrowerMsgTypeNames[msgType - 1] : lenderMsgTypeNames[msgType - 1]}
+        <p>{this.state.user.isBorrower ? borrowerMsgTypeNames[msgType - 1] : lenderMsgTypeNames[msgType - 1]}</p>
+        {isLatestMsg &&
+          msgType === MsgTypes.OFFER_PRODUCT && <img src={require('../../assets/img/offer-recieved.png')} />}
+        {isLatestMsg && msgType === MsgTypes.ACCEPT_OFFER && <img src={require('../../assets/img/accept-offer.png')} />}
       </div>
     );
   };
@@ -247,20 +250,22 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
           ) : (
             messages.map((item, index) => {
               return (
-                <div key={index} className={classNames(styles.message)}>
-                  <div
-                    className={classNames(styles.messageBody, {
-                      [styles.latestBorrowerMessage]:
-                        index === 0 &&
-                        user.isBorrower &&
-                        (item.msgType === MsgTypes.ACCEPT_OFFER || item.msgType === MsgTypes.OFFER_PRODUCT),
-                      [styles.latestLenderMessage]:
-                        index === 0 &&
-                        !user.isBorrower &&
-                        (item.msgType === MsgTypes.ACCEPT_OFFER || item.msgType === MsgTypes.OFFER_PRODUCT),
-                    })}
-                  >
-                    {this.renderMessageType(item.msgType)}
+                <div
+                  key={index}
+                  className={classNames(styles.message, {
+                    [styles.latestBorrowerMessage]:
+                      index === 0 &&
+                      user.isBorrower &&
+                      (item.msgType === MsgTypes.ACCEPT_OFFER || item.msgType === MsgTypes.OFFER_PRODUCT),
+                    [styles.latestLenderMessage]:
+                      index === 0 &&
+                      !user.isBorrower &&
+                      (item.msgType === MsgTypes.ACCEPT_OFFER || item.msgType === MsgTypes.OFFER_PRODUCT),
+                  })}
+                >
+                  <div className={classNames(styles.messageBody)}>
+                    {this.renderMessageType(item.msgType, index === 0)}
+                    {/* {this} */}
                     <ThreeValueText title={'From'} firstValue={item.fromUserID} secondValue={item.fromAddress} />
                     <ThreeValueText title={'to'} firstValue={item.toUserID} secondValue={item.toAddress} />
                     {this.renderPayload(item.msgType, item.payload)}

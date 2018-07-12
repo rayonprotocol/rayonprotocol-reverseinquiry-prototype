@@ -8,38 +8,49 @@
   }
 
   .message {
-    margin-bottom: 24px;
-    .messageBody {
-      position: relative;
-      margin-top: 20px;
-      margin-bottom: 9px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid #f1f1f1;
-      &.latestBorrowerMessage,
-      &.latestLenderMessage {
-        background-color: #e4f2f7;
-        border-radius: 4px;
-        padding: 10px 10px;
-        border-bottom: 1px solid white;
-        .messageType {
-          border-bottom: 1px solid white;
-        }
-        &.latestBorrowerMessage {
-          background-color: #e4f2f7;
-        }
-        &.latestLenderMessage {
-          background-color: #fae7e8;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    &.latestBorrowerMessage,
+    &.latestLenderMessage {
+      border-radius: 4px;
+      padding: 20px 10px 0px;
+      .messageBody {
+        border: none;
+      }
+      .messageType {
+        text-align: center;
+        border: none;
+        p {
+          font-size: 24px;
+          font-weight: 700;
         }
       }
+    }
+    &.latestBorrowerMessage {
+      border: 2px solid #046d86;
+    }
+    &.latestLenderMessage {
+      border: 2px solid #b4363e;
+    }
+    .messageBody {
+      position: relative;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #f1f1f1;
+
       .messageType {
         padding-bottom: 5px;
         border-bottom: 1px solid #f1f1f1;
-        @include set-font(16px, $rayon-lake);
+        @include set-font(16px, #046d86);
         &.borrower {
-          color: $rayon-lake;
+          color: #046d86;
         }
         &.lender {
-          color: $rayon-berry;
+          color: #b4363e;
+        }
+        img {
+          display: block;
+          width: 120px;
+          margin: 24px auto;
         }
       }
 
@@ -49,20 +60,21 @@
         border-radius: 14px;
         margin-right: 5px;
         margin-bottom: 8px;
+        font-size: 12px;
         &.borrower {
-          color: $rayon-lake;
-          border: 1px solid $rayon-lake;
+          color: #046d86;
+          border: 1px solid #046d86;
         }
         &.lender {
-          color: $rayon-berry;
-          border: 1px solid $rayon-berry;
+          color: #b4363e;
+          border: 1px solid #b4363e;
         }
       }
 
       .complete {
         .note {
           margin-bottom: 20px;
-          @include set-font(14px, $rayon-lake);
+          @include set-font(14px, #046d86);
         }
         .productLinkBtn {
           width: 240px;
