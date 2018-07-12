@@ -37,10 +37,9 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
 
   componentWillMount() {
     const storeData = JSON.parse(localStorage.getItem(ContractDC.getAccount()));
+    if (storeData === null) return;
     const keys = Object.keys(storeData);
     let financeData: FinanceData[] = [];
-
-    if (storeData === null) return;
 
     keys.map(item => {
       let newFinanceData: FinanceData = new FinanceData();

@@ -5,6 +5,7 @@
     margin-bottom: 24px;
     .title {
       font-size: 24px;
+      font-weight:bold;
     }
     .registerBtn {
       @include pos-abs(0px, 0px, initial, initial);

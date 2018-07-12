@@ -30,6 +30,7 @@ class RayonModalView extends Component<RayonModalViewProps, {}> {
             bottom: 'auto',
             marginRight: '-50%',
             borderRadius: '0px',
+            border: '0px',
             transform: 'translate(-50%, -50%)',
           },
         }}

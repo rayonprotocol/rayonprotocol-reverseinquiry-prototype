@@ -7,6 +7,7 @@
     position: relative;
     .title {
       font-size: 24px;
+      font-weight:bold;
     }
     .addBtn {
       @include pos-abs(0px, 0px, initial, initial);
