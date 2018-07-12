@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import classNames from 'classnames';
-import Modal from 'react-modal';
 
 // model
 import Message, { MsgTypes } from 'message/model/Message';

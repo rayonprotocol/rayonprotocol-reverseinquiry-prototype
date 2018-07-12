@@ -9,14 +9,13 @@ import UserDC from 'user/dc/UserDC';
 
 // view
 import TabNav from 'common/view/nav/TabNav';
-import HomeVC from './home/vc/HomeVC';
 import RayonIntroView from 'home/view/RayonIntroView';
 
-import RegisterFinanceInfoVC from 'user/vc/RegisterFinanceInfoVC';
 import AuctionBoardVC from 'auction/vc/AuctionBoardVC';
-import AuctionContentVC from 'auction/vc/AuctionContentVC';
 import MessageBoardVC from 'message/vc/MessageBoardVC';
+import AuctionContentVC from 'auction/vc/AuctionContentVC';
 import MessageContentVC from 'message/vc/MessageContentVC';
+import RegisterFinanceInfoVC from 'user/vc/RegisterFinanceInfoVC';
 
 interface RouterState {
   user: User;
@@ -65,11 +64,11 @@ class Router extends Component<{}, RouterState> {
   ];
 
   componentDidMount() {
-    UserDC.addUserListener(HomeVC.name, this.onUpdateUser);
+    UserDC.addUserListener(Router.name, this.onUpdateUser);
     UserDC.getUser();
   }
   componentWillUnmount() {
-    UserDC.removeUserListener(HomeVC.name);
+    UserDC.removeUserListener(Router.name);
   }
 
   onUpdateUser = (user: User) => {

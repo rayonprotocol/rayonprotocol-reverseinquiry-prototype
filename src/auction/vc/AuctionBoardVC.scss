@@ -27,9 +27,9 @@
     width: 100%;
     text-align: left;
     .contentRow {
-      border-top: 1px solid #f1f1f1;
+      border-top: 1px solid $rayon-lightgray;
       &:last-child {
-        border-bottom: 1px solid #f1f1f1;
+        border-bottom: 1px solid $rayon-lightgray;
       }
       p {
         display: inline-block;

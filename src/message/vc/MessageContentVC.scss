@@ -27,25 +27,25 @@
       }
     }
     &.latestBorrowerMessage {
-      border: 2px solid #046d86;
+      border: 2px solid $rayon-darklake;
     }
     &.latestLenderMessage {
-      border: 2px solid #b4363e;
+      border: 2px solid $rayon-darkberry;
     }
     .messageBody {
       position: relative;
       padding-bottom: 12px;
-      border-bottom: 1px solid #f1f1f1;
+      border-bottom: 1px solid $rayon-lightgray;
 
       .messageType {
         padding-bottom: 5px;
-        border-bottom: 1px solid #f1f1f1;
-        @include set-font(18px, #046d86, $fontweight-bold);
+        border-bottom: 1px solid $rayon-lightgray;
+        @include set-font(18px, $rayon-darklake, $fontweight-bold);
         &.borrower {
-          color: #046d86;
+          color: $rayon-darklake;
         }
         &.lender {
-          color: #b4363e;
+          color: $rayon-darkberry;
         }
         img {
           display: block;
@@ -62,19 +62,19 @@
         margin-bottom: 8px;
         font-size: 12px;
         &.borrower {
-          color: #046d86;
-          border: 1px solid #046d86;
+          color: $rayon-darklake;
+          border: 1px solid $rayon-darklake;
         }
         &.lender {
-          color: #b4363e;
-          border: 1px solid #b4363e;
+          color: $rayon-darkberry;
+          border: 1px solid $rayon-darkberry;
         }
       }
 
       .complete {
         .note {
           margin-bottom: 20px;
-          @include set-font(14px, #046d86);
+          @include set-font(14px, $rayon-darklake);
         }
         .productLinkBtn {
           width: 240px;

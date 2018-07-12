@@ -41,7 +41,6 @@ class MyPageVC extends Component<MyPageVCProps, MyPageVCState> {
   };
   render() {
     const { financeData, user } = this.state;
-    console.log('financeData', financeData);
     return (
       <Fragment>
         <Container className={styles.contentsContainer}>

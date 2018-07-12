@@ -1,26 +1,28 @@
 // media query
 $mobile-width: 768px;
-$device-pc:unquote("min-width: #{$mobile-width - 1px}");
-$device-mobile: unquote("max-width: #{$mobile-width - 1px}");
+$device-pc: unquote('min-width: #{$mobile-width - 1px}');
+$device-mobile: unquote('max-width: #{$mobile-width - 1px}');
 $pc: 'pc';
 $mobile: 'mobile';
 
 // color
+$rayon-darkberry: rgb(180, 54, 100);
 $rayon-berry: rgb(240, 102, 111);
+$rayon-darklake: rgb(4, 109, 134);
 $rayon-lake: rgb(0, 151, 198);
 $rayon-cream: rgb(240, 102, 111);
 $rayon-black: rgb(51, 51, 51);
 $rayon-gray: rgb(156, 156, 156);
-$rayon-deepgray:rgb(136, 136, 136);
-$rayon-lightgray:rgb(241, 241, 241);
+$rayon-deepgray: rgb(136, 136, 136);
+$rayon-lightgray: rgb(241, 241, 241);
 $rayon-deepblue: rgb(7, 129, 158);
 $rayon-lightblue: rgb(133, 209, 221);
 
-$march-blue: #4C79F7;
+$march-blue: #4c79f7;
 $march-lightblue: #f1f5ff;
-$march-orange: #FFB700;
-$march-green: #2CCBD6;
-$march-puple: #BE6AD3;
+$march-orange: #ffb700;
+$march-green: #2ccbd6;
+$march-puple: #be6ad3;
 $march-black: #303030;
 
 $march-lightgray: #808080;

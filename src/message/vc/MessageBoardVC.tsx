@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 // model
-import Message, { MsgTypes } from 'message/model/Message';
+import Message from 'message/model/Message';
 import Auction from 'auction/model/Auction';
 import User from 'user/model/User';
 
