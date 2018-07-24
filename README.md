@@ -91,33 +91,38 @@ Click on **Sign Up** to begin.
 ![-1](https://user-images.githubusercontent.com/39897681/43125181-37709c6a-8f64-11e8-8e42-5dc6e4c4237a.png)
 #### Create Account
 
-Type user ID after selecting "Borrower" or "Lender" for account type using the dropdown menu. For demonstration purposes of this prototype, first create a Borrower account (we used "Alice" as the user ID). Click the **Submit** button and confirm the data publishing transaction on Metamask. Note that this confirmation will take some time. After confirming the transaction on your browser console, refresh the page which will complete the Create Account and login processes simultaneously.  Once logged in, your user ID and available menus for Rayon Borrowers will viewable at the top of the screen.
+Type user ID after selecting "Borrower" or "Lender" for account type using the dropdown menu. For demonstration purposes of this prototype, first create a Borrower account (we used **"Alice"** as the user ID). Click the **Submit** button and confirm the data publishing transaction on Metamask. Note that this confirmation will take some time. After confirming the transaction on your browser console, refresh the page which will complete the Create Account and login processes simultaneously.  Once logged in, your user ID and available menus for Rayon Borrowers will viewable at the top of the screen.
 
 ![-2](https://user-images.githubusercontent.com/39897681/43125283-87a589a2-8f64-11e8-94ce-1537b9ea39c7.png)
 
 ![-3](https://user-images.githubusercontent.com/39897681/43125387-d70812e4-8f64-11e8-8b1d-017db0ce9ae6.png)
-### Registering Personal Data (Borrower)
+### Registering Personal Data (Borrower - "Alice")
 
-First the Borrower must register his/her personal financial data. To do this, the Borrower clicks on the **Register Data** menu on the right-hand side of the Navigation Bar. While there will be multiple methods to gather and input personal data of borrowers either sourced from open APIs or through third party data providers, we have currently implemented our prototype so that Borrowers directly input their personal data. A Borrower can freely input key-value pairs for test purposes (e.g. Age-34; Income-$40,000; Credit Score-756). Click the **Add** button to add new personal data fields to input and make sure to click the **Save** button at the bottom once all inputs are complete. Such registered data gets recorded on the local drive, not on the blockchain.
+First the Borrower must register his/her personal financial data. To do this, the Borrower clicks on the **Register Data** menu at the top of the screen. While there will be multiple methods to gather and input personal data of borrowers either sourced from open APIs or through third party data providers, we have currently implemented our prototype so that Borrowers directly input their personal data. A Borrower can freely input key-value pairs for test purposes (e.g. age-34; income-$40,000; credit score-756). Click the **Add** button to add new personal data fields to input and make sure to click the **Save** button at the bottom once all inputs are complete. Such registered data gets recorded on the local drive, not on the blockchain.
 
 ![-4](https://user-images.githubusercontent.com/39897681/43128192-4860ec20-8f6c-11e8-865c-b344d8d2137b.png)
 
 ![-5](https://user-images.githubusercontent.com/39897681/43128199-4ffccf58-8f6c-11e8-9a83-32b87476abf2.png)
+
 Kindly note that Rayon will be developed so that no raw data of Rayon borrowers will be stored on Rayon Protocol. Personal borrower data in raw or processed formats will either be stored on users' local devices or on the servers of Rayon borrower DApps. Personal data of Rayon borrowers published on the Rayon blockchain will strictly be limited to data hash values and pseudonymized formats. 
 
-### Publish Loan Request (Borrower)
+### Publish Loan Request (Borrower - "Alice")
 
-Clicking on the **Loan Requests** menu on the Navigation Bar displays the list of loan requests published to date. Only Borrowers can write loan requests and the **New Request** button does not appear when logged in as a Lender. Clicking on the **New Request** button on the right displays the loan request write form. Here the Borrower writes the title and content of the loan request as well as selects the personal data fields to make available with the loan request. Complete the write form by clicking the **Submit** button.  This prompts you to confirm the transaction on Metamask. Confirm on Metamask and wait for the transaction to publish to the blockchain. Transaction confirmation can be checked on your browser console.  Once confirmed, refreshing the page will display the freshly published loan request in the Loan Requests list. In the screenshots below, Borrower created a loan request for a 1 year, $10,000 credit loan and indicated that his/her income, credit score, existing debt and monthly credit card usage data are available to lenders.
+Clicking on the **Loan Requests** menu on the top of the screen displays the list of loan requests published to date. Only Borrowers can write loan requests and the **New Request** button does not appear when logged in as a Lender. Clicking on the **New Request** button on the right displays the loan request write form. Here the Borrower writes the title and content of the loan request as well as selects the personal data fields to make available with the loan request. Complete the write form by clicking the **Submit** button.  This prompts you to confirm the transaction on Metamask. Confirm on Metamask and wait for the transaction to publish to the blockchain. Transaction confirmation can be checked on your browser console.  Once confirmed, refreshing the page will display the freshly published loan request in the Loan Requests list. In the screenshots below, Borrower ("Alice") created a loan request for a 1 year, $3,000 credit loan and indicated that her age, income and credit score data are available to lenders.
 
-![2018-07-06 4 27 51](https://user-images.githubusercontent.com/39897681/42374096-f3210ba0-8151-11e8-9994-906eeea8de5b.png)
+![-6](https://user-images.githubusercontent.com/39897681/43130066-bfccb2e0-8f70-11e8-85da-81ae7f2df80c.png)
 
-![2018-07-06 4 35 27](https://user-images.githubusercontent.com/39897681/42374201-5fcad484-8152-11e8-9345-73a5ca18d3f3.png)
+![-7](https://user-images.githubusercontent.com/39897681/43130122-e70bafb4-8f70-11e8-95dc-96a36af8f34e.png)
+
+![-8](https://user-images.githubusercontent.com/39897681/43130324-6cfc0312-8f71-11e8-9223-ad936720c28f.png)
 
 ### Check / View Published Loan Requests
 
 Publishing data to the blockchain requires time. While this will be short for a private network, publishing data to the actual Rayon Mainnet will require some time.  Successfully published loan requests will appear in the list of the Loan Requests page and clicking on the title area takes you to the details page of the clicked loan request. Both Borrowers and Lenders have access to the Loan Requests menu and published loan requests. Borrowers will be able to check that their loan requests are correctly and successfully published, while Lenders will be able to view published loan requests & request details posted by Borrowers.
 
-![2018-07-06 4 29 41](https://user-images.githubusercontent.com/39897681/42374134-1c39cd7e-8152-11e8-9d20-80dfbf55c95f.png)
+![-9](https://user-images.githubusercontent.com/39897681/43130364-82bc8f82-8f71-11e8-8b89-9689a3c6cde1.png)
+
+![-10](https://user-images.githubusercontent.com/39897681/43130379-8b9f41bc-8f71-11e8-8f29-49f04a29637d.png)
 
 ### Request for Additional Personal Data (Lender1)
 
