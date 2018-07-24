@@ -33,7 +33,7 @@ class RayonIntroView extends Component<{}, RayonIntroViewState> {
     return (
       <div className={styles.contentContainer}>
         <div className={styles.topMain}>
-          <img src={require('../images/rayon-logo.png')} />
+          <img src={require('../../assets/img/rayon-logo.png')} />
         </div>
         <div className={styles.signUp}>
           <div className={styles.displayBtn}>

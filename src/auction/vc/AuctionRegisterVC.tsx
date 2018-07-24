@@ -63,7 +63,8 @@ class AuctionRegisterVC extends Component<AuctionRegisterVCProps, AuctionRegiste
 
   render() {
     const { selectedTagList } = this.state;
-    const myFinanceData = Object.keys(JSON.parse(localStorage.getItem(ContractDC.getAccount())));
+    const localData = localStorage.getItem(ContractDC.getAccount());
+    let myFinanceData = localData !== undefined ? Object.keys(JSON.parse(localData)) : null;
     return (
       <div>
         <div className={styles.note}>
@@ -74,15 +75,17 @@ class AuctionRegisterVC extends Component<AuctionRegisterVCProps, AuctionRegiste
         </div>
         <TextInput title={'Title'} onChangeInputValue={this.onChangeTitle.bind(this)} />
         <TextInput title={'Content'} onChangeInputValue={this.onChangeContent.bind(this)} />
-        <TagCheckBox
-          className={styles.FinanceTag}
-          title={'personal data to be provided'}
-          dataList={myFinanceData}
-          onChangeCheckBox={this.onChangeTag.bind(this)}
-          name={'financeTag'}
-          selectedList={selectedTagList}
-          isBorrower={true}
-        />
+        {myFinanceData && (
+          <TagCheckBox
+            className={styles.FinanceTag}
+            title={'personal data to be provided'}
+            dataList={myFinanceData}
+            onChangeCheckBox={this.onChangeTag.bind(this)}
+            name={'financeTag'}
+            selectedList={selectedTagList}
+            isBorrower={true}
+          />
+        )}
         <RayonButton
           title={'Submit'}
           className={styles.buttonWrap}
