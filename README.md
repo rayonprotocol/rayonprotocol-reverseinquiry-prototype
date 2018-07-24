@@ -86,10 +86,9 @@ yarn start
 
 #### Start
 
-Click on Sign Up to begin.
+Click on **Sign Up** to begin.
 
 ![-1](https://user-images.githubusercontent.com/39897681/43125181-37709c6a-8f64-11e8-8e42-5dc6e4c4237a.png)
-
 #### Create Account
 
 Type user ID after selecting "Borrower" or "Lender" for account type using the dropdown menu. For demonstration purposes of this prototype, first create a Borrower account (we used "Alice" as the user ID). Click the **Submit** button and confirm the data publishing transaction on Metamask. Note that this confirmation will take some time. After confirming the transaction on your browser console, refresh the page which will complete the Create Account and login processes simultaneously.  Once logged in, your user ID and available menus for Rayon Borrowers will viewable at the top of the screen.
@@ -97,14 +96,13 @@ Type user ID after selecting "Borrower" or "Lender" for account type using the d
 ![-2](https://user-images.githubusercontent.com/39897681/43125283-87a589a2-8f64-11e8-94ce-1537b9ea39c7.png)
 
 ![-3](https://user-images.githubusercontent.com/39897681/43125387-d70812e4-8f64-11e8-8b1d-017db0ce9ae6.png)
-
 ### Registering Personal Data (Borrower)
 
 First the Borrower must register his/her personal financial data. To do this, the Borrower clicks on the **Register Data** menu on the right-hand side of the Navigation Bar. Clicking the menu launches the KYC screen. Borrower must successfully complete KYC in order to register his/her personal data. Given this is a prototype, we have implemented a simple KYC procedure where the Borrower simply types "agree", clicks the **Validate** button and then submits the transaction on Metamask in order to successfully perform KYC validation.  Once you submit on Metamask, the home screen will load. Wait for transaction confirmation and once confirmed from your browser console, click on the **Register Data** menu again which will load the personal data input screen. 
 
-![2018-07-06 4 23 31](https://user-images.githubusercontent.com/39897681/42373863-1dbac9a6-8151-11e8-8514-962d10e0dee5.png)
+![-4](https://user-images.githubusercontent.com/39897681/43125588-7426c5c0-8f65-11e8-8e1a-41220f8e8d71.png)
 
-![2018-07-06 4 23 38](https://user-images.githubusercontent.com/39897681/42373904-3b18f19e-8151-11e8-8475-1718fabaa610.png)
+![-5](https://user-images.githubusercontent.com/39897681/43125613-82f082a8-8f65-11e8-969d-5bef0879383c.png)
 
 While there will be multiple methods to gather and input personal data of borrowers either sourced from open APIs or through third party data providers, we have currently implemented our prototype so that Borrowers directly input their personal data. A Borrower can freely input key-value pairs for test purposes (e.g. Income-$50,000; Age-34; Credit Score-3; Existing Debt-$20,000; Monthly Credit Card Usage-$2,000). Click the **Add** button to add new personal data fields to input and make sure to click the **Save** button at the bottom once all inputs are complete. Such registered data gets recorded on the local drive, not on the blockchain.
 
