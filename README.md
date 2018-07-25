@@ -184,11 +184,11 @@ In order to respond to the addtional data request by Lender "CC Bank", log out o
 
 #### Loan Offer (Lender - "CC Bank")
 
-Log out of Metamask and re-login as Lender "CC Bank". After receiving & checking the requested addtional data from the Borrower "Alice" in its **Mailbox**, Lender "CC Bank" performs its internal credit assessment procedure to formulate & confirm final loan terms & conditions. This final loan offer can be sent to the Borrower "Alice" by clicking on the **Send Offer** button. A modal dialogue window will pop up where you can input your proposed loan amount, annual interest rate and maturity. Click the **Submit** button and confirm the transaction on Metamask. In the screenshot below, Lender "CC Bank" sent a 2 year, $2,000 loan offer at 3.8% interest. 
+Log out of Metamask and re-login as Lender "CC Bank". After receiving & checking the requested addtional data from the Borrower "Alice" in its **Mailbox**, Lender "CC Bank" performs its internal credit assessment procedure to formulate & confirm final loan terms & conditions. This final loan offer can be sent to the Borrower "Alice" by clicking on the **Send Offer** button. A modal dialogue window will pop up where you can input your proposed loan amount, annual interest rate and maturity. Click the **Submit** button and confirm the transaction on Metamask. In the screenshot below, Lender "CC Bank" sent a 1 year, $4,000 loan offer at 5.8% interest. 
 
 ![-5](https://user-images.githubusercontent.com/39897681/43175168-c63290ea-8ff8-11e8-8f63-ee6217d7f850.png)
 
-![-6](https://user-images.githubusercontent.com/39897681/43175179-d10d42f8-8ff8-11e8-9b32-8dcc22d81ee4.png)
+![image](https://user-images.githubusercontent.com/39897681/43181375-bb1f2870-9017-11e8-8251-551f2c915145.png)
 
 ### Loan Offer Reject/Accept (Borrower - "Alice")
 
