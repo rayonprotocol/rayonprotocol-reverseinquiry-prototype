@@ -88,7 +88,8 @@ yarn start
 
 Click on **Sign Up** to begin.
 
-![-1](https://user-images.githubusercontent.com/39897681/43125181-37709c6a-8f64-11e8-8e42-5dc6e4c4237a.png)
+![-1_resized](https://user-images.githubusercontent.com/39897681/43182698-5fb96166-901d-11e8-8f67-e15dac3dea34.png)
+
 #### Create Account
 
 Type user ID after selecting "Borrower" or "Lender" for account type using the dropdown menu. For demonstration purposes of this prototype, first create a Borrower account (we used **"Alice"** as the user ID). Click the **Submit** button and confirm the data publishing transaction on Metamask. Note that this confirmation will take some time. After confirming the transaction on your browser console, refresh the page which will complete the Create Account and login processes simultaneously.  Once logged in, your user ID and available menus for Rayon Borrowers will viewable at the top of the screen.
