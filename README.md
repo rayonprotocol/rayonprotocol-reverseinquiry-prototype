@@ -136,7 +136,7 @@ Now as a Lender, click on the **Loan Requests** menu and view the details on the
 
 ![-13](https://user-images.githubusercontent.com/39897681/43131382-d9bb0a46-8f73-11e8-9a53-fcad59f69b50.png)
 
-### Mailbox
+#### Mailbox
 
 Clicking on the **Mailbox** menu on the top of the screen displays the logged in user's message thread. Tags (bold & colored) are created below message titles which display the current status and transaction stage of the message.  As a Lender, you will be able to view your recently published additional data request message sent to the Borrower ("Alice") who published the loan request. Clicking on the title area of the message will display its details. Note that a "Requested Data" tag is now displayed below the message title.
 
@@ -144,7 +144,7 @@ Clicking on the **Mailbox** menu on the top of the screen displays the logged in
 
 ![-15](https://user-images.githubusercontent.com/39897681/43131646-7961c684-8f74-11e8-9d46-464ac4eb76a8.png)
 
-### Check Addtional Data Requests and Send Requested Data (Borrower - "Alice")
+#### Check Addtional Data Requests and Send Requested Data (Borrower - "Alice")
 
 In order to respond to the addtional data request by Lender "BB Bank", first log out of Metamask and re-login as the Borrower "Alice" then check your **Mailbox**. View the data request message sent from Lender "BB Bank" in your Mailbox and click on the **Send Data** button to send the requested additional data to Lender "BB Bank". You also need to confirm the transaction on Metamask. Once successfully sent, Borrower "Alice" can confirm her message thread with Lender "BB Bank" by clicking on the **Mailbox**. Current status will be updated and displayed as a tag below message titles (tag is now updated as "Sent Data") and details can be viewed by clicking on the title area of the message. 
 
@@ -154,33 +154,37 @@ In order to respond to the addtional data request by Lender "BB Bank", first log
 
 Please note that while we have implemented the direct sending of borrower data to lenders at this stage of our prototype, we plan to utilize a randomly generated PKI encryption system for the actual sending of borrower data to lenders through IPFS or cloud storage.
 
-### Loan Offer (Lender - "BB Bank")
+#### Loan Offer (Lender - "BB Bank")
 
-Log out of Metamask and re-login as Lender1. After checking & receiving the requested addtional data from the Borrower in its **Mailbox**, Lender1 runs its internal credit assessment process to formulate its final loan terms & conditions. Clicking on the **Send Offer** displays a modal dialogue window where you can input your proposed loan amount, annual interest rate and maturity. Click the **Submit** button and confirm the transaction on Metamask. In the screenshot below, Lender1 provided an offer for a 1 year, $12,000 loan at 5.4% interest.
+Log out of Metamask and re-login as Lender "BB Bank". After checking & receiving the requested addtional data from the Borrower "Alice" in its **Mailbox**, Lender "BB Bank" runs its internal credit assessment process to formulate its final loan terms & conditions. Clicking on the **Send Offer** displays a modal dialogue window where you can input your proposed loan amount, annual interest rate and maturity. Click the **Submit** button and confirm the transaction on Metamask. In the screenshot below, Lender "BB Bank" provided an offer for a 1 year, $3,000 loan at 5.8% interest.
 
-![2018-07-06 4 43 12](https://user-images.githubusercontent.com/39897681/42383650-cb683fb8-8172-11e8-82f5-12e82ea85e63.png)
+![-18](https://user-images.githubusercontent.com/39897681/43174844-3686aacc-8ff7-11e8-8f20-df4873ba5b30.png)
 
-![2018-07-06 4 43 52](https://user-images.githubusercontent.com/39897681/42383664-db19a672-8172-11e8-81fa-8641e9b6ce69.png)
+![-19](https://user-images.githubusercontent.com/39897681/43174859-4970c50a-8ff7-11e8-8452-a1fe6ef01c81.png)
 
 You can confirm that your loan offer was successfully sent to the Borrower by clicking on your **Mailbox**.
 
-![2018-07-06 4 44 07](https://user-images.githubusercontent.com/39897681/42383735-1d5dbd3e-8173-11e8-8072-bb322be9ec3d.png)
+![-20](https://user-images.githubusercontent.com/39897681/43174877-61ee0aa2-8ff7-11e8-9724-40561124da02.png)
 
-### Participation by Second Lender (Lender2)
+#### Participation by Second Lender (Lender - "CC Bank")
 
-Please note that this entire lender-side process can be repeated as another Lender. Multiple lenders are expected to participate in the Rayon ecosystem and as a result, Rayon borrowers will be able to receive multiple loan offers. Our prototype allows for the creation of multiple Borrower and Lender accounts for testing purposes. As such, create a new account as another Lender (this time we used "Lender2" as the user ID. Also note that you will need a new / different Metamask address to create a new lender account from the one used to create the "Lender1" ID), click on the **Loan Requests** menu, view the loan request details of the single loan request currently published by clicking on the title area and request for additional personal data of the borrower who published the loan request. For comparison purposes, request for different personal data fields from the earlier request already sent by Lender1. In the screenshot below, Lender2 didn't request for the Borrower's income as Lender1 did. Instead, Lender2 requested for the Borrower's credit score, existing debt and monthly credit card usage data.
+Please note that this entire lender-side process can be repeated as another Lender. Multiple lenders are expected to participate in the Rayon ecosystem and as a result, Rayon borrowers will be able to receive multiple loan offers. Our prototype allows for the creation of multiple Borrower and Lender accounts for testing purposes. As such, create a new account as another Lender (this time we used "Lender CC Bank" as the user ID. Also note that you will need a new / different Metamask address to create a new lender account from the one used to create the "BB Bank" ID), click on the **Loan Requests** menu, view the loan request details of the single loan request currently published by clicking on the title area and request for additional personal data of the borrower who published the loan request ("Alice"). For comparison purposes, request for different personal data fields from the earlier request already sent by Lender "BB Bank". In the screenshot below, Lender "CC Bank" didn't request for the Borrower's credit score as Lender "BB Bank" did. Instead, Lender "CC Bank" requested for the Borrower's age and income data.
 
-![2018-07-06 4 45 40](https://user-images.githubusercontent.com/39897681/42380203-082cc50a-8168-11e8-8aaf-81243419b445.png)
+![-1](https://user-images.githubusercontent.com/39897681/43174952-ae993b1a-8ff7-11e8-9aae-fbd0f74006e9.png)
 
-### Check Additional Data Request and Send Requested Data (Borrower)
+![-2](https://user-images.githubusercontent.com/39897681/43174964-bbfee1f6-8ff7-11e8-929d-8675c260801c.png)
 
-In order to respond to the addtional data request by Lender2, log out of Metamask, re-login as Borrower then check your **Mailbox**. View the data request message sent from Lender2 in your Mailbox and click on the **Send Data** button to send the requested additional data to Lender2. You also need to confirm the transaction on Metamask. Once successfully sent, the Borrower can confirm his/her message thread with Lender2 by clicking on the **Mailbox**. Current status will be updated and displayed as message tags and details can be viewed by clicking on the title area. 
+![-3](https://user-images.githubusercontent.com/39897681/43174977-cbc010ec-8ff7-11e8-854e-4c2b836007a5.png)
+
+#### Check Additional Data Request and Send Requested Data (Borrower - "Alice")
+
+In order to respond to the addtional data request by Lender "CC Bank", log out of Metamask, re-login as Borrower "Alice" then check your **Mailbox**. View the data request message sent from Lender "CC Bank" in your Mailbox and click on the **Send Data** button to send the requested additional data to Lender "CC Bank". You also need to confirm the transaction on Metamask. Once successfully sent, Borrower  "Alice" can confirm her message thread with Lender "CC Bank" by clicking on the **Mailbox**. Current status will be updated and displayed as message tags and details can be viewed by clicking on the title area. 
 
 ![2018-07-06 4 46 45](https://user-images.githubusercontent.com/39897681/42387950-e8012d7c-817e-11e8-84c2-12e462bb4afb.png)
 
 ![2018-07-06 4 47 25](https://user-images.githubusercontent.com/39897681/42387971-f441e112-817e-11e8-9a99-39544a10a294.png)
 
-### Loan Offer (Lender2)
+#### Loan Offer (Lender2)
 
 Log out of Metamask and re-login as Lender2. After receiving & checking the requested addtional data from the Borrower in its **Mailbox**, Lender2 performs its internal credit assessment procedure to formulate & confirm final loan terms & conditions. This final loan offer can be sent to the Borrower by clicking on the **Send Offer** button. A modal dialogue window will pop up where you can input your proposed loan amount, annual interest rate and maturity. Click the **Submit** button and confirm the transaction on Metamask. In the screenshot below, Lender2 sent a 1 year, $10,000 loan offer at 4.8% interest. 
 
