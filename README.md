@@ -88,7 +88,7 @@ yarn start
 
 Click on **Sign Up** to begin.
 
-![-1_resized](https://user-images.githubusercontent.com/39897681/43182698-5fb96166-901d-11e8-8f67-e15dac3dea34.png)
+![-1_resized](https://user-images.githubusercontent.com/39897681/43182751-a9ffe9ca-901d-11e8-89fe-dd4449b15b9d.png)
 
 #### Create Account
 
