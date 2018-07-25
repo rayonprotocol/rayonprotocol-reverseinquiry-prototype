@@ -199,6 +199,6 @@ Borrowers then either reject or accept loan offers received. If the Borrower cli
 ![cc bank_offer reject_alice mailbox](https://user-images.githubusercontent.com/39897681/43191750-ca30abee-9036-11e8-80a4-93d8436dbe6a.png)
 
 
-If the Borrower clicks on the **Accept** button for a received offer, the transaction needs to be published to the blockchain, so confirm the transaction on Metamask. Once confirmed, the Borrower will see a brief message from the Lender as well as a link which will take the Borrower to the online product registration screen to sign up for the loan under the terms as provided by the Lender. We accepted the offer from Lender1.
+If the Borrower clicks on the **Accept** button for a received offer, the transaction needs to be published to the blockchain, so confirm the transaction on Metamask. Once confirmed, the Borrower will see a brief message from the Lender as well as a link which will take the Borrower to the online product registration screen to sign up for the loan under the terms as provided by the Lender. We accepted the offer from "BB Bank".
 
 ![bb bank offer accept_alice mailbox](https://user-images.githubusercontent.com/39897681/43191789-dbf19546-9036-11e8-88aa-57b2162aa885.png)
