@@ -194,12 +194,11 @@ Log out of Metamask and re-login as Lender "CC Bank". After receiving & checking
 
 Borrowers are able to view all loan offers received from Lenders in their **Mailbox**.
 
-Borrowers then either reject or accept loan offers received. If the Borrower clicks the **Reject** button for a received offer, the rejected lender will be notified accordingly and the rejection will also be published to the blockchain which needs to be confirmed on Metamask. We rejected the offer from Lender2.
+Borrowers then either reject or accept loan offers received. If the Borrower clicks the **Reject** button for a received offer, the rejected lender will be notified accordingly and the rejection will also be published to the blockchain which needs to be confirmed on Metamask. We rejected the offer from "CC Bank".
 
-![2018-07-06 4 49 59](https://user-images.githubusercontent.com/39897681/42384777-ddf7d488-8175-11e8-9499-d11893256e43.png)
+![cc bank_offer reject_alice mailbox](https://user-images.githubusercontent.com/39897681/43191750-ca30abee-9036-11e8-80a4-93d8436dbe6a.png)
+
 
 If the Borrower clicks on the **Accept** button for a received offer, the transaction needs to be published to the blockchain, so confirm the transaction on Metamask. Once confirmed, the Borrower will see a brief message from the Lender as well as a link which will take the Borrower to the online product registration screen to sign up for the loan under the terms as provided by the Lender. We accepted the offer from Lender1.
 
-![2018-07-06 4 50 33](https://user-images.githubusercontent.com/39897681/42384866-261ef34a-8176-11e8-8cba-af17ab83af10.png)
-
-
+![bb bank offer accept_alice mailbox](https://user-images.githubusercontent.com/39897681/43191789-dbf19546-9036-11e8-88aa-57b2162aa885.png)
