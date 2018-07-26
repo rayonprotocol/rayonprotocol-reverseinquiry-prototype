@@ -87,8 +87,9 @@ yarn start
 #### Start
 
 Click on **Sign Up** to begin.
-
+<p align="center">
 <img src="https://user-images.githubusercontent.com/20614643/43250248-dfe29788-90f7-11e8-8707-62e017834bc2.png" width="250px"/>
+</p>
 
 #### Create Account
 
@@ -134,7 +135,9 @@ Publishing data to the blockchain requires time. While this will be short for a 
 
 Let's switch accounts and this time sign up and login as a Lender. Be advised that you must first log out of Metamask. Once logged out, click on the **Sign Up** button and this time, select Lender from the dropdown menu and input your User ID. (we used **"BB Bank"** as our user ID) Click the **Submit** button and confirm the transaction on Metamask. Wait for transaction confirmation, which can be checked on your brower console. After transaction confirmation, refresh the page to complete the sign up and login processes. 
 
+<p align="center">
 <img src="https://user-images.githubusercontent.com/20614643/43250598-b10b85b8-90f8-11e8-927d-80b671b06cfb.png" width="250px"/>
+</p>
 
 Now as a Lender, click on the **Loan Requests** menu and view the details on the recently published loan request by the Borrower ("Alice") by clicking on the title area of the request. A **Request Personal Data** button will be available only to Lenders. Select specific personal data fields to request which are available for the requesting Borrower then click on the **Request Personal Data** button. Confirm the transaction on Metamask to send the data request for the selected data to the Borrower. In the screenshot below, Lender ("BB Bank") requested for 2 (income and credit score) out of the 3 available personal data fields for the Borrower ("Alice").
 
@@ -174,7 +177,10 @@ Log out of Metamask and re-login as Lender "BB Bank". After checking & receiving
 
 You can confirm that your loan offer was successfully sent to the Borrower by clicking on your **Mailbox**.
 
- <img src="https://user-images.githubusercontent.com/20614643/43250845-42c12efe-90f9-11e8-992c-cf2d6dab05b9.png" width="250px"/>
+<p align="center">
+<img src="https://user-images.githubusercontent.com/20614643/43250845-42c12efe-90f9-11e8-992c-cf2d6dab05b9.png" width="250px"/>
+</p>
+
 
 #### Participation by Second Lender (Lender - "CC Bank")
 
