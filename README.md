@@ -218,7 +218,14 @@ Borrowers then either reject or accept loan offers received. If the Borrower cli
 
 If the Borrower clicks on the **Accept** button for a received offer, the transaction needs to be published to the blockchain, so confirm the transaction on Metamask. Once confirmed, the Borrower will see a brief message from the Lender as well as a link which will take the Borrower to the online product registration screen to sign up for the loan under the terms as provided by the Lender. We accepted the offer from "BB Bank".
 
+<p align="center">
 <img src="https://user-images.githubusercontent.com/20614643/43251057-dd22a478-90f9-11e8-9969-0945208cf3b5.png" width="250px"/>
 <img src="https://user-images.githubusercontent.com/20614643/43251058-dd4dd4c2-90f9-11e8-9833-1c698cbd04c9.png" width="250px"/>
+</p>
+
+<p align="center">
 <img src="https://user-images.githubusercontent.com/20614643/43251059-dd71056e-90f9-11e8-84c0-4a99900293a4.png" width="250px"/>
 <img src="https://user-images.githubusercontent.com/20614643/43251060-dd968910-90f9-11e8-82b5-ceeb0a2548e8.png" width="250px"/>
+</p>
+
+
