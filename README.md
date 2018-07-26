@@ -148,7 +148,7 @@ Now as a Lender, click on the **Loan Requests** menu and view the details on the
 Clicking on the **Mailbox** menu on the top of the screen displays the logged in user's message thread. Tags (bold & colored) are created below message titles which display the current status and transaction stage of the message.  As a Lender, you will be able to view your recently published additional data request message sent to the Borrower ("Alice") who published the loan request. Clicking on the title area of the message will display its details. Note that a "Requested Data" tag is now displayed below the message title.
 
 <p>
- <img src="https://user-images.githubusercontent.com/20614643/43250681-e43c163c-90f8-11e8-906b-2e29cf6d2fe8.png" />
+ <img src="https://user-images.githubusercontent.com/20614643/43251277-78fc216c-90fa-11e8-860f-17e64499d5a3.png" />
  <img src="https://user-images.githubusercontent.com/20614643/43250683-e46691a0-90f8-11e8-9d94-d146daae14c5.png" />
 </p>
 
