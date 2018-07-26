@@ -148,7 +148,7 @@ Now as a Lender, click on the **Loan Requests** menu and view the details on the
 Clicking on the **Mailbox** menu on the top of the screen displays the logged in user's message thread. Tags (bold & colored) are created below message titles which display the current status and transaction stage of the message.  As a Lender, you will be able to view your recently published additional data request message sent to the Borrower ("Alice") who published the loan request. Clicking on the title area of the message will display its details. Note that a "Requested Data" tag is now displayed below the message title.
 
 <p>
- <img src="https://user-images.githubusercontent.com/20614643/43251277-78fc216c-90fa-11e8-860f-17e64499d5a3.png" />
+ <img src="https://user-images.githubusercontent.com/20614643/43251349-9ec40770-90fa-11e8-9f29-c95a4a5c1b28.png" />
  <img src="https://user-images.githubusercontent.com/20614643/43250683-e46691a0-90f8-11e8-9d94-d146daae14c5.png" />
 </p>
 
@@ -157,7 +157,7 @@ Clicking on the **Mailbox** menu on the top of the screen displays the logged in
 In order to respond to the addtional data request by Lender "BB Bank", first log out of Metamask and re-login as the Borrower "Alice" then check your **Mailbox**. View the data request message sent from Lender "BB Bank" in your Mailbox and click on the **Send Data** button to send the requested additional data to Lender "BB Bank". You also need to confirm the transaction on Metamask. Once successfully sent, Borrower "Alice" can confirm her message thread with Lender "BB Bank" by clicking on the **Mailbox**. Current status will be updated and displayed as a tag below message titles (tag is now updated as "Sent Data") and details can be viewed by clicking on the title area of the message. 
 
 <p>
- <img src="https://user-images.githubusercontent.com/20614643/43250681-e43c163c-90f8-11e8-906b-2e29cf6d2fe8.png" />
+ <img src="https://user-images.githubusercontent.com/20614643/43251277-78fc216c-90fa-11e8-860f-17e64499d5a3.png" />
  <img src="https://user-images.githubusercontent.com/20614643/43250734-fd8949ca-90f8-11e8-8010-557afc752af4.png" />
 </p>
 
