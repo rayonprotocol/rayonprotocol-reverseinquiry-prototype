@@ -207,7 +207,7 @@ Log out of Metamask and re-login as Lender "CC Bank". After receiving & checking
 
 <p align="center">
  <img src="https://user-images.githubusercontent.com/20614643/43250965-98b2d5ce-90f9-11e8-988b-133d581cf469.png" width="250px"/>
- <img src="https://user-images.githubusercontent.com/20614643/43250966-98d51de6-90f9-11e8-9add-22b42f601dd5.png" width="250px"/>
+ <img src="https://user-images.githubusercontent.com/39897681/43308180-a431da68-91bb-11e8-8991-09996d77db39.png" width="250px"/>
 </p>
 
 #### Loan Offer Reject/Accept (Borrower - "Alice")
