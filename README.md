@@ -160,8 +160,8 @@ Clicking on the **Mailbox** menu on the top of the screen displays the logged in
 In order to respond to the addtional data request by Lender "BB Bank", first log out of Metamask and re-login as the Borrower "Alice" then check your **Mailbox**. View the data request message sent from Lender "BB Bank" in your Mailbox and click on the **Send Data** button to send the requested additional data to Lender "BB Bank". You also need to confirm the transaction on Metamask. Once successfully sent, Borrower "Alice" can confirm her message thread with Lender "BB Bank" by clicking on the **Mailbox**. Current status will be updated and displayed as a tag below message titles (tag is now updated as "Sent Data") and details can be viewed by clicking on the title area of the message. 
 
 <p align="center">
- <img src="https://user-images.githubusercontent.com/20614643/43251277-78fc216c-90fa-11e8-860f-17e64499d5a3.png" width="250px"/>
- <img src="https://user-images.githubusercontent.com/20614643/43250734-fd8949ca-90f8-11e8-8010-557afc752af4.png" width="250px"/>
+ <img src="https://user-images.githubusercontent.com/20614643/43307630-c1af89f2-91b9-11e8-8ac6-65c297fc2c7b.jpg" width="250px"/>
+ <img src="https://user-images.githubusercontent.com/20614643/43307629-c183e360-91b9-11e8-83a2-1f5b08a657be.jpg" width="250px"/>
 </p>
 
 Please note that while we have implemented the direct sending of borrower data to lenders at this stage of our prototype, we plan to utilize a randomly generated PKI encryption system for the actual sending of borrower data to lenders through IPFS or cloud storage.
@@ -188,7 +188,7 @@ Please note that this entire lender-side process can be repeated as another Lend
 
 <p align="center">
  <img src="https://user-images.githubusercontent.com/20614643/43250871-51fb6f9c-90f9-11e8-9709-d22b7f0c9b49.png" width="250px"/>
- <img src="https://user-images.githubusercontent.com/20614643/43250872-522154f0-90f9-11e8-8332-feee68488cec.png" width="250px"/>
+ <img src="https://user-images.githubusercontent.com/20614643/43307631-c1dd7a10-91b9-11e8-8752-f36e931894ba.jpg" width="250px"/>
 </p>
 
 #### Check Additional Data Request and Send Requested Data (Borrower - "Alice")
