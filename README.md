@@ -188,7 +188,7 @@ Please note that this entire lender-side process can be repeated as another Lend
 
 <p align="center">
  <img src="https://user-images.githubusercontent.com/20614643/43250871-51fb6f9c-90f9-11e8-9709-d22b7f0c9b49.png" width="250px"/>
- <img src="https://user-images.githubusercontent.com/20614643/43307631-c1dd7a10-91b9-11e8-8752-f36e931894ba.jpg" width="250px"/>
+ <img src="https://user-images.githubusercontent.com/39897681/43308049-250f3780-91bb-11e8-8f9b-7d83926566c5.png" width="250px"/>
 </p>
 
 #### Check Additional Data Request and Send Requested Data (Borrower - "Alice")
