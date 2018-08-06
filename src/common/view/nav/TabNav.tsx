@@ -76,7 +76,7 @@ class TabNav extends Component<{}, TabNavState> {
           })}
         >
           <Link to={'/'}>
-            <img className={styles.logo} src={require('../../../assets/img/rayon-white-logo.png')} />
+            <img className={styles.logo} src={require('../../../common/asset/img/rayon-white-logo.png')} />
           </Link>
           <div className={styles.user}>
             <img className={styles.profileImg} />

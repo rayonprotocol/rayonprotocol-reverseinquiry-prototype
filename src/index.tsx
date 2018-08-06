@@ -10,7 +10,7 @@ import history from 'common/util/Histroy';
 import App from './App';
 
 // style
-import './assets/style.scss';
+import './common/asset/style.scss';
 
 ReactDom.render(
   <AppContainer>

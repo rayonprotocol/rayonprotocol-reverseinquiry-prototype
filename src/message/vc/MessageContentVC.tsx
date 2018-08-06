@@ -120,8 +120,8 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
       >
         <p>{this.state.user.isBorrower ? borrowerMsgTypeNames[msgType - 1] : lenderMsgTypeNames[msgType - 1]}</p>
         {isLatestMsg &&
-          msgType === MsgTypes.OFFER_PRODUCT && <img src={require('../../assets/img/offer-recieved.png')} />}
-        {isLatestMsg && msgType === MsgTypes.ACCEPT_OFFER && <img src={require('../../assets/img/accept-offer.png')} />}
+          msgType === MsgTypes.OFFER_PRODUCT && <img src={require('../../common/asset/img/offer-recieved.png')} />}
+        {isLatestMsg && msgType === MsgTypes.ACCEPT_OFFER && <img src={require('../../common/asset/img/accept-offer.png')} />}
       </div>
     );
   };
