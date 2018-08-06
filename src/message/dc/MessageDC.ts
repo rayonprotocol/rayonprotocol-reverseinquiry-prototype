@@ -1,6 +1,9 @@
 import Message from '../model/Message';
 import groupBy from 'lodash.groupby';
 
+// agent
+import MessageServerAgent from 'message/agent/MessageServerAgent';
+
 // model
 import User from 'user/model/User';
 import Auction from 'auction/model/Auction';
@@ -58,7 +61,8 @@ class MessageDC {
   }
 
   async getUserMessages() {
-    return this.makeContentList();
+    this._messages = await MessageServerAgent.fetchUserMessages();
+    return this._messages;
   }
 
   getUserMessagesByAuctionId(auctionId: number): Message[] {
@@ -68,47 +72,8 @@ class MessageDC {
     });
   }
 
-  async makeContentList() {
-    const instance = ContractDC.getInstance(ContractInstance.MessageInstance);
-    const [msgIndexes, auctionIds, msgTypes, timeStamps, isCompletes, payloadsString] = await instance.getUserMessages({
-      from: ContractDC.getAccount(),
-    });
-
-    const [fromAddresses, toAddresses] = await instance.getMessageAddresses({
-      from: ContractDC.getAccount(),
-    });
-    const userInstance = ContractDC.getInstance(ContractInstance.UserInstance);
-    const user: User = UserDC.getUser();
-    const payloads = payloadsString.split('||');
-    const messages: Message[] = [];
-
-    for (let i = 0; i < fromAddresses.length; i++) {
-      const newMessage = new Message();
-
-      if (fromAddresses[i] !== user.userAddress && toAddresses[i] !== user.userAddress) continue;
-      newMessage.fromAddress = fromAddresses[i];
-      newMessage.toAddress = toAddresses[i];
-
-      newMessage.fromUserID = (await userInstance.getUser(fromAddresses[i], { from: user.userAddress }))[0];
-      newMessage.toUserID = (await userInstance.getUser(toAddresses[i], { from: user.userAddress }))[0];
-
-      newMessage.msgIndex = msgIndexes[i].toNumber();
-      newMessage.auctionId = auctionIds[i].toNumber();
-      newMessage.msgType = msgTypes[i].toNumber();
-      newMessage.timeStamp = timeStamps[i].toNumber();
-      newMessage.isComplete = isCompletes[i];
-      newMessage.payload = payloads[i];
-      messages.push(newMessage);
-    }
-    this._messages = messages.sort((a, b) => b.timeStamp - a.timeStamp);
-    return this._messages;
-  }
-
   async insertStartMessage(toAddress: string, auctionId: number, msgType: number, payload: string) {
-    const instance = ContractDC.getInstance(ContractInstance.MessageInstance);
-    await instance.insertStartMessage(toAddress, auctionId, msgType, payload, {
-      from: ContractDC.getAccount(),
-    });
+    MessageServerAgent.insertStartMessage(toAddress, auctionId, msgType, payload);
   }
 
   async insertMessage(
@@ -118,10 +83,7 @@ class MessageDC {
     priviousMsgIndex: number,
     payload: string
   ) {
-    const instance = ContractDC.getInstance(ContractInstance.MessageInstance);
-    await instance.insertMessage(toAddress, auctionId, msgType, priviousMsgIndex, payload, {
-      from: ContractDC.getAccount(),
-    });
+    MessageServerAgent.insertMessage(toAddress, auctionId, msgType, priviousMsgIndex, payload);
   }
 }
 
