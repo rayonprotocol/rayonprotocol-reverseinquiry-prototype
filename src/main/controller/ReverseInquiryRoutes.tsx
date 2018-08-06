@@ -17,11 +17,11 @@ import AuctionContentVC from 'auction/vc/AuctionContentVC';
 import MessageContentVC from 'message/vc/MessageContentVC';
 import RegisterFinanceInfoVC from 'user/vc/RegisterFinanceInfoVC';
 
-interface RouterState {
+interface ReverseInquiryRoutesState {
   user: User;
 }
 
-class Router extends Component<{}, RouterState> {
+class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
   constructor(props) {
     super(props);
     this.state = {
@@ -64,11 +64,11 @@ class Router extends Component<{}, RouterState> {
   ];
 
   componentDidMount() {
-    UserDC.addUserListener(Router.name, this.onUpdateUser);
+    UserDC.addUserListener(ReverseInquiryRoutes.name, this.onUpdateUser);
     UserDC.getUser();
   }
   componentWillUnmount() {
-    UserDC.removeUserListener(Router.name);
+    UserDC.removeUserListener(ReverseInquiryRoutes.name);
   }
 
   onUpdateUser = (user: User) => {
@@ -103,4 +103,4 @@ class Router extends Component<{}, RouterState> {
   }
 }
 
-export default Router;
+export default ReverseInquiryRoutes;

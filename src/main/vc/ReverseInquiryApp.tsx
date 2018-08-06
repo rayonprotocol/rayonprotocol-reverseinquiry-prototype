@@ -7,16 +7,17 @@ import { AppContainer } from 'react-hot-loader';
 
 import history from 'common/util/Histroy';
 
-import App from './App';
+// view
+import ReverseInquiryRoutes from 'main/controller/ReverseInquiryRoutes';
 
 // style
-import './common/asset/style.scss';
+import 'common/asset/style.scss';
 
 ReactDom.render(
   <AppContainer>
     <Router history={history}>
-      <App />
+      <ReverseInquiryRoutes />
     </Router>
   </AppContainer>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );

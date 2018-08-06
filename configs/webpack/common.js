@@ -11,7 +11,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     alias: {
-      assets: path.join(__dirname, '../../src/assets'),
+      main: path.join(__dirname, '../../src/main'),
       common: path.join(__dirname, '../../src/common'),
       home: path.join(__dirname, '../../src/home'),
       modal: path.join(__dirname, '../../src/modal'),
@@ -109,7 +109,7 @@ module.exports = {
     }),
     new CheckerPlugin(),
     new HtmlWebpackPlugin({
-      template: 'index.html',
+      template: './main/vc/index.html',
     }),
   ],
   performance: {
