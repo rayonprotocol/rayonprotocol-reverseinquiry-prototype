@@ -49,7 +49,6 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
   async onClickSubmitButton() {
     const { userName, isBorrower } = this.state;
     if (!this.validInputValues(userName, isBorrower)) return alert('type all input values');
-    console.log(userName, isBorrower);
     await UserDC.userSignUp(userName, isBorrower);
     this.props.onClickModal();
   }

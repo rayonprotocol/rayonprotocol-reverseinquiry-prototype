@@ -6,6 +6,7 @@ import ReverseInquiryServerAgent from 'common/agent/ReverseInquiryServerAgent';
 // model
 import User from 'user/model/User';
 import { ContractEvent } from 'common/model/CommonModel';
+import { RayonEvent } from 'common/model/RayonEvent';
 
 // util
 import parseTransactionResult from 'common/util/parseTransactionResult';
@@ -13,10 +14,16 @@ import parseTransactionResult from 'common/util/parseTransactionResult';
 class UserServerAgent extends ReverseInquiryServerAgent {
   constructor() {
     const UserContract = TruffleContract(require('../../../build/contracts/User.json'));
-    super(UserContract);
+    const watchEvents: Set<RayonEvent> = new Set([RayonEvent.LogAuthUser, RayonEvent.LogSignUpUser]);
+    super(UserContract, watchEvents);
   }
-  async fetchUser(account: string) {
-    return await this._contractInstance.getUser(account, { from: account });
+
+  async fetchUser() {
+    !this._contractInstance && (await this.fetchContractInstance());
+    const userAccount = this.getUserAccount();
+    console.log(userAccount, this._contractInstance);
+    const result = await this._contractInstance.getUser(userAccount, { from: userAccount });
+    return result;
   }
 
   async userSignUp(userName: string, isBorrower: boolean): Promise<boolean> {
