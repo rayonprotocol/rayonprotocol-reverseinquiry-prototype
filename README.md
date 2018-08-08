@@ -1,6 +1,7 @@
 # Rayon Protocol ("Rayon") Reverse Inquiry
 
 This is Rayon's reverse inquiry smart contract prototype based on Ethereum.  Parties to the smart contract are Borrowers and Lenders.
+[Here is the demo video.](https://www.youtube.com/watch?v=ue7vvKOjCDU)
 
 ## About
 
