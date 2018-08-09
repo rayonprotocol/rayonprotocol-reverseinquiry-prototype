@@ -1,8 +1,11 @@
 # Rayon Protocol ("Rayon") Reverse Inquiry
 
 This is Rayon's reverse inquiry smart contract prototype based on Ethereum.  Parties to the smart contract are Borrowers and Lenders.
+[Here is the demo video.](https://www.youtube.com/watch?v=ue7vvKOjCDU)
 
-## The Challenge
+## About
+
+### The Challenge
 
 Currently retail lending transactions proceed without accurate and sufficient information on both borrowers and lenders, resulting in time, money and emotional drain for individuals and significant costs and risk for lenders.
 
@@ -17,25 +20,25 @@ Currently retail lending transactions proceed without accurate and sufficient in
   - 3 out of the top 5 most expensive Google keywords are related to loans ("loans", "mortgage", "credit")
   - However, financial institutions can only conduct advertising on an unspecified basis in today's online advertising market
 
-## Solution
+### Solution
 
 Transform the transacting method of retail lending.  Enter Rayon reverse inquiries.
 
 Rayon enables the accurate exchange of borrower personal data and lender product data amongst borrowers and lenders, which will allow borrowers to reversely receive loan offers from lenders.  Rayon flips the direction from the current transacting method, whereby borrowers will be able to have loan offers come to them, as opposed to having to apply through available application channels on a piecemeal basis. 
 
 ### Rayon Reverse Inquiry Process Flow
-- Borrower registers his/her personal data
-- Borrower publishes loan request (indication of interest for loan to Lenders)
-- Lenders review loan request from Borrower
-- Interested Lenders request for additional personal data to Borrower
-- Borrower provides requested additional data to Lenders under his/her consent
-- Lenders provide final binding terms (loan offers) to Borrower on the basis of received addtional data from Borrower
-- Borrower receives and reviews final offers from Lenders
-- Borrower ultimately accepts most competitive offer received from Lenders
+ - Borrower registers his/her personal data
+ - Borrower publishes loan request (indication of interest for loan to Lenders)
+ - Lenders review loan request from Borrower
+ - Interested Lenders request for additional personal data to Borrower
+ - Borrower provides requested additional data to Lenders under his/her consent
+ - Lenders provide final binding terms (loan offers) to Borrower on the basis of received addtional data from Borrower
+ - Borrower receives and reviews final offers from Lenders
+ - Borrower ultimately accepts most competitive offer received from Lenders
 
-Kindly note that this is a prototype and as such, certain processes are currently implemented in rudimentary form. Such processes will be updated in accordance with the overall development progress of Rayon Protocol.
+## Getting Started
 
-### Development Environment Settings
+### Installing
 
 - first clone the reverse inquiry file to your local drive
 
@@ -228,4 +231,12 @@ If the Borrower clicks on the **Accept** button for a received offer, the transa
 <img src="https://user-images.githubusercontent.com/20614643/43251060-dd968910-90f9-11e8-82b5-ceeb0a2548e8.png" width="250px"/>
 </p>
 
+## Built With
 
+* [Truffle](https://truffleframework.com/) - Ethereum Smart Contract Framework
+* [Solidity](https://github.com/ethereum/solidity) - Used to develop the Reverse Inquiry smart contracts
+* [React](https://reactjs.org/) - Used to develop web-based user interface
+
+
+## Acknowledgments
+* Kindly note that this is a prototype and as such, certain processes are currently implemented in rudimentary form. Such processes will be updated in accordance with the overall development progress of Rayon Protocol.
