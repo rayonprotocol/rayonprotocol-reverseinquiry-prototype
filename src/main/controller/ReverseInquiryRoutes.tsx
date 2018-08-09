@@ -3,12 +3,13 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 // model
 import User from 'user/model/User';
+import { RayonEvent, RayonEventResponse, LogSignUpEventArgs, LogSignUpEventArgsIndex } from 'common/model/RayonEvent';
 
 // dc
 import UserDC from 'user/dc/UserDC';
 
 // view
-// import TabNav from 'common/view/nav/TabNav';
+import TabNav from 'common/view/nav/TabNav';
 import RayonIntroView from 'home/view/RayonIntroView';
 
 // import AuctionBoardVC from 'auction/vc/AuctionBoardVC';
@@ -18,14 +19,14 @@ import RayonIntroView from 'home/view/RayonIntroView';
 // import RegisterFinanceInfoVC from 'user/vc/RegisterFinanceInfoVC';
 
 interface ReverseInquiryRoutesState {
-  isUser: boolean;
+  user: User;
 }
 
 class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
   constructor(props) {
     super(props);
     this.state = {
-      isUser: false,
+      ...this.state,
     };
   }
   route = [
@@ -62,36 +63,64 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
   ];
 
   async componentWillMount() {
+    // check user registered
     const isUser = await UserDC.isUser();
-    this.setState({ ...this.state, isUser });
+
+    // watch sign up event for getting new user infomation
+    if (!isUser) {
+      UserDC.addEventListener(RayonEvent.LogSignUpUser, this.onUserSignUp.bind(this));
+      return;
+    }
+
+    // when user is already registered, fetch user information from blockchain
+    const fetchUserResult = await UserDC.fetchUser();
+    const user: User = {
+      userAddress: fetchUserResult.userAddress,
+      userName: fetchUserResult.userName,
+      isBorrower: fetchUserResult.isBorrower,
+    };
+
+    this.setState({ ...this.state, user });
+  }
+
+  componentWillUnmount() {
+    UserDC.addEventListener(RayonEvent.LogSignUpUser, this.onUserSignUp.bind(this));
+  }
+
+  onUserSignUp(event: RayonEventResponse<LogSignUpEventArgs>) {
+    const user: User = {
+      userAddress: event.args.userAddress,
+      userName: event.args.userName,
+      isBorrower: event.args.isBorrower,
+    };
+    this.setState({ ...this.state, user });
   }
 
   render() {
-    const { isUser } = this.state;
-    console.log('render isUser', isUser);
+    const { user } = this.state;
+    console.log('user', user);
     return (
-      <RayonIntroView />
-      // <Fragment>
-      //   {user === undefined ? (
-      //     <RayonIntroView />
-      //   ) : (
-      //     <BrowserRouter>
-      //       <Fragment>
-      //         <TabNav />
-      //         {this.route.map((item, index) => {
-      //           return (
-      //             <Route
-      //               key={index}
-      //               exact={item.exact}
-      //               path={item.path}
-      //               render={props => <item.component {...props} {...this.props} />}
-      //             />
-      //           );
-      //         })}
-      //       </Fragment>
-      //     </BrowserRouter>
-      //   )}
-      // </Fragment>
+      <Fragment>
+        {user === undefined ? (
+          <RayonIntroView />
+        ) : (
+          <BrowserRouter>
+            <Fragment>
+              <TabNav user={user} />
+              {/* {this.route.map((item, index) => {
+                return (
+                  <Route
+                    key={index}
+                    exact={item.exact}
+                    path={item.path}
+                    render={props => <item.component {...props} {...this.props} />}
+                  />
+                );
+              })} */}
+            </Fragment>
+          </BrowserRouter>
+        )}
+      </Fragment>
     );
   }
 }

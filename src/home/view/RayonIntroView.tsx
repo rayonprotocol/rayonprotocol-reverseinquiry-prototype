@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Modal from 'react-modal';
 
 // view
 import SignUpVC from 'user/vc/SignUpVC';

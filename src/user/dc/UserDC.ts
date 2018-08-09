@@ -1,49 +1,41 @@
 // agent
 import UserServerAgent from 'user/agent/UserServerAgent';
 
+// dc
+import RayonDC from 'common/dc/RayonDC';
+
 // model
 import User from '../model/User';
-import { RayonEvent } from 'common/model/RayonEvent';
+import { RayonEvent, RayonEventResponse, LogSignUpEventArgs } from 'common/model/RayonEvent';
+import { listeners } from 'cluster';
 
-type UserListner = (user: User) => void;
+type EventListner = (event) => void;
 
-class UserDC {
-  private user: User;
-  private userListeners: Set<UserListner>;
-
+class UserDC extends RayonDC {
   constructor() {
-    this.userListeners = new Set();
+    super();
     UserServerAgent.setEventListner(this.onEvent.bind(this));
-  }
-
-  /*
-  related to event functions
-  */
-
-  public addUserListener(listener: UserListner) {
-    !this.userListeners.has(listener) && this.userListeners.add(listener);
-  }
-
-  public removeUserListener(listener: UserListner) {
-    this.userListeners.has(listener) && this.userListeners.delete(listener);
   }
 
   /*
   event handler
   */
   private onEvent(eventType: RayonEvent, event: any): void {
-    console.log('event', event);
     switch (eventType) {
       case RayonEvent.LogSignUpUser:
-        this.onLogSignUpUserEvent(event);
+        this.onLogSignUpEvent(event);
         break;
       default:
         break;
     }
   }
 
-  private onLogSignUpUserEvent(event) {
-    console.log(event);
+  private onLogSignUpEvent(event: RayonEventResponse<LogSignUpEventArgs>) {
+    if (event.args.userAddress !== UserServerAgent.getUserAccount()) return;
+    this._eventListeners[RayonEvent.LogSignUpUser] &&
+      this._eventListeners[RayonEvent.LogSignUpUser].forEach(listner => {
+        listner(event);
+      });
   }
 
   /*
@@ -52,7 +44,7 @@ class UserDC {
 
   public async fetchUser() {
     const user = await UserServerAgent.fetchUser();
-    this.userListeners.forEach(listener => listener(user));
+    return user;
   }
 
   public async isUser() {
@@ -61,8 +53,12 @@ class UserDC {
   }
 
   public signUp(userName: string, isBorrower: boolean) {
-     UserServerAgent.signUp(userName, isBorrower);
+    UserServerAgent.signUp(userName, isBorrower);
   }
+
+  /*
+  common function
+  */
 }
 
 export default new UserDC();

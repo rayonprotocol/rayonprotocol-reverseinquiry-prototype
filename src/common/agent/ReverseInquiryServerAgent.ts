@@ -11,11 +11,10 @@ type RayonEventListener = ((eventType: RayonEvent, event: any) => void);
 type ContractDeployListner = () => void;
 
 abstract class ContractAgent {
-  public static FROM_BLOCK = '0'; // event watch start block
+  public static FROM_BLOCK = 'latest'; // event watch start block
   public static NETWORK_PORT = 7545;
 
   private _watchEvents: Set<RayonEvent>;
-  private _eventStarted: boolean;
   protected _eventListener: RayonEventListener;
 
   private _contract: JSON; // include ABI, contract address
@@ -54,11 +53,11 @@ abstract class ContractAgent {
     } catch (error) {
       console.error(error);
     }
-    if (!this._eventStarted) this.startEventWatch();
+    this.startEventWatch();
   }
 
   private startEventWatch() {
-    if (this._watchEvents) return;
+    if (this._watchEvents === undefined) return;
     if (this._contractInstance === undefined) {
       console.error(`contract Instance is undefined, please check network port ${ContractAgent.NETWORK_PORT}`);
       return;
@@ -70,7 +69,6 @@ abstract class ContractAgent {
       const targetEventFunction = this._contractInstance[RayonEvent.getRayonEventName(eventType)]({}, eventRange);
       targetEventFunction.watch(this.onEvent.bind(this, eventType));
     });
-    this._eventStarted = true;
   }
 
   // prevent call a undefined contract instance by data conroller
