@@ -17,11 +17,17 @@ import RayonIntroView from 'home/view/RayonIntroView';
 // import MessageContentVC from 'message/vc/MessageContentVC';
 // import RegisterFinanceInfoVC from 'user/vc/RegisterFinanceInfoVC';
 
-// interface ReverseInquiryRoutesState {
-//   user: User;
-// }
+interface ReverseInquiryRoutesState {
+  isUser: boolean;
+}
 
-class ReverseInquiryRoutes extends Component<{}, {}> {
+class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isUser: false,
+    };
+  }
   route = [
     // {
     //   path: '/',
@@ -55,20 +61,14 @@ class ReverseInquiryRoutes extends Component<{}, {}> {
     // },
   ];
 
-  componentWillMount() {
-    UserDC.addUserListener(this.onUser.bind(this));
-    UserDC.fetchUser();
+  async componentWillMount() {
+    const isUser = await UserDC.isUser();
+    this.setState({ ...this.state, isUser });
   }
-  componentWillUnmount() {
-    UserDC.removeUserListener(this.onUser.bind(this));
-  }
-
-  onUser = (user: User) => {
-    this.setState({ ...this.state, user });
-  };
 
   render() {
-    // const { user } = this.state;
+    const { isUser } = this.state;
+    console.log('render isUser', isUser);
     return (
       <RayonIntroView />
       // <Fragment>

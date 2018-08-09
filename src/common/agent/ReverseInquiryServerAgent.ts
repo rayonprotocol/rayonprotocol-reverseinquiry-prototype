@@ -3,7 +3,6 @@ import TruffleContract from 'truffle-contract';
 
 // event
 import { RayonEvent } from 'common/model/RayonEvent';
-import { listeners } from 'cluster';
 
 let web3: Web3;
 let userAccount: string;
@@ -44,7 +43,7 @@ abstract class ContractAgent {
     return web3;
   };
 
-  protected async fetchContractInstance() {
+  private async fetchContractInstance() {
     // Bring a ABI, Make a TruffleContract object
     const contract = TruffleContract(this._contract);
     contract.setProvider(this.getWeb3().currentProvider);
@@ -72,6 +71,12 @@ abstract class ContractAgent {
       targetEventFunction.watch(this.onEvent.bind(this, eventType));
     });
     this._eventStarted = true;
+  }
+
+  // prevent call a undefined contract instance by data conroller
+  // check contract instance is undefined and refetch
+  protected async checkAndFetchContractInstance() {
+    !this._contractInstance && (await this.fetchContractInstance());
   }
 
   /*

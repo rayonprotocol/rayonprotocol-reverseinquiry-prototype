@@ -16,35 +16,10 @@ class UserDC {
     UserServerAgent.setEventListner(this.onEvent.bind(this));
   }
 
-  private onEvent(eventType: RayonEvent, event: any): void {
-    switch (eventType) {
-      case RayonEvent.LogAuthUser:
-        this.onLogAuthUserEvent(event);
-        break;
-      case RayonEvent.LogSignUpUser:
-        this.onLogSignUpUserEvent(event);
-        break;
-      default:
-        break;
-    }
-  }
-
-  private onLogAuthUserEvent(event) {
-    console.log(event);
-  }
-
-  private onLogSignUpUserEvent(event) {
-    console.log(event);
-  }
-
-  async fetchUser() {
-    const result = await UserServerAgent.fetchUser();
-    console.log(result);
-    // this.userListeners.forEach(listener => listener(user));
-  }
-
   /*
+  related to event functions
   */
+
   public addUserListener(listener: UserListner) {
     !this.userListeners.has(listener) && this.userListeners.add(listener);
   }
@@ -53,13 +28,40 @@ class UserDC {
     this.userListeners.has(listener) && this.userListeners.delete(listener);
   }
 
-  // 회원 가입
-  async userSignUp(userName: string, isBorrower: boolean) {
-    UserServerAgent.userSignUp(userName, isBorrower);
+  /*
+  event handler
+  */
+  private onEvent(eventType: RayonEvent, event: any): void {
+    console.log('event', event);
+    switch (eventType) {
+      case RayonEvent.LogSignUpUser:
+        this.onLogSignUpUserEvent(event);
+        break;
+      default:
+        break;
+    }
   }
 
-  async userAuth() {
-    this.user.isPassKyc = await UserServerAgent.userAuth();
+  private onLogSignUpUserEvent(event) {
+    console.log(event);
+  }
+
+  /*
+  Request functions to blockchain via server agent
+  */
+
+  public async fetchUser() {
+    const user = await UserServerAgent.fetchUser();
+    this.userListeners.forEach(listener => listener(user));
+  }
+
+  public async isUser() {
+    const isUser = await UserServerAgent.isUser();
+    return isUser;
+  }
+
+  public signUp(userName: string, isBorrower: boolean) {
+     UserServerAgent.signUp(userName, isBorrower);
   }
 }
 

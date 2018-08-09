@@ -8,8 +8,6 @@ contract User {
         uint index;
         string userName;
         bool isBorrower;
-        bool isPassKyc;
-        bool isExist;
     }
 
     // variables
@@ -18,46 +16,40 @@ contract User {
 
     // events
     event LogSignUpUser (address userAddress, string userName, bool isBorrower);
-    event LogAuthUser (bool isPassKyc);
 
+    /*
+    functions
+    */
     function isUser(address _userAddress) public view returns(bool) {
-        return (userList[_userAddress].isExist);
+        return (userList[_userAddress].index > 0);
     }
 
-    function getUser(address _userAddress) public view returns(string, bool, bool, bool) {
+    function getUser(address _userAddress) public view returns(string, bool) {
         return (
-            userList[_userAddress].userName,
-            userList[_userAddress].isBorrower,
-            userList[_userAddress].isPassKyc,
-            userList[_userAddress].isExist
+            userList[_userAddress].userName, 
+            userList[_userAddress].isBorrower
         );
     }
 
-    function signUpUser(
+    function getUserAddressList() public view returns(address[]) {
+        return userAddressList;
+    }
+
+    function signUp(
         string _userName,
         bool _isBorrower
-        ) public returns(bool) {
+    ) public {
         address userAddress = msg.sender;
         // validation
-        if (isUser(userAddress)) return false;
-        userList[userAddress].userName = _userName;
-        userList[userAddress].isBorrower = _isBorrower;
-        userList[userAddress].isPassKyc = false;
-        userList[userAddress].index = userAddressList.push(userAddress)-1;
-        userList[userAddress].isExist = true;
-        // event
+        require(!isUser(userAddress));
+        
+        // make new user infomation
+        userList[userAddress] = UserStruct(userAddressList.push(userAddress), _userName, _isBorrower);
+
         emit LogSignUpUser(
             userAddress,
             _userName,
-            _isBorrower);
-        return true;
-    }
-
-    function authUser(
-        address _userAddress
-    ) public returns(bool) {
-        userList[_userAddress].isPassKyc = true;
-        emit LogAuthUser(true);
-        return true;
+            _isBorrower
+        );
     }
 }

@@ -1,5 +1,4 @@
-export default class User {
-  isPassKyc: boolean;
+export default interface User {
   isBorrower: boolean;
   userAddress: string;
   userName: string;
@@ -13,4 +12,12 @@ export class FinanceData {
     this.dataKeys = '';
     this.dataValues = '';
   }
+}
+
+/*
+User request result index
+*/
+export enum getUserResultIndex {
+  userName,
+  isBorrower,
 }
