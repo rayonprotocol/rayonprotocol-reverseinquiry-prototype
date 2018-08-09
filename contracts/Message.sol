@@ -1,7 +1,7 @@
 pragma solidity ^0.4.22;
 import "./Auction.sol";
 import "./libraries/strings.sol";
-import "./User.sol";
+import "./RayonUser.sol";
 
 contract Message {
     using strings for *;

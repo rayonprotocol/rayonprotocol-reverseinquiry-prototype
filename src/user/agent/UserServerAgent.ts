@@ -9,7 +9,7 @@ import { RayonEvent } from 'common/model/RayonEvent';
 
 class UserServerAgent extends ReverseInquiryServerAgent {
   constructor() {
-    const UserContract = TruffleContract(require('../../../build/contracts/User.json'));
+    const UserContract = TruffleContract(require('../../../build/contracts/RayonUser.json'));
     const watchEvents: Set<RayonEvent> = new Set([RayonEvent.LogAuthUser, RayonEvent.LogSignUpUser]);
     super(UserContract, watchEvents);
   }

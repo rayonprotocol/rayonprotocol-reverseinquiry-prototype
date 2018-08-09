@@ -1,17 +1,17 @@
 pragma solidity ^0.4.22;
 
 
-contract User {
+contract RayonUser {
 
     // structs
-    struct UserStruct {
+    struct User {
         uint index;
         string userName;
         bool isBorrower;
     }
 
     // variables
-    mapping (address => UserStruct) public userList;
+    mapping (address => User) public userList;
     address[] userAddressList;
 
     // events
@@ -44,7 +44,7 @@ contract User {
         require(!isUser(userAddress));
         
         // make new user infomation
-        userList[userAddress] = UserStruct(userAddressList.push(userAddress), _userName, _isBorrower);
+        userList[userAddress] = User(userAddressList.push(userAddress), _userName, _isBorrower);
 
         emit LogSignUpUser(
             userAddress,
