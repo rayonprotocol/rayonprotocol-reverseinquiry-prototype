@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 // model
 import User from 'user/model/User';
-import { RayonEvent, RayonEventResponse, LogSignUpEventArgs, LogSignUpEventArgsIndex } from 'common/model/RayonEvent';
+import { RayonEvent, RayonEventResponse, LogSignUpEventArgs } from 'common/model/RayonEvent';
 
 // dc
 import UserDC from 'user/dc/UserDC';
@@ -19,7 +19,7 @@ import RayonIntroView from 'home/view/RayonIntroView';
 // import RegisterFinanceInfoVC from 'user/vc/RegisterFinanceInfoVC';
 
 interface ReverseInquiryRoutesState {
-  user: User;
+  isUser: boolean;
 }
 
 class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
@@ -67,20 +67,8 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
     const isUser = await UserDC.isUser();
 
     // watch sign up event for getting new user infomation
-    if (!isUser) {
-      UserDC.addEventListener(RayonEvent.LogSignUpUser, this.onUserSignUp.bind(this));
-      return;
-    }
-
-    // when user is already registered, fetch user information from blockchain
-    const fetchUserResult = await UserDC.fetchUser();
-    const user: User = {
-      userAddress: fetchUserResult.userAddress,
-      userName: fetchUserResult.userName,
-      isBorrower: fetchUserResult.isBorrower,
-    };
-
-    this.setState({ ...this.state, user });
+    if (!isUser) UserDC.addEventListener(RayonEvent.LogSignUpUser, this.onUserSignUp.bind(this));
+    this.setState({ ...this.state, isUser });
   }
 
   componentWillUnmount() {
@@ -88,37 +76,32 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
   }
 
   onUserSignUp(event: RayonEventResponse<LogSignUpEventArgs>) {
-    const user: User = {
-      userAddress: event.args.userAddress,
-      userName: event.args.userName,
-      isBorrower: event.args.isBorrower,
-    };
-    this.setState({ ...this.state, user });
+    this.setState({ ...this.state, isUser: true });
   }
 
   render() {
-    const { user } = this.state;
-    console.log('user', user);
+    const { isUser } = this.state;
     return (
       <Fragment>
-        {user === undefined ? (
+        {!isUser ? (
           <RayonIntroView />
         ) : (
-          <BrowserRouter>
+          // <div>gogogo</div>
+          // <BrowserRouter>
             <Fragment>
-              <TabNav user={user} />
-              {/* {this.route.map((item, index) => {
-                return (
-                  <Route
-                    key={index}
-                    exact={item.exact}
-                    path={item.path}
-                    render={props => <item.component {...props} {...this.props} />}
-                  />
-                );
-              })} */}
-            </Fragment>
-          </BrowserRouter>
+              <TabNav  />
+          {/* {this.route.map((item, index) => {
+          //       return (
+          //         <Route
+          //           key={index}
+          //           exact={item.exact}
+          //           path={item.path}
+          //           render={props => <item.component {...props} {...this.props} {...this.state} />}
+          //         />
+          //       );
+          //     })} */}
+          </Fragment>
+          // </BrowserRouter>
         )}
       </Fragment>
     );

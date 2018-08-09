@@ -25,14 +25,11 @@ contract RayonUser {
     }
 
     function getUser(address _userAddress) public view returns(string, bool) {
+        require(isUser(_userAddress));
         return (
-            userList[_userAddress].userName, 
+            userList[_userAddress].userName,
             userList[_userAddress].isBorrower
         );
-    }
-
-    function getUserAddressList() public view returns(address[]) {
-        return userAddressList;
     }
 
     function signUp(
@@ -46,6 +43,7 @@ contract RayonUser {
         // make new user infomation
         userList[userAddress] = User(userAddressList.push(userAddress), _userName, _isBorrower);
 
+        // emit event
         emit LogSignUpUser(
             userAddress,
             _userName,

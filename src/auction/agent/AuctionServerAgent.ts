@@ -5,6 +5,7 @@
 
 // // model
 // import Auction from 'auction/model/Auction';
+// import { RayonEvent } from 'common/model/RayonEvent';
 
 // // dc
 // import UserDC from 'user/dc/UserDC';
@@ -22,7 +23,8 @@
 // class AuctionServerAgent extends ReverseInquiryServerAgent {
 //   constructor() {
 //     const AuctionContract = TruffleContract(require('../../../build/contracts/Auction.json'));
-//     super(AuctionContract);
+//     const watchEvents: Set<RayonEvent> = new Set([RayonEvent.LogRegistAuctionContent]);
+//     super(AuctionContract, watchEvents);
 //   }
 
 //   public async fetchContentList() {

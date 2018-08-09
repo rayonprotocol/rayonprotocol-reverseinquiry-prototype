@@ -25,13 +25,8 @@ contract('RayonUser', async () => {
     });
     it('get user', async function() {
       await this.rayonUser.signUp('alice', true);
-      const expectedUserInfo = [ 'alice', true ];
+      const expectedUserInfo = ['alice', true];
       await this.rayonUser.getUser(msgSender).should.eventually.deep.equal(expectedUserInfo);
-    });
-    it('get user list', async function() {
-      await this.rayonUser.signUp('alice', true);
-      const expectedUserList = [ msgSender ];
-      await this.rayonUser.getUserAddressList().should.eventually.deep.equal(expectedUserList);
     });
   });
 });

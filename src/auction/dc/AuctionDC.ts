@@ -1,13 +1,16 @@
 // // agent
 // import AuctionServerAgent from 'auction/agent/AuctionServerAgent';
 
+// // dc
+// import RayonDC from 'common/dc/RayonDC';
+
 // // model
 // import Auction from 'auction/model/Auction';
 
-// class AuctionDC {
+// class AuctionDC extends RayonDC {
 //   private auctionContents: Auction[];
 
-//   getAuctionContents() {
+//   fetchAuctionContents() {
 //     return this.auctionContents === undefined ? [] : this.auctionContents;
 //   }
 

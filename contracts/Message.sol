@@ -1,5 +1,5 @@
 pragma solidity ^0.4.22;
-import "./Auction.sol";
+import "./RayonAuction.sol";
 import "./libraries/strings.sol";
 import "./RayonUser.sol";
 
@@ -17,7 +17,7 @@ contract Message {
         bool isComplete;
     }
 
-    Auction auction;
+    RayonAuction auction;
 
     Msg[] msgs;
 
@@ -25,46 +25,46 @@ contract Message {
     event LogInsterMessage(address fromAddress, address toAddress, uint auctionId, uint msgType, string payload);
 
     constructor (address _auctionContractAddress) public {
-        auction = Auction(_auctionContractAddress);
+        auction = RayonAuction(_auctionContractAddress);
     }
 
-    function insertStartMessage(
-        address _toAddress,
-        uint _auctionId,
-        uint _msgType,
-        string _payload
-    ) public returns (bool) {
-        pushMessage(_toAddress, _auctionId, _msgType, _payload);
-        return true;
-    }
+    // function insertStartMessage(
+    //     address _toAddress,
+    //     uint _auctionId,
+    //     uint _msgType,
+    //     string _payload
+    // ) public returns (bool) {
+    //     pushMessage(_toAddress, _auctionId, _msgType, _payload);
+    //     return true;
+    // }
 
-    function insertMessage(
-        address _toAddress,
-        uint _auctionId,
-        uint _msgType,
-        uint _previousMsgIndex,
-        string _payload
-    ) public returns (bool) {   
-        pushMessage(_toAddress, _auctionId, _msgType, _payload); 
-        setComplete(_previousMsgIndex);        
-        return true;
-    }
+    // function insertMessage(
+    //     address _toAddress,
+    //     uint _auctionId,
+    //     uint _msgType,
+    //     uint _previousMsgIndex,
+    //     string _payload
+    // ) public returns (bool) {   
+    //     pushMessage(_toAddress, _auctionId, _msgType, _payload); 
+    //     setComplete(_previousMsgIndex);        
+    //     return true;
+    // }
 
-    function pushMessage(
-        address _toAddress,
-        uint _auctionId,
-        uint _msgType,
-        string _payload
-    ) public {
-        address _fromAddress = msg.sender;
-        uint timeStamp;
-        (,,,,timeStamp) = auction.contentList(_auctionId);
-        require(timeStamp != 0);
+    // function pushMessage(
+    //     address _toAddress,
+    //     uint _auctionId,
+    //     uint _msgType,
+    //     string _payload
+    // ) public {
+    //     address _fromAddress = msg.sender;
+    //     uint timeStamp;
+    //     (,,,,timeStamp) = auction.contentList(_auctionId);
+    //     require(timeStamp != 0);
 
-        Msg memory _msg = Msg(_fromAddress, _toAddress, _auctionId, _msgType, _payload, now, msgs.length, false);
-        msgs.push(_msg);
-        emit LogInsterMessage(_fromAddress, _toAddress, _auctionId, _msgType, _payload);
-    }
+    //     Msg memory _msg = Msg(_fromAddress, _toAddress, _auctionId, _msgType, _payload, now, msgs.length, false);
+    //     msgs.push(_msg);
+    //     emit LogInsterMessage(_fromAddress, _toAddress, _auctionId, _msgType, _payload);
+    // }
 
     function setComplete(uint _msgIndex) public returns(bool){
         msgs[_msgIndex].isComplete = true;

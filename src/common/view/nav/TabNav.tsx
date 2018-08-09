@@ -2,6 +2,9 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
+// dc
+import UserDC from 'user/dc/UserDC';
+
 // view
 import ArrayTabView from 'common/view/tab/ArrayTabView';
 
@@ -9,15 +12,12 @@ import ArrayTabView from 'common/view/tab/ArrayTabView';
 import styles from './TabNav.scss';
 import User from 'user/model/User';
 
-interface TabNavProps {
+interface TabNavState {
+  activedTabIndex: number;
   user: User;
 }
 
-interface TabNavState {
-  activedTabIndex: number;
-}
-
-class TabNav extends Component<TabNavProps, TabNavState> {
+class TabNav extends Component<{}, TabNavState> {
   borrowerTabMenus = ['Register Data', 'Loan Request', 'Mailbox'];
   lenderTabMenus = ['Loan Request', 'Mailbox'];
 
@@ -25,13 +25,26 @@ class TabNav extends Component<TabNavProps, TabNavState> {
     super(props);
     this.state = {
       ...this.state,
-      activedTabIndex: this.getActivatedTabIndexByUrl(),
     };
   }
 
-  getActivatedTabIndexByUrl() {
+  async componentWillMount() {
+    UserDC.addUserListeners(this.onUserFetched.bind(this));
+    UserDC.fetchUser();
+  }
+
+  componentWillUnmount() {
+    UserDC.removeUserListeners(this.onUserFetched.bind(this));
+  }
+
+  onUserFetched(user: User) {
+    const activedTabIndex = this.getActivatedTabIndexByUrl(user.isBorrower);
+    this.setState({ ...this.state, user, activedTabIndex });
+  }
+
+  getActivatedTabIndexByUrl(isBorrower: boolean) {
     const currentBaseUrl = window.location.pathname.split('/')[1];
-    const tabMenus = this.props.user.isBorrower
+    const tabMenus = isBorrower
       ? this.mekeLowerCaseList(this.borrowerTabMenus)
       : this.mekeLowerCaseList(this.lenderTabMenus);
     return tabMenus.indexOf(currentBaseUrl) === -1 ? tabMenus.indexOf('loanrequest') : tabMenus.indexOf(currentBaseUrl);
@@ -51,10 +64,8 @@ class TabNav extends Component<TabNavProps, TabNavState> {
   }
 
   render() {
-    const { user } = this.props;
-    const { activedTabIndex } = this.state;
-    const tabMenus = user.isBorrower ? this.borrowerTabMenus : this.lenderTabMenus;
-    return (
+    const { activedTabIndex, user } = this.state;
+    return user ? (
       <Fragment>
         <nav
           className={classNames(styles.navigationBar, {
@@ -72,13 +83,13 @@ class TabNav extends Component<TabNavProps, TabNavState> {
           <div />
         </nav>
         <ArrayTabView
-          tabMenus={tabMenus}
+          tabMenus={user.isBorrower ? this.borrowerTabMenus : this.lenderTabMenus}
           activedIndex={activedTabIndex}
           isBorrower={user.isBorrower}
           onClickTabMenu={this.onClickTabMenu.bind(this)}
         />
       </Fragment>
-    );
+    ) : null;
   }
 }
 
