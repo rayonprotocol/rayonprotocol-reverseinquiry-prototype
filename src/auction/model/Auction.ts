@@ -1,4 +1,4 @@
-class Auction {
+interface AuctionContent {
   id: number;
   title: string;
   content: string;
@@ -8,4 +8,18 @@ class Auction {
   timeStamp: number;
 }
 
-export default Auction;
+/*
+Auction content request result index
+*/
+
+export enum AuctinoContentIndex {
+  id,
+  title,
+  content,
+  financeData,
+  userName,
+  userAddress,
+  timeStamp,
+}
+
+export default AuctionContent;

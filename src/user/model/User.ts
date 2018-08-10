@@ -1,4 +1,4 @@
-export default interface User {
+interface User {
   isBorrower: boolean;
   userAddress: string;
   userName: string;
@@ -21,3 +21,5 @@ export enum getUserResultIndex {
   userName,
   isBorrower,
 }
+
+export default User;

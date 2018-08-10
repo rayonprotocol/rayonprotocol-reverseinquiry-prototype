@@ -9,8 +9,7 @@ import User from '../model/User';
 import { RayonEvent, RayonEventResponse, LogSignUpEventArgs } from 'common/model/RayonEvent';
 import { listeners } from 'cluster';
 
-type EventListner = (event) => void;
-type UserListner = (user) => void;
+type UserListner = (user: User) => void;
 
 class UserDC extends RayonDC {
   private _user: User;
@@ -20,21 +19,6 @@ class UserDC extends RayonDC {
     super();
     this._userListeners = new Set();
     UserServerAgent.setEventListner(this.onEvent.bind(this));
-  }
-
-  /*
-  user handler
-  */
-  public addUserListeners(listener: UserListner) {
-    this._userListeners.add(listener);
-  }
-
-  public removeUserListeners(listener: UserListner) {
-    this._userListeners.delete(listener);
-  }
-
-  private onUserFetched(user: User) {
-    this._userListeners && this._userListeners.forEach(listener => listener(user));
   }
 
   /*
@@ -59,22 +43,36 @@ class UserDC extends RayonDC {
   }
 
   /*
+  user handler
+  */
+  public addUserListeners(listener: UserListner) {
+    this._userListeners.add(listener);
+  }
+
+  public removeUserListeners(listener: UserListner) {
+    this._userListeners.delete(listener);
+  }
+
+  private onUserFetched(user: User) {
+    this._userListeners && this._userListeners.forEach(listener => listener(user));
+  }
+
+  /*
   Request functions to blockchain via server agent
   */
 
   public async fetchUser() {
-    const fetchUserResult = await UserServerAgent.fetchUser();
-    const user: User = {
-      userAddress: fetchUserResult.userAddress,
-      userName: fetchUserResult.userName,
-      isBorrower: fetchUserResult.isBorrower,
-    };
-    this.onUserFetched(user);
+    if (this._user !== undefined) {
+      this.onUserFetched(this._user);
+      return;
+    }
+
+    this._user = await UserServerAgent.fetchUser();
+    this.onUserFetched(this._user);
   }
 
   public async isUser() {
-    const isUser = await UserServerAgent.isUser();
-    return isUser;
+    return await UserServerAgent.isUser();
   }
 
   public signUp(userName: string, isBorrower: boolean) {

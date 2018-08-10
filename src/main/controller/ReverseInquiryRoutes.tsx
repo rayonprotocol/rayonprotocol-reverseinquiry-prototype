@@ -12,14 +12,14 @@ import UserDC from 'user/dc/UserDC';
 import TabNav from 'common/view/nav/TabNav';
 import RayonIntroView from 'home/view/RayonIntroView';
 
-// import AuctionBoardVC from 'auction/vc/AuctionBoardVC';
+import AuctionBoardVC from 'auction/vc/AuctionBoardVC';
 // import MessageBoardVC from 'message/vc/MessageBoardVC';
 // import AuctionContentVC from 'auction/vc/AuctionContentVC';
 // import MessageContentVC from 'message/vc/MessageContentVC';
 // import RegisterFinanceInfoVC from 'user/vc/RegisterFinanceInfoVC';
 
 interface ReverseInquiryRoutesState {
-  isUser: boolean;
+  user: User;
 }
 
 class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
@@ -30,11 +30,11 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
     };
   }
   route = [
-    // {
-    //   path: '/',
-    //   component: AuctionBoardVC,
-    //   exact: true,
-    // },
+    {
+      path: '/',
+      component: AuctionBoardVC,
+      exact: true,
+    },
     // {
     //   path: '/registerdata',
     //   component: RegisterFinanceInfoVC,
@@ -66,42 +66,46 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
     // check user registered
     const isUser = await UserDC.isUser();
 
-    // watch sign up event for getting new user infomation
-    if (!isUser) UserDC.addEventListener(RayonEvent.LogSignUpUser, this.onUserSignUp.bind(this));
-    this.setState({ ...this.state, isUser });
+    UserDC.addUserListeners(this.onUserFetched.bind(this));
+
+    isUser ? UserDC.fetchUser() : UserDC.addEventListener(RayonEvent.LogSignUpUser, this.onUserSignUp.bind(this));
   }
 
   componentWillUnmount() {
     UserDC.addEventListener(RayonEvent.LogSignUpUser, this.onUserSignUp.bind(this));
   }
 
+  onUserFetched(user: User) {
+    this.setState({ ...this.state, user });
+  }
+
   onUserSignUp(event: RayonEventResponse<LogSignUpEventArgs>) {
-    this.setState({ ...this.state, isUser: true });
+    UserDC.fetchUser();
   }
 
   render() {
-    const { isUser } = this.state;
+    const { user } = this.state;
+    console.log('routes user', user);
     return (
       <Fragment>
-        {!isUser ? (
+        {!user ? (
           <RayonIntroView />
         ) : (
-          // <div>gogogo</div>
-          // <BrowserRouter>
+          <BrowserRouter>
             <Fragment>
-              <TabNav  />
-          {/* {this.route.map((item, index) => {
-          //       return (
-          //         <Route
-          //           key={index}
-          //           exact={item.exact}
-          //           path={item.path}
-          //           render={props => <item.component {...props} {...this.props} {...this.state} />}
-          //         />
-          //       );
-          //     })} */}
-          </Fragment>
-          // </BrowserRouter>
+              <TabNav />
+              {this.route.map((item, index) => {
+                return (
+                  <Route
+                    key={index}
+                    exact={item.exact}
+                    path={item.path}
+                    render={props => <item.component {...props} {...this.props} {...this.state} />}
+                  />
+                );
+              })}
+            </Fragment>
+          </BrowserRouter>
         )}
       </Fragment>
     );

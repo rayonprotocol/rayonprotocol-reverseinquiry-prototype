@@ -21,7 +21,7 @@ contract RayonAuction {
     // events
     event LogRegistAuctionContent(uint id, string title, string content, string financeData, string userName, address userAddress, uint timeStamp);
 
-    function registAuctionContent(
+    function registerAuctionContent(
         string _title,
         string _content,
         string _financeData,
@@ -42,8 +42,8 @@ contract RayonAuction {
         string,
         string,
         string,
-        address
-        // uint
+        address,
+        uint
     ){
         require(contentIndex < auctionContents.length);
         AuctionContent memory auctionContent = auctionContents[contentIndex];
@@ -53,8 +53,8 @@ contract RayonAuction {
             auctionContent.content,
             auctionContent.financeData,
             auctionContent.userName,
-            auctionContent.userAddress
-            // auctionContent.timeStamp
+            auctionContent.userAddress,
+            auctionContent.timeStamp
         );
     }
 

@@ -15,10 +15,10 @@ export interface RayonEventResponse<T> {
   */
 export enum RayonEvent {
   LogSignUpUser = 1,
-  LogRegistAuctionContent,
+  LogRegisterAuctionContent,
 }
 
-const rayonEventNames = ['NONE', 'LogSignUpUser', 'LogRegistAuctionContent'];
+const rayonEventNames = ['NONE', 'LogSignUpUser', 'LogRegisterAuctionContent'];
 
 export namespace RayonEvent {
   export function getRayonEventName(eventType: number) {
@@ -34,4 +34,14 @@ export interface LogSignUpEventArgs {
   userAddress: string;
   userName: string;
   isBorrower: boolean;
+}
+
+export interface LogRegisterAuctionContentArgs {
+  id: number;
+  title: string;
+  content: string;
+  financeData: string;
+  userName: string;
+  userAddress: string;
+  timeStamp: number;
 }

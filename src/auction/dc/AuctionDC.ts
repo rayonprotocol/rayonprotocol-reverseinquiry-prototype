@@ -1,31 +1,82 @@
-// // agent
-// import AuctionServerAgent from 'auction/agent/AuctionServerAgent';
+// agent
+import AuctionServerAgent from 'auction/agent/AuctionServerAgent';
 
-// // dc
-// import RayonDC from 'common/dc/RayonDC';
+// dc
+import RayonDC from 'common/dc/RayonDC';
 
-// // model
-// import Auction from 'auction/model/Auction';
+// model
+import AuctionContent from 'auction/model/Auction';
+import { RayonEvent, RayonEventResponse, LogRegisterAuctionContentArgs } from 'common/model/RayonEvent';
 
-// class AuctionDC extends RayonDC {
-//   private auctionContents: Auction[];
+type AuctionContentsListner = (auctionContents: AuctionContent[]) => void;
 
-//   fetchAuctionContents() {
-//     return this.auctionContents === undefined ? [] : this.auctionContents;
-//   }
+class AuctionDC extends RayonDC {
+  private _auctionContents: AuctionContent[];
 
-//   getAuctionContentByIndex(index: number) {
-//     return this.auctionContents[index];
-//   }
+  private _auctionContentsListner: Set<AuctionContentsListner>;
 
-//   async getContentList() {
-//     return AuctionServerAgent.fetchContentList();
-//   }
+  constructor() {
+    super();
+    this._auctionContentsListner = new Set();
+    AuctionServerAgent.setEventListner(this.onEvent.bind(this));
+  }
 
-//   async registerContent(title: string, content: string, tags: string[]) {
-//     const result = await AuctionServerAgent.registerContent(title, content, tags);
-//     result ? console.log('register ok') : console.log('register fail');
-//   }
-// }
+  /*
+  event handler
+  */
+  private onEvent(eventType: RayonEvent, event: any): void {
+    switch (eventType) {
+      case RayonEvent.LogRegisterAuctionContent:
+        this.onRegisterAuctionContent(event);
+        break;
+      default:
+        break;
+    }
+  }
 
-// export default new AuctionDC();
+  private onRegisterAuctionContent(event: RayonEventResponse<LogRegisterAuctionContentArgs>) {
+    if (event.args.userAddress !== AuctionServerAgent.getUserAccount()) return;
+    this._eventListeners[RayonEvent.LogRegisterAuctionContent] &&
+      this._eventListeners[RayonEvent.LogRegisterAuctionContent].forEach(listner => {
+        listner(event);
+      });
+  }
+
+  /*
+  user handler
+  */
+  public addAuctionContentsListeners(listener: AuctionContentsListner) {
+    this._auctionContentsListner.add(listener);
+  }
+
+  public removeAuctionContentsListeners(listener: AuctionContentsListner) {
+    this._auctionContentsListner.delete(listener);
+  }
+
+  private onAuctionContentFetched(auctionContenst: AuctionContent[]) {
+    this._auctionContentsListner && this._auctionContentsListner.forEach(listener => listener(auctionContenst));
+  }
+
+  /*
+    communicate to auction
+    */
+
+  public async fetchAuctionContent(contentIndex: number) {
+    return AuctionServerAgent.fetchAuctionContent(contentIndex);
+  }
+
+  public async fetchAuctionContents() {
+    if (this._auctionContents !== undefined) {
+      this.onAuctionContentFetched(this._auctionContents);
+      return;
+    }
+    const auctionContents = await AuctionServerAgent.fetchAuctionContents();
+    this.onAuctionContentFetched(auctionContents);
+  }
+
+  public registerAuctionContent(title: string, content: string, tags: string[]) {
+    AuctionServerAgent.registerAuctionContent(title, content, tags);
+  }
+}
+
+export default new AuctionDC();

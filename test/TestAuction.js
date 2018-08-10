@@ -18,7 +18,7 @@ contract('RayonAuction', async () => {
       const content = 'hello everyone';
       const financeData = 'money:200||car:good';
       const userName = 'jemoy';
-      await this.rayonAuction.registAuctionContent(title, content, financeData, userName);
+      await this.rayonAuction.registerAuctionContent(title, content, financeData, userName);
 
       const expectedAuctionContent = [new BigNumber(0), title, content, financeData, userName, msgSender];
       await this.rayonAuction.getContent(0).should.eventually.deep.equal(expectedAuctionContent);
