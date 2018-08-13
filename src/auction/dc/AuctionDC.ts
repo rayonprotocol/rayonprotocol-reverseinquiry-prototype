@@ -34,7 +34,7 @@ class AuctionDC extends RayonDC {
   }
 
   private onRegisterAuctionContent(event: RayonEventResponse<LogRegisterAuctionContentArgs>) {
-    if (event.args.userAddress !== AuctionServerAgent.getUserAccount()) return;
+    if (event.args.userAddress !== this.getUserAccount()) return;
     this._eventListeners[RayonEvent.LogRegisterAuctionContent] &&
       this._eventListeners[RayonEvent.LogRegisterAuctionContent].forEach(listner => {
         listner(event);

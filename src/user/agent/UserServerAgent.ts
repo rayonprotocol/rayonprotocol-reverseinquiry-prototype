@@ -15,7 +15,7 @@ class UserServerAgent extends ReverseInquiryServerAgent {
   }
 
   public async fetchUser() {
-    const userAccount = this.getUserAccount();
+    const userAccount = ReverseInquiryServerAgent.getUserAccount();
     const result = await this._contractInstance.getUser(userAccount, {
       from: userAccount,
     });
@@ -29,7 +29,7 @@ class UserServerAgent extends ReverseInquiryServerAgent {
 
   public async isUser(): Promise<boolean> {
     await this.checkAndFetchContractInstance();
-    const userAddress = this.getUserAccount();
+    const userAddress = ReverseInquiryServerAgent.getUserAccount();
     const isUser = await this._contractInstance.isUser(userAddress, {
       from: userAddress,
     });
@@ -38,7 +38,7 @@ class UserServerAgent extends ReverseInquiryServerAgent {
   }
 
   public signUp(userName: string, isBorrower: boolean) {
-    const userAddress = this.getUserAccount();
+    const userAddress = ReverseInquiryServerAgent.getUserAccount();
     this._contractInstance.signUp(userName, isBorrower, {
       from: userAddress,
     });

@@ -16,13 +16,13 @@ class MessageServerAgent extends ReverseInquiryServerAgent {
 
   sendMessage(toAddress: string, previousMessageId: number, auctionId: number, msgType: number, payload: string) {
     this._contractInstance.sendMessage(auctionId, previousMessageId, toAddress, msgType, payload, {
-      from: this.getUserAccount(),
+      from: ReverseInquiryServerAgent.getUserAccount(),
     });
   }
 
   async fetchAuctionMessage(auctionId: number, messageId: number) {
     const result: AuctionMessageResponse = await this._contractInstance.getMessage(auctionId, messageId);
-    const userAccount = this.getUserAccount();
+    const userAccount = ReverseInquiryServerAgent.getUserAccount();
     if (
       result[AuctinoMessageIndex.fromAddress] !== userAccount &&
       result[AuctinoMessageIndex.toAddress] !== userAccount

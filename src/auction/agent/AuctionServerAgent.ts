@@ -19,7 +19,7 @@ class AuctionServerAgent extends ReverseInquiryServerAgent {
 
   public async fetchAuctionContent(contentIndex: number) {
     const result: AuctionContentResponse = await this._contractInstance.getContent(contentIndex, {
-      from: this.getUserAccount(),
+      from: ReverseInquiryServerAgent.getUserAccount(),
     });
     const content: AuctionContent = {
       id: result[AuctinoContentIndex.id].toNumber(),
@@ -48,7 +48,7 @@ class AuctionServerAgent extends ReverseInquiryServerAgent {
     if (user.userName === undefined) return false;
     const financeData = tags.join('%%');
     this._contractInstance.registerAuctionContent(title, content, financeData, user.userName, {
-      from: this.getUserAccount(),
+      from: ReverseInquiryServerAgent.getUserAccount(),
     });
   }
 }

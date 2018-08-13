@@ -15,7 +15,7 @@ import RayonIntroView from 'home/view/RayonIntroView';
 import AuctionBoardVC from 'auction/vc/AuctionBoardVC';
 import MessageBoardVC from 'message/vc/MessageBoardVC';
 import AuctionContentVC from 'auction/vc/AuctionContentVC';
-// import MessageContentVC from 'message/vc/MessageContentVC';
+import MessageContentVC from 'message/vc/MessageContentVC';
 // import RegisterFinanceInfoVC from 'user/vc/RegisterFinanceInfoVC';
 
 interface ReverseInquiryRoutesState {
@@ -55,11 +55,11 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
       component: MessageBoardVC,
       exact: true,
     },
-    // {
-    //   path: '/message/content/:id',
-    //   component: MessageContentVC,
-    //   exact: false,
-    // },
+    {
+      path: '/message/content/:id',
+      component: MessageContentVC,
+      exact: false,
+    },
   ];
 
   async componentWillMount() {

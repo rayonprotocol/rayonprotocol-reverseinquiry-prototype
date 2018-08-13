@@ -1,3 +1,6 @@
+// agent
+import ReverseInquiryServerAgent from 'common/agent/ReverseInquiryServerAgent';
+
 // model
 import { RayonEvent } from 'common/model/RayonEvent';
 
@@ -18,6 +21,10 @@ abstract class RayonDC {
   public removeEventListener(eventType: number, listner: EventListner): void {
     if (this._eventListeners[eventType] === undefined) return;
     this._eventListeners[eventType].delete(listner);
+  }
+
+  public getUserAccount() {
+    return ReverseInquiryServerAgent.getUserAccount();
   }
 }
 

@@ -35,7 +35,7 @@ class UserDC extends RayonDC {
   }
 
   private onLogSignUpEvent(event: RayonEventResponse<LogSignUpEventArgs>) {
-    if (event.args.userAddress !== UserServerAgent.getUserAccount()) return;
+    if (event.args.userAddress !== this.getUserAccount()) return;
     this._eventListeners[RayonEvent.LogSignUpUser] &&
       this._eventListeners[RayonEvent.LogSignUpUser].forEach(listner => {
         listner(event);

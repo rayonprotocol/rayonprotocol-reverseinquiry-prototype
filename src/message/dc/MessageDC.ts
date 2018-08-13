@@ -36,7 +36,7 @@ class MessageDC extends RayonDC {
   }
 
   private onAuctionMessageSent(event: RayonEventResponse<LogSendAuctionMessageArgs>) {
-    const userAccount = MessageServerAgent.getUserAccount();
+    const userAccount = this.getUserAccount();
     if (event.args.fromAddress !== userAccount || event.args.toAddress !== userAccount) return;
     this._eventListeners[RayonEvent.LogSendAuctionMessage] &&
       this._eventListeners[RayonEvent.LogSendAuctionMessage].forEach(listner => {

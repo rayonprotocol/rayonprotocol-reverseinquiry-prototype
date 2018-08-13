@@ -10,7 +10,7 @@ let userAccount: string;
 type RayonEventListener = ((eventType: RayonEvent, event: any) => void);
 type ContractDeployListner = () => void;
 
-abstract class ContractAgent {
+abstract class ReverseInquiryServerAgent {
   public static FROM_BLOCK = 'latest'; // event watch start block
   public static NETWORK_PORT = 7545;
 
@@ -38,14 +38,16 @@ abstract class ContractAgent {
     let web3: Web3 = (window as any).web3 as Web3;
     typeof web3 !== 'undefined'
       ? (web3 = new Web3(web3.currentProvider))
-      : (web3 = new Web3(new Web3.providers.HttpProvider(`http://localhost: ${ContractAgent.NETWORK_PORT}`)));
+      : (web3 = new Web3(
+          new Web3.providers.HttpProvider(`http://localhost: ${ReverseInquiryServerAgent.NETWORK_PORT}`)
+        ));
     return web3;
   };
 
   private async fetchContractInstance() {
     // Bring a ABI, Make a TruffleContract object
     const contract = TruffleContract(this._contract);
-    contract.setProvider(this.getWeb3().currentProvider);
+    contract.setProvider(ReverseInquiryServerAgent.getWeb3().currentProvider);
 
     // find rayon token instance on blockchain
     try {
@@ -59,11 +61,13 @@ abstract class ContractAgent {
   private startEventWatch() {
     if (this._watchEvents === undefined) return;
     if (this._contractInstance === undefined) {
-      console.error(`contract Instance is undefined, please check network port ${ContractAgent.NETWORK_PORT}`);
+      console.error(
+        `contract Instance is undefined, please check network port ${ReverseInquiryServerAgent.NETWORK_PORT}`
+      );
       return;
     }
 
-    const eventRange = this.getEventRange();
+    const eventRange = ReverseInquiryServerAgent.getEventRange();
 
     this._watchEvents.forEach(eventType => {
       const targetEventFunction = this._contractInstance[RayonEvent.getRayonEventName(eventType)]({}, eventRange);
@@ -96,17 +100,17 @@ abstract class ContractAgent {
   /*
   Common value getter function
   */
-  public getWeb3() {
+  public static getWeb3() {
     return web3;
   }
 
-  public getUserAccount() {
+  public static getUserAccount() {
     return userAccount;
   }
 
-  public getEventRange() {
-    return { fromBlock: ContractAgent.FROM_BLOCK, toBlock: 'latest' };
+  public static getEventRange() {
+    return { fromBlock: ReverseInquiryServerAgent.FROM_BLOCK, toBlock: 'latest' };
   }
 }
 
-export default ContractAgent;
+export default ReverseInquiryServerAgent;
