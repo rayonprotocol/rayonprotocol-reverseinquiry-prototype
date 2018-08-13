@@ -1,3 +1,5 @@
+import { BigNumber } from 'bignumber.js';
+
 interface AuctionContent {
   id: number;
   title: string;
@@ -7,6 +9,8 @@ interface AuctionContent {
   userAddress: string;
   timeStamp: number;
 }
+
+export type AuctionContentResponse = [BigNumber, string, string, string, string, string, number];
 
 /*
 Auction content request result index

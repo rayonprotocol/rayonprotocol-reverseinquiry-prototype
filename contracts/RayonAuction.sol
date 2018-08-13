@@ -19,7 +19,7 @@ contract RayonAuction {
     AuctionContent[] auctionContents;
 
     // events
-    event LogRegistAuctionContent(uint id, string title, string content, string financeData, string userName, address userAddress, uint timeStamp);
+    event LogRegisterAuctionContent(uint id, string title, string content, string financeData, string userName, address userAddress, uint timeStamp);
 
     function registerAuctionContent(
         string _title,
@@ -33,7 +33,7 @@ contract RayonAuction {
 
         auctionContents.push(AuctionContent(contentId, _title, _content, _financeData, _userName, userAddress, timeStamp)) - 1;
 
-        emit LogRegistAuctionContent(contentId, _title, _content, _financeData, _userName, userAddress, timeStamp);
+        emit LogRegisterAuctionContent(contentId, _title, _content, _financeData, _userName, userAddress, timeStamp);
     }
 
     function getContent(uint contentIndex) public view returns(

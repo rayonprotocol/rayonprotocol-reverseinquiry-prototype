@@ -7,7 +7,7 @@ import AuctionDC from 'auction/dc/AuctionDC';
 import UserDC from 'user/dc/UserDC';
 
 // model
-import Auction from 'auction/model/Auction';
+import AuctionContent from 'auction/model/Auction';
 import { RayonEvent, RayonEventResponse, LogRegisterAuctionContentArgs } from 'common/model/RayonEvent';
 
 // util
@@ -21,10 +21,9 @@ import RayonButton from 'common/view/button/RayonButton';
 
 // styles
 import styles from './AuctionBoardVC.scss';
-import AuctionContent from 'auction/model/Auction';
 
 interface AuctionBoardVCState {
-  auctionContents: Auction[];
+  auctionContents: AuctionContent[];
   isSignUpModalOpen: boolean;
 }
 
@@ -54,8 +53,9 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
   }
 
   onMyAuctionContentsResistered(event: RayonEventResponse<LogRegisterAuctionContentArgs>) {
-    const auctionContents: AuctionContent = {
-      id: event.args.id,
+    const { auctionContents } = this.state;
+    const newAuctionContents: AuctionContent = {
+      id: event.args.id.toNumber(),
       title: event.args.title,
       content: event.args.content,
       financeData: event.args.financeData.split('%%'),
@@ -63,6 +63,7 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
       userAddress: event.args.userAddress,
       timeStamp: event.args.timeStamp,
     };
+    auctionContents.push(newAuctionContents);
     this.setState({ ...this.state, auctionContents });
   }
 
@@ -84,6 +85,7 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
   render() {
     const { auctionContents } = this.state;
     const user = UserDC.getUser();
+    console.log('auctionContents', auctionContents);
     return (
       <Fragment>
         <Container className={styles.contentContainer}>

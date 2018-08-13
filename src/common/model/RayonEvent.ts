@@ -1,3 +1,5 @@
+import { BigNumber } from 'bignumber.js';
+
 export interface RayonEventResponse<T> {
   logIndex: number;
   transactionIndex: number;
@@ -37,7 +39,7 @@ export interface LogSignUpEventArgs {
 }
 
 export interface LogRegisterAuctionContentArgs {
-  id: number;
+  id: BigNumber;
   title: string;
   content: string;
   financeData: string;

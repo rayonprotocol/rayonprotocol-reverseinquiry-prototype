@@ -33,6 +33,7 @@
       }
       p {
         display: inline-block;
+        vertical-align: top;
         padding-top: 5px;
         @include set-font(16px, $rayon-black);
       }
