@@ -42,8 +42,8 @@ contract RayonAuction {
         string,
         string,
         string,
-        address,
-        uint
+        address
+        // uint
     ){
         require(contentIndex < auctionContents.length);
         AuctionContent memory auctionContent = auctionContents[contentIndex];
@@ -53,8 +53,8 @@ contract RayonAuction {
             auctionContent.content,
             auctionContent.financeData,
             auctionContent.userName,
-            auctionContent.userAddress,
-            auctionContent.timeStamp
+            auctionContent.userAddress
+            // auctionContent.timeStamp
         );
     }
 
