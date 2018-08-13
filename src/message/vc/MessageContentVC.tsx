@@ -279,7 +279,6 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
           {!isLoadingComplete ? (
             <div>Loading...</div>
           ) : (
-            // <div>loaded</div>
             <div>
               <div className={styles.goBackTitle} onClick={this.onClickTitle}>
                 {'<   ' + auctionContent.title}

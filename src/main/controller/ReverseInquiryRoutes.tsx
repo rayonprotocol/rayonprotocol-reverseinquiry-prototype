@@ -16,7 +16,7 @@ import AuctionBoardVC from 'auction/vc/AuctionBoardVC';
 import MessageBoardVC from 'message/vc/MessageBoardVC';
 import AuctionContentVC from 'auction/vc/AuctionContentVC';
 import MessageContentVC from 'message/vc/MessageContentVC';
-// import RegisterFinanceInfoVC from 'user/vc/RegisterFinanceInfoVC';
+import RegisterFinanceInfoVC from 'user/vc/RegisterFinanceInfoVC';
 
 interface ReverseInquiryRoutesState {
   user: User;
@@ -35,11 +35,11 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
       component: AuctionBoardVC,
       exact: true,
     },
-    // {
-    //   path: '/registerdata',
-    //   component: RegisterFinanceInfoVC,
-    //   exact: true,
-    // },
+    {
+      path: '/registerdata',
+      component: RegisterFinanceInfoVC,
+      exact: true,
+    },
     {
       path: '/auction/content/:id',
       component: AuctionContentVC,
