@@ -14,7 +14,7 @@ import RayonIntroView from 'home/view/RayonIntroView';
 
 import AuctionBoardVC from 'auction/vc/AuctionBoardVC';
 // import MessageBoardVC from 'message/vc/MessageBoardVC';
-// import AuctionContentVC from 'auction/vc/AuctionContentVC';
+import AuctionContentVC from 'auction/vc/AuctionContentVC';
 // import MessageContentVC from 'message/vc/MessageContentVC';
 // import RegisterFinanceInfoVC from 'user/vc/RegisterFinanceInfoVC';
 
@@ -40,16 +40,16 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
     //   component: RegisterFinanceInfoVC,
     //   exact: true,
     // },
-    // {
-    //   path: '/auction/content/:id',
-    //   component: AuctionContentVC,
-    //   exact: false,
-    // },
-    // {
-    //   path: '/loanrequest',
-    //   component: AuctionBoardVC,
-    //   exact: true,
-    // },
+    {
+      path: '/auction/content/:id',
+      component: AuctionContentVC,
+      exact: false,
+    },
+    {
+      path: '/loanrequest',
+      component: AuctionBoardVC,
+      exact: true,
+    },
     // {
     //   path: '/mailbox',
     //   component: MessageBoardVC,
