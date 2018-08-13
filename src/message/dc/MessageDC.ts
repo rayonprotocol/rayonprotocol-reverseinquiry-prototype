@@ -7,7 +7,7 @@ import { RayonEvent, RayonEventResponse, LogSendAuctionMessageArgs } from 'commo
 
 // dc
 import RayonDC from 'common/dc/RayonDC';
-import AuctionContent from 'auction/model/Auction';
+import AuctionContent from 'auction/model/AuctionContent';
 
 type AuctionMessagesListner = (auctionContents: Map<number, AuctionMessage[]>) => void;
 
@@ -80,7 +80,7 @@ class MessageDC extends RayonDC {
       return;
     }
     if (auctionContents === undefined) console.error('auctionContents is undefined');
-    
+
     for (let i = 0; i < auctionContents.length; i++) {
       const auctionId = auctionContents[i].id;
       this._auctionMessages[auctionId] = await MessageServerAgent.fetchAuctionMessages(auctionId);

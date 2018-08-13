@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 // model
 import AuctionMessage from 'message/model/AuctionMessage';
-import AuctionContent from 'auction/model/Auction';
+import AuctionContent from 'auction/model/AuctionContent';
 import User from 'user/model/User';
 import { RayonEvent, RayonEventResponse, LogSendAuctionMessageArgs } from 'common/model/RayonEvent';
 

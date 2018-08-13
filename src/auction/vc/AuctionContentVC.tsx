@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 // model
-import Auction from 'auction/model/Auction';
+import AuctionContent from 'auction/model/AuctionContent';
 import { MsgTypes } from 'message/model/AuctionMessage';
 
 // dc
@@ -27,7 +27,7 @@ interface AuctionContentVCProps {
 
 interface AuctionContentVCState {
   contentIndex: number;
-  content: Auction;
+  content: AuctionContent;
   selectedTagList: string[];
 }
 
@@ -49,7 +49,7 @@ class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVC
 
   async onClickRequestButton(toAddress: string, auctionId: number) {
     const payload = this.state.selectedTagList.join('%%');
-    console.log('auction content id',auctionId)
+    console.log('auction content id', auctionId);
     MessageDC.sendMessage(toAddress, 0, auctionId, MsgTypes.REQUEST_PERSONAL_DATA, payload);
     history.goBack();
   }

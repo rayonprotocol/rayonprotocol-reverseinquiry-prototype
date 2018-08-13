@@ -7,7 +7,7 @@ import AuctionDC from 'auction/dc/AuctionDC';
 import UserDC from 'user/dc/UserDC';
 
 // model
-import AuctionContent from 'auction/model/Auction';
+import AuctionContent from 'auction/model/AuctionContent';
 import { RayonEvent, RayonEventResponse, LogRegisterAuctionContentArgs } from 'common/model/RayonEvent';
 
 // util

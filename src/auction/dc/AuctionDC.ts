@@ -5,7 +5,7 @@ import AuctionServerAgent from 'auction/agent/AuctionServerAgent';
 import RayonDC from 'common/dc/RayonDC';
 
 // model
-import AuctionContent from 'auction/model/Auction';
+import AuctionContent from 'auction/model/AuctionContent';
 import { RayonEvent, RayonEventResponse, LogRegisterAuctionContentArgs } from 'common/model/RayonEvent';
 
 type AuctionContentsListner = (auctionContents: AuctionContent[]) => void;

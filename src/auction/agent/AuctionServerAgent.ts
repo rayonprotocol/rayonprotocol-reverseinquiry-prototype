@@ -4,7 +4,7 @@ import TruffleContract from 'truffle-contract';
 import ReverseInquiryServerAgent from 'common/agent/ReverseInquiryServerAgent';
 
 // model
-import AuctionContent, { AuctinoContentIndex, AuctionContentResponse } from 'auction/model/Auction';
+import AuctionContent, { AuctinoContentIndex, AuctionContentResponse } from 'auction/model/AuctionContent';
 import { RayonEvent } from 'common/model/RayonEvent';
 
 // dc

@@ -24,17 +24,11 @@ contract RayonAuctionMessage {
         bool isComplete;
     }
 
-    // RayonAuction auction;
-
     // variable
     mapping (uint => AuctionMessage[]) public auctionMessages;  // key: auction id
 
     // events
     event LogSendAuctionMessage(uint auctionId, uint messageId, address fromAddress, address toAddress, uint msgType, string payload, uint timeStamp, bool isComplete);
-
-    // constructor (address _auctionContractAddress) public {
-    //     auction = RayonAuction(_auctionContractAddress);
-    // }
 
     function setMessageComplete(uint _auctionId,uint _messageId) public {
         auctionMessages[_auctionId][_messageId].isComplete = true;
