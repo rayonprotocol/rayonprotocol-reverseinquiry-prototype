@@ -1,3 +1,5 @@
+import { BigNumber } from 'bignumber.js';
+
 export enum MsgTypes {
   REQUEST_PERSONAL_DATA = 1,
   RESPONSE_PERSONAL_DATA,
@@ -6,7 +8,7 @@ export enum MsgTypes {
   DENY_OFFER,
 }
 
-export type AuctionMessageResponse = [number, number, string, string, number, string, number, boolean];
+export type AuctionMessageResponse = [BigNumber, BigNumber, string, string, BigNumber, string, number, boolean];
 
 interface AuctionMessage {
   auctionId: number;

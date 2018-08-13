@@ -26,6 +26,7 @@ class MessageDC extends RayonDC {
   event handler
   */
   private onEvent(eventType: RayonEvent, event: any): void {
+    console.log('onEvent message');
     switch (eventType) {
       case RayonEvent.LogSendAuctionMessage:
         this.onAuctionMessageSent(event);
@@ -37,7 +38,7 @@ class MessageDC extends RayonDC {
 
   private onAuctionMessageSent(event: RayonEventResponse<LogSendAuctionMessageArgs>) {
     const userAccount = this.getUserAccount();
-    if (event.args.fromAddress !== userAccount || event.args.toAddress !== userAccount) return;
+    if (event.args.fromAddress !== userAccount && event.args.toAddress !== userAccount) return;
     this._eventListeners[RayonEvent.LogSendAuctionMessage] &&
       this._eventListeners[RayonEvent.LogSendAuctionMessage].forEach(listner => {
         listner(event);
@@ -78,6 +79,8 @@ class MessageDC extends RayonDC {
       this.onAuctionMessagesFetched(this._auctionMessages);
       return;
     }
+    if (auctionContents === undefined) console.error('auctionContents is undefined');
+    
     for (let i = 0; i < auctionContents.length; i++) {
       const auctionId = auctionContents[i].id;
       this._auctionMessages[auctionId] = await MessageServerAgent.fetchAuctionMessages(auctionId);

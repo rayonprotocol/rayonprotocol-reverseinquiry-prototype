@@ -30,11 +30,11 @@ class MessageServerAgent extends ReverseInquiryServerAgent {
       return undefined;
 
     const message: AuctionMessage = {
-      auctionId: result[AuctinoMessageIndex.auctionId],
-      messageId: result[AuctinoMessageIndex.messageId],
+      auctionId: result[AuctinoMessageIndex.auctionId].toNumber(),
+      messageId: result[AuctinoMessageIndex.messageId].toNumber(),
       fromAddress: result[AuctinoMessageIndex.fromAddress],
       toAddress: result[AuctinoMessageIndex.toAddress],
-      msgType: result[AuctinoMessageIndex.msgType],
+      msgType: result[AuctinoMessageIndex.msgType].toNumber(),
       payload: result[AuctinoMessageIndex.payload],
       timeStamp: result[AuctinoMessageIndex.timeStamp],
       isComplete: result[AuctinoMessageIndex.isComplete],
@@ -52,7 +52,7 @@ class MessageServerAgent extends ReverseInquiryServerAgent {
       auctionMessage && auctionMessages.push(auctionMessage);
     }
 
-    return auctionMessages;
+    return auctionMessages.reverse();
   }
 }
 

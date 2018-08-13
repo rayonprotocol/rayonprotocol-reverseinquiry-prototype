@@ -81,7 +81,7 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
   getLatestMessage(messages: AuctionMessage[]) {
     if (messages === undefined || messages.length === 0) return; // 아무 메세지도 도착하지 않은 경우
 
-    const message: AuctionMessage = messages[messages.length - 1];
+    const message: AuctionMessage = messages[0];
     const { user } = this.state;
     const borrowerMsgTypeNames = [
       'Received Data Request',

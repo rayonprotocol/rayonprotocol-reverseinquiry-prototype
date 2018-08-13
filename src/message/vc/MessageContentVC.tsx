@@ -32,7 +32,7 @@ interface MessageContentVCProps {
 
 interface MessageContentVCState {
   auctionContent: AuctionContent;
-  auctionMessage: AuctionMessage[];
+  auctionMessages: AuctionMessage[];
   auctionId: number;
   productOfferInput: string[];
   isModalOpen: boolean;
@@ -45,18 +45,8 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     ...this.state,
     messages: [],
     user: UserDC.getUser(),
-    isModalOpen: false,
     productOfferInput: ['', '', ''],
   };
-
-  //   async componentWillMount() {
-  //     const {
-  //       match: { params },
-  //     } = this.props;
-  //     const contentIndex = parseInt(params.id);
-  //     // const messages = await MessageDC.getUserMessages();
-  //     // this.setState({ ...this.state, messages, contentIndex });
-  //   }
 
   async componentWillMount() {
     const {
@@ -73,35 +63,27 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
   }
 
   componentWillUnmount() {
-    AuctionDC.removeEventListener(RayonEvent.LogRegisterAuctionContent, this.onAuctionMessageSent.bind(this));
     AuctionDC.removeAuctionContentsListeners(this.onAuctionContentsFetched.bind(this));
     MessageDC.removeAuctionMessagesListeners(this.onAuctionMessagesFetched.bind(this));
+    MessageDC.removeEventListener(RayonEvent.LogSendAuctionMessage, this.onAuctionMessageSent.bind(this));
   }
 
-  onAuctionContentsFetched(auctionContents: AuctionContent[]) {
-    const auctionContent = auctionContents.find(content => content.id === this.state.contentIndex);
-    MessageDC.fetchAuctionMessages(auctionContents);
+  onAuctionContentsFetched(_auctionContents: AuctionContent[]) {
+    const auctionContent = _auctionContents.find(content => content.id === this.state.contentIndex);
+    MessageDC.fetchAuctionMessages(_auctionContents);
     this.setState({ ...this.state, auctionContent });
   }
 
-  onAuctionMessagesFetched(auctionMessages: Map<number, AuctionMessage[]>) {
-    this.setState({ ...this.state, auctionMessage: auctionMessages[this.state.contentIndex], isLoadingComplete: true });
+  onAuctionMessagesFetched(_auctionMessages: Map<number, AuctionMessage[]>) {
+    this.setState({
+      ...this.state,
+      auctionMessages: _auctionMessages[this.state.contentIndex],
+      isLoadingComplete: true,
+    });
   }
 
   onAuctionMessageSent(event: RayonEventResponse<LogSendAuctionMessageArgs>) {
-    const { auctionMessages } = this.state;
-    const newAuctionMessage: AuctionMessage = {
-      auctionId: event.args.auctionId.toNumber(),
-      messageId: event.args.messageId.toNumber(),
-      fromAddress: event.args.fromAddress,
-      toAddress: event.args.toAddress,
-      msgType: event.args.msgType.toNumber(),
-      payload: event.args.payload,
-      timeStamp: event.args.timeStamp,
-      isComplete: event.args.isComplete,
-    };
-    auctionMessages[newAuctionMessage.auctionId].push(newAuctionMessage);
-    this.setState({ ...this.state, auctionMessages });
+    AuctionDC.fetchAuctionContents();
   }
 
   onClickDataSubmit(message: AuctionMessage) {
@@ -114,19 +96,19 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     if (localFinanceData === null) return alert('Register your personal data first!');
     MessageDC.sendMessage(
       message.fromAddress,
+      message.messageId,
       message.auctionId,
       MsgTypes.RESPONSE_PERSONAL_DATA,
-      message.messageId,
       JSON.stringify(requestResponeceData)
     );
   }
 
   onClickOfferAccept(message: AuctionMessage) {
-    MessageDC.sendMessage(message.fromAddress, message.auctionId, MsgTypes.ACCEPT_OFFER, message.messageId, 'true');
+    MessageDC.sendMessage(message.fromAddress, message.messageId, message.auctionId, MsgTypes.ACCEPT_OFFER, 'true');
   }
 
   onClickOfferDeny(message: AuctionMessage) {
-    MessageDC.sendMessage(message.fromAddress, message.auctionId, MsgTypes.DENY_OFFER, message.messageId, 'false');
+    MessageDC.sendMessage(message.fromAddress, message.messageId, message.auctionId, MsgTypes.DENY_OFFER, 'false');
   }
 
   onRequestCloseModal() {
@@ -137,12 +119,18 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     this.setState({ ...this.state, isModalOpen: true });
   }
 
-  //   onClickOfferSubmit() {
-  //     const data = this.state.productOfferInput.join('##');
-  //     const message:AuctionMessage = MessageDC.getUserMessagesByAuctionId(this.state.contentIndex)[0];
-  //     MessageDC.sendMessage(message.fromAddress, message.auctionId, MsgTypes.OFFER_PRODUCT, message.messageId, data);
-  //     this.setState({ ...this.state, isModalOpen: false });
-  //   }
+  onClickOfferSubmit() {
+    const data = this.state.productOfferInput.join('##');
+    const auctionMessage = this.state.auctionMessages[0];
+    MessageDC.sendMessage(
+      auctionMessage.fromAddress,
+      auctionMessage.messageId,
+      auctionMessage.auctionId,
+      MsgTypes.OFFER_PRODUCT,
+      data
+    );
+    this.setState({ ...this.state, isModalOpen: false });
+  }
 
   onChangeProductOfferInput(event, index) {
     let { productOfferInput } = this.state;
@@ -283,7 +271,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
   }
 
   render() {
-    const { auctionContent, auctionMessage, isLoadingComplete } = this.state;
+    const { auctionContent, auctionMessages, isLoadingComplete } = this.state;
     const user = UserDC.getUser();
     return (
       <Fragment>
@@ -296,10 +284,10 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
               <div className={styles.goBackTitle} onClick={this.onClickTitle}>
                 {'<   ' + auctionContent.title}
               </div>
-              {auctionMessage.length === 0 ? (
+              {auctionMessages.length === 0 ? (
                 <div>No Messages</div>
               ) : (
-                auctionMessage.map((item, index) => {
+                auctionMessages.map((item, index) => {
                   return (
                     <div
                       key={index}
@@ -350,12 +338,12 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
             title={'Maturity'}
             onChangeInputValue={event => this.onChangeProductOfferInput(event, 2)}
           />
-          {/* <RayonButton
+          <RayonButton
             className={styles.sendOfferBtn}
             title={'Submit'}
             onClickButton={this.onClickOfferSubmit.bind(this)}
             isBorrower={false}
-          /> */}
+          />
         </RayonModalView>
       </Fragment>
     );
