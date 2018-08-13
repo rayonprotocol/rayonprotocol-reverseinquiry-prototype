@@ -30,7 +30,7 @@ contract RayonAuctionMessage {
     mapping (uint => AuctionMessage[]) public auctionMessages;  // key: auction id
 
     // events
-    event LogSendMessage(address fromAddress, address toAddress, uint auctionId, uint msgType, string payload);
+    event LogSendAuctionMessage(uint auctionId, uint messageId, address fromAddress, address toAddress, uint msgType, string payload, uint timeStamp, bool isComplete);
 
     // constructor (address _auctionContractAddress) public {
     //     auction = RayonAuction(_auctionContractAddress);
@@ -57,7 +57,7 @@ contract RayonAuctionMessage {
             setMessageComplete(_auctionId, _messageId);
         }
 
-        emit LogSendMessage(fromAddress, _toAddress, _auctionId, _msgType, _payload);
+        emit LogSendAuctionMessage(_auctionId, newMessageId, fromAddress, _toAddress, _msgType, _payload, timeStamp, false);
     }
 
     function getMessage(uint _auctionId,uint _messageId) public view returns(

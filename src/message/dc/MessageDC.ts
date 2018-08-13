@@ -1,90 +1,90 @@
-// import Message from '../model/Message';
-// import groupBy from 'lodash.groupby';
+// agent
+import MessageServerAgent from 'message/agent/MessageServerAgent';
 
-// // agent
-// import MessageServerAgent from 'message/agent/MessageServerAgent';
+// model
+import AuctionMessage from 'message/model/AuctionMessage';
+import { RayonEvent, RayonEventResponse, LogSendAuctionMessageArgs } from 'common/model/RayonEvent';
 
-// // model
-// import User from 'user/model/User';
-// import Auction from 'auction/model/Auction';
+// dc
+import RayonDC from 'common/dc/RayonDC';
+import AuctionContent from 'auction/model/Auction';
 
-// // dc
-// import UserDC from 'user/dc/UserDC';
-// import ContractDC, { ContractInstance } from 'common/dc/ContractDC';
-// import AuctionDC from 'auction/dc/AuctionDC';
+type AuctionMessagesListner = (auctionContents: Map<number, AuctionMessage[]>) => void;
 
-// class MessageDC {
-//   _messagesGroupByAuction;
-//   _messages: Message[];
+class MessageDC extends RayonDC {
+  _auctionMessagesListner: Set<AuctionMessagesListner>;
+  _auctionMessages: Map<number, AuctionMessage[]>;
 
-//   getMessages(): Message[] {
-//     return this._messages === undefined ? [] : this._messages;
-//   }
+  constructor() {
+    super();
+    this._auctionMessagesListner = new Set();
+    this._auctionMessages = new Map();
+    MessageServerAgent.setEventListner(this.onEvent.bind(this));
+  }
 
-//   getSortedMessageIds(): number[][][] {
-//     if (this._messages === undefined) return [];
-//     const msgs = this._messages;
-//     const msgsByAuction = groupBy(msgs.map((msg, i) => i), msgIndex => msgs[msgIndex].auctionId);
-//     const myAddr = UserDC.getUser().userAddress;
-//     const result = Array.from(Object.keys(msgsByAuction))
-//       .map(key => msgsByAuction[key])
-//       .map(msgIndexes => {
-//         const msgsByOpponent = groupBy<number>(
-//           msgIndexes,
-//           msgIndex => (msgs[msgIndex].fromAddress === myAddr ? msgs[msgIndex].toAddress : msgs[msgIndex].fromAddress)
-//         );
-//         return Array.from(Object.keys(msgsByOpponent)).map(key => msgsByOpponent[key]);
-//       });
-//     console.log('real result', result);
-//     return result;
-//   }
+  /*
+  event handler
+  */
+  private onEvent(eventType: RayonEvent, event: any): void {
+    switch (eventType) {
+      case RayonEvent.LogSendAuctionMessage:
+        this.onAuctionMessageSent(event);
+        break;
+      default:
+        break;
+    }
+  }
 
-//   async getUserAuctionContents() {
-//     const uniqueId = [...new Set(this._messages.map(item => item.auctionId))];
-//     const auctionList: Auction[] = await AuctionDC.getAuctionContents();
-//     const user = UserDC.getUser();
+  private onAuctionMessageSent(event: RayonEventResponse<LogSendAuctionMessageArgs>) {
+    const userAccount = MessageServerAgent.getUserAccount();
+    if (event.args.fromAddress !== userAccount || event.args.toAddress !== userAccount) return;
+    this._eventListeners[RayonEvent.LogSendAuctionMessage] &&
+      this._eventListeners[RayonEvent.LogSendAuctionMessage].forEach(listner => {
+        listner(event);
+      });
+  }
 
-//     return user.isBorrower
-//       ? auctionList.filter(item => item.userAddress === user.userAddress)
-//       : auctionList.filter(item => uniqueId.indexOf(item.id) !== -1);
-//   }
+  /*
+  auction contents handler
+  */
+  public addAuctionMessagesListeners(listener: AuctionMessagesListner) {
+    this._auctionMessagesListner.add(listener);
+  }
 
-//   getSortedMessageByAuctionContent() {
-//     if (this._messages === undefined) return [];
-//     const msgs = this._messages;
-//     const sorted = {};
-//     msgs.forEach(item => {
-//       if (sorted[item.auctionId] === undefined) return (sorted[item.auctionId] = item);
-//       if (sorted[item.auctionId].timeStamp < item.timeStamp) return (sorted[item.auctionId] = item);
-//     });
-//     return sorted;
-//   }
+  public removeAuctionMessagesListeners(listener: AuctionMessagesListner) {
+    this._auctionMessagesListner.delete(listener);
+  }
 
-//   async getUserMessages() {
-//     this._messages = await MessageServerAgent.fetchUserMessages();
-//     return this._messages;
-//   }
+  private onAuctionMessagesFetched(auctionContenst: Map<number, AuctionMessage[]>) {
+    this._auctionMessagesListner && this._auctionMessagesListner.forEach(listener => listener(auctionContenst));
+  }
 
-//   getUserMessagesByAuctionId(auctionId: number): Message[] {
-//     if (this._messages === undefined) return [];
-//     return this._messages.filter(message => {
-//       if (auctionId === message.auctionId) return message;
-//     });
-//   }
+  /*
+    communicate to auction
+    */
 
-//   async insertStartMessage(toAddress: string, auctionId: number, msgType: number, payload: string) {
-//     MessageServerAgent.insertStartMessage(toAddress, auctionId, msgType, payload);
-//   }
+  public sendMessage(
+    toAddress: string,
+    previousMessageId: number,
+    auctionId: number,
+    msgType: number,
+    payload: string
+  ) {
+    MessageServerAgent.sendMessage(toAddress, previousMessageId, auctionId, msgType, payload);
+  }
 
-//   async insertMessage(
-//     toAddress: string,
-//     auctionId: number,
-//     msgType: number,
-//     priviousMsgIndex: number,
-//     payload: string
-//   ) {
-//     MessageServerAgent.insertMessage(toAddress, auctionId, msgType, priviousMsgIndex, payload);
-//   }
-// }
+  public async fetchAuctionMessages(auctionContents: AuctionContent[]) {
+    if (this._auctionMessages.size !== 0) {
+      this.onAuctionMessagesFetched(this._auctionMessages);
+      return;
+    }
+    for (let i = 0; i < auctionContents.length; i++) {
+      const auctionId = auctionContents[i].id;
+      this._auctionMessages[auctionId] = await MessageServerAgent.fetchAuctionMessages(auctionId);
+    }
 
-// export default new MessageDC();
+    this.onAuctionMessagesFetched(this._auctionMessages);
+  }
+}
+
+export default new MessageDC();

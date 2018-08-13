@@ -63,7 +63,7 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
       userAddress: event.args.userAddress,
       timeStamp: event.args.timeStamp,
     };
-    auctionContents.push(newAuctionContents);
+    auctionContents.unshift(newAuctionContents);
     this.setState({ ...this.state, auctionContents });
   }
 
@@ -85,7 +85,6 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
   render() {
     const { auctionContents } = this.state;
     const user = UserDC.getUser();
-    console.log('auctionContents', auctionContents);
     return (
       <Fragment>
         <Container className={styles.contentContainer}>
@@ -113,14 +112,14 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
             </div>
           ) : (
             <div className={styles.auctionTable}>
-              {auctionContents.sort((a, b) => b.id - a.id).map((item, index) => {
+              {auctionContents.map((auctionContent, index) => {
                 return (
                   <div className={styles.contentRow} key={index}>
-                    <p className={styles.contentNumber}>{item.id + 1}</p>
+                    <p className={styles.contentNumber}>{auctionContent.id + 1}</p>
                     <p className={styles.contentsTitle}>
-                      <Link to={`/auction/content/${item.id}`}>{item.title}</Link>
+                      <Link to={`/auction/content/${auctionContent.id}`}>{auctionContent.title}</Link>
                     </p>
-                    <div className={styles.timeColumn}>{TimeConverter(item.timeStamp)}</div>
+                    <div className={styles.timeColumn}>{TimeConverter(auctionContent.timeStamp)}</div>
                   </div>
                 );
               })}

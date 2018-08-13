@@ -2,12 +2,12 @@ import React, { Component, Fragment } from 'react';
 
 // model
 import Auction from 'auction/model/Auction';
-import { MsgTypes } from 'message/model/Message';
+import { MsgTypes } from 'message/model/AuctionMessage';
 
 // dc
 import UserDC from 'user/dc/UserDC';
 import AuctionDC from 'auction/dc/AuctionDC';
-// import MessageDC from 'message/dc/MessageDC';
+import MessageDC from 'message/dc/MessageDC';
 
 // util
 import history from 'common/util/Histroy';
@@ -47,11 +47,12 @@ class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVC
     this.setState({ ...this.state, contentIndex, content });
   }
 
-    async onClickRequestButton(toAddress: string, auctionId: number) {
-      const payload = this.state.selectedTagList.join('%%');
-    //   await MessageDC.insertStartMessage(toAddress, auctionId, MsgTypes.REQUEST_PERSONAL_DATA, payload);
-      history.goBack();
-    }
+  async onClickRequestButton(toAddress: string, auctionId: number) {
+    const payload = this.state.selectedTagList.join('%%');
+    console.log('auction content id',auctionId)
+    MessageDC.sendMessage(toAddress, 0, auctionId, MsgTypes.REQUEST_PERSONAL_DATA, payload);
+    history.goBack();
+  }
 
   onChangeCheckBox(event) {
     if (UserDC.getUser().isBorrower) return;

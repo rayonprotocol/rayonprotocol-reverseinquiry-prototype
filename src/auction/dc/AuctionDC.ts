@@ -12,7 +12,6 @@ type AuctionContentsListner = (auctionContents: AuctionContent[]) => void;
 
 class AuctionDC extends RayonDC {
   private _auctionContents: AuctionContent[];
-
   private _auctionContentsListner: Set<AuctionContentsListner>;
 
   constructor() {
@@ -43,7 +42,7 @@ class AuctionDC extends RayonDC {
   }
 
   /*
-  user handler
+  auction contents handler
   */
   public addAuctionContentsListeners(listener: AuctionContentsListner) {
     this._auctionContentsListner.add(listener);
@@ -70,8 +69,11 @@ class AuctionDC extends RayonDC {
       this.onAuctionContentFetched(this._auctionContents);
       return;
     }
-    const auctionContents = await AuctionServerAgent.fetchAuctionContents();
-    this.onAuctionContentFetched(auctionContents);
+
+    const auctionContentsResult = await AuctionServerAgent.fetchAuctionContents();
+    this._auctionContents = auctionContentsResult.sort((a, b) => b.id - a.id);
+    console.log('this._auctionContents', this._auctionContents);
+    this.onAuctionContentFetched(this._auctionContents);
   }
 
   public registerAuctionContent(title: string, content: string, tags: string[]) {

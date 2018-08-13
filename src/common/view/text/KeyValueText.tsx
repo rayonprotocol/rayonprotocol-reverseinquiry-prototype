@@ -12,7 +12,6 @@ interface KeyValueTextProps {
 
 class KeyValueText extends Component<KeyValueTextProps, {}> {
   render() {
-    console.log('key', this.props.title);
     return (
       <div className={classNames(styles.commonKeyValueText, this.props.className)}>
         <p className={styles.title}>{this.props.title}</p>
