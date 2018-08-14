@@ -117,7 +117,7 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
                   <div className={styles.contentRow} key={index}>
                     <p className={styles.contentNumber}>{auctionContent.id + 1}</p>
                     <p className={styles.contentsTitle}>
-                      <Link to={`/auction/content/${auctionContent.id}`}>{auctionContent.title}</Link>
+                      <Link to={`/auction/content?id=${auctionContent.id}`}>{auctionContent.title}</Link>
                     </p>
                     <div className={styles.timeColumn}>{TimeConverter(auctionContent.timeStamp)}</div>
                   </div>

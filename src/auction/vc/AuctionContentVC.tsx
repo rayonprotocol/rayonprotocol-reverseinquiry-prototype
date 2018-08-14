@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import qs from 'query-string';
 
 // model
 import AuctionContent from 'auction/model/AuctionContent';
@@ -32,24 +33,24 @@ interface AuctionContentVCState {
 }
 
 class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVCState> {
-  state = {
-    ...this.state,
-    content: undefined,
-    selectedTagList: [],
-  };
+  constructor(props) {
+    super(props);
+    const parsed = qs.parse(props.location.search);
+    this.state = {
+      ...this.state,
+      content: undefined,
+      selectedTagList: [],
+      contentIndex: parseInt(parsed.id),
+    };
+  }
 
   async componentWillMount() {
-    const {
-      match: { params },
-    } = this.props;
-    const contentIndex = params.id;
-    const content = await AuctionDC.fetchAuctionContent(contentIndex);
-    this.setState({ ...this.state, contentIndex, content });
+    const content = await AuctionDC.fetchAuctionContent(this.state.contentIndex);
+    this.setState({ ...this.state, content });
   }
 
   async onClickRequestButton(toAddress: string, auctionId: number) {
     const payload = this.state.selectedTagList.join('%%');
-    console.log('auction content id', auctionId);
     MessageDC.sendMessage(toAddress, 0, auctionId, MsgTypes.REQUEST_PERSONAL_DATA, payload);
     history.goBack();
   }

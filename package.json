@@ -49,6 +49,7 @@
     "node-sass": "^4.7.2",
     "postcss-flexbugs-fixes": "^3.3.0",
     "postcss-loader": "^2.1.0",
+    "query-string": "^6.1.0",
     "react": "^16.2.0",
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.2.0",

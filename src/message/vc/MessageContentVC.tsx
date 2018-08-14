@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import qs from 'query-string';
 import classNames from 'classnames';
 
 // model
@@ -34,6 +35,7 @@ interface MessageContentVCState {
   auctionContent: AuctionContent;
   auctionMessages: AuctionMessage[];
   auctionId: number;
+  contentIndex: number;
   productOfferInput: string[];
   isModalOpen: boolean;
   isLoadingComplete: boolean;
@@ -41,25 +43,22 @@ interface MessageContentVCState {
 }
 
 class MessageContentVC extends Component<MessageContentVCProps, MessageContentVCState> {
-  state = {
-    ...this.state,
-    messages: [],
-    user: UserDC.getUser(),
-    productOfferInput: ['', '', ''],
-  };
+  constructor(props) {
+    super(props);
+    const parsed = qs.parse(props.location.search);
+    this.state = {
+      ...this.state,
+      user: UserDC.getUser(),
+      productOfferInput: ['', '', ''],
+      contentIndex: parseInt(parsed.id),
+    };
+  }
 
   async componentWillMount() {
-    const {
-      match: { params },
-    } = this.props;
-
     AuctionDC.addAuctionContentsListeners(this.onAuctionContentsFetched.bind(this));
     MessageDC.addAuctionMessagesListeners(this.onAuctionMessagesFetched.bind(this));
     MessageDC.addEventListener(RayonEvent.LogSendAuctionMessage, this.onAuctionMessageSent.bind(this));
-
-    this.setState({ ...this.state, contentIndex: parseInt(params.id) }, () => {
-      AuctionDC.fetchAuctionContents();
-    });
+    AuctionDC.fetchAuctionContents();
   }
 
   componentWillUnmount() {
@@ -138,16 +137,12 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     this.setState({ ...this.state, productOfferInput });
   }
 
-  renderMessageType = (msgType: MsgTypes, isLatestMsg?: boolean) => {
-    const borrowerMsgTypeNames = [
-      'Received Data Request',
-      'Sent Data',
-      'Offer Received',
-      'Accepted Offer',
-      'Rejected Offer',
-    ];
-    const lenderMsgTypeNames = ['Requested Data', 'Received Data', 'Loan Offered', 'Accepted Offer', 'Rejected Offer'];
+  renderMessageType = (msgType: MsgTypes, isLastMsg?: boolean) => {
     const user = UserDC.getUser();
+    const MsgName = this.state.user.isBorrower
+      ? MsgTypes.getBorrowerMsgNames(msgType)
+      : MsgTypes.getLenderMsgNames(msgType);
+
     return (
       <div
         className={classNames(styles.messageType, {
@@ -155,10 +150,10 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
           [styles.lender]: !user.isBorrower,
         })}
       >
-        <p>{this.state.user.isBorrower ? borrowerMsgTypeNames[msgType - 1] : lenderMsgTypeNames[msgType - 1]}</p>
-        {isLatestMsg &&
+        <p>{MsgName}</p>
+        {isLastMsg &&
           msgType === MsgTypes.OFFER_PRODUCT && <img src={require('../../common/asset/img/offer-recieved.png')} />}
-        {isLatestMsg &&
+        {isLastMsg &&
           msgType === MsgTypes.ACCEPT_OFFER && <img src={require('../../common/asset/img/accept-offer.png')} />}
       </div>
     );
@@ -304,8 +299,8 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
                       <div className={classNames(styles.messageBody)}>
                         {this.renderMessageType(item.msgType, index === 0)}
                         {/* {this} */}
-                        <ThreeValueText title={'From'} firstValue={item.fromUserID} secondValue={item.fromAddress} />
-                        <ThreeValueText title={'to'} firstValue={item.toUserID} secondValue={item.toAddress} />
+                        <ThreeValueText title={'From'} firstValue={''} secondValue={item.fromAddress} />
+                        <ThreeValueText title={'to'} firstValue={''} secondValue={item.toAddress} />
                         {this.renderPayload(item.msgType, item.payload)}
                       </div>
                       {!item.isComplete && this.renderSpecialForm(item)}

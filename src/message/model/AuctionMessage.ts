@@ -8,6 +8,24 @@ export enum MsgTypes {
   DENY_OFFER,
 }
 
+const borrowerMsgTypeNames = [
+  'Received Data Request',
+  'Sent Data',
+  'Offer Received',
+  'Accepted Offer',
+  'Rejected Offer',
+];
+const lenderMsgTypeNames = ['Requested Data', 'Received Data', 'Loan Offered', 'Accepted Offer', 'Rejected Offer'];
+
+export namespace MsgTypes {
+  export function getBorrowerMsgNames(type: MsgTypes) {
+    return borrowerMsgTypeNames[type - 1];
+  }
+  export function getLenderMsgNames(type: MsgTypes) {
+    return lenderMsgTypeNames[type - 1];
+  }
+}
+
 export type AuctionMessageResponse = [BigNumber, BigNumber, string, string, BigNumber, string, number, boolean];
 
 interface AuctionMessage {

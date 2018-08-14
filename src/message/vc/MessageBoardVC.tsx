@@ -137,7 +137,7 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
                     </div>
                     <div className={styles.rightSection}>
                       <div className={styles.contentsTitle}>
-                        <Link to={`/message/content/${auctionContent.id}`}>{auctionContent.title}</Link>
+                        <Link to={`/message/content?id=${auctionContent.id}`}>{auctionContent.title}</Link>
                       </div>
                       <div className={styles.bottomSection}>
                         {this.getLatestMessage(auctionMessages[auctionContent.id])}
