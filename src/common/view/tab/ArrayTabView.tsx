@@ -36,7 +36,7 @@ class ArrayTabView extends Component<ArrayTabViewProps, {}> {
               className={classNames(styles.tab, { [styles.activated]: index === activedIndex })}
               onClick={() => this.props.onClickTabMenu(index)}
             >
-              <Link to={'/' + this.convertMenuToUrl(item)}>{item}</Link>
+              <Link className={styles.link} to={'/' + this.convertMenuToUrl(item)}>{item}</Link>
             </li>
           );
         })}
