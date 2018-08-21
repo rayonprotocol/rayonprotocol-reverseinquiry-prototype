@@ -31,10 +31,13 @@ interface MessageBoardVCState {
 }
 
 class MessageBoardVC extends Component<{}, MessageBoardVCState> {
-  state = {
-    ...this.state,
-    user: UserDC.getUser(),
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.state,
+      user: UserDC.getUser(),
+    };
+  }
 
   async componentWillMount() {
     ReverseInquiryDC.addReverseInquiriesListeners(this.onReverseInquiriesFetched.bind(this));
@@ -57,12 +60,11 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
     this.setState({ ...this.state, reverseInquiries });
   }
 
-  onReverseInquiryMessagesFetched(Messages: Map<number, Message[]>) {
-    this.setState({ ...this.state, Messages, isLoadingComplete: true });
+  onReverseInquiryMessagesFetched(messages: Map<number, Message[]>) {
+    this.setState({ ...this.state, messages, isLoadingComplete: true });
   }
 
   onReverseInquiryMessageSent(event: RayonEventResponse<LogSendReverseInquiryMessageArgs>) {
-    const { reverseInquiryMessages } = this.state;
     const newReverseInquiryMessage: Message = {
       reverseInquiryId: event.args.reverseInquiryId.toNumber(),
       messageId: event.args.messageId.toNumber(),
@@ -73,8 +75,8 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
       timeStamp: event.args.timeStamp,
       isComplete: event.args.isComplete,
     };
-    reverseInquiryMessages[newReverseInquiryMessage.reverseInquiryId].push(newReverseInquiryMessage);
-    this.setState({ ...this.state, reverseInquiryMessages });
+    this.state.messages[newReverseInquiryMessage.reverseInquiryId].push(newReverseInquiryMessage);
+    this.setState({ ...this.state, messages: this.state.messages });
   }
 
   onClickTitle(id: number) {
@@ -104,39 +106,38 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
   }
 
   render() {
-    const { auctionContents, auctionMessages, isLoadingComplete, user } = this.state;
     return (
       <Fragment>
         <Container className={styles.contentContainer}>
           <div className={styles.titleSection}>
             <p className={styles.title}>Mailbox</p>
           </div>
-          {!isLoadingComplete ? (
+          {!this.state.isLoadingComplete ? (
             <div>Loading...</div>
-          ) : auctionContents === undefined ? (
+          ) : this.state.reverseInquiries === undefined ? (
             <div
               className={classNames(styles.emptyNote, {
-                [styles.borrower]: user.isBorrower,
-                [styles.lender]: !user.isBorrower,
+                [styles.borrower]: this.state.user.isBorrower,
+                [styles.lender]: !this.state.user.isBorrower,
               })}
             >
               No Message
             </div>
           ) : (
             <div className={styles.contentTable}>
-              {auctionContents.map((auctionContent, index) => {
+              {this.state.reverseInquiries.map((reverseInquiry, index) => {
                 return (
                   <div key={index} className={styles.contentRow}>
                     <div className={styles.contentNumber}>
-                      <p>{auctionContent.id + 1}</p>
+                      <p>{reverseInquiry.id + 1}</p>
                     </div>
                     <div className={styles.rightSection}>
                       <div className={styles.contentsTitle}>
-                        <Link to={`/message/content?id=${auctionContent.id}`}>{auctionContent.title}</Link>
+                        <Link to={`/message/content?id=${reverseInquiry.id}`}>{reverseInquiry.title}</Link>
                       </div>
                       <div className={styles.bottomSection}>
-                        {this.getLatestMessage(auctionMessages[auctionContent.id])}
-                        <p className={styles.timeColumn}>{TimeConverter(auctionContent.timeStamp)}</p>
+                        {this.getLatestMessage(this.state.messages[reverseInquiry.id])}
+                        <p className={styles.timeColumn}>{TimeConverter(reverseInquiry.timeStamp)}</p>
                       </div>
                     </div>
                   </div>

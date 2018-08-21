@@ -22,17 +22,17 @@ import RayonButton from 'common/view/button/RayonButton';
 // styles
 import styles from './ReverseInquiryContentVC.scss';
 
-interface AuctionContentVCProps {
+interface ReverseInquiryVCProps {
   match: any;
 }
 
-interface AuctionContentVCState {
+interface ReverseInquiryVCState {
   contentIndex: number;
   content: ReverseInquiry;
   selectedTagList: string[];
 }
 
-class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVCState> {
+class ReverseInquiryVC extends Component<ReverseInquiryVCProps, ReverseInquiryVCState> {
   constructor(props) {
     super(props);
     const parsed = qs.parse(props.location.search);
@@ -49,9 +49,9 @@ class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVC
     this.setState({ ...this.state, content });
   }
 
-  async onClickRequestButton(toAddress: string, auctionId: number) {
+  async onClickRequestButton(toAddress: string, reverseInquiryId: number) {
     const payload = this.state.selectedTagList.join('%%');
-    MessageDC.sendMessage(toAddress, 0, auctionId, MsgTypes.REQUEST_PERSONAL_DATA, payload);
+    MessageDC.sendMessage(toAddress, 0, reverseInquiryId, MsgTypes.REQUEST_PERSONAL_DATA, payload);
     history.goBack();
   }
 
@@ -80,7 +80,7 @@ class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVC
             </div>
             <KeyValueText className={styles.contentValue} title={'User ID'} value={content.userName} />
             <KeyValueText className={styles.contentValue} title={'Title'} value={content.title} />
-            <KeyValueText className={styles.contentValue} title={'Content'} value={content.content} />
+            <KeyValueText className={styles.contentValue} title={'Content'} value={content.description} />
             <TagCheckBox
               title={'Available Personal Data'}
               financeItems={content.financeData}
@@ -104,4 +104,4 @@ class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVC
   }
 }
 
-export default AuctionContentVC;
+export default ReverseInquiryVC;

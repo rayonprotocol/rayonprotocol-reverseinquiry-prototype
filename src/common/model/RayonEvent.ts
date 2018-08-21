@@ -42,7 +42,7 @@ export interface LogUserSignUpArgs {
 export interface LogRegisterReverseInquiryArgs {
   id: BigNumber;
   title: string;
-  content: string;
+  description: string;
   financeData: string;
   userName: string;
   userAddress: string;

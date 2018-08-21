@@ -3,7 +3,7 @@ import { BigNumber } from 'bignumber.js';
 interface ReverseInquiry {
   id: number;
   title: string;
-  content: string;
+  description: string;
   financeData: string[];
   userName: string;
   userAddress: string;
@@ -19,7 +19,7 @@ Reverse Inquiry request result index
 export enum ReverseInquiryResponseIndex {
   id,
   title,
-  content,
+  description,
   financeData,
   userName,
   userAddress,

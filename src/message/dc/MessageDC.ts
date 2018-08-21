@@ -73,16 +73,16 @@ class MessageDC extends RayonDC {
     MessageServerAgent.sendMessage(toAddress, previousMessageId, reverseInquiryId, msgType, payload);
   }
 
-  public async fetchMessages(auctionContents: ReverseInquiry[]) {
+  public async fetchMessages(reverseInquiries: ReverseInquiry[]) {
     if (this._messages.size !== 0) {
       this.onMessagesFetched(this._messages);
       return;
     }
-    if (auctionContents === undefined) console.error('auctionContents is undefined');
+    if (reverseInquiries === undefined) console.error('reverseInquiry is undefined');
 
-    for (let i = 0; i < auctionContents.length; i++) {
-      const auctionId = auctionContents[i].id;
-      this._messages[auctionId] = await MessageServerAgent.fetchReverseInquiryMessages(auctionId);
+    for (let i = 0; i < reverseInquiries.length; i++) {
+      const reverseInquiryId = reverseInquiries[i].id;
+      this._messages[reverseInquiryId] = await MessageServerAgent.fetchReverseInquiryMessages(reverseInquiryId);
     }
 
     this.onMessagesFetched(this._messages);

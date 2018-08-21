@@ -41,7 +41,7 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
       exact: true,
     },
     {
-      path: '/auction/content',
+      path: '/reverseinquiry/content',
       component: ReverseInquiryContentVC,
       exact: false,
     },

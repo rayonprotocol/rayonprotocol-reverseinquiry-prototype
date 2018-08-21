@@ -56,14 +56,14 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
   async componentWillMount() {
     ReverseInquiryDC.addReverseInquiriesListeners(this.onReverseInquiriesFetched.bind(this));
     MessageDC.addMessagesListeners(this.onMessagesFetched.bind(this));
-    MessageDC.addEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onAuctionMessageSent.bind(this));
+    MessageDC.addEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onMessageSent.bind(this));
     ReverseInquiryDC.fetchReverseInquiries();
   }
 
   componentWillUnmount() {
     ReverseInquiryDC.removeReverseInquiriesListeners(this.onReverseInquiriesFetched.bind(this));
     MessageDC.removeMessagesListeners(this.onMessagesFetched.bind(this));
-    MessageDC.removeEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onAuctionMessageSent.bind(this));
+    MessageDC.removeEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onMessageSent.bind(this));
   }
 
   onReverseInquiriesFetched(_reverseInquiries: ReverseInquiry[]) {
@@ -72,15 +72,15 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     this.setState({ ...this.state, reverseInquiry });
   }
 
-  onMessagesFetched(_auctionMessages: Map<number, Message[]>) {
+  onMessagesFetched(_messages: Map<number, Message[]>) {
     this.setState({
       ...this.state,
-      messages: _auctionMessages[this.state.contentIndex],
+      messages: _messages[this.state.contentIndex],
       isLoadingComplete: true,
     });
   }
 
-  onAuctionMessageSent(event: RayonEventResponse<LogSendReverseInquiryMessageArgs>) {
+  onMessageSent(event: RayonEventResponse<LogSendReverseInquiryMessageArgs>) {
     ReverseInquiryDC.fetchReverseInquiries();
   }
 

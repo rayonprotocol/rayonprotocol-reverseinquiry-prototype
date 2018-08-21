@@ -4,7 +4,10 @@ import TruffleContract from 'truffle-contract';
 import ServerAgent from 'common/agent/ServerAgent';
 
 // model
-import ReverseInquiry, { ReverseInquiryResponseIndex, ReverseInquiryResponse } from 'reverseinquiry/model/ReverseInquiry';
+import ReverseInquiry, {
+  ReverseInquiryResponseIndex,
+  ReverseInquiryResponse,
+} from 'reverseinquiry/model/ReverseInquiry';
 import { RayonEvent } from 'common/model/RayonEvent';
 
 // dc
@@ -24,7 +27,7 @@ class ReverseInquiryServerAgent extends ServerAgent {
     const newReverseInquiry: ReverseInquiry = {
       id: result[ReverseInquiryResponseIndex.id].toNumber(),
       title: result[ReverseInquiryResponseIndex.title],
-      content: result[ReverseInquiryResponseIndex.content],
+      description: result[ReverseInquiryResponseIndex.description],
       financeData: result[ReverseInquiryResponseIndex.financeData].split('%%'),
       userName: result[ReverseInquiryResponseIndex.userName],
       userAddress: result[ReverseInquiryResponseIndex.userAddress],

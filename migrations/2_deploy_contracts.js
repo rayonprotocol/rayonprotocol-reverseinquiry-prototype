@@ -1,12 +1,12 @@
 var strings = artifacts.require('../libraries/strings.sol');
-var RayonUser = artifacts.require('./RayonUser.sol');
-var RayonAuction = artifacts.require('./RayonAuction.sol');
-var RayonAuctionMessage = artifacts.require('./RayonAuctionMessage');
+var UserDC = artifacts.require('./UserDC.sol');
+var ReverseInquiryDC = artifacts.require('./ReverseInquiryDC.sol');
+var ReverseInquiryMessageDC = artifacts.require('./ReverseInquiryMessageDC');
 
 module.exports = function(deployer) {
   return deployer
     .deploy(strings)
-    .then(() => deployer.deploy(RayonUser))
-    .then(rayonUser => deployer.deploy(RayonAuction, rayonUser.address))
-    .then(rayonAuction => deployer.deploy(RayonAuctionMessage, rayonAuction.address));
+    .then(() => deployer.deploy(UserDC))
+    .then(userDC => deployer.deploy(ReverseInquiryDC, userDC.address))
+    .then(reverseInquiryDC => deployer.deploy(ReverseInquiryMessageDC, reverseInquiryDC.address));
 };

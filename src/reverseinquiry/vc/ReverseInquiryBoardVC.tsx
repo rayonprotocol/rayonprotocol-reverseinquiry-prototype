@@ -35,18 +35,18 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
             reverseInquiries: [],
             isSignUpModalOpen: false,
         };
-        this.OnLogRegisterAuctionContent = this.OnLogRegisterAuctionContent.bind(this);
+        this.LogRegisterReverseInquiry = this.LogRegisterReverseInquiry.bind(this);
         this.onReverseInquiriesFetched = this.onReverseInquiriesFetched.bind(this);
     }
 
   async componentWillMount() {
-    ReverseInquiryDC.addEventListener(RayonEvent.LogRegisterReverseInquiry, this.OnLogRegisterAuctionContent);
+    ReverseInquiryDC.addEventListener(RayonEvent.LogRegisterReverseInquiry, this.LogRegisterReverseInquiry);
     ReverseInquiryDC.addReverseInquiriesListeners(this.onReverseInquiriesFetched);
     ReverseInquiryDC.fetchReverseInquiries();
   }
 
   componentWillUnmount() {
-    ReverseInquiryDC.removeEventListener(RayonEvent.LogRegisterReverseInquiry, this.OnLogRegisterAuctionContent);
+    ReverseInquiryDC.removeEventListener(RayonEvent.LogRegisterReverseInquiry, this.LogRegisterReverseInquiry);
     ReverseInquiryDC.removeReverseInquiriesListeners(this.onReverseInquiriesFetched);
   }
 
@@ -55,11 +55,11 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
   }
 
   // blockchain events
-  OnLogRegisterAuctionContent(event: RayonEventResponse<LogRegisterReverseInquiryArgs>) {
+  LogRegisterReverseInquiry(event: RayonEventResponse<LogRegisterReverseInquiryArgs>) {
     const newReverseInquiry: ReverseInquiry = {
       id: event.args.id.toNumber(),
       title: event.args.title,
-      content: event.args.content,
+      description: event.args.description,
       financeData: event.args.financeData.split('%%'),
       userName: event.args.userName,
       userAddress: event.args.userAddress,
@@ -113,15 +113,15 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
               No Requests To Date
             </div>
           ) : (
-            <div className={styles.auctionTable}>
-              {reverseInquiries.map((auctionContent, index) => {
+            <div className={styles.reverseInquiryTable}>
+              {reverseInquiries.map((reverseInquiry, index) => {
                 return (
                   <div className={styles.contentRow} key={index}>
-                    <p className={styles.contentNumber}>{auctionContent.id + 1}</p>
+                    <p className={styles.contentNumber}>{reverseInquiry.id + 1}</p>
                     <p className={styles.contentsTitle}>
-                      <Link to={`/auction/content?id=${auctionContent.id}`}>{auctionContent.title}</Link>
+                      <Link to={`/reverseinquiry/content?id=${reverseInquiry.id}`}>{reverseInquiry.title}</Link>
                     </p>
-                    <div className={styles.timeColumn}>{TimeConverter(auctionContent.timeStamp)}</div>
+                    <div className={styles.timeColumn}>{TimeConverter(reverseInquiry.timeStamp)}</div>
                   </div>
                 );
               })}

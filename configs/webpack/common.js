@@ -16,7 +16,7 @@ module.exports = {
       home: path.join(__dirname, '../../src/home'),
       modal: path.join(__dirname, '../../src/modal'),
       user: path.join(__dirname, '../../src/user'),
-      auction: path.join(__dirname, '../../src/auction'),
+      reverseinquiry: path.join(__dirname, '../../src/reverseinquiry'),
       message: path.join(__dirname, '../../src/message'),
     },
   },
