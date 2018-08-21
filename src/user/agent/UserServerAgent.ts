@@ -1,21 +1,21 @@
 import TruffleContract from 'truffle-contract';
 
 // agent
-import ReverseInquiryServerAgent from 'common/agent/ReverseInquiryServerAgent';
+import ServerAgent from 'common/agent/ServerAgent';
 
 // model
 import User, { getUserResultIndex } from 'user/model/User';
 import { RayonEvent } from 'common/model/RayonEvent';
 
-class UserServerAgent extends ReverseInquiryServerAgent {
+class UserServerAgent extends ServerAgent {
   constructor() {
-    const UserContract = TruffleContract(require('../../../build/contracts/RayonUser.json'));
-    const watchEvents: Set<RayonEvent> = new Set([RayonEvent.LogSignUpUser]);
+    const UserContract = TruffleContract(require('../../../build/contracts/UserDC.json'));
+    const watchEvents: Set<RayonEvent> = new Set([RayonEvent.LogUserSignUp]);
     super(UserContract, watchEvents);
   }
 
-  public async fetchUser() {
-    const userAccount = ReverseInquiryServerAgent.getUserAccount();
+  public async fetchUser(): Promise<User> {
+    const userAccount = ServerAgent.getUserAccount();
     const result = await this._contractInstance.getUser(userAccount, {
       from: userAccount,
     });
@@ -29,7 +29,7 @@ class UserServerAgent extends ReverseInquiryServerAgent {
 
   public async isUser(): Promise<boolean> {
     await this.checkAndFetchContractInstance();
-    const userAddress = ReverseInquiryServerAgent.getUserAccount();
+    const userAddress = ServerAgent.getUserAccount();
     const isUser = await this._contractInstance.isUser(userAddress, {
       from: userAddress,
     });
@@ -37,8 +37,8 @@ class UserServerAgent extends ReverseInquiryServerAgent {
     return isUser;
   }
 
-  public signUp(userName: string, isBorrower: boolean) {
-    const userAddress = ReverseInquiryServerAgent.getUserAccount();
+  public signUp(userName: string, isBorrower: boolean): void {
+    const userAddress = ServerAgent.getUserAccount();
     this._contractInstance.signUp(userName, isBorrower, {
       from: userAddress,
     });

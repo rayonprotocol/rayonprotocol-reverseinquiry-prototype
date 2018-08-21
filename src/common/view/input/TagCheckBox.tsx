@@ -6,14 +6,16 @@ import styles from './TagCheckBox.scss';
 
 interface TagCheckBoxProps {
   className?: string;
+  name: string; // 불필요해보임
   title: string;
-  dataList: string[];
-  selectedList: string[];
-  name: string;
-  isBorrower: boolean;
-  onChangeCheckBox: (event) => void;
+  financeItems: string[];
+  selFinanceItems: string[]; 
+  isBorrower: boolean; // TODO: isHighligh or isBlue
+  onSelChanged: (event) => void;
+  // onSelChanged: (item: string, selected: boolean) => void;  // onSelected
 }
 
+// TODO: TagCheckboxGroup
 class TagCheckBox extends Component<TagCheckBoxProps, {}> {
   state = {
     ...this.state,
@@ -21,26 +23,25 @@ class TagCheckBox extends Component<TagCheckBoxProps, {}> {
   };
 
   render() {
-    const { dataList, name, title, selectedList, isBorrower } = this.props;
     return (
       <div className={classNames(styles.tagCheckBox, this.props.className)}>
-        <div className={styles.title}>{title}</div>
-        {dataList === undefined ? (
+        <div className={styles.title}>{this.props.title}</div>
+        {this.props.financeItems === undefined ? (
           <div>There is no tag data</div>
         ) : (
-          dataList.map((item, index) => {
+          this.props.financeItems.map((item, index) => {
             return (
               <div
                 key={index}
                 className={classNames(styles.checkBox, {
-                  [styles.selected]: selectedList.indexOf(item) !== -1,
+                  [styles.selected]: this.props.selFinanceItems.indexOf(item) !== -1,
                 })}
               >
-                <input onChange={this.props.onChangeCheckBox} type={'checkbox'} id={item} name={name} value={item} />
+                <input onChange={this.props.onSelChanged} type={'checkbox'} id={item} name={name} value={item} />
                 <label
                   className={classNames(styles.checkBoxLabel, {
-                    [styles.borrower]: isBorrower,
-                    [styles.lender]: !isBorrower,
+                    [styles.borrower]: this.props.isBorrower,
+                    [styles.lender]: !this.props.isBorrower,
                   })}
                   htmlFor={item}
                 >

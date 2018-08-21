@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 // model
-import AuctionMessage, { MsgTypes } from 'message/model/AuctionMessage';
-import AuctionContent from 'auction/model/AuctionContent';
+import Message, { MsgTypes } from 'message/model/Message';
+import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
 import User from 'user/model/User';
-import { RayonEvent, RayonEventResponse, LogSendAuctionMessageArgs } from 'common/model/RayonEvent';
+import { RayonEvent, RayonEventResponse, LogSendReverseInquiryMessageArgs } from 'common/model/RayonEvent';
 
 // dc
 import MessageDC from 'message/dc/MessageDC';
-import AuctionDC from 'auction/dc/AuctionDC';
+import ReverseInquiryDC from 'reverseinquiry/dc/ReverseInquiryDC';
 import UserDC from 'user/dc/UserDC';
 
 // util
@@ -24,8 +24,8 @@ import Container from 'common/view/container/Container';
 import styles from './MessageBoardVC.scss';
 
 interface MessageBoardVCState {
-  auctionContents: AuctionContent[];
-  auctionMessages: Map<number, AuctionMessage[]>;
+  reverseInquiries: ReverseInquiry[];
+  messages: Map<number, Message[]>;
   isLoadingComplete: boolean;
   user: User;
 }
@@ -37,31 +37,34 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
   };
 
   async componentWillMount() {
-    AuctionDC.addAuctionContentsListeners(this.onAuctionContentsFetched.bind(this));
-    MessageDC.addAuctionMessagesListeners(this.onAuctionMessagesFetched.bind(this));
-    MessageDC.addEventListener(RayonEvent.LogSendAuctionMessage, this.onAuctionMessageSent.bind(this));
-    AuctionDC.fetchAuctionContents();
+    ReverseInquiryDC.addReverseInquiriesListeners(this.onReverseInquiriesFetched.bind(this));
+    MessageDC.addMessagesListeners(this.onReverseInquiryMessagesFetched.bind(this));
+    MessageDC.addEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onReverseInquiryMessageSent.bind(this));
+    ReverseInquiryDC.fetchReverseInquiries();
   }
 
   componentWillUnmount() {
-    AuctionDC.removeEventListener(RayonEvent.LogRegisterAuctionContent, this.onAuctionMessageSent.bind(this));
-    AuctionDC.removeAuctionContentsListeners(this.onAuctionContentsFetched.bind(this));
-    MessageDC.removeAuctionMessagesListeners(this.onAuctionMessagesFetched.bind(this));
+    ReverseInquiryDC.removeEventListener(
+      RayonEvent.LogRegisterReverseInquiry,
+      this.onReverseInquiryMessageSent.bind(this)
+    );
+    ReverseInquiryDC.removeReverseInquiriesListeners(this.onReverseInquiriesFetched.bind(this));
+    MessageDC.removeMessagesListeners(this.onReverseInquiryMessagesFetched.bind(this));
   }
 
-  onAuctionContentsFetched(auctionContents: AuctionContent[]) {
-    MessageDC.fetchAuctionMessages(auctionContents);
-    this.setState({ ...this.state, auctionContents });
+  onReverseInquiriesFetched(reverseInquiries: ReverseInquiry[]) {
+    MessageDC.fetchMessages(reverseInquiries);
+    this.setState({ ...this.state, reverseInquiries });
   }
 
-  onAuctionMessagesFetched(auctionMessages: Map<number, AuctionMessage[]>) {
-    this.setState({ ...this.state, auctionMessages, isLoadingComplete: true });
+  onReverseInquiryMessagesFetched(Messages: Map<number, Message[]>) {
+    this.setState({ ...this.state, Messages, isLoadingComplete: true });
   }
 
-  onAuctionMessageSent(event: RayonEventResponse<LogSendAuctionMessageArgs>) {
-    const { auctionMessages } = this.state;
-    const newAuctionMessage: AuctionMessage = {
-      auctionId: event.args.auctionId.toNumber(),
+  onReverseInquiryMessageSent(event: RayonEventResponse<LogSendReverseInquiryMessageArgs>) {
+    const { reverseInquiryMessages } = this.state;
+    const newReverseInquiryMessage: Message = {
+      reverseInquiryId: event.args.reverseInquiryId.toNumber(),
       messageId: event.args.messageId.toNumber(),
       fromAddress: event.args.fromAddress,
       toAddress: event.args.toAddress,
@@ -70,18 +73,18 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
       timeStamp: event.args.timeStamp,
       isComplete: event.args.isComplete,
     };
-    auctionMessages[newAuctionMessage.auctionId].push(newAuctionMessage);
-    this.setState({ ...this.state, auctionMessages });
+    reverseInquiryMessages[newReverseInquiryMessage.reverseInquiryId].push(newReverseInquiryMessage);
+    this.setState({ ...this.state, reverseInquiryMessages });
   }
 
   onClickTitle(id: number) {
     history.push(`/message/content/${id}`);
   }
 
-  getLatestMessage(messages: AuctionMessage[]) {
+  getLatestMessage(messages: Message[]) {
     if (messages === undefined || messages.length === 0) return; // 아무 메세지도 도착하지 않은 경우
 
-    const message: AuctionMessage = messages[0];
+    const message: Message = messages[0];
     const { user } = this.state;
     const MsgName = this.state.user.isBorrower
       ? MsgTypes.getBorrowerMsgNames(message.msgType)

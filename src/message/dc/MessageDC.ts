@@ -2,23 +2,23 @@
 import MessageServerAgent from 'message/agent/MessageServerAgent';
 
 // model
-import AuctionMessage from 'message/model/AuctionMessage';
-import { RayonEvent, RayonEventResponse, LogSendAuctionMessageArgs } from 'common/model/RayonEvent';
+import Message from 'message/model/Message';
+import { RayonEvent, RayonEventResponse, LogSendReverseInquiryMessageArgs } from 'common/model/RayonEvent';
 
 // dc
 import RayonDC from 'common/dc/RayonDC';
-import AuctionContent from 'auction/model/AuctionContent';
+import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
 
-type AuctionMessagesListner = (auctionContents: Map<number, AuctionMessage[]>) => void;
+type MessagesListner = (reverseInquiries: Map<number, Message[]>) => void;
 
 class MessageDC extends RayonDC {
-  _auctionMessagesListner: Set<AuctionMessagesListner>;
-  _auctionMessages: Map<number, AuctionMessage[]>;
+  _messagesListner: Set<MessagesListner>;
+  _messages: Map<number, Message[]>;
 
   constructor() {
     super();
-    this._auctionMessagesListner = new Set();
-    this._auctionMessages = new Map();
+    this._messagesListner = new Set();
+    this._messages = new Map();
     MessageServerAgent.setEventListner(this.onEvent.bind(this));
   }
 
@@ -28,19 +28,19 @@ class MessageDC extends RayonDC {
   private onEvent(eventType: RayonEvent, event: any): void {
     console.log('onEvent message');
     switch (eventType) {
-      case RayonEvent.LogSendAuctionMessage:
-        this.onAuctionMessageSent(event);
+      case RayonEvent.LogSendReverseInquiryMessage:
+        this.onReverseInquiryMessageSent(event);
         break;
       default:
         break;
     }
   }
 
-  private onAuctionMessageSent(event: RayonEventResponse<LogSendAuctionMessageArgs>) {
+  private onReverseInquiryMessageSent(event: RayonEventResponse<LogSendReverseInquiryMessageArgs>) {
     const userAccount = this.getUserAccount();
     if (event.args.fromAddress !== userAccount && event.args.toAddress !== userAccount) return;
-    this._eventListeners[RayonEvent.LogSendAuctionMessage] &&
-      this._eventListeners[RayonEvent.LogSendAuctionMessage].forEach(listner => {
+    this._eventListeners[RayonEvent.LogSendReverseInquiryMessage] &&
+      this._eventListeners[RayonEvent.LogSendReverseInquiryMessage].forEach(listner => {
         listner(event);
       });
   }
@@ -48,16 +48,16 @@ class MessageDC extends RayonDC {
   /*
   auction contents handler
   */
-  public addAuctionMessagesListeners(listener: AuctionMessagesListner) {
-    this._auctionMessagesListner.add(listener);
+  public addMessagesListeners(listener: MessagesListner) {
+    this._messagesListner.add(listener);
   }
 
-  public removeAuctionMessagesListeners(listener: AuctionMessagesListner) {
-    this._auctionMessagesListner.delete(listener);
+  public removeMessagesListeners(listener: MessagesListner) {
+    this._messagesListner.delete(listener);
   }
 
-  private onAuctionMessagesFetched(auctionContenst: Map<number, AuctionMessage[]>) {
-    this._auctionMessagesListner && this._auctionMessagesListner.forEach(listener => listener(auctionContenst));
+  private onMessagesFetched(messages: Map<number, Message[]>) {
+    this._messagesListner && this._messagesListner.forEach(listener => listener(messages));
   }
 
   /*
@@ -66,26 +66,26 @@ class MessageDC extends RayonDC {
   public sendMessage(
     toAddress: string,
     previousMessageId: number,
-    auctionId: number,
+    reverseInquiryId: number,
     msgType: number,
     payload: string
   ) {
-    MessageServerAgent.sendMessage(toAddress, previousMessageId, auctionId, msgType, payload);
+    MessageServerAgent.sendMessage(toAddress, previousMessageId, reverseInquiryId, msgType, payload);
   }
 
-  public async fetchAuctionMessages(auctionContents: AuctionContent[]) {
-    if (this._auctionMessages.size !== 0) {
-      this.onAuctionMessagesFetched(this._auctionMessages);
+  public async fetchMessages(auctionContents: ReverseInquiry[]) {
+    if (this._messages.size !== 0) {
+      this.onMessagesFetched(this._messages);
       return;
     }
     if (auctionContents === undefined) console.error('auctionContents is undefined');
 
     for (let i = 0; i < auctionContents.length; i++) {
       const auctionId = auctionContents[i].id;
-      this._auctionMessages[auctionId] = await MessageServerAgent.fetchAuctionMessages(auctionId);
+      this._messages[auctionId] = await MessageServerAgent.fetchReverseInquiryMessages(auctionId);
     }
 
-    this.onAuctionMessagesFetched(this._auctionMessages);
+    this.onMessagesFetched(this._messages);
   }
 }
 

@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 // model
 import User from 'user/model/User';
-import { RayonEvent, RayonEventResponse, LogSignUpEventArgs } from 'common/model/RayonEvent';
+import { RayonEvent, RayonEventResponse, LogUserSignUpArgs } from 'common/model/RayonEvent';
 
 // dc
 import UserDC from 'user/dc/UserDC';
@@ -12,9 +12,9 @@ import UserDC from 'user/dc/UserDC';
 import TabNav from 'common/view/nav/TabNav';
 import RayonIntroView from 'home/view/RayonIntroView';
 
-import AuctionBoardVC from 'auction/vc/AuctionBoardVC';
+import ReverseInquiryBoardVC from 'reverseinquiry/vc/ReverseInquiryBoardVC';
 import MessageBoardVC from 'message/vc/MessageBoardVC';
-import AuctionContentVC from 'auction/vc/AuctionContentVC';
+import ReverseInquiryContentVC from 'reverseinquiry/vc/ReverseInquiryContentVC';
 import MessageContentVC from 'message/vc/MessageContentVC';
 import RegisterFinanceInfoVC from 'user/vc/RegisterFinanceInfoVC';
 
@@ -32,7 +32,7 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
   route = [
     {
       path: '/',
-      component: AuctionBoardVC,
+      component: ReverseInquiryBoardVC,
       exact: true,
     },
     {
@@ -42,12 +42,12 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
     },
     {
       path: '/auction/content',
-      component: AuctionContentVC,
+      component: ReverseInquiryContentVC,
       exact: false,
     },
     {
       path: '/loanrequest',
-      component: AuctionBoardVC,
+      component: ReverseInquiryBoardVC,
       exact: true,
     },
     {
@@ -63,25 +63,25 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
   ];
 
   async componentWillMount() {
-    // check user registered
-    const isUser = await UserDC.isUser();
-
     UserDC.addUserListeners(this.onUserFetched.bind(this));
 
+    // check user registered
+    const isUser: boolean = await UserDC.isUser();
     // if user does not exist on block chain, listen sign up event
     // if user exist on block chain, fetch user information
-    isUser ? UserDC.fetchUser() : UserDC.addEventListener(RayonEvent.LogSignUpUser, this.onUserSignUp.bind(this));
+    if (isUser) UserDC.fetchUser();
+    else UserDC.addEventListener(RayonEvent.LogUserSignUp, this.onUserSignUp.bind(this));
   }
 
   componentWillUnmount() {
-    UserDC.addEventListener(RayonEvent.LogSignUpUser, this.onUserSignUp.bind(this));
+    UserDC.removeEventListener(RayonEvent.LogUserSignUp, this.onUserSignUp.bind(this));
   }
 
   onUserFetched(user: User) {
     this.setState({ ...this.state, user });
   }
 
-  onUserSignUp(event: RayonEventResponse<LogSignUpEventArgs>) {
+  onUserSignUp(event: RayonEventResponse<LogUserSignUpArgs>) {
     UserDC.fetchUser();
   }
 
@@ -89,7 +89,7 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
     const { user } = this.state;
     return (
       <Fragment>
-        {!user ? (
+        {user === undefined ? (
           <RayonIntroView />
         ) : (
           <BrowserRouter>

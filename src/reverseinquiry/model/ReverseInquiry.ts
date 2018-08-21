@@ -1,6 +1,6 @@
 import { BigNumber } from 'bignumber.js';
 
-interface AuctionContent {
+interface ReverseInquiry {
   id: number;
   title: string;
   content: string;
@@ -10,13 +10,13 @@ interface AuctionContent {
   timeStamp: number;
 }
 
-export type AuctionContentResponse = [BigNumber, string, string, string, string, string, number];
+export type ReverseInquiryResponse = [BigNumber, string, string, string, string, string, number];
 
 /*
-Auction content request result index
+Reverse Inquiry request result index
 */
 
-export enum AuctinoContentIndex {
+export enum ReverseInquiryResponseIndex {
   id,
   title,
   content,
@@ -26,4 +26,4 @@ export enum AuctinoContentIndex {
   timeStamp,
 }
 
-export default AuctionContent;
+export default ReverseInquiry;

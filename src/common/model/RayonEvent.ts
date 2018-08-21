@@ -16,12 +16,12 @@ export interface RayonEventResponse<T> {
   event
   */
 export enum RayonEvent {
-  LogSignUpUser = 1,
-  LogRegisterAuctionContent,
-  LogSendAuctionMessage,
+  LogUserSignUp = 1,
+  LogRegisterReverseInquiry,
+  LogSendReverseInquiryMessage,
 }
 
-const rayonEventNames = ['NONE', 'LogSignUpUser', 'LogRegisterAuctionContent', 'LogSendAuctionMessage'];
+const rayonEventNames = ['NONE', 'LogUserSignUp', 'LogRegisterReverseInquiry', 'LogSendReverseInquiryMessage'];
 
 export namespace RayonEvent {
   export function getRayonEventName(eventType: number) {
@@ -33,13 +33,13 @@ export namespace RayonEvent {
   Event Respond and Event Arguments interface
 */
 
-export interface LogSignUpEventArgs {
+export interface LogUserSignUpArgs {
   userAddress: string;
   userName: string;
   isBorrower: boolean;
 }
 
-export interface LogRegisterAuctionContentArgs {
+export interface LogRegisterReverseInquiryArgs {
   id: BigNumber;
   title: string;
   content: string;
@@ -49,8 +49,8 @@ export interface LogRegisterAuctionContentArgs {
   timeStamp: number;
 }
 
-export interface LogSendAuctionMessageArgs {
-  auctionId: BigNumber;
+export interface LogSendReverseInquiryMessageArgs {
+  reverseInquiryId: BigNumber;
   messageId: BigNumber;
   fromAddress: string;
   toAddress: string;

@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
 
+// model
+import { UserType } from 'user/model/User';
+
 // dc
 import UserDC from 'user/dc/UserDC';
 
 // view
-
 import ModalTitle from 'common/view/modal/ModalTitle';
 import SelectInput from 'common/view/input/SelectInput';
 import TextInput from 'common/view/input/TextInput';
 import RayonButton from 'common/view/button/RayonButton';
 
+// util
+import StringUtil from 'common/util/StringUtil';
+
 // styles
 import styles from './SignUpVC.scss';
 
 interface SignUpVCProps {
-  onClickModal: () => void;
+  onCloseClicked: () => void;
 }
 
 interface SignUpVCState {
@@ -23,9 +28,6 @@ interface SignUpVCState {
 }
 
 class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
-  public Lender = 'Lender';
-  public Borrower = 'Borrower';
-
   constructor(props) {
     super(props);
     this.state = {
@@ -36,37 +38,41 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
 
   // Change Event
   onChangeOption(event) {
-    const isBorrower = event.target.value === this.Borrower;
-    this.setState({ ...this.state, isBorrower });
+    this.setState({
+      ...this.state,
+      isBorrower: event.target.value === UserType.getUserTypeNames(UserType.ENTITY_BORROWER),
+    });
   }
 
   onChangeUserName(event) {
-    const userName = event.target.value;
-    this.setState({ ...this.state, userName });
+    this.setState({ ...this.state, userName: event.target.value });
   }
 
   // Click Event
   onClickSubmitButton() {
-    const { userName, isBorrower } = this.state;
-    if (!this.validInputValues(userName, isBorrower)) return alert('type all input values');
-    UserDC.signUp(userName, isBorrower);
-    this.props.onClickModal();
+    if (!this.validInputValues(this.state.userName, this.state.isBorrower)) {
+      alert('type all input values');
+      return;
+    }
+    UserDC.signUp(this.state.userName, this.state.isBorrower);
+    this.props.onCloseClicked();
   }
 
-  validInputValues(userName: string, isBorrower: boolean) {
-    return userName !== '' && userName !== undefined && isBorrower !== undefined;
+  validInputValues(userName: string, isBorrower: boolean): boolean {
+    return !StringUtil.isEmpty(userName) && isBorrower !== undefined;
   }
 
   render() {
-    const options = [this.Borrower, this.Lender];
-
     return (
       <div className={styles.contentsContainer}>
-        <ModalTitle title={'Sign Up'} onCloseRequest={this.props.onClickModal} />
+        <ModalTitle title={'Sign Up'} onCloseRequest={this.props.onCloseClicked} />
         <SelectInput
           className={styles.selectInput}
-          title={'type'}
-          options={options}
+          title={'Type'}
+          options={[
+            UserType.getUserTypeNames(UserType.ENTITY_BORROWER),
+            UserType.getUserTypeNames(UserType.ENTITY_LENDER),
+          ]}
           onChangeOption={this.onChangeOption.bind(this)}
         />
         <TextInput

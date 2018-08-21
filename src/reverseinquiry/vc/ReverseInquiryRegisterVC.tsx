@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // dc
-import AuctionDC from 'auction/dc/AuctionDC';
+import ReverseInquiryDC from 'reverseinquiry/dc/ReverseInquiryDC';
 import UserDC from 'user/dc/UserDC';
 
 // view
@@ -11,37 +11,39 @@ import TagCheckBox from 'common/view/input/TagCheckBox';
 import RayonButton from 'common/view/button/RayonButton';
 
 // styles
-import styles from './AuctionRegisterVC.scss';
+import styles from './ReverseInquiryRegisterVC.scss';
 
-interface AuctionRegisterVCProps {
-  onClickModal: () => void;
+interface ReverseInquiryRegisterVCProps {
+  onClickButtonClicked: () => void;
 }
 
-interface AuctionRegisterVCState {
+interface ReverseInquiryRegisterVCState {
   title: string;
   content: string;
   isError: boolean;
-  selectedTagList: string[];
+  selFinanceItems: string[];
 }
 
-class AuctionRegisterVC extends Component<AuctionRegisterVCProps, AuctionRegisterVCState> {
+class ReverseInquiryRegisterVC extends Component<ReverseInquiryRegisterVCProps, ReverseInquiryRegisterVCState> {
   constructor(props) {
     super(props);
     this.state = {
       ...this.state,
       isError: false,
-      selectedTagList: [],
+      selFinanceItems: [],
     };
   }
 
   async onClickRegisterButton() {
-    const { title, content, selectedTagList } = this.state;
-    if (selectedTagList.length === 0) return alert('Personal data must be provided with loan request');
+    if (this.state.selFinanceItems.length === 0) {
+      alert('Personal data must be provided with loan request');
+      return;
+    }
     try {
-      AuctionDC.registerAuctionContent(title, content, selectedTagList);
-      this.props.onClickModal();
+      ReverseInquiryDC.registerReverseInquiry(this.state.title, this.state.content, this.state.selFinanceItems);
+      this.props.onClickButtonClicked();
     } catch {
-      console.log('auction contenst register failed');
+      console.log('ReverseInquiry register failed');
     }
   }
 
@@ -56,35 +58,40 @@ class AuctionRegisterVC extends Component<AuctionRegisterVCProps, AuctionRegiste
   }
 
   onChangeTag(event) {
-    const value = event.target.value;
-    const { selectedTagList } = this.state;
-    const valueIndex = selectedTagList.indexOf(value);
-    valueIndex === -1 ? selectedTagList.push(value) : selectedTagList.splice(valueIndex, 1);
-    this.setState({ ...this.state, selectedTagList });
+    //map 이용
+    const valueIndex: number = this.state.selFinanceItems.indexOf(event.target.value);
+    valueIndex === -1
+      ? this.state.selFinanceItems.push(event.target.value)
+      : this.state.selFinanceItems.splice(valueIndex, 1);
+    this.setState({ ...this.state, selFinanceItems: this.state.selFinanceItems });
   }
 
   render() {
-    const { selectedTagList } = this.state;
+    const { selFinanceItems } = this.state;
     const localData = localStorage.getItem(UserDC.getUser().userAddress);
-    let myFinanceData = localData !== undefined ? Object.keys(JSON.parse(localData)) : null;
+    let financeItems = localData !== undefined ? Object.keys(JSON.parse(localData)) : null;
     return (
       <div>
         <div className={styles.note}>
-          <ModalTitle className={styles.noticeTitle} title={'New Request'} onCloseRequest={this.props.onClickModal} />
+          <ModalTitle
+            className={styles.noticeTitle}
+            title={'New Request'}
+            onCloseRequest={this.props.onClickButtonClicked}
+          />
           <p>Notice</p>
           <p>1. Wallet Address and User ID are automatically filled in</p>
           <p>2. Revisions cannot be made once published so user attention is advised</p>
         </div>
         <TextInput title={'Title'} onChangeInputValue={this.onChangeTitle.bind(this)} />
         <TextInput title={'Content'} onChangeInputValue={this.onChangeContent.bind(this)} />
-        {myFinanceData && (
+        {financeItems && (
           <TagCheckBox
             className={styles.FinanceTag}
-            title={'personal data to be provided'}
-            dataList={myFinanceData}
-            onChangeCheckBox={this.onChangeTag.bind(this)}
             name={'financeTag'}
-            selectedList={selectedTagList}
+            title={'personal data to be provided'}
+            financeItems={financeItems}
+            selFinanceItems={selFinanceItems}
+            onSelChanged={this.onChangeTag.bind(this)}
             isBorrower={true}
           />
         )}
@@ -99,4 +106,4 @@ class AuctionRegisterVC extends Component<AuctionRegisterVCProps, AuctionRegiste
   }
 }
 
-export default AuctionRegisterVC;
+export default ReverseInquiryRegisterVC;

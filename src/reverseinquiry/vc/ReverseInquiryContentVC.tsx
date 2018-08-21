@@ -2,12 +2,12 @@ import React, { Component, Fragment } from 'react';
 import qs from 'query-string';
 
 // model
-import AuctionContent from 'auction/model/AuctionContent';
-import { MsgTypes } from 'message/model/AuctionMessage';
+import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
+import { MsgTypes } from 'message/model/Message';
 
 // dc
 import UserDC from 'user/dc/UserDC';
-import AuctionDC from 'auction/dc/AuctionDC';
+import ReverseInquiryDC from 'reverseinquiry/dc/ReverseInquiryDC';
 import MessageDC from 'message/dc/MessageDC';
 
 // util
@@ -20,7 +20,7 @@ import KeyValueText from 'common/view/text/KeyValueText';
 import RayonButton from 'common/view/button/RayonButton';
 
 // styles
-import styles from './AuctionContentVC.scss';
+import styles from './ReverseInquiryContentVC.scss';
 
 interface AuctionContentVCProps {
   match: any;
@@ -28,7 +28,7 @@ interface AuctionContentVCProps {
 
 interface AuctionContentVCState {
   contentIndex: number;
-  content: AuctionContent;
+  content: ReverseInquiry;
   selectedTagList: string[];
 }
 
@@ -45,7 +45,7 @@ class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVC
   }
 
   async componentWillMount() {
-    const content = await AuctionDC.fetchAuctionContent(this.state.contentIndex);
+    const content = await ReverseInquiryDC.fetchReverseInquiry(this.state.contentIndex);
     this.setState({ ...this.state, content });
   }
 
@@ -83,10 +83,10 @@ class AuctionContentVC extends Component<AuctionContentVCProps, AuctionContentVC
             <KeyValueText className={styles.contentValue} title={'Content'} value={content.content} />
             <TagCheckBox
               title={'Available Personal Data'}
-              dataList={content.financeData}
-              selectedList={selectedTagList}
+              financeItems={content.financeData}
+              selFinanceItems={selectedTagList}
               name={'financeData'}
-              onChangeCheckBox={this.onChangeCheckBox.bind(this)}
+              onSelChanged={this.onChangeCheckBox.bind(this)}
               isBorrower={user.isBorrower}
             />
             {!user.isBorrower && (

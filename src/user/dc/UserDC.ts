@@ -6,8 +6,7 @@ import RayonDC from 'common/dc/RayonDC';
 
 // model
 import User from '../model/User';
-import { RayonEvent, RayonEventResponse, LogSignUpEventArgs } from 'common/model/RayonEvent';
-import { listeners } from 'cluster';
+import { RayonEvent, RayonEventResponse, LogUserSignUpArgs } from 'common/model/RayonEvent';
 
 type UserListner = (user: User) => void;
 
@@ -26,18 +25,18 @@ class UserDC extends RayonDC {
   */
   private onEvent(eventType: RayonEvent, event: any): void {
     switch (eventType) {
-      case RayonEvent.LogSignUpUser:
-        this.onLogSignUpEvent(event);
+      case RayonEvent.LogUserSignUp:
+        this.onLogUserSignUp(event);
         break;
       default:
         break;
     }
   }
 
-  private onLogSignUpEvent(event: RayonEventResponse<LogSignUpEventArgs>) {
+  private onLogUserSignUp(event: RayonEventResponse<LogUserSignUpArgs>) {
     if (event.args.userAddress !== this.getUserAccount()) return;
-    this._eventListeners[RayonEvent.LogSignUpUser] &&
-      this._eventListeners[RayonEvent.LogSignUpUser].forEach(listner => {
+    this._eventListeners[RayonEvent.LogUserSignUp] &&
+      this._eventListeners[RayonEvent.LogUserSignUp].forEach(listner => {
         listner(event);
       });
   }

@@ -1,58 +1,64 @@
 import TruffleContract from 'truffle-contract';
 
 // agent
-import ReverseInquiryServerAgent from 'common/agent/ReverseInquiryServerAgent';
+import ServerAgent from 'common/agent/ServerAgent';
 
 // model
-import AuctionMessage, { AuctionMessageResponse, AuctinoMessageIndex } from 'message/model/AuctionMessage';
+import Message, { MessageResponse, MessageResponseIndex } from 'message/model/Message';
 import { RayonEvent } from 'common/model/RayonEvent';
 
-class MessageServerAgent extends ReverseInquiryServerAgent {
+class MessageServerAgent extends ServerAgent {
   constructor() {
-    const RayonAuctionMessage = TruffleContract(require('../../../build/contracts/RayonAuctionMessage.json'));
-    const watchEvents: Set<RayonEvent> = new Set([RayonEvent.LogSendAuctionMessage]);
-    super(RayonAuctionMessage, watchEvents);
+    const ReverseInquiryMessageDC = TruffleContract(require('../../../build/contracts/ReverseInquiryMessageDC.json'));
+    const watchEvents: Set<RayonEvent> = new Set([RayonEvent.LogSendReverseInquiryMessage]);
+    super(ReverseInquiryMessageDC, watchEvents);
   }
 
-  sendMessage(toAddress: string, previousMessageId: number, auctionId: number, msgType: number, payload: string) {
-    this._contractInstance.sendMessage(auctionId, previousMessageId, toAddress, msgType, payload, {
-      from: ReverseInquiryServerAgent.getUserAccount(),
+  sendMessage(
+    toAddress: string,
+    previousMessageId: number,
+    reverseInquiryId: number,
+    msgType: number,
+    payload: string
+  ) {
+    this._contractInstance.sendMessage(reverseInquiryId, previousMessageId, toAddress, msgType, payload, {
+      from: ServerAgent.getUserAccount(),
     });
   }
 
-  async fetchAuctionMessage(auctionId: number, messageId: number) {
-    const result: AuctionMessageResponse = await this._contractInstance.getMessage(auctionId, messageId);
-    const userAccount = ReverseInquiryServerAgent.getUserAccount();
+  async fetchReverseInquiryMessage(reverseInquiryId: number, messageId: number) {
+    const result: MessageResponse = await this._contractInstance.getMessage(reverseInquiryId, messageId);
+    const userAccount = ServerAgent.getUserAccount();
     if (
-      result[AuctinoMessageIndex.fromAddress] !== userAccount &&
-      result[AuctinoMessageIndex.toAddress] !== userAccount
+      result[MessageResponseIndex.fromAddress] !== userAccount &&
+      result[MessageResponseIndex.toAddress] !== userAccount
     )
       return undefined;
 
-    const message: AuctionMessage = {
-      auctionId: result[AuctinoMessageIndex.auctionId].toNumber(),
-      messageId: result[AuctinoMessageIndex.messageId].toNumber(),
-      fromAddress: result[AuctinoMessageIndex.fromAddress],
-      toAddress: result[AuctinoMessageIndex.toAddress],
-      msgType: result[AuctinoMessageIndex.msgType].toNumber(),
-      payload: result[AuctinoMessageIndex.payload],
-      timeStamp: result[AuctinoMessageIndex.timeStamp],
-      isComplete: result[AuctinoMessageIndex.isComplete],
+    const message: Message = {
+      reverseInquiryId: result[MessageResponseIndex.reverseInquiryId].toNumber(),
+      messageId: result[MessageResponseIndex.messageId].toNumber(),
+      fromAddress: result[MessageResponseIndex.fromAddress],
+      toAddress: result[MessageResponseIndex.toAddress],
+      msgType: result[MessageResponseIndex.msgType].toNumber(),
+      payload: result[MessageResponseIndex.payload],
+      timeStamp: result[MessageResponseIndex.timeStamp],
+      isComplete: result[MessageResponseIndex.isComplete],
     };
 
     return message;
   }
 
-  async fetchAuctionMessages(auctionId: number) {
-    const auctionMessageLength: number = await this._contractInstance.getMessagesLength(auctionId);
-    const auctionMessages: AuctionMessage[] = [];
+  async fetchReverseInquiryMessages(reverseInquiryId: number) {
+    const messagesLength: number = await this._contractInstance.getMessagesLength(reverseInquiryId);
+    const messages: Message[] = [];
 
-    for (let i = 0; i < auctionMessageLength; i++) {
-      const auctionMessage = await this.fetchAuctionMessage(auctionId, i);
-      auctionMessage && auctionMessages.push(auctionMessage);
+    for (let i = 0; i < messagesLength; i++) {
+      const message = await this.fetchReverseInquiryMessage(reverseInquiryId, i);
+      message && messages.push(message);
     }
 
-    return auctionMessages.reverse();
+    return messages.reverse();
   }
 }
 

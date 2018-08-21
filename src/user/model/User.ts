@@ -14,6 +14,22 @@ export class FinanceData {
   }
 }
 
+export enum UserType {
+  ENTITY_LENDER,
+  ENTITY_BORROWER,
+}
+
+const UserTypeNames = [
+  'Lender',
+  'Borrower',
+];
+
+export namespace UserType {
+  export function getUserTypeNames(type: UserType) {
+    return UserTypeNames[type];
+  }
+}
+
 /*
 User request result index
 */

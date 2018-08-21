@@ -3,14 +3,14 @@ import qs from 'query-string';
 import classNames from 'classnames';
 
 // model
-import AuctionMessage, { MsgTypes } from 'message/model/AuctionMessage';
-import { RayonEvent, RayonEventResponse, LogSendAuctionMessageArgs } from 'common/model/RayonEvent';
-import AuctionContent from 'auction/model/AuctionContent';
+import Message, { MsgTypes } from 'message/model/Message';
+import { RayonEvent, RayonEventResponse, LogSendReverseInquiryMessageArgs } from 'common/model/RayonEvent';
+import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
 import User from 'user/model/User';
 
 // dc
 import MessageDC from '../dc/MessageDC';
-import AuctionDC from 'auction/dc/AuctionDC';
+import ReverseInquiryDC from 'reverseinquiry/dc/ReverseInquiryDC';
 import UserDC from 'user/dc/UserDC';
 
 // view
@@ -32,9 +32,8 @@ interface MessageContentVCProps {
 }
 
 interface MessageContentVCState {
-  auctionContent: AuctionContent;
-  auctionMessages: AuctionMessage[];
-  auctionId: number;
+  reverseInquiry: ReverseInquiry;
+  messages: Message[];
   contentIndex: number;
   productOfferInput: string[];
   isModalOpen: boolean;
@@ -55,37 +54,37 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
   }
 
   async componentWillMount() {
-    AuctionDC.addAuctionContentsListeners(this.onAuctionContentsFetched.bind(this));
-    MessageDC.addAuctionMessagesListeners(this.onAuctionMessagesFetched.bind(this));
-    MessageDC.addEventListener(RayonEvent.LogSendAuctionMessage, this.onAuctionMessageSent.bind(this));
-    AuctionDC.fetchAuctionContents();
+    ReverseInquiryDC.addReverseInquiriesListeners(this.onReverseInquiriesFetched.bind(this));
+    MessageDC.addMessagesListeners(this.onMessagesFetched.bind(this));
+    MessageDC.addEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onAuctionMessageSent.bind(this));
+    ReverseInquiryDC.fetchReverseInquiries();
   }
 
   componentWillUnmount() {
-    AuctionDC.removeAuctionContentsListeners(this.onAuctionContentsFetched.bind(this));
-    MessageDC.removeAuctionMessagesListeners(this.onAuctionMessagesFetched.bind(this));
-    MessageDC.removeEventListener(RayonEvent.LogSendAuctionMessage, this.onAuctionMessageSent.bind(this));
+    ReverseInquiryDC.removeReverseInquiriesListeners(this.onReverseInquiriesFetched.bind(this));
+    MessageDC.removeMessagesListeners(this.onMessagesFetched.bind(this));
+    MessageDC.removeEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onAuctionMessageSent.bind(this));
   }
 
-  onAuctionContentsFetched(_auctionContents: AuctionContent[]) {
-    const auctionContent = _auctionContents.find(content => content.id === this.state.contentIndex);
-    MessageDC.fetchAuctionMessages(_auctionContents);
-    this.setState({ ...this.state, auctionContent });
+  onReverseInquiriesFetched(_reverseInquiries: ReverseInquiry[]) {
+    const reverseInquiry = _reverseInquiries.find(content => content.id === this.state.contentIndex);
+    MessageDC.fetchMessages(_reverseInquiries);
+    this.setState({ ...this.state, reverseInquiry });
   }
 
-  onAuctionMessagesFetched(_auctionMessages: Map<number, AuctionMessage[]>) {
+  onMessagesFetched(_auctionMessages: Map<number, Message[]>) {
     this.setState({
       ...this.state,
-      auctionMessages: _auctionMessages[this.state.contentIndex],
+      messages: _auctionMessages[this.state.contentIndex],
       isLoadingComplete: true,
     });
   }
 
-  onAuctionMessageSent(event: RayonEventResponse<LogSendAuctionMessageArgs>) {
-    AuctionDC.fetchAuctionContents();
+  onAuctionMessageSent(event: RayonEventResponse<LogSendReverseInquiryMessageArgs>) {
+    ReverseInquiryDC.fetchReverseInquiries();
   }
 
-  onClickDataSubmit(message: AuctionMessage) {
+  onClickDataSubmit(message: Message) {
     const requestFinanceDataKey = message.payload.split('%%');
     const requestResponeceData = {};
     const localFinanceData = JSON.parse(localStorage.getItem(MessageDC.getUserAccount()));
@@ -96,18 +95,30 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     MessageDC.sendMessage(
       message.fromAddress,
       message.messageId,
-      message.auctionId,
+      message.reverseInquiryId,
       MsgTypes.RESPONSE_PERSONAL_DATA,
       JSON.stringify(requestResponeceData)
     );
   }
 
-  onClickOfferAccept(message: AuctionMessage) {
-    MessageDC.sendMessage(message.fromAddress, message.messageId, message.auctionId, MsgTypes.ACCEPT_OFFER, 'true');
+  onClickOfferAccept(message: Message) {
+    MessageDC.sendMessage(
+      message.fromAddress,
+      message.messageId,
+      message.reverseInquiryId,
+      MsgTypes.ACCEPT_OFFER,
+      'true'
+    );
   }
 
-  onClickOfferDeny(message: AuctionMessage) {
-    MessageDC.sendMessage(message.fromAddress, message.messageId, message.auctionId, MsgTypes.REJECT_OFFER, 'false');
+  onClickOfferDeny(message: Message) {
+    MessageDC.sendMessage(
+      message.fromAddress,
+      message.messageId,
+      message.reverseInquiryId,
+      MsgTypes.REJECT_OFFER,
+      'false'
+    );
   }
 
   onRequestCloseModal() {
@@ -120,15 +131,19 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
 
   onClickOfferSubmit() {
     const data = this.state.productOfferInput.join('##');
-    const auctionMessage = this.state.auctionMessages[0];
+    const message = this.state.messages[0];
     MessageDC.sendMessage(
-      auctionMessage.fromAddress,
-      auctionMessage.messageId,
-      auctionMessage.auctionId,
+      message.fromAddress,
+      message.messageId,
+      message.reverseInquiryId,
       MsgTypes.OFFER_PRODUCT,
       data
     );
     this.setState({ ...this.state, isModalOpen: false });
+  }
+
+  onClickTitle() {
+    history.goBack();
   }
 
   onChangeProductOfferInput(event, index) {
@@ -159,7 +174,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     );
   };
 
-  renderSpecialForm(message: AuctionMessage) {
+  renderSpecialForm(message: Message) {
     const user = UserDC.getUser();
     const isBorrower = user.isBorrower;
     switch (message.msgType) {
@@ -261,27 +276,22 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     }
   }
 
-  onClickTitle() {
-    history.goBack();
-  }
-
   render() {
-    const { auctionContent, auctionMessages, isLoadingComplete } = this.state;
     const user = UserDC.getUser();
     return (
       <Fragment>
         <Container className={styles.contentContainer}>
-          {!isLoadingComplete ? (
+          {!this.state.isLoadingComplete ? (
             <div>Loading...</div>
           ) : (
             <div>
               <div className={styles.goBackTitle} onClick={this.onClickTitle}>
-                {'<   ' + auctionContent.title}
+                {'<   ' + this.state.reverseInquiry.title}
               </div>
-              {auctionMessages.length === 0 ? (
+              {this.state.messages.length === 0 ? (
                 <div>No Messages</div>
               ) : (
-                auctionMessages.map((item, index) => {
+                this.state.messages.map((item, index) => {
                   return (
                     <div
                       key={index}

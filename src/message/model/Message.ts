@@ -26,10 +26,10 @@ export namespace MsgTypes {
   }
 }
 
-export type AuctionMessageResponse = [BigNumber, BigNumber, string, string, BigNumber, string, number, boolean];
+export type MessageResponse = [BigNumber, BigNumber, string, string, BigNumber, string, number, boolean];
 
-interface AuctionMessage {
-  auctionId: number;
+interface Message {
+  reverseInquiryId: number;
   messageId: number;
   fromAddress: string;
   toAddress: string;
@@ -43,8 +43,8 @@ interface AuctionMessage {
 Auction message request result index
 */
 
-export enum AuctinoMessageIndex {
-  auctionId,
+export enum MessageResponseIndex {
+  reverseInquiryId,
   messageId,
   fromAddress,
   toAddress,
@@ -54,4 +54,4 @@ export enum AuctinoMessageIndex {
   isComplete,
 }
 
-export default AuctionMessage;
+export default Message;

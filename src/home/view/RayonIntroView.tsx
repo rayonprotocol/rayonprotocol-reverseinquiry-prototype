@@ -45,7 +45,7 @@ class RayonIntroView extends Component<{}, RayonIntroViewState> {
         </div>
         {/* modal */}
         <RayonModalView isModalOpen={this.state.isSignUpModalOpen} onRequestClose={this.onRequestCloseModal.bind(this)}>
-          <SignUpVC onClickModal={this.onClickModal.bind(this)} />
+          <SignUpVC onCloseClicked={this.onClickModal.bind(this)} />
         </RayonModalView>
       </div>
     );

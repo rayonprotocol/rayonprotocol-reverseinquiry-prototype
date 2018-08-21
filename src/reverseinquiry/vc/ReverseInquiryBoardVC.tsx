@@ -3,58 +3,60 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 // dc
-import AuctionDC from 'auction/dc/AuctionDC';
+import ReverseInquiryDC from 'reverseinquiry/dc/ReverseInquiryDC';
 import UserDC from 'user/dc/UserDC';
 
 // model
-import AuctionContent from 'auction/model/AuctionContent';
-import { RayonEvent, RayonEventResponse, LogRegisterAuctionContentArgs } from 'common/model/RayonEvent';
+import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
+import { RayonEvent, RayonEventResponse, LogRegisterReverseInquiryArgs } from 'common/model/RayonEvent';
 
 // util
 import TimeConverter from 'common/util/TimeConverter';
 
 // view
 import Container from 'common/view/container/Container';
-import AuctionRegisterVC from 'auction/vc/AuctionRegisterVC';
+import ReverseInquiryRegisterVC from 'reverseinquiry/vc/ReverseInquiryRegisterVC';
 import RayonModalView from 'common/view/modal/RayonModalView';
 import RayonButton from 'common/view/button/RayonButton';
 
 // styles
-import styles from './AuctionBoardVC.scss';
+import styles from './ReverseInquiryBoardVC.scss';
 
-interface AuctionBoardVCState {
-  auctionContents: AuctionContent[];
+interface ReverseInquiryBoardVCState {
+  reverseInquiries: ReverseInquiry[];
   isSignUpModalOpen: boolean;
 }
 
-class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
-  state = {
-    ...this.state,
-    auctionContents: [],
-    isSignUpModalOpen: false,
-  };
+class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
+    constructor(props) {
+        super(props);
+        this.state = {
+            ...this.state,
+            reverseInquiries: [],
+            isSignUpModalOpen: false,
+        };
+        this.OnLogRegisterAuctionContent = this.OnLogRegisterAuctionContent.bind(this);
+        this.onReverseInquiriesFetched = this.onReverseInquiriesFetched.bind(this);
+    }
 
   async componentWillMount() {
-    AuctionDC.addEventListener(RayonEvent.LogRegisterAuctionContent, this.onMyAuctionContentsResistered.bind(this));
-    AuctionDC.addAuctionContentsListeners(this.onAuctionContentsFetched.bind(this));
-    AuctionDC.fetchAuctionContents();
+    ReverseInquiryDC.addEventListener(RayonEvent.LogRegisterReverseInquiry, this.OnLogRegisterAuctionContent);
+    ReverseInquiryDC.addReverseInquiriesListeners(this.onReverseInquiriesFetched);
+    ReverseInquiryDC.fetchReverseInquiries();
   }
 
   componentWillUnmount() {
-    AuctionDC.removeEventListener(RayonEvent.LogRegisterAuctionContent, this.onMyAuctionContentsResistered.bind(this));
-    AuctionDC.removeAuctionContentsListeners(this.onAuctionContentsFetched.bind(this));
+    ReverseInquiryDC.removeEventListener(RayonEvent.LogRegisterReverseInquiry, this.OnLogRegisterAuctionContent);
+    ReverseInquiryDC.removeReverseInquiriesListeners(this.onReverseInquiriesFetched);
   }
 
-  /*
-  event handler
-  */
-  onAuctionContentsFetched(auctionContents: AuctionContent[]) {
-    this.setState({ ...this.state, auctionContents });
+  onReverseInquiriesFetched(reverseInquiries: ReverseInquiry[]) {
+    this.setState({ ...this.state, reverseInquiries });
   }
 
-  onMyAuctionContentsResistered(event: RayonEventResponse<LogRegisterAuctionContentArgs>) {
-    const { auctionContents } = this.state;
-    const newAuctionContents: AuctionContent = {
+  // blockchain events
+  OnLogRegisterAuctionContent(event: RayonEventResponse<LogRegisterReverseInquiryArgs>) {
+    const newReverseInquiry: ReverseInquiry = {
       id: event.args.id.toNumber(),
       title: event.args.title,
       content: event.args.content,
@@ -63,27 +65,27 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
       userAddress: event.args.userAddress,
       timeStamp: event.args.timeStamp,
     };
-    auctionContents.unshift(newAuctionContents);
-    this.setState({ ...this.state, auctionContents });
+    this.state.reverseInquiries.unshift(newReverseInquiry);
+    this.setState({ ...this.state, reverseInquiries: this.state.reverseInquiries });
   }
 
   /*
   component callback
   */
-  onClickRegisterButton() {
+  onRegisterButtonClicked() {
     this.setState({ ...this.state, isSignUpModalOpen: true });
   }
 
-  onClickModal(isClose?: boolean) {
+  onModalButtonClicked() {
     this.setState({ ...this.state, isSignUpModalOpen: !this.state.isSignUpModalOpen });
   }
 
-  onRequestCloseModal() {
+  onBackgroundClicked() {
     this.setState({ ...this.state, isSignUpModalOpen: false });
   }
 
   render() {
-    const { auctionContents } = this.state;
+    const { reverseInquiries } = this.state;
     const user = UserDC.getUser();
     return (
       <Fragment>
@@ -96,12 +98,12 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
                   className={styles.registerBtn}
                   title={'New Request'}
                   isBorrower={true}
-                  onClickButton={this.onClickRegisterButton.bind(this)}
+                  onClickButton={this.onModalButtonClicked.bind(this)}
                 />
               </div>
             )}
           </div>
-          {auctionContents.length === 0 ? (
+          {reverseInquiries.length === 0 ? (
             <div
               className={classNames(styles.emptyNote, {
                 [styles.borrower]: user.isBorrower,
@@ -112,7 +114,7 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
             </div>
           ) : (
             <div className={styles.auctionTable}>
-              {auctionContents.map((auctionContent, index) => {
+              {reverseInquiries.map((auctionContent, index) => {
                 return (
                   <div className={styles.contentRow} key={index}>
                     <p className={styles.contentNumber}>{auctionContent.id + 1}</p>
@@ -126,12 +128,12 @@ class AuctionBoardVC extends Component<{}, AuctionBoardVCState> {
             </div>
           )}
         </Container>
-        <RayonModalView isModalOpen={this.state.isSignUpModalOpen} onRequestClose={this.onRequestCloseModal.bind(this)}>
-          <AuctionRegisterVC onClickModal={this.onClickModal.bind(this)} />
+        <RayonModalView isModalOpen={this.state.isSignUpModalOpen} onRequestClose={this.onBackgroundClicked.bind(this)}>
+          <ReverseInquiryRegisterVC onClickButtonClicked={this.onModalButtonClicked.bind(this)} />
         </RayonModalView>
       </Fragment>
     );
   }
 }
 
-export default AuctionBoardVC;
+export default ReverseInquiryBoardVC;

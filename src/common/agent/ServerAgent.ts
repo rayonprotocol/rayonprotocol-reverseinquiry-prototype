@@ -10,7 +10,7 @@ let userAccount: string;
 type RayonEventListener = ((eventType: RayonEvent, event: any) => void);
 type ContractDeployListner = () => void;
 
-abstract class ReverseInquiryServerAgent {
+abstract class ServerAgent {
   public static FROM_BLOCK = 'latest'; // event watch start block
   public static NETWORK_PORT = 7545;
 
@@ -39,7 +39,7 @@ abstract class ReverseInquiryServerAgent {
     typeof web3 !== 'undefined'
       ? (web3 = new Web3(web3.currentProvider))
       : (web3 = new Web3(
-          new Web3.providers.HttpProvider(`http://localhost: ${ReverseInquiryServerAgent.NETWORK_PORT}`)
+          new Web3.providers.HttpProvider(`http://localhost: ${ServerAgent.NETWORK_PORT}`)
         ));
     return web3;
   };
@@ -47,7 +47,7 @@ abstract class ReverseInquiryServerAgent {
   private async fetchContractInstance() {
     // Bring a ABI, Make a TruffleContract object
     const contract = TruffleContract(this._contract);
-    contract.setProvider(ReverseInquiryServerAgent.getWeb3().currentProvider);
+    contract.setProvider(ServerAgent.getWeb3().currentProvider);
 
     // find rayon token instance on blockchain
     try {
@@ -62,12 +62,12 @@ abstract class ReverseInquiryServerAgent {
     if (this._watchEvents === undefined) return;
     if (this._contractInstance === undefined) {
       console.error(
-        `contract Instance is undefined, please check network port ${ReverseInquiryServerAgent.NETWORK_PORT}`
+        `contract Instance is undefined, please check network port ${ServerAgent.NETWORK_PORT}`
       );
       return;
     }
 
-    const eventRange = ReverseInquiryServerAgent.getEventRange();
+    const eventRange = ServerAgent.getEventRange();
 
     this._watchEvents.forEach(eventType => {
       const targetEventFunction = this._contractInstance[RayonEvent.getRayonEventName(eventType)]({}, eventRange);
@@ -109,8 +109,8 @@ abstract class ReverseInquiryServerAgent {
   }
 
   public static getEventRange() {
-    return { fromBlock: ReverseInquiryServerAgent.FROM_BLOCK, toBlock: 'latest' };
+    return { fromBlock: ServerAgent.FROM_BLOCK, toBlock: 'latest' };
   }
 }
 
-export default ReverseInquiryServerAgent;
+export default ServerAgent;

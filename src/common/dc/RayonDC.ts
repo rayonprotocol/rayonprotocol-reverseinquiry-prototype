@@ -1,5 +1,5 @@
 // agent
-import ReverseInquiryServerAgent from 'common/agent/ReverseInquiryServerAgent';
+import ServerAgent from 'common/agent/ServerAgent';
 
 // model
 import { RayonEvent } from 'common/model/RayonEvent';
@@ -24,7 +24,7 @@ abstract class RayonDC {
   }
 
   public getUserAccount() {
-    return ReverseInquiryServerAgent.getUserAccount();
+    return ServerAgent.getUserAccount();
   }
 }
 
