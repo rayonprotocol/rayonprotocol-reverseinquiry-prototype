@@ -5,7 +5,7 @@ export enum MsgTypes {
   RESPONSE_PERSONAL_DATA,
   OFFER_PRODUCT,
   ACCEPT_OFFER,
-  DENY_OFFER,
+  REJECT_OFFER,
 }
 
 const borrowerMsgTypeNames = [

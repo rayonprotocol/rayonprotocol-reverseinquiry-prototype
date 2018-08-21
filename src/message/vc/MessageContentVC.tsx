@@ -107,7 +107,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
   }
 
   onClickOfferDeny(message: AuctionMessage) {
-    MessageDC.sendMessage(message.fromAddress, message.messageId, message.auctionId, MsgTypes.DENY_OFFER, 'false');
+    MessageDC.sendMessage(message.fromAddress, message.messageId, message.auctionId, MsgTypes.REJECT_OFFER, 'false');
   }
 
   onRequestCloseModal() {

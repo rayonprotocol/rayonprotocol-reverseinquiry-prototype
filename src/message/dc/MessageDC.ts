@@ -62,8 +62,7 @@ class MessageDC extends RayonDC {
 
   /*
     communicate to auction
-    */
-
+  */
   public sendMessage(
     toAddress: string,
     previousMessageId: number,

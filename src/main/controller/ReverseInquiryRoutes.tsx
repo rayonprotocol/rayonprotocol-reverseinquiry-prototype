@@ -68,6 +68,8 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
 
     UserDC.addUserListeners(this.onUserFetched.bind(this));
 
+    // if user does not exist on block chain, listen sign up event
+    // if user exist on block chain, fetch user information
     isUser ? UserDC.fetchUser() : UserDC.addEventListener(RayonEvent.LogSignUpUser, this.onUserSignUp.bind(this));
   }
 
@@ -85,7 +87,6 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
 
   render() {
     const { user } = this.state;
-    console.log('routes user', user);
     return (
       <Fragment>
         {!user ? (
@@ -100,7 +101,7 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
                     key={index}
                     exact={item.exact}
                     path={item.path}
-                    render={props => <item.component {...props} {...this.props} {...this.state} />}
+                    render={props => <item.component {...props} />}
                   />
                 );
               })}

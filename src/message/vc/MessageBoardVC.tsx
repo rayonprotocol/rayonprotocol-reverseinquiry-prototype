@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 // model
-import AuctionMessage from 'message/model/AuctionMessage';
+import AuctionMessage, { MsgTypes } from 'message/model/AuctionMessage';
 import AuctionContent from 'auction/model/AuctionContent';
 import User from 'user/model/User';
 import { RayonEvent, RayonEventResponse, LogSendAuctionMessageArgs } from 'common/model/RayonEvent';
@@ -83,27 +83,19 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
 
     const message: AuctionMessage = messages[0];
     const { user } = this.state;
-    const borrowerMsgTypeNames = [
-      'Received Data Request',
-      'Sent Data',
-      'Offer Received',
-      'Accepted Offer',
-      'Rejected Offer',
-    ];
-    const lenderMsgTypeNames = ['Requested Data', 'Received Data', 'Loan Offered', 'Accepted Offer', 'Rejected Offer'];
-    const tagMsg = this.state.user.isBorrower
-      ? borrowerMsgTypeNames[message.msgType - 1]
-      : lenderMsgTypeNames[message.msgType - 1];
+    const MsgName = this.state.user.isBorrower
+      ? MsgTypes.getBorrowerMsgNames(message.msgType)
+      : MsgTypes.getLenderMsgNames(message.msgType);
 
     return (
       <p
         className={classNames(styles.tag, {
           [styles.borrower]: user.isBorrower,
           [styles.lender]: !user.isBorrower,
-          [styles.rejected]: tagMsg === 'Rejected Offer',
+          [styles.rejected]: MsgName === MsgTypes.getBorrowerMsgNames(MsgTypes.REJECT_OFFER),
         })}
       >
-        {tagMsg}
+        {MsgName}
       </p>
     );
   }
