@@ -51,19 +51,22 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
       productOfferInput: ['', '', ''],
       contentIndex: parseInt(parsed.id),
     };
+    this.onReverseInquiriesFetched = this.onReverseInquiriesFetched.bind(this);
+    this.onMessagesFetched = this.onMessagesFetched.bind(this);
+    this.onMessageSent = this.onMessageSent.bind(this);
   }
 
   async componentWillMount() {
-    ReverseInquiryDC.addReverseInquiriesListeners(this.onReverseInquiriesFetched.bind(this));
-    MessageDC.addMessagesListeners(this.onMessagesFetched.bind(this));
-    MessageDC.addEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onMessageSent.bind(this));
+    ReverseInquiryDC.addReverseInquiriesListeners(this.onReverseInquiriesFetched);
+    MessageDC.addMessagesListeners(this.onMessagesFetched);
+    MessageDC.addEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onMessageSent);
     ReverseInquiryDC.fetchReverseInquiries();
   }
 
   componentWillUnmount() {
-    ReverseInquiryDC.removeReverseInquiriesListeners(this.onReverseInquiriesFetched.bind(this));
-    MessageDC.removeMessagesListeners(this.onMessagesFetched.bind(this));
-    MessageDC.removeEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onMessageSent.bind(this));
+    ReverseInquiryDC.removeReverseInquiriesListeners(this.onReverseInquiriesFetched);
+    MessageDC.removeMessagesListeners(this.onMessagesFetched);
+    MessageDC.removeEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onMessageSent);
   }
 
   onReverseInquiriesFetched(_reverseInquiries: ReverseInquiry[]) {
@@ -111,7 +114,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     );
   }
 
-  onClickOfferDeny(message: Message) {
+  onClickOfferReject(message: Message) {
     MessageDC.sendMessage(
       message.fromAddress,
       message.messageId,
@@ -207,7 +210,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
               <RayonButton
                 className={classNames(styles.messageBtn, styles.rejectBtn)}
                 title={'Reject'}
-                onClickButton={() => this.onClickOfferDeny(message)}
+                onClickButton={() => this.onClickOfferReject(message)}
                 isBorrower={isBorrower}
               />
               <RayonButton

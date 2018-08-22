@@ -11,13 +11,12 @@ contract ReverseInquiryDC {
         string title;
         string description;
         string financeData;  // TODO: string[] , financeDataItems
-        uint insertTime;  // insertTime
+        uint insertTime;
     }
 
     // variables
     ReverseInquiry[] reverseInquiries;
 
-    // events  TODO: LogRegisterReverseInquiry  content --> description  finace
     event LogRegisterReverseInquiry(address userAddress, string userName, string title, string description, string financeData,  uint insertTime);
 
     function registerReverseInquiry(string _title, string _description, string _financeData, string _userName) public {
@@ -26,15 +25,16 @@ contract ReverseInquiryDC {
         emit LogRegisterReverseInquiry(msg.sender, _userName, _title, _description, _financeData, currentTime);
     }
 
-    function getReverseInquiry(uint contentIndex) public view returns(string, string, string, string, address, uint) {
-        require(contentIndex < reverseInquiries.length);
-        ReverseInquiry memory reverseInquiry = reverseInquiries[contentIndex];
+    function getReverseInquiry(uint _index) public view returns(uint, address, string, string, string, string, uint) {
+        require(_index < reverseInquiries.length);
+        ReverseInquiry memory reverseInquiry = reverseInquiries[_index];
         return (
+            _index,
+            reverseInquiry.userAddress,
+            reverseInquiry.userName,
             reverseInquiry.title,
             reverseInquiry.description,
             reverseInquiry.financeData,
-            reverseInquiry.userName,
-            reverseInquiry.userAddress,
             reverseInquiry.insertTime
         );
     }

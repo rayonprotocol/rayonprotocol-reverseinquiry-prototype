@@ -33,7 +33,7 @@ class UserDC extends RayonDC {
     }
   }
 
-  private onLogUserSignUp(event: RayonEventResponse<LogUserSignUpArgs>) {
+  private onLogUserSignUp(event: RayonEventResponse<LogUserSignUpArgs>): void {
     if (event.args.userAddress !== this.getUserAccount()) return;
     this._eventListeners[RayonEvent.LogUserSignUp] &&
       this._eventListeners[RayonEvent.LogUserSignUp].forEach(listner => {
@@ -44,15 +44,15 @@ class UserDC extends RayonDC {
   /*
   user handler
   */
-  public addUserListeners(listener: UserListner) {
+  public addUserListeners(listener: UserListner): void {
     this._userListeners.add(listener);
   }
 
-  public removeUserListeners(listener: UserListner) {
+  public removeUserListeners(listener: UserListner): void {
     this._userListeners.delete(listener);
   }
 
-  private onUserFetched(user: User) {
+  private onUserFetched(user: User): void {
     this._userListeners && this._userListeners.forEach(listener => listener(user));
   }
 
@@ -60,7 +60,7 @@ class UserDC extends RayonDC {
   Request functions to blockchain via server agent
   */
 
-  public async fetchUser() {
+  public async fetchUser(): Promise<void> {
     if (this._user !== undefined) {
       this.onUserFetched(this._user);
       return;
@@ -70,19 +70,23 @@ class UserDC extends RayonDC {
     this.onUserFetched(this._user);
   }
 
-  public async isUser() {
+  public async isUser(): Promise<boolean> {
     return await UserServerAgent.isUser();
   }
 
-  public signUp(userName: string, isBorrower: boolean) {
+  public signUp(userName: string, isBorrower: boolean): void {
     UserServerAgent.signUp(userName, isBorrower);
   }
 
   /*
   common function
   */
-  public getUser() {
+  public getUser(): User {
     return this._user;
+  }
+
+  public getLocalStorageItems(): Object {
+    return JSON.parse(localStorage.getItem(this.getUserAccount()));
   }
 }
 

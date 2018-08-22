@@ -67,6 +67,7 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
 
     // check user registered
     const isUser: boolean = await UserDC.isUser();
+
     // if user does not exist on block chain, listen sign up event
     // if user exist on block chain, fetch user information
     if (isUser) UserDC.fetchUser();

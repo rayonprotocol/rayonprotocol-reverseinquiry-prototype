@@ -37,22 +37,22 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
       ...this.state,
       user: UserDC.getUser(),
     };
+    this.onReverseInquiriesFetched = this.onReverseInquiriesFetched.bind(this);
+    this.onReverseInquiryMessagesFetched = this.onReverseInquiryMessagesFetched.bind(this);
+    this.onReverseInquiryMessageSent = this.onReverseInquiryMessageSent.bind(this);
   }
 
   async componentWillMount() {
-    ReverseInquiryDC.addReverseInquiriesListeners(this.onReverseInquiriesFetched.bind(this));
-    MessageDC.addMessagesListeners(this.onReverseInquiryMessagesFetched.bind(this));
-    MessageDC.addEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onReverseInquiryMessageSent.bind(this));
+    ReverseInquiryDC.addReverseInquiriesListeners(this.onReverseInquiriesFetched);
+    MessageDC.addMessagesListeners(this.onReverseInquiryMessagesFetched);
+    MessageDC.addEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onReverseInquiryMessageSent);
     ReverseInquiryDC.fetchReverseInquiries();
   }
 
   componentWillUnmount() {
-    ReverseInquiryDC.removeEventListener(
-      RayonEvent.LogRegisterReverseInquiry,
-      this.onReverseInquiryMessageSent.bind(this)
-    );
-    ReverseInquiryDC.removeReverseInquiriesListeners(this.onReverseInquiriesFetched.bind(this));
-    MessageDC.removeMessagesListeners(this.onReverseInquiryMessagesFetched.bind(this));
+    ReverseInquiryDC.removeEventListener(RayonEvent.LogRegisterReverseInquiry, this.onReverseInquiryMessageSent);
+    ReverseInquiryDC.removeReverseInquiriesListeners(this.onReverseInquiriesFetched);
+    MessageDC.removeMessagesListeners(this.onReverseInquiryMessagesFetched);
   }
 
   onReverseInquiriesFetched(reverseInquiries: ReverseInquiry[]) {
@@ -72,7 +72,7 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
       toAddress: event.args.toAddress,
       msgType: event.args.msgType.toNumber(),
       payload: event.args.payload,
-      timeStamp: event.args.timeStamp,
+      timeStamp: event.args.insertTime,
       isComplete: event.args.isComplete,
     };
     this.state.messages[newReverseInquiryMessage.reverseInquiryId].push(newReverseInquiryMessage);
@@ -137,7 +137,7 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
                       </div>
                       <div className={styles.bottomSection}>
                         {this.getLatestMessage(this.state.messages[reverseInquiry.id])}
-                        <p className={styles.timeColumn}>{TimeConverter(reverseInquiry.timeStamp)}</p>
+                        <p className={styles.timeColumn}>{TimeConverter(reverseInquiry.insertTime)}</p>
                       </div>
                     </div>
                   </div>

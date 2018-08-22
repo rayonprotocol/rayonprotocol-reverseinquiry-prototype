@@ -20,8 +20,8 @@ class ReverseInquiryServerAgent extends ServerAgent {
     super(ReverseInquiryDC, watchEvents);
   }
 
-  public async fetchReverseInquiry(contentIndex: number) {
-    const result: ReverseInquiryResponse = await this._contractInstance.getReverseInquiry(contentIndex, {
+  public async fetchReverseInquiry(index: number) {
+    const result: ReverseInquiryResponse = await this._contractInstance.getReverseInquiry(index, {
       from: ReverseInquiryServerAgent.getUserAccount(),
     });
     const newReverseInquiry: ReverseInquiry = {
@@ -31,7 +31,7 @@ class ReverseInquiryServerAgent extends ServerAgent {
       financeData: result[ReverseInquiryResponseIndex.financeData].split('%%'),
       userName: result[ReverseInquiryResponseIndex.userName],
       userAddress: result[ReverseInquiryResponseIndex.userAddress],
-      timeStamp: result[ReverseInquiryResponseIndex.timeStamp],
+      insertTime: result[ReverseInquiryResponseIndex.insertTime],
     };
     return newReverseInquiry;
   }

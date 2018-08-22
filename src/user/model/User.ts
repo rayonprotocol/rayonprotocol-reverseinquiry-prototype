@@ -4,14 +4,9 @@ interface User {
   userName: string;
 }
 
-export class FinanceData {
+export interface FinanceData {
   dataKeys: string;
   dataValues: string;
-
-  constructor() {
-    this.dataKeys = '';
-    this.dataValues = '';
-  }
 }
 
 export enum UserType {
@@ -19,10 +14,7 @@ export enum UserType {
   ENTITY_BORROWER,
 }
 
-const UserTypeNames = [
-  'Lender',
-  'Borrower',
-];
+const UserTypeNames = ['Lender', 'Borrower'];
 
 export namespace UserType {
   export function getUserTypeNames(type: UserType) {

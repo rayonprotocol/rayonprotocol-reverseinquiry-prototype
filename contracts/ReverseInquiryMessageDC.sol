@@ -14,44 +14,38 @@ contract ReverseInquiryMessageDC {
     uint constant MESSAGE_ENY_OFFER = 5;
 
     // structs
-    struct ReverseInquiryMessage {  // ReverseInquiryMessage
+    struct ReverseInquiryMessage {
         uint messageId;
         address fromAddress;
         address toAddress;
         uint messageType;
-        string payload; // content
+        string content;
         bool isComplete;
-        uint timeStamp;  //insertTime
+        uint insertTime;
     }
 
     // variable
     mapping (uint => ReverseInquiryMessage[]) public reverseInquiryMessages;  // key: auction id
 
     // events
-    event LogSendReverseInquiryMessage(address fromAddress, address toAddress, uint msgType, string payload, uint timeStamp, bool isComplete);
+    event LogSendReverseInquiryMessage(address fromAddress, address toAddress, uint msgType, string content, uint insertTime, bool isComplete);
 
     function setMessageComplete(uint _reverseInquiryId, uint _messageId) public {
         reverseInquiryMessages[_reverseInquiryId][_messageId].isComplete = true;
     }
 
-    function sendMessage(
-        uint _reverseInquiryId,
-        uint _messageId,
-        address _toAddress,
-        uint _msgType,
-        string _payload
-    ) public {
+    function sendMessage(uint _reverseInquiryId, uint _messageId, address _toAddress, uint _msgType, string _content) public {
         uint newMessageId = reverseInquiryMessages[_reverseInquiryId].length;
         uint currentTime = now;
         address fromAddress = msg.sender;
 
-        reverseInquiryMessages[_reverseInquiryId].push(ReverseInquiryMessage(newMessageId, fromAddress, _toAddress, _msgType, _payload, false, currentTime));
+        reverseInquiryMessages[_reverseInquiryId].push(ReverseInquiryMessage(newMessageId, fromAddress, _toAddress, _msgType, _content, false, currentTime));
 
         if(_msgType != MESSAGE_REQUESTPERSONALDATA) {
             setMessageComplete(_reverseInquiryId, _messageId);
         }
 
-        emit LogSendReverseInquiryMessage(fromAddress, _toAddress, _msgType, _payload, currentTime, false);
+        emit LogSendReverseInquiryMessage(fromAddress, _toAddress, _msgType, _content, currentTime, false);
     }
 
     function getMessage(uint _reverseInquiryId,uint _messageId) public view returns(uint, uint, address, address, uint, string, uint, bool
@@ -64,8 +58,8 @@ contract ReverseInquiryMessageDC {
             reverseInquiryMessage.fromAddress,
             reverseInquiryMessage.toAddress,
             reverseInquiryMessage.messageType,
-            reverseInquiryMessage.payload,
-            reverseInquiryMessage.timeStamp,
+            reverseInquiryMessage.content,
+            reverseInquiryMessage.insertTime,
             reverseInquiryMessage.isComplete
         );
     }

@@ -27,22 +27,23 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
     this.state = {
       ...this.state,
       inputLength: 1,
-      financeData: [new FinanceData()],
+      financeData: [],
       user: UserDC.getUser(),
       isModalOpen: false,
     };
   }
 
   componentWillMount() {
-    const storeData = JSON.parse(localStorage.getItem(UserDC.getUserAccount()));
-    if (storeData === null) return;
-    const keys = Object.keys(storeData);
-    let financeData: FinanceData[] = [];
+    const userFinanceData = UserDC.getLocalStorageItems();
+    if (userFinanceData === null) return;
+    const keys = Object.keys(userFinanceData);
+    const financeData: FinanceData[] = [];
 
     keys.map(item => {
-      let newFinanceData: FinanceData = new FinanceData();
-      newFinanceData.dataKeys = item;
-      newFinanceData.dataValues = storeData[item];
+      const newFinanceData = {
+        dataKeys: item,
+        dataValues: userFinanceData[item],
+      };
       financeData.push(newFinanceData);
     });
 
@@ -69,7 +70,10 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
   }
 
   onClickAddInputButton() {
-    const newFinanceData = new FinanceData();
+    const newFinanceData = {
+      dataKeys: '',
+      dataValues: '',
+    };
     this.state.financeData.push(newFinanceData);
     this.setState(this.state);
   }

@@ -7,7 +7,7 @@ interface ReverseInquiry {
   financeData: string[];
   userName: string;
   userAddress: string;
-  timeStamp: number;
+  insertTime: number;
 }
 
 export type ReverseInquiryResponse = [BigNumber, string, string, string, string, string, number];
@@ -18,12 +18,12 @@ Reverse Inquiry request result index
 
 export enum ReverseInquiryResponseIndex {
   id,
+  userAddress,
+  userName,
   title,
   description,
   financeData,
-  userName,
-  userAddress,
-  timeStamp,
+  insertTime,
 }
 
 export default ReverseInquiry;

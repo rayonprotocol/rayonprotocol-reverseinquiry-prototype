@@ -46,7 +46,7 @@ export interface LogRegisterReverseInquiryArgs {
   financeData: string;
   userName: string;
   userAddress: string;
-  timeStamp: number;
+  insertTime: number;
 }
 
 export interface LogSendReverseInquiryMessageArgs {
@@ -56,6 +56,6 @@ export interface LogSendReverseInquiryMessageArgs {
   toAddress: string;
   msgType: BigNumber;
   payload: string;
-  timeStamp: number;
+  insertTime: number;
   isComplete: boolean;
 }

@@ -36,7 +36,6 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
     };
   }
 
-  // Change Event
   onChangeOption(event) {
     this.setState({
       ...this.state,
@@ -48,7 +47,6 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
     this.setState({ ...this.state, userName: event.target.value });
   }
 
-  // Click Event
   onClickSubmitButton() {
     if (!this.validInputValues(this.state.userName, this.state.isBorrower)) {
       alert('type all input values');

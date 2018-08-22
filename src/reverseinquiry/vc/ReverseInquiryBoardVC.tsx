@@ -63,7 +63,7 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
       financeData: event.args.financeData.split('%%'),
       userName: event.args.userName,
       userAddress: event.args.userAddress,
-      timeStamp: event.args.timeStamp,
+      insertTime: event.args.insertTime,
     };
     this.state.reverseInquiries.unshift(newReverseInquiry);
     this.setState({ ...this.state, reverseInquiries: this.state.reverseInquiries });
@@ -121,7 +121,7 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
                     <p className={styles.contentsTitle}>
                       <Link to={`/reverseinquiry/content?id=${reverseInquiry.id}`}>{reverseInquiry.title}</Link>
                     </p>
-                    <div className={styles.timeColumn}>{TimeConverter(reverseInquiry.timeStamp)}</div>
+                    <div className={styles.timeColumn}>{TimeConverter(reverseInquiry.insertTime)}</div>
                   </div>
                 );
               })}
