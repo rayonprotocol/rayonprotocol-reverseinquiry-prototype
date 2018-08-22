@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 
 // style
-import styles from './TagCheckBox.scss';
+import styles from './TagCheckboxGroup.scss';
 
-interface TagCheckBoxProps {
+interface TagCheckboxGroupProps {
   className?: string;
   name: string; // 불필요해보임
   title: string;
@@ -15,8 +15,7 @@ interface TagCheckBoxProps {
   // onSelChanged: (item: string, selected: boolean) => void;  // onSelected
 }
 
-// TODO: TagCheckboxGroup
-class TagCheckBox extends Component<TagCheckBoxProps, {}> {
+class TagCheckboxGroup extends Component<TagCheckboxGroupProps, {}> {
   state = {
     ...this.state,
     selectedValue: '',
@@ -56,4 +55,4 @@ class TagCheckBox extends Component<TagCheckBoxProps, {}> {
   }
 }
 
-export default TagCheckBox;
+export default TagCheckboxGroup;

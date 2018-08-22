@@ -34,7 +34,7 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
   }
 
   componentWillMount() {
-    const userFinanceData = UserDC.getLocalStorageItems();
+    const userFinanceData = UserDC.getUserFinaceData();
     if (userFinanceData === null) return;
     const keys = Object.keys(userFinanceData);
     const financeData: FinanceData[] = [];

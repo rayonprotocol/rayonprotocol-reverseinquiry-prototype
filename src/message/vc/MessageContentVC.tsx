@@ -90,11 +90,14 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
   onClickDataSubmit(message: Message) {
     const requestFinanceDataKey = message.payload.split('%%');
     const requestResponeceData = {};
-    const localFinanceData = JSON.parse(localStorage.getItem(MessageDC.getUserAccount()));
+    const userFinanceData = UserDC.getUserFinaceData();
     requestFinanceDataKey.forEach(item => {
-      requestResponeceData[item] = localFinanceData[item];
+      requestResponeceData[item] = userFinanceData[item];
     });
-    if (localFinanceData === null) return alert('Register your personal data first!');
+    if (userFinanceData === null) {
+      alert('Register your personal data first!');
+      return;
+    }
     MessageDC.sendMessage(
       message.fromAddress,
       message.messageId,

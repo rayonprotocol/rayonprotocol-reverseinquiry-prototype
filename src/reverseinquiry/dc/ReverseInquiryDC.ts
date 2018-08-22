@@ -72,7 +72,6 @@ class ReverseInquiryDC extends RayonDC {
 
     const reverseInquiriesResult = await ReverseInquiryServerAgent.fetchReverseInquiries();
     this._reverseInquiries = reverseInquiriesResult.sort((a, b) => b.id - a.id);
-    console.log('this._reverseInquiries', this._reverseInquiries);
     this.onReverseInquiriesFetched(this._reverseInquiries);
   }
 

@@ -28,16 +28,16 @@ interface ReverseInquiryBoardVCState {
 }
 
 class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
-    constructor(props) {
-        super(props);
-        this.state = {
-            ...this.state,
-            reverseInquiries: [],
-            isSignUpModalOpen: false,
-        };
-        this.LogRegisterReverseInquiry = this.LogRegisterReverseInquiry.bind(this);
-        this.onReverseInquiriesFetched = this.onReverseInquiriesFetched.bind(this);
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.state,
+      reverseInquiries: new Array<ReverseInquiry>(),
+      isSignUpModalOpen: false,
+    };
+    this.LogRegisterReverseInquiry = this.LogRegisterReverseInquiry.bind(this);
+    this.onReverseInquiriesFetched = this.onReverseInquiriesFetched.bind(this);
+  }
 
   async componentWillMount() {
     ReverseInquiryDC.addEventListener(RayonEvent.LogRegisterReverseInquiry, this.LogRegisterReverseInquiry);
@@ -54,9 +54,8 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
     this.setState({ ...this.state, reverseInquiries });
   }
 
-  // blockchain events
   LogRegisterReverseInquiry(event: RayonEventResponse<LogRegisterReverseInquiryArgs>) {
-    const newReverseInquiry: ReverseInquiry = {
+    const registeredReverseInquiry: ReverseInquiry = {
       id: event.args.id.toNumber(),
       title: event.args.title,
       description: event.args.description,
@@ -65,23 +64,15 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
       userAddress: event.args.userAddress,
       insertTime: event.args.insertTime,
     };
-    this.state.reverseInquiries.unshift(newReverseInquiry);
+    this.state.reverseInquiries.unshift(registeredReverseInquiry);
     this.setState({ ...this.state, reverseInquiries: this.state.reverseInquiries });
   }
 
   /*
   component callback
   */
-  onRegisterButtonClicked() {
-    this.setState({ ...this.state, isSignUpModalOpen: true });
-  }
-
-  onModalButtonClicked() {
+  onRequestModalDisplayToggle() {
     this.setState({ ...this.state, isSignUpModalOpen: !this.state.isSignUpModalOpen });
-  }
-
-  onBackgroundClicked() {
-    this.setState({ ...this.state, isSignUpModalOpen: false });
   }
 
   render() {
@@ -98,7 +89,7 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
                   className={styles.registerBtn}
                   title={'New Request'}
                   isBorrower={true}
-                  onClickButton={this.onModalButtonClicked.bind(this)}
+                  onClickButton={this.onRequestModalDisplayToggle.bind(this)}
                 />
               </div>
             )}
@@ -128,8 +119,11 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
             </div>
           )}
         </Container>
-        <RayonModalView isModalOpen={this.state.isSignUpModalOpen} onRequestClose={this.onBackgroundClicked.bind(this)}>
-          <ReverseInquiryRegisterVC onClickButtonClicked={this.onModalButtonClicked.bind(this)} />
+        <RayonModalView
+          isModalOpen={this.state.isSignUpModalOpen}
+          onRequestClose={this.onRequestModalDisplayToggle.bind(this)}
+        >
+          <ReverseInquiryRegisterVC onRequestModalClose={this.onRequestModalDisplayToggle.bind(this)} />
         </RayonModalView>
       </Fragment>
     );

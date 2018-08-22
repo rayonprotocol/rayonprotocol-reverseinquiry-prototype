@@ -15,7 +15,7 @@ import history from 'common/util/Histroy';
 
 // view
 import Container from 'common/view/container/Container';
-import TagCheckBox from 'common/view/input/TagCheckBox';
+import TagCheckboxGroup from 'common/view/input/TagCheckboxGroup';
 import KeyValueText from 'common/view/text/KeyValueText';
 import RayonButton from 'common/view/button/RayonButton';
 
@@ -81,7 +81,7 @@ class ReverseInquiryVC extends Component<ReverseInquiryVCProps, ReverseInquiryVC
             <KeyValueText className={styles.contentValue} title={'User ID'} value={content.userName} />
             <KeyValueText className={styles.contentValue} title={'Title'} value={content.title} />
             <KeyValueText className={styles.contentValue} title={'Content'} value={content.description} />
-            <TagCheckBox
+            <TagCheckboxGroup
               title={'Available Personal Data'}
               financeItems={content.financeData}
               selFinanceItems={selectedTagList}

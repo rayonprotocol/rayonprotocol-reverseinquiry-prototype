@@ -17,12 +17,12 @@ contract ReverseInquiryDC {
     // variables
     ReverseInquiry[] reverseInquiries;
 
-    event LogRegisterReverseInquiry(address userAddress, string userName, string title, string description, string financeData,  uint insertTime);
+    event LogRegisterReverseInquiry(uint id, address userAddress, string userName, string title, string description, string financeData,  uint insertTime);
 
     function registerReverseInquiry(string _title, string _description, string _financeData, string _userName) public {
         uint currentTime = now;
-        reverseInquiries.push(ReverseInquiry(msg.sender, _userName, _title, _description, _financeData, currentTime));
-        emit LogRegisterReverseInquiry(msg.sender, _userName, _title, _description, _financeData, currentTime);
+        uint index = reverseInquiries.push(ReverseInquiry(msg.sender, _userName, _title, _description, _financeData, currentTime)) - 1;
+        emit LogRegisterReverseInquiry(index, msg.sender, _userName, _title, _description, _financeData, currentTime);
     }
 
     function getReverseInquiry(uint _index) public view returns(uint, address, string, string, string, string, uint) {

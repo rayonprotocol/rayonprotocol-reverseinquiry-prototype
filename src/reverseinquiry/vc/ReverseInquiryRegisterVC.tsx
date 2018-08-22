@@ -7,20 +7,19 @@ import UserDC from 'user/dc/UserDC';
 // view
 import TextInput from 'common/view/input/TextInput';
 import ModalTitle from 'common/view/modal/ModalTitle';
-import TagCheckBox from 'common/view/input/TagCheckBox';
+import TagCheckboxGroup from 'common/view/input/TagCheckboxGroup';
 import RayonButton from 'common/view/button/RayonButton';
 
 // styles
 import styles from './ReverseInquiryRegisterVC.scss';
 
 interface ReverseInquiryRegisterVCProps {
-  onClickButtonClicked: () => void;
+  onRequestModalClose: () => void;
 }
 
 interface ReverseInquiryRegisterVCState {
   title: string;
   content: string;
-  isError: boolean;
   selFinanceItems: string[];
 }
 
@@ -29,7 +28,6 @@ class ReverseInquiryRegisterVC extends Component<ReverseInquiryRegisterVCProps, 
     super(props);
     this.state = {
       ...this.state,
-      isError: false,
       selFinanceItems: [],
     };
   }
@@ -41,7 +39,7 @@ class ReverseInquiryRegisterVC extends Component<ReverseInquiryRegisterVCProps, 
     }
     try {
       ReverseInquiryDC.registerReverseInquiry(this.state.title, this.state.content, this.state.selFinanceItems);
-      this.props.onClickButtonClicked();
+      this.props.onRequestModalClose();
     } catch {
       console.log('ReverseInquiry register failed');
     }
@@ -58,7 +56,7 @@ class ReverseInquiryRegisterVC extends Component<ReverseInquiryRegisterVCProps, 
   }
 
   onChangeTag(event) {
-    //map 이용
+    // map 이용
     const valueIndex: number = this.state.selFinanceItems.indexOf(event.target.value);
     valueIndex === -1
       ? this.state.selFinanceItems.push(event.target.value)
@@ -68,15 +66,14 @@ class ReverseInquiryRegisterVC extends Component<ReverseInquiryRegisterVCProps, 
 
   render() {
     const { selFinanceItems } = this.state;
-    const localData = localStorage.getItem(UserDC.getUser().userAddress);
-    let financeItems = localData !== undefined ? Object.keys(JSON.parse(localData)) : null;
+    const userFinaceData = UserDC.getUserFinaceData();
     return (
       <div>
         <div className={styles.note}>
           <ModalTitle
             className={styles.noticeTitle}
             title={'New Request'}
-            onCloseRequest={this.props.onClickButtonClicked}
+            onCloseRequest={this.props.onRequestModalClose}
           />
           <p>Notice</p>
           <p>1. Wallet Address and User ID are automatically filled in</p>
@@ -84,12 +81,12 @@ class ReverseInquiryRegisterVC extends Component<ReverseInquiryRegisterVCProps, 
         </div>
         <TextInput title={'Title'} onChangeInputValue={this.onChangeTitle.bind(this)} />
         <TextInput title={'Content'} onChangeInputValue={this.onChangeContent.bind(this)} />
-        {financeItems && (
-          <TagCheckBox
+        {userFinaceData && (
+          <TagCheckboxGroup
             className={styles.FinanceTag}
             name={'financeTag'}
             title={'personal data to be provided'}
-            financeItems={financeItems}
+            financeItems={Object.keys(userFinaceData)}
             selFinanceItems={selFinanceItems}
             onSelChanged={this.onChangeTag.bind(this)}
             isBorrower={true}

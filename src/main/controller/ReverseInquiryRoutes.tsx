@@ -11,12 +11,11 @@ import UserDC from 'user/dc/UserDC';
 // view
 import TabNav from 'common/view/nav/TabNav';
 import RayonIntroView from 'home/view/RayonIntroView';
-
-import ReverseInquiryBoardVC from 'reverseinquiry/vc/ReverseInquiryBoardVC';
 import MessageBoardVC from 'message/vc/MessageBoardVC';
-import ReverseInquiryContentVC from 'reverseinquiry/vc/ReverseInquiryContentVC';
 import MessageContentVC from 'message/vc/MessageContentVC';
 import RegisterFinanceInfoVC from 'user/vc/RegisterFinanceInfoVC';
+import ReverseInquiryBoardVC from 'reverseinquiry/vc/ReverseInquiryBoardVC';
+import ReverseInquiryContentVC from 'reverseinquiry/vc/ReverseInquiryContentVC';
 
 interface ReverseInquiryRoutesState {
   user: User;
