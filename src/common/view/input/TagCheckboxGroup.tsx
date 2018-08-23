@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 
+// view
+import TagCheckbox from 'common/view/input/TagCheckbox';
+
+// util
+import ArrayUtil from 'common/util/ArrayUtil';
+
 // style
 import styles from './TagCheckboxGroup.scss';
 
 interface TagCheckboxGroupProps {
   className?: string;
-  name: string; // 불필요해보임
   title: string;
-  financeItems: string[];
-  selFinanceItems: string[]; 
-  isBorrower: boolean; // TODO: isHighligh or isBlue
-  onSelChanged: (event) => void;
-  // onSelChanged: (item: string, selected: boolean) => void;  // onSelected
+  tags: string[];
+  selTags: Set<string>;
+  tagColor: string;
+  onTagChecked: (tag: any) => void;
 }
 
 class TagCheckboxGroup extends Component<TagCheckboxGroupProps, {}> {
@@ -21,35 +25,29 @@ class TagCheckboxGroup extends Component<TagCheckboxGroupProps, {}> {
     selectedValue: '',
   };
 
+  renderNoTags() {
+    return <div>There is no tag data</div>;
+  }
+
+  renderTagGroup() {
+    return this.props.tags.map((tag, index) => {
+      return (
+        <TagCheckbox
+          key={index}
+          label={tag}
+          checked={this.props.selTags.has(tag)}
+          tagColor= {this.props.tagColor}
+          onTagChecked={this.props.onTagChecked}
+        />
+      );
+    });
+  }
+
   render() {
     return (
       <div className={classNames(styles.tagCheckBox, this.props.className)}>
         <div className={styles.title}>{this.props.title}</div>
-        {this.props.financeItems === undefined ? (
-          <div>There is no tag data</div>
-        ) : (
-          this.props.financeItems.map((item, index) => {
-            return (
-              <div
-                key={index}
-                className={classNames(styles.checkBox, {
-                  [styles.selected]: this.props.selFinanceItems.indexOf(item) !== -1,
-                })}
-              >
-                <input onChange={this.props.onSelChanged} type={'checkbox'} id={item} name={name} value={item} />
-                <label
-                  className={classNames(styles.checkBoxLabel, {
-                    [styles.borrower]: this.props.isBorrower,
-                    [styles.lender]: !this.props.isBorrower,
-                  })}
-                  htmlFor={item}
-                >
-                  {item}
-                </label>
-              </div>
-            );
-          })
-        )}
+        {ArrayUtil.isEmpty(this.props.tags) ? this.renderNoTags() : this.renderTagGroup()}
       </div>
     );
   }

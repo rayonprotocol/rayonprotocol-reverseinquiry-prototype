@@ -2,8 +2,9 @@ import React, { Component, Fragment } from 'react';
 import qs from 'query-string';
 
 // model
-import { RAYON_BERRY } from 'common/model/Style';
+import User from 'user/model/User';
 import { MsgTypes } from 'message/model/Message';
+import { RAYON_BERRY, RAYON_LAKE } from 'common/model/Style';
 import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
 
 // dc
@@ -28,9 +29,10 @@ interface ReverseInquiryVCProps {
 }
 
 interface ReverseInquiryVCState {
+  user: User;
   contentIndex: number;
   reverseInquiry: ReverseInquiry;
-  selectedTagList: string[];
+  selTags: Set<string>;
 }
 
 class ReverseInquiryVC extends Component<ReverseInquiryVCProps, ReverseInquiryVCState> {
@@ -39,7 +41,8 @@ class ReverseInquiryVC extends Component<ReverseInquiryVCProps, ReverseInquiryVC
     const parsed = qs.parse(props.location.search);
     this.state = {
       ...this.state,
-      selectedTagList: new Array<string>(),
+      user: UserDC.getUser(),
+      selTags: new Set<string>(),
       contentIndex: parseInt(parsed.id, 10),
     };
   }
@@ -50,17 +53,16 @@ class ReverseInquiryVC extends Component<ReverseInquiryVCProps, ReverseInquiryVC
   }
 
   async onClickSendRequestButton(toAddress: string, reverseInquiryId: number) {
-    const payload = this.state.selectedTagList.join('%%');
+    const payload = Array.from(this.state.selTags).join('%%');
     MessageDC.sendMessage(toAddress, 0, reverseInquiryId, MsgTypes.REQUEST_PERSONAL_DATA, payload);
     history.goBack();
   }
 
-  onChangeCheckBox(event) {
+  onTagChecked(tag: string) {
     if (UserDC.getUser().isBorrower) return;
-    const value = event.target.value;
-    const valueIndex = this.state.selectedTagList.indexOf(value);
-    valueIndex === -1 ? this.state.selectedTagList.push(value) : this.state.selectedTagList.splice(valueIndex, 1);
-    this.setState({ ...this.state, selectedTagList: this.state.selectedTagList });
+    if (this.state.selTags.has(tag)) this.state.selTags.delete(tag);
+    else this.state.selTags.add(tag);
+    this.setState({ ...this.state, selTags: this.state.selTags });
   }
 
   onClickTitle() {
@@ -68,8 +70,7 @@ class ReverseInquiryVC extends Component<ReverseInquiryVCProps, ReverseInquiryVC
   }
 
   render() {
-    const { reverseInquiry, selectedTagList } = this.state;
-    const user = UserDC.getUser();
+    const { reverseInquiry } = this.state;
     return (
       <Fragment>
         {reverseInquiry !== undefined && (
@@ -82,16 +83,15 @@ class ReverseInquiryVC extends Component<ReverseInquiryVCProps, ReverseInquiryVC
             <KeyValueText className={styles.contentValue} title={'Content'} value={reverseInquiry.description} />
             <TagCheckboxGroup
               title={'Available Personal Data'}
-              financeItems={reverseInquiry.financeData}
-              selFinanceItems={selectedTagList}
-              name={'financeData'}
-              onSelChanged={this.onChangeCheckBox.bind(this)}
-              isBorrower={user.isBorrower}
+              tags={reverseInquiry.financeData}
+              selTags={this.state.selTags}
+              onTagChecked={this.onTagChecked.bind(this)}
+              tagColor={this.state.user.isBorrower ? RAYON_LAKE : RAYON_BERRY}
             />
             <RayonButton
               className={styles.requestBtn}
               onClickButton={() => this.onClickSendRequestButton(reverseInquiry.userAddress, reverseInquiry.id)}
-              isHidden={user.isBorrower}
+              isHidden={this.state.user.isBorrower}
               buttonColor={RAYON_BERRY}
               title={'Request Personal Data'}
             />

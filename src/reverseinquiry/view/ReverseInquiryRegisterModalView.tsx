@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+// model
+import User from 'user/model/User';
+import { RAYON_BERRY, RAYON_LAKE } from 'common/model/Style';
+
 // dc
 import ReverseInquiryDC from 'reverseinquiry/dc/ReverseInquiryDC';
 import UserDC from 'user/dc/UserDC';
@@ -20,9 +24,10 @@ interface ReverseInquiryRegisterModalViewProps {
 }
 
 interface ReverseInquiryRegisterModalViewState {
+  user: User;
   title: string;
   content: string;
-  selFinanceItems: string[];
+  selAvailableFinanceData: Set<string>;
 }
 
 class ReverseInquiryRegisterModalView extends Component<
@@ -33,17 +38,22 @@ class ReverseInquiryRegisterModalView extends Component<
     super(props);
     this.state = {
       ...this.state,
-      selFinanceItems: [],
+      user: UserDC.getUser(),
+      selAvailableFinanceData: new Set<string>(),
     };
   }
 
   async onClickRegisterButton() {
-    if (this.state.selFinanceItems.length === 0) {
+    if (this.state.selAvailableFinanceData.size === 0) {
       alert('Personal data must be provided with loan request');
       return;
     }
     try {
-      ReverseInquiryDC.registerReverseInquiry(this.state.title, this.state.content, this.state.selFinanceItems);
+      ReverseInquiryDC.registerReverseInquiry(
+        this.state.title,
+        this.state.content,
+        Array.from(this.state.selAvailableFinanceData)
+      );
       this.props.onRequestModalClose();
     } catch {
       console.log('ReverseInquiry register failed');
@@ -60,17 +70,14 @@ class ReverseInquiryRegisterModalView extends Component<
     this.setState({ ...this.state, content });
   }
 
-  onChangeTag(event) {
+  onChangeTag(tag: string) {
     // map 이용
-    const valueIndex: number = this.state.selFinanceItems.indexOf(event.target.value);
-    valueIndex === -1
-      ? this.state.selFinanceItems.push(event.target.value)
-      : this.state.selFinanceItems.splice(valueIndex, 1);
-    this.setState({ ...this.state, selFinanceItems: this.state.selFinanceItems });
+    if (this.state.selAvailableFinanceData.has(tag)) this.state.selAvailableFinanceData.delete(tag);
+    else this.state.selAvailableFinanceData.add(tag);
+    this.setState({ ...this.state, selAvailableFinanceData: this.state.selAvailableFinanceData });
   }
 
   render() {
-    const { selFinanceItems } = this.state;
     const userFinaceData = UserDC.getUserFinaceData();
     return (
       <RayonModalView isModalOpen={this.props.isModalOpen} onRequestClose={this.props.onRequestModalClose}>
@@ -90,12 +97,11 @@ class ReverseInquiryRegisterModalView extends Component<
           {userFinaceData && (
             <TagCheckboxGroup
               className={styles.FinanceTag}
-              name={'financeTag'}
               title={'personal data to be provided'}
-              financeItems={Object.keys(userFinaceData)}
-              selFinanceItems={selFinanceItems}
-              onSelChanged={this.onChangeTag.bind(this)}
-              isBorrower={true}
+              tags={Object.keys(userFinaceData)}
+              selTags={this.state.selAvailableFinanceData}
+              onTagChecked={this.onChangeTag.bind(this)}
+              tagColor={this.state.user.isBorrower ? RAYON_LAKE : RAYON_BERRY}
             />
           )}
           <RayonButton

@@ -1,0 +1,19 @@
+@import '~common/asset/partial';
+input {
+  display: none;
+}
+.checkBox {
+  display: inline-block;
+  .checkBoxLabel {
+    display: inline-block;
+    padding: 4px 12px;
+    margin-right: 5px;
+    margin-bottom: 8px;
+    border-radius: 14px;
+    font-size: 12px;
+    transition: all 0.1s linear;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+  }
+}
