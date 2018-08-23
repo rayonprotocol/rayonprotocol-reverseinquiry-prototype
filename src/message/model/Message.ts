@@ -1,5 +1,21 @@
 import { BigNumber } from 'bignumber.js';
 
+export type FinanceProduct = [string, string, string];
+
+export enum FinanceProductType {
+  amount,
+  interest,
+  maturity,
+}
+
+const financeProductNames = ['Amount', 'Interest', 'Maturity'];
+
+export namespace FinanceProductType {
+  export function getFinanceProductNames(type: FinanceProductType) {
+    return financeProductNames[type];
+  }
+}
+
 export enum MsgTypes {
   REQUEST_PERSONAL_DATA = 1,
   RESPONSE_PERSONAL_DATA,

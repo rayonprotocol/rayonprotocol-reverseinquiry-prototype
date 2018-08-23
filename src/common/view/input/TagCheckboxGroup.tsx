@@ -20,11 +20,6 @@ interface TagCheckboxGroupProps {
 }
 
 class TagCheckboxGroup extends Component<TagCheckboxGroupProps, {}> {
-  state = {
-    ...this.state,
-    selectedValue: '',
-  };
-
   renderNoTags() {
     return <div>There is no tag data</div>;
   }
@@ -36,7 +31,7 @@ class TagCheckboxGroup extends Component<TagCheckboxGroupProps, {}> {
           key={index}
           label={tag}
           checked={this.props.selTags.has(tag)}
-          tagColor= {this.props.tagColor}
+          tagColor={this.props.tagColor}
           onTagChecked={this.props.onTagChecked}
         />
       );

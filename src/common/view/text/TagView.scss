@@ -1,0 +1,18 @@
+@import '~common/asset/partial';
+
+.tag {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 14px;
+  margin-right: 5px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  &.borrower {
+    color: $rayon-darklake;
+    border: 1px solid $rayon-darklake;
+  }
+  &.lender {
+    color: $rayon-darkberry;
+    border: 1px solid $rayon-darkberry;
+  }
+}

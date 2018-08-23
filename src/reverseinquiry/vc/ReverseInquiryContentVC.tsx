@@ -30,7 +30,6 @@ interface ReverseInquiryVCProps {
 
 interface ReverseInquiryVCState {
   user: User;
-  contentIndex: number;
   reverseInquiry: ReverseInquiry;
   selTags: Set<string>;
 }
@@ -38,17 +37,16 @@ interface ReverseInquiryVCState {
 class ReverseInquiryVC extends Component<ReverseInquiryVCProps, ReverseInquiryVCState> {
   constructor(props) {
     super(props);
-    const parsed = qs.parse(props.location.search);
     this.state = {
       ...this.state,
       user: UserDC.getUser(),
       selTags: new Set<string>(),
-      contentIndex: parseInt(parsed.id, 10),
     };
   }
 
   async componentWillMount() {
-    const reverseInquiry = await ReverseInquiryDC.fetchReverseInquiry(this.state.contentIndex);
+    const parsedReverseInquiryIndex = parseInt(qs.parse(this.props['location']['search']).id, 10);
+    const reverseInquiry = await ReverseInquiryDC.fetchReverseInquiry(parsedReverseInquiryIndex);
     this.setState({ ...this.state, reverseInquiry });
   }
 

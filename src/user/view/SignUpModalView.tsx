@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 // model
 import { UserType } from 'user/model/User';
+import { RAYON_BERRY, RAYON_LAKE } from 'common/model/Style';
 
 // dc
 import UserDC from 'user/dc/UserDC';
@@ -12,7 +13,6 @@ import SelectInput from 'common/view/input/SelectInput';
 import TextInput from 'common/view/input/TextInput';
 import RayonButton from 'common/view/button/RayonButton';
 import RayonModalView from 'common/view/modal/RayonModalView';
-
 
 // util
 import StringUtil from 'common/util/StringUtil';

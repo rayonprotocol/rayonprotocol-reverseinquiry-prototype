@@ -68,7 +68,7 @@ class MessageDC extends RayonDC {
     previousMessageId: number,
     reverseInquiryId: number,
     msgType: number,
-    payload: string
+    payload?: string
   ) {
     MessageServerAgent.sendMessage(toAddress, previousMessageId, reverseInquiryId, msgType, payload);
   }

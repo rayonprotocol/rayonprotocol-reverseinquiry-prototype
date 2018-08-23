@@ -108,6 +108,7 @@ class ReverseInquiryRegisterModalView extends Component<
             title={'Submit'}
             className={styles.buttonWrap}
             onClickButton={this.onClickRegisterButton.bind(this)}
+            buttonColor={this.state.user.isBorrower ? RAYON_LAKE : RAYON_BERRY}
           />
         </div>
       </RayonModalView>

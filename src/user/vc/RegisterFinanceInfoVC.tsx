@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 
 // model
 import User, { FinanceData } from 'user/model/User';
+import { RAYON_BERRY, RAYON_LAKE } from 'common/model/Style';
 
 // dc
 import UserDC from 'user/dc/UserDC';
@@ -101,6 +102,7 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
                 className={styles.addBtn}
                 title={'Add Data'}
                 onClickButton={this.onClickAddInputButton.bind(this)}
+                buttonColor={this.state.user.isBorrower ? RAYON_LAKE : RAYON_BERRY}
               />
             </div>
             <table>
@@ -141,6 +143,7 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
               className={styles.dataSaveBtn}
               title={'Save'}
               onClickButton={this.onClickSubmitButton.bind(this)}
+              buttonColor={this.state.user.isBorrower ? RAYON_LAKE : RAYON_BERRY}
             />
           </Fragment>
         </Container>
@@ -150,6 +153,7 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
             className={styles.confirmButton}
             title={'Confirm'}
             onClickButton={this.onRequestCloseModal.bind(this)}
+            buttonColor={this.state.user.isBorrower ? RAYON_LAKE : RAYON_BERRY}
           />
         </RayonModalView>
       </Fragment>

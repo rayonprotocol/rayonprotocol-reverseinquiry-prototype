@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import styles from './TagCheckbox.scss';
 
 interface TagCheckboxProps {
-  label?: string;
+  label: string;
   checked: boolean;
   tagColor: string;
   onTagChecked: (label: any) => void;
@@ -27,7 +27,7 @@ class TagCheckbox extends Component<TagCheckboxProps, {}> {
           style={{
             borderColor: this.props.tagColor,
             color: this.props.checked ? 'white' : this.props.tagColor,
-            backgroundColor: this.props.checked ? 'white' : this.props.tagColor,
+            backgroundColor: this.props.checked ? this.props.tagColor : 'white',
           }}
           htmlFor={this.props.label}
         >

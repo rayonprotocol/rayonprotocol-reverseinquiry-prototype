@@ -120,6 +120,7 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
                 title={'New Request'}
                 isHidden={!this.state.user.isBorrower}
                 onClickButton={this.onRequestModalOpenStateToggle.bind(this)}
+                buttonColor={this.state.user.isBorrower ? RAYON_LAKE : RAYON_BERRY}
               />
             </div>
           </div>
