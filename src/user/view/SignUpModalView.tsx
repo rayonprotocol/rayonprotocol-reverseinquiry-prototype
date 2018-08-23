@@ -11,6 +11,8 @@ import ModalTitle from 'common/view/modal/ModalTitle';
 import SelectInput from 'common/view/input/SelectInput';
 import TextInput from 'common/view/input/TextInput';
 import RayonButton from 'common/view/button/RayonButton';
+import RayonModalView from 'common/view/modal/RayonModalView';
+
 
 // util
 import StringUtil from 'common/util/StringUtil';
@@ -19,6 +21,7 @@ import StringUtil from 'common/util/StringUtil';
 import styles from './SignUpModalView.scss';
 
 interface SignUpModalViewProps {
+  isModalOpen: boolean;
   onCloseClicked: () => void;
 }
 
@@ -36,7 +39,7 @@ class SignUpModalView extends Component<SignUpModalViewProps, SignUpModalViewSta
     };
   }
 
-  onChangeOption(event) {
+  onChangeUserType(event) {
     this.setState({
       ...this.state,
       isBorrower: event.target.value === UserType.getUserTypeNames(UserType.ENTITY_BORROWER),
@@ -62,28 +65,30 @@ class SignUpModalView extends Component<SignUpModalViewProps, SignUpModalViewSta
 
   render() {
     return (
-      <div className={styles.contentsContainer}>
-        <ModalTitle title={'Sign Up'} onCloseRequest={this.props.onCloseClicked} />
-        <SelectInput
-          className={styles.selectInput}
-          title={'Type'}
-          options={[
-            UserType.getUserTypeNames(UserType.ENTITY_BORROWER),
-            UserType.getUserTypeNames(UserType.ENTITY_LENDER),
-          ]}
-          onChangeOption={this.onChangeOption.bind(this)}
-        />
-        <TextInput
-          className={styles.selectInput}
-          title={'User Name'}
-          onChangeInputValue={this.onChangeUserName.bind(this)}
-        />
-        <RayonButton
-          className={styles.submitButton}
-          title={'Submit'}
-          onClickButton={this.onClickSubmitButton.bind(this)}
-        />
-      </div>
+      <RayonModalView isModalOpen={this.props.isModalOpen} onRequestClose={this.props.onCloseClicked}>
+        <div className={styles.contentsContainer}>
+          <ModalTitle title={'Sign Up'} onCloseRequest={this.props.onCloseClicked} />
+          <SelectInput
+            className={styles.selectInput}
+            title={'Type'}
+            options={[
+              UserType.getUserTypeNames(UserType.ENTITY_BORROWER),
+              UserType.getUserTypeNames(UserType.ENTITY_LENDER),
+            ]}
+            onChangeOption={this.onChangeUserType.bind(this)}
+          />
+          <TextInput
+            className={styles.selectInput}
+            title={'User Name'}
+            onChangeInputValue={this.onChangeUserName.bind(this)}
+          />
+          <RayonButton
+            className={styles.submitButton}
+            title={'Submit'}
+            onClickButton={this.onClickSubmitButton.bind(this)}
+          />
+        </div>
+      </RayonModalView>
     );
   }
 }

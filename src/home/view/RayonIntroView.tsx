@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 // view
 import SignUpModalView from 'user/view/SignUpModalView';
-import RayonModalView from 'common/view/modal/RayonModalView';
 
 // styles
 import styles from './RayonIntroView.scss';
@@ -20,12 +19,9 @@ class RayonIntroView extends Component<{}, RayonIntroViewState> {
     };
   }
 
-  onClickModal(isClose?: boolean) {
+  onRequestModalOpenStateToggle() {
+    // break out when click open button, modal background, close button
     this.setState({ ...this.state, isSignUpModalOpen: !this.state.isSignUpModalOpen });
-  }
-
-  onRequestCloseModal() {
-    this.setState({ ...this.state, isSignUpModalOpen: false });
   }
 
   render() {
@@ -39,14 +35,14 @@ class RayonIntroView extends Component<{}, RayonIntroViewState> {
             <div className={styles.borrowerBtn}>Borrower</div>
             <div className={styles.lenderBtn}>Lender</div>
           </div>
-          <div className={styles.signUpButton} onClick={this.onClickModal.bind(this)}>
+          <div className={styles.signUpButton} onClick={this.onRequestModalOpenStateToggle.bind(this)}>
             Sign Up
           </div>
         </div>
-        {/* modal */}
-        <RayonModalView isModalOpen={this.state.isSignUpModalOpen} onRequestClose={this.onRequestCloseModal.bind(this)}>
-          <SignUpModalView onCloseClicked={this.onClickModal.bind(this)} />
-        </RayonModalView>
+        <SignUpModalView
+          isModalOpen={this.state.isSignUpModalOpen}
+          onCloseClicked={this.onRequestModalOpenStateToggle.bind(this)}
+        />
       </div>
     );
   }

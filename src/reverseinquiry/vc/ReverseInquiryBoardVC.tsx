@@ -26,6 +26,7 @@ import RayonButton from 'common/view/button/RayonButton';
 import styles from './ReverseInquiryBoardVC.scss';
 
 interface ReverseInquiryBoardVCState {
+  user: User;
   reverseInquiries: ReverseInquiry[];
   isRegisterModalOpen: boolean;
 }
@@ -35,6 +36,7 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
     super(props);
     this.state = {
       ...this.state,
+      user: UserDC.getUser(),
       reverseInquiries: new Array<ReverseInquiry>(),
       isRegisterModalOpen: false,
     };
@@ -76,17 +78,37 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
     this.setState({ ...this.state, isRegisterModalOpen: !this.state.isRegisterModalOpen });
   }
 
-  renderNoRequestToDate(user: User) {
+  renderNoRequestToDate() {
     return (
-      <div className={classNames(styles.emptyNote)} style={{ color: user.isBorrower ? RAYON_LAKE : RAYON_BERRY }}>
+      <div
+        className={classNames(styles.emptyNote)}
+        style={{ color: this.state.user.isBorrower ? RAYON_LAKE : RAYON_BERRY }}
+      >
         No Requests To Date
       </div>
     );
   }
 
-  render() {
+  renderReverseInquiryTable() {
     const { reverseInquiries } = this.state;
-    const user: User = UserDC.getUser();
+    return (
+      <div className={styles.reverseInquiryTable}>
+        {reverseInquiries.map((reverseInquiry, index) => {
+          return (
+            <div className={styles.contentRow} key={index}>
+              <p className={styles.contentNumber}>{reverseInquiry.id + 1}</p>
+              <p className={styles.contentTitle}>
+                <Link to={`/reverseinquiry/content?id=${reverseInquiry.id}`}>{reverseInquiry.title}</Link>
+              </p>
+              <div className={styles.timeColumn}>{TimeConverter(reverseInquiry.insertTime)}</div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  render() {
     return (
       <Fragment>
         <Container className={styles.contentContainer}>
@@ -96,28 +118,14 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
               <RayonButton
                 className={styles.registerBtn}
                 title={'New Request'}
-                isHidden={!user.isBorrower}
+                isHidden={!this.state.user.isBorrower}
                 onClickButton={this.onRequestModalOpenStateToggle.bind(this)}
               />
             </div>
           </div>
-          {ArrayUtil.isEmpty(reverseInquiries) ? (
-            this.renderNoRequestToDate(user)
-          ) : (
-            <div className={styles.reverseInquiryTable}>
-              {reverseInquiries.map((reverseInquiry, index) => {
-                return (
-                  <div className={styles.contentRow} key={index}>
-                    <p className={styles.contentNumber}>{reverseInquiry.id + 1}</p>
-                    <p className={styles.contentsTitle}>
-                      <Link to={`/reverseinquiry/content?id=${reverseInquiry.id}`}>{reverseInquiry.title}</Link>
-                    </p>
-                    <div className={styles.timeColumn}>{TimeConverter(reverseInquiry.insertTime)}</div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
+          {ArrayUtil.isEmpty(this.state.reverseInquiries)
+            ? this.renderNoRequestToDate()
+            : this.renderReverseInquiryTable()}
         </Container>
         <ReverseInquiryRegisterModalView
           isModalOpen={this.state.isRegisterModalOpen}

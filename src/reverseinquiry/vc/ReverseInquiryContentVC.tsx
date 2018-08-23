@@ -29,7 +29,7 @@ interface ReverseInquiryVCProps {
 
 interface ReverseInquiryVCState {
   contentIndex: number;
-  content: ReverseInquiry;
+  reverseInquiry: ReverseInquiry;
   selectedTagList: string[];
 }
 
@@ -39,18 +39,17 @@ class ReverseInquiryVC extends Component<ReverseInquiryVCProps, ReverseInquiryVC
     const parsed = qs.parse(props.location.search);
     this.state = {
       ...this.state,
-      content: undefined,
-      selectedTagList: [],
-      contentIndex: parseInt(parsed.id),
+      selectedTagList: new Array<string>(),
+      contentIndex: parseInt(parsed.id, 10),
     };
   }
 
   async componentWillMount() {
-    const content = await ReverseInquiryDC.fetchReverseInquiry(this.state.contentIndex);
-    this.setState({ ...this.state, content });
+    const reverseInquiry = await ReverseInquiryDC.fetchReverseInquiry(this.state.contentIndex);
+    this.setState({ ...this.state, reverseInquiry });
   }
 
-  async onClickRequestButton(toAddress: string, reverseInquiryId: number) {
+  async onClickSendRequestButton(toAddress: string, reverseInquiryId: number) {
     const payload = this.state.selectedTagList.join('%%');
     MessageDC.sendMessage(toAddress, 0, reverseInquiryId, MsgTypes.REQUEST_PERSONAL_DATA, payload);
     history.goBack();
@@ -59,10 +58,9 @@ class ReverseInquiryVC extends Component<ReverseInquiryVCProps, ReverseInquiryVC
   onChangeCheckBox(event) {
     if (UserDC.getUser().isBorrower) return;
     const value = event.target.value;
-    const { selectedTagList } = this.state;
-    const valueIndex = selectedTagList.indexOf(value);
-    valueIndex === -1 ? selectedTagList.push(value) : selectedTagList.splice(valueIndex, 1);
-    this.setState({ ...this.state, selectedTagList });
+    const valueIndex = this.state.selectedTagList.indexOf(value);
+    valueIndex === -1 ? this.state.selectedTagList.push(value) : this.state.selectedTagList.splice(valueIndex, 1);
+    this.setState({ ...this.state, selectedTagList: this.state.selectedTagList });
   }
 
   onClickTitle() {
@@ -70,21 +68,21 @@ class ReverseInquiryVC extends Component<ReverseInquiryVCProps, ReverseInquiryVC
   }
 
   render() {
-    const { content, selectedTagList } = this.state;
+    const { reverseInquiry, selectedTagList } = this.state;
     const user = UserDC.getUser();
     return (
       <Fragment>
-        {content !== undefined && (
+        {reverseInquiry !== undefined && (
           <Container className={styles.contentContainer}>
             <div className={styles.goBackTitle} onClick={this.onClickTitle}>
-              {'<   ' + content.title}
+              {'<   ' + reverseInquiry.title}
             </div>
-            <KeyValueText className={styles.contentValue} title={'User ID'} value={content.userName} />
-            <KeyValueText className={styles.contentValue} title={'Title'} value={content.title} />
-            <KeyValueText className={styles.contentValue} title={'Content'} value={content.description} />
+            <KeyValueText className={styles.contentValue} title={'User ID'} value={reverseInquiry.userName} />
+            <KeyValueText className={styles.contentValue} title={'Title'} value={reverseInquiry.title} />
+            <KeyValueText className={styles.contentValue} title={'Content'} value={reverseInquiry.description} />
             <TagCheckboxGroup
               title={'Available Personal Data'}
-              financeItems={content.financeData}
+              financeItems={reverseInquiry.financeData}
               selFinanceItems={selectedTagList}
               name={'financeData'}
               onSelChanged={this.onChangeCheckBox.bind(this)}
@@ -92,7 +90,7 @@ class ReverseInquiryVC extends Component<ReverseInquiryVCProps, ReverseInquiryVC
             />
             <RayonButton
               className={styles.requestBtn}
-              onClickButton={() => this.onClickRequestButton(content.userAddress, content.id)}
+              onClickButton={() => this.onClickSendRequestButton(reverseInquiry.userAddress, reverseInquiry.id)}
               isHidden={user.isBorrower}
               buttonColor={RAYON_BERRY}
               title={'Request Personal Data'}
