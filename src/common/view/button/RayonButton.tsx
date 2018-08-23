@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 
+// model
+import { RAYON_LAKE } from 'common/model/Style';
+
 // styles
 import styles from './RayonButton.scss';
 
 interface RayonButtonProps {
-  title: string;
   className?: string;
-  isBorrower: boolean;
+  title: string;
+  buttonColor?: string;
+  isHidden?: boolean;
   onClickButton: () => void;
 }
 
@@ -16,10 +20,11 @@ class RayonButton extends Component<RayonButtonProps, {}> {
     return (
       <div
         onClick={this.props.onClickButton}
-        className={classNames(styles.commonRayonButton, this.props.className, {
-          [styles.borrower]: this.props.isBorrower,
-          [styles.lender]: !this.props.isBorrower,
-        })}
+        className={classNames(styles.commonRayonButton, this.props.className)}
+        style={{
+          backgroundColor: this.props.buttonColor || RAYON_LAKE,
+          display: this.props.isHidden && 'none',
+        }}
       >
         {this.props.title}
       </div>

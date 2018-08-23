@@ -16,18 +16,18 @@ import RayonButton from 'common/view/button/RayonButton';
 import StringUtil from 'common/util/StringUtil';
 
 // styles
-import styles from './SignUpVC.scss';
+import styles from './SignUpModalView.scss';
 
-interface SignUpVCProps {
+interface SignUpModalViewProps {
   onCloseClicked: () => void;
 }
 
-interface SignUpVCState {
+interface SignUpModalViewState {
   userName: string;
   isBorrower: boolean;
 }
 
-class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
+class SignUpModalView extends Component<SignUpModalViewProps, SignUpModalViewState> {
   constructor(props) {
     super(props);
     this.state = {
@@ -81,7 +81,6 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
         <RayonButton
           className={styles.submitButton}
           title={'Submit'}
-          isBorrower={true}
           onClickButton={this.onClickSubmitButton.bind(this)}
         />
       </div>
@@ -89,4 +88,4 @@ class SignUpVC extends Component<SignUpVCProps, SignUpVCState> {
   }
 }
 
-export default SignUpVC;
+export default SignUpModalView;

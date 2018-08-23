@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // view
-import SignUpVC from 'user/vc/SignUpVC';
+import SignUpModalView from 'user/view/SignUpModalView';
 import RayonModalView from 'common/view/modal/RayonModalView';
 
 // styles
@@ -45,7 +45,7 @@ class RayonIntroView extends Component<{}, RayonIntroViewState> {
         </div>
         {/* modal */}
         <RayonModalView isModalOpen={this.state.isSignUpModalOpen} onRequestClose={this.onRequestCloseModal.bind(this)}>
-          <SignUpVC onCloseClicked={this.onClickModal.bind(this)} />
+          <SignUpModalView onCloseClicked={this.onClickModal.bind(this)} />
         </RayonModalView>
       </div>
     );

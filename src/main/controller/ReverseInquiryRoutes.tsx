@@ -62,7 +62,7 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
   ];
 
   async componentWillMount() {
-    UserDC.addUserListeners(this.onUserFetched.bind(this));
+    UserDC.addUserListener(this.onUserFetched.bind(this));
 
     // check user registered
     const isUser: boolean = await UserDC.isUser();

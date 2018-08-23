@@ -101,7 +101,6 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
                 className={styles.addBtn}
                 title={'Add Data'}
                 onClickButton={this.onClickAddInputButton.bind(this)}
-                isBorrower={true}
               />
             </div>
             <table>
@@ -142,7 +141,6 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
               className={styles.dataSaveBtn}
               title={'Save'}
               onClickButton={this.onClickSubmitButton.bind(this)}
-              isBorrower={true}
             />
           </Fragment>
         </Container>
@@ -152,7 +150,6 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
             className={styles.confirmButton}
             title={'Confirm'}
             onClickButton={this.onRequestCloseModal.bind(this)}
-            isBorrower={true}
           />
         </RayonModalView>
       </Fragment>

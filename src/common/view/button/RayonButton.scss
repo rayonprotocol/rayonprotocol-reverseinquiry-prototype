@@ -7,11 +7,3 @@
   text-align: center;
   @include set-font(16px, white);
 }
-
-.borrower {
-  background-color: $rayon-lake;
-}
-
-.lender {
-  background-color: $rayon-berry;
-}

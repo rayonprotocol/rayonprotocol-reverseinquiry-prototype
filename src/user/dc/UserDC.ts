@@ -44,11 +44,11 @@ class UserDC extends RayonDC {
   /*
   user handler
   */
-  public addUserListeners(listener: UserListner): void {
+  public addUserListener(listener: UserListner): void {
     this._userListeners.add(listener);
   }
 
-  public removeUserListeners(listener: UserListner): void {
+  public removeUserListener(listener: UserListner): void {
     this._userListeners.delete(listener);
   }
 

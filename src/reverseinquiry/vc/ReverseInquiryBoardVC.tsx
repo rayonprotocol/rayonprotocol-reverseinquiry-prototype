@@ -2,21 +2,24 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
+// model
+import User from 'user/model/User';
+import { RAYON_BERRY, RAYON_LAKE } from 'common/model/Style';
+import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
+import { RayonEvent, RayonEventResponse, LogRegisterReverseInquiryArgs } from 'common/model/RayonEvent';
+
 // dc
 import ReverseInquiryDC from 'reverseinquiry/dc/ReverseInquiryDC';
 import UserDC from 'user/dc/UserDC';
 
-// model
-import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
-import { RayonEvent, RayonEventResponse, LogRegisterReverseInquiryArgs } from 'common/model/RayonEvent';
-
 // util
 import TimeConverter from 'common/util/TimeConverter';
+import ArrayUtil from 'common/util/ArrayUtil';
 
 // view
 import Container from 'common/view/container/Container';
-import ReverseInquiryRegisterVC from 'reverseinquiry/vc/ReverseInquiryRegisterVC';
-import RayonModalView from 'common/view/modal/RayonModalView';
+import ReverseInquiryRegisterModalView from 'reverseinquiry/view/ReverseInquiryRegisterModalView';
+
 import RayonButton from 'common/view/button/RayonButton';
 
 // styles
@@ -24,7 +27,7 @@ import styles from './ReverseInquiryBoardVC.scss';
 
 interface ReverseInquiryBoardVCState {
   reverseInquiries: ReverseInquiry[];
-  isSignUpModalOpen: boolean;
+  isRegisterModalOpen: boolean;
 }
 
 class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
@@ -33,7 +36,7 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
     this.state = {
       ...this.state,
       reverseInquiries: new Array<ReverseInquiry>(),
-      isSignUpModalOpen: false,
+      isRegisterModalOpen: false,
     };
     this.LogRegisterReverseInquiry = this.LogRegisterReverseInquiry.bind(this);
     this.onReverseInquiriesFetched = this.onReverseInquiriesFetched.bind(this);
@@ -64,45 +67,42 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
       userAddress: event.args.userAddress,
       insertTime: event.args.insertTime,
     };
-    this.state.reverseInquiries.unshift(registeredReverseInquiry);
+    this.state.reverseInquiries.unshift(registeredReverseInquiry); // add to array head because of order by insert time
     this.setState({ ...this.state, reverseInquiries: this.state.reverseInquiries });
   }
 
-  /*
-  component callback
-  */
-  onRequestModalDisplayToggle() {
-    this.setState({ ...this.state, isSignUpModalOpen: !this.state.isSignUpModalOpen });
+  onRequestModalOpenStateToggle() {
+    // break out when click open button, modal background, close button
+    this.setState({ ...this.state, isRegisterModalOpen: !this.state.isRegisterModalOpen });
+  }
+
+  renderNoRequestToDate(user: User) {
+    return (
+      <div className={classNames(styles.emptyNote)} style={{ color: user.isBorrower ? RAYON_LAKE : RAYON_BERRY }}>
+        No Requests To Date
+      </div>
+    );
   }
 
   render() {
     const { reverseInquiries } = this.state;
-    const user = UserDC.getUser();
+    const user: User = UserDC.getUser();
     return (
       <Fragment>
         <Container className={styles.contentContainer}>
           <div className={styles.titleSection}>
             <p className={styles.title}>Loan Request</p>
-            {user.isBorrower && (
-              <div className={styles.buttonWrap}>
-                <RayonButton
-                  className={styles.registerBtn}
-                  title={'New Request'}
-                  isBorrower={true}
-                  onClickButton={this.onRequestModalDisplayToggle.bind(this)}
-                />
-              </div>
-            )}
-          </div>
-          {reverseInquiries.length === 0 ? (
-            <div
-              className={classNames(styles.emptyNote, {
-                [styles.borrower]: user.isBorrower,
-                [styles.lender]: !user.isBorrower,
-              })}
-            >
-              No Requests To Date
+            <div className={styles.buttonWrap}>
+              <RayonButton
+                className={styles.registerBtn}
+                title={'New Request'}
+                isHidden={!user.isBorrower}
+                onClickButton={this.onRequestModalOpenStateToggle.bind(this)}
+              />
             </div>
+          </div>
+          {ArrayUtil.isEmpty(reverseInquiries) ? (
+            this.renderNoRequestToDate(user)
           ) : (
             <div className={styles.reverseInquiryTable}>
               {reverseInquiries.map((reverseInquiry, index) => {
@@ -119,12 +119,10 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
             </div>
           )}
         </Container>
-        <RayonModalView
-          isModalOpen={this.state.isSignUpModalOpen}
-          onRequestClose={this.onRequestModalDisplayToggle.bind(this)}
-        >
-          <ReverseInquiryRegisterVC onRequestModalClose={this.onRequestModalDisplayToggle.bind(this)} />
-        </RayonModalView>
+        <ReverseInquiryRegisterModalView
+          isModalOpen={this.state.isRegisterModalOpen}
+          onRequestModalClose={this.onRequestModalOpenStateToggle.bind(this)}
+        />
       </Fragment>
     );
   }

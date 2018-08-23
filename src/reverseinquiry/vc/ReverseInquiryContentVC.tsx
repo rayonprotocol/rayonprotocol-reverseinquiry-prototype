@@ -2,22 +2,23 @@ import React, { Component, Fragment } from 'react';
 import qs from 'query-string';
 
 // model
-import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
+import { RAYON_BERRY } from 'common/model/Style';
 import { MsgTypes } from 'message/model/Message';
+import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
 
 // dc
 import UserDC from 'user/dc/UserDC';
-import ReverseInquiryDC from 'reverseinquiry/dc/ReverseInquiryDC';
 import MessageDC from 'message/dc/MessageDC';
+import ReverseInquiryDC from 'reverseinquiry/dc/ReverseInquiryDC';
 
 // util
 import history from 'common/util/Histroy';
 
 // view
 import Container from 'common/view/container/Container';
-import TagCheckboxGroup from 'common/view/input/TagCheckboxGroup';
 import KeyValueText from 'common/view/text/KeyValueText';
 import RayonButton from 'common/view/button/RayonButton';
+import TagCheckboxGroup from 'common/view/input/TagCheckboxGroup';
 
 // styles
 import styles from './ReverseInquiryContentVC.scss';
@@ -89,14 +90,13 @@ class ReverseInquiryVC extends Component<ReverseInquiryVCProps, ReverseInquiryVC
               onSelChanged={this.onChangeCheckBox.bind(this)}
               isBorrower={user.isBorrower}
             />
-            {!user.isBorrower && (
-              <RayonButton
-                className={styles.requestBtn}
-                onClickButton={() => this.onClickRequestButton(content.userAddress, content.id)}
-                isBorrower={user.isBorrower}
-                title={'Request Personal Data'}
-              />
-            )}
+            <RayonButton
+              className={styles.requestBtn}
+              onClickButton={() => this.onClickRequestButton(content.userAddress, content.id)}
+              isHidden={user.isBorrower}
+              buttonColor={RAYON_BERRY}
+              title={'Request Personal Data'}
+            />
           </Container>
         )}
       </Fragment>

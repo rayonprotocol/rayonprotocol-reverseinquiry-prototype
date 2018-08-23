@@ -29,12 +29,12 @@ class TabNav extends Component<{}, TabNavState> {
   }
 
   async componentWillMount() {
-    UserDC.addUserListeners(this.onUserFetched.bind(this));
+    UserDC.addUserListener(this.onUserFetched.bind(this));
     UserDC.fetchUser();
   }
 
   componentWillUnmount() {
-    UserDC.removeUserListeners(this.onUserFetched.bind(this));
+    UserDC.removeUserListener(this.onUserFetched.bind(this));
   }
 
   onUserFetched(user: User) {

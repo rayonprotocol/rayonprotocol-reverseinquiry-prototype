@@ -1,0 +1,13 @@
+@import '~common/asset/partial';
+.contentsContainer {
+  position: relative;
+  background-color: white;
+  min-width: initial;
+
+  .selectInput {
+    margin-top: 15px;
+  }
+  .submitButton {
+    margin: 24px auto 0px;
+  }
+}

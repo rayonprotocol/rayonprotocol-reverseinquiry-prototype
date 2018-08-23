@@ -7,6 +7,7 @@ import Message, { MsgTypes } from 'message/model/Message';
 import { RayonEvent, RayonEventResponse, LogSendReverseInquiryMessageArgs } from 'common/model/RayonEvent';
 import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
 import User from 'user/model/User';
+import { RAYON_BERRY } from 'common/model/Style';
 
 // dc
 import MessageDC from '../dc/MessageDC';
@@ -186,44 +187,39 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
     switch (message.msgType) {
       case MsgTypes.REQUEST_PERSONAL_DATA:
         return (
-          isBorrower && (
-            <RayonButton
-              className={styles.messageBtn}
-              title={'Send Data'}
-              onClickButton={() => this.onClickDataSubmit(message)}
-              isBorrower={isBorrower}
-            />
-          )
+          <RayonButton
+            className={styles.messageBtn}
+            title={'Send Data'}
+            onClickButton={() => this.onClickDataSubmit(message)}
+            isHidden={!isBorrower}
+          />
         );
       case MsgTypes.RESPONSE_PERSONAL_DATA:
         return (
-          !isBorrower && (
-            <RayonButton
-              className={styles.messageBtn}
-              title={'Send Offer'}
-              onClickButton={this.onClickOpenModal.bind(this)}
-              isBorrower={isBorrower}
-            />
-          )
+          <RayonButton
+            className={styles.messageBtn}
+            title={'Send Offer'}
+            onClickButton={this.onClickOpenModal.bind(this)}
+            isHidden={isBorrower}
+            buttonColor={RAYON_BERRY}
+          />
         );
       case MsgTypes.OFFER_PRODUCT:
         return (
-          isBorrower && (
-            <div className={styles.offerChoiceBlock}>
-              <RayonButton
-                className={classNames(styles.messageBtn, styles.rejectBtn)}
-                title={'Reject'}
-                onClickButton={() => this.onClickOfferReject(message)}
-                isBorrower={isBorrower}
-              />
-              <RayonButton
-                className={classNames(styles.messageBtn, styles.acceptBtn)}
-                title={'Accept'}
-                onClickButton={() => this.onClickOfferAccept(message)}
-                isBorrower={isBorrower}
-              />
-            </div>
-          )
+          <div className={styles.offerChoiceBlock}>
+            <RayonButton
+              className={classNames(styles.messageBtn, styles.rejectBtn)}
+              title={'Reject'}
+              onClickButton={() => this.onClickOfferReject(message)}
+              isHidden={!isBorrower}
+            />
+            <RayonButton
+              className={classNames(styles.messageBtn, styles.acceptBtn)}
+              title={'Accept'}
+              onClickButton={() => this.onClickOfferAccept(message)}
+              isHidden={!isBorrower}
+            />
+          </div>
         );
       default:
         break;
@@ -272,7 +268,6 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
                 className={styles.productLinkBtn}
                 title={'Product Link'}
                 onClickButton={() => history.goBack()}
-                isBorrower={user.isBorrower}
               />
             </div>
           );
@@ -352,7 +347,7 @@ class MessageContentVC extends Component<MessageContentVCProps, MessageContentVC
             className={styles.sendOfferBtn}
             title={'Submit'}
             onClickButton={this.onClickOfferSubmit.bind(this)}
-            isBorrower={false}
+            buttonColor={RAYON_BERRY}
           />
         </RayonModalView>
       </Fragment>
