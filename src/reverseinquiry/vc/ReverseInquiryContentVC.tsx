@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import qs from 'query-string';
 
 // model
 import User from 'user/model/User';
@@ -14,6 +13,7 @@ import ReverseInquiryDC from 'reverseinquiry/dc/ReverseInquiryDC';
 
 // util
 import history from 'common/util/Histroy';
+import UrlProcessor from 'common/util/UrlProcessor';
 
 // view
 import Container from 'common/view/container/Container';
@@ -24,17 +24,13 @@ import TagCheckboxGroup from 'common/view/input/TagCheckboxGroup';
 // styles
 import styles from './ReverseInquiryContentVC.scss';
 
-interface ReverseInquiryVCProps {
-  match: any;
-}
-
 interface ReverseInquiryVCState {
   user: User;
   reverseInquiry: ReverseInquiry;
   selTags: Set<string>;
 }
 
-class ReverseInquiryVC extends Component<ReverseInquiryVCProps, ReverseInquiryVCState> {
+class ReverseInquiryVC extends Component<{}, ReverseInquiryVCState> {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,26 +41,25 @@ class ReverseInquiryVC extends Component<ReverseInquiryVCProps, ReverseInquiryVC
   }
 
   async componentWillMount() {
-    const parsedReverseInquiryIndex = parseInt(qs.parse(this.props['location']['search']).id, 10);
-    const reverseInquiry = await ReverseInquiryDC.fetchReverseInquiry(parsedReverseInquiryIndex);
+    const contentId = UrlProcessor.readNumberFromPath(this.props['location']['search'], UrlProcessor.KEY_ID);
+    const reverseInquiry = await ReverseInquiryDC.fetchReverseInquiry(contentId);
     this.setState({ ...this.state, reverseInquiry });
   }
 
   async onClickSendRequestButton(toAddress: string, reverseInquiryId: number) {
     const payload = Array.from(this.state.selTags).join('%%');
-    MessageDC.sendMessage(toAddress, 0, reverseInquiryId, MsgTypes.REQUEST_PERSONAL_DATA, payload);
+    try {
+      MessageDC.sendMessage(toAddress, 0, reverseInquiryId, MsgTypes.REQUEST_PERSONAL_DATA, payload);
+    } catch {
+      console.error('send message failed');
+    }
     history.goBack();
   }
 
   onTagChecked(tag: string) {
     if (UserDC.getUser().isBorrower) return;
-    if (this.state.selTags.has(tag)) this.state.selTags.delete(tag);
-    else this.state.selTags.add(tag);
+    this.state.selTags.has(tag) ? this.state.selTags.delete(tag) : this.state.selTags.add(tag);
     this.setState({ ...this.state, selTags: this.state.selTags });
-  }
-
-  onClickTitle() {
-    history.goBack();
   }
 
   render() {
@@ -73,7 +68,7 @@ class ReverseInquiryVC extends Component<ReverseInquiryVCProps, ReverseInquiryVC
       <Fragment>
         {reverseInquiry !== undefined && (
           <Container className={styles.contentContainer}>
-            <div className={styles.goBackTitle} onClick={this.onClickTitle}>
+            <div className={styles.goBackTitle} onClick={() => history.goBack()}>
               {'<   ' + reverseInquiry.title}
             </div>
             <KeyValueText className={styles.contentValue} title={'User ID'} value={reverseInquiry.userName} />

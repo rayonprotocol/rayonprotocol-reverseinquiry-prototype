@@ -85,6 +85,10 @@ class UserDC extends RayonEventDC {
     return this._user;
   }
 
+  public setUser(user: User) {
+    this._user = user;
+  }
+
   public getUserFinanceData(): Object {
     const rawUserFinanceData = localStorage.getItem(this.getUserAccount()) || false;
     return rawUserFinanceData ? JSON.parse(rawUserFinanceData) : null;

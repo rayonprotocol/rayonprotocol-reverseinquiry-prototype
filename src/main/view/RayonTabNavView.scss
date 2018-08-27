@@ -2,12 +2,6 @@
 .navigationBar {
   position: relative;
   padding: 26px 15px;
-  &.borrower {
-    background-color: $rayon-lake;
-  }
-  &.lender {
-    background-color: $rayon-berry;
-  }
   .logo {
     margin-top: 3px;
     width: 85px;

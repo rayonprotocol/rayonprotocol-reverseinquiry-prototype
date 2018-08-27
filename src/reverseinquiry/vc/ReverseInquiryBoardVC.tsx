@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import classNames from 'classnames';
 
 // model
 import User from 'user/model/User';
@@ -9,12 +8,12 @@ import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
 import { RayonEvent, RayonEventResponse, LogRegisterReverseInquiryArgs } from 'common/model/RayonEvent';
 
 // dc
-import ReverseInquiryDC from 'reverseinquiry/dc/ReverseInquiryDC';
 import UserDC from 'user/dc/UserDC';
+import ReverseInquiryDC from 'reverseinquiry/dc/ReverseInquiryDC';
 
 // util
-import TimeConverter from 'common/util/TimeConverter';
 import ArrayUtil from 'common/util/ArrayUtil';
+import TimeConverter from 'common/util/TimeConverter';
 
 // view
 import Container from 'common/view/container/Container';
@@ -69,31 +68,27 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
       userAddress: event.args.userAddress,
       insertTime: event.args.insertTime,
     };
-    this.state.reverseInquiries.unshift(registeredReverseInquiry); // add to array head because of order by insert time
+    // add to array head because of order by insert time
+    this.state.reverseInquiries.unshift(registeredReverseInquiry);
     this.setState({ ...this.state, reverseInquiries: this.state.reverseInquiries });
   }
 
   onRequestModalOpenStateToggle() {
-    // break out when click open button, modal background, close button
     this.setState({ ...this.state, isRegisterModalOpen: !this.state.isRegisterModalOpen });
   }
 
   renderNoRequestToDate() {
     return (
-      <div
-        className={classNames(styles.emptyNote)}
-        style={{ color: this.state.user.isBorrower ? RAYON_LAKE : RAYON_BERRY }}
-      >
+      <div className={styles.emptyNote} style={{ color: this.state.user.isBorrower ? RAYON_LAKE : RAYON_BERRY }}>
         No Requests To Date
       </div>
     );
   }
 
   renderReverseInquiryTable() {
-    const { reverseInquiries } = this.state;
     return (
       <div className={styles.reverseInquiryTable}>
-        {reverseInquiries.map((reverseInquiry, index) => {
+        {this.state.reverseInquiries.map((reverseInquiry, index) => {
           return (
             <div className={styles.contentRow} key={index}>
               <p className={styles.contentNumber}>{reverseInquiry.id + 1}</p>

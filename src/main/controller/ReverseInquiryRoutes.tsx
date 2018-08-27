@@ -9,8 +9,6 @@ import { RayonEvent, RayonEventResponse, LogUserSignUpArgs } from 'common/model/
 import UserDC from 'user/dc/UserDC';
 
 // view
-// import TabNav from 'common/view/nav/TabNav';
-
 import RayonTabNavView from 'main/view/RayonTabNavView';
 import RayonIntroView from 'home/view/RayonIntroView';
 import MessageBoardVC from 'message/vc/MessageBoardVC';
@@ -29,8 +27,10 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
     this.state = {
       ...this.state,
     };
+    this.onUserSignUp = this.onUserSignUp.bind(this);
   }
-  route = [
+
+  routes = [
     {
       path: '/',
       component: ReverseInquiryBoardVC,
@@ -69,11 +69,11 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
     const isUserRegistered: boolean = await UserDC.isUser();
 
     if (isUserRegistered) UserDC.fetchUser();
-    else UserDC.addEventListener(RayonEvent.LogUserSignUp, this.onUserSignUp.bind(this));
+    else UserDC.addEventListener(RayonEvent.LogUserSignUp, this.onUserSignUp);
   }
 
   componentWillUnmount() {
-    UserDC.removeEventListener(RayonEvent.LogUserSignUp, this.onUserSignUp.bind(this));
+    UserDC.removeEventListener(RayonEvent.LogUserSignUp, this.onUserSignUp);
   }
 
   onUserFetched(user: User) {
@@ -81,7 +81,13 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
   }
 
   onUserSignUp(event: RayonEventResponse<LogUserSignUpArgs>) {
-    UserDC.fetchUser();
+    const user: User = {
+      userAddress: event.args.userAddress,
+      userName: event.args.userName,
+      isBorrower: event.args.isBorrower,
+    };
+    UserDC.setUser(user);
+    this.setState({ ...this.state, user });
   }
 
   render() {
@@ -91,7 +97,7 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
       <BrowserRouter>
         <Fragment>
           <RayonTabNavView />
-          {this.route.map((item, index) => {
+          {this.routes.map((item, index) => {
             return (
               <Route key={index} exact={item.exact} path={item.path} render={props => <item.component {...props} />} />
             );

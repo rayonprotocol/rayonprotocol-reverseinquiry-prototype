@@ -27,6 +27,7 @@ interface ReverseInquiryRegisterModalViewState {
   user: User;
   title: string;
   content: string;
+  userFinanceData: Object;
   selAvailableFinanceData: Set<string>;
 }
 
@@ -39,15 +40,13 @@ class ReverseInquiryRegisterModalView extends Component<
     this.state = {
       ...this.state,
       user: UserDC.getUser(),
+      userFinanceData: UserDC.getUserFinanceData(),
       selAvailableFinanceData: new Set<string>(),
     };
   }
 
-  async onClickRegisterButton() {
-    if (this.state.selAvailableFinanceData.size === 0) {
-      alert('Personal data must be provided with loan request');
-      return;
-    }
+  async onClickRegisterButton(): Promise<void> {
+    if (!this.validSelAvailableFinanceData()) return;
     try {
       ReverseInquiryDC.registerReverseInquiry(
         this.state.title,
@@ -56,29 +55,34 @@ class ReverseInquiryRegisterModalView extends Component<
       );
       this.props.onRequestModalClose();
     } catch {
-      console.log('ReverseInquiry register failed');
+      console.error('ReverseInquiry register failed');
     }
   }
 
-  onChangeTitle(event) {
-    const title = event.target.value;
-    this.setState({ ...this.state, title });
+  validSelAvailableFinanceData(): boolean {
+    if (this.state.selAvailableFinanceData.size === 0) {
+      alert('Personal data must be provided with loan request');
+      return false;
+    }
+    return true;
   }
 
-  onChangeContent(event) {
-    const content = event.target.value;
-    this.setState({ ...this.state, content });
+  onChangeTitle(event): void {
+    this.setState({ ...this.state, title: event.target.value });
   }
 
-  onChangeTag(tag: string) {
-    // map 이용
-    if (this.state.selAvailableFinanceData.has(tag)) this.state.selAvailableFinanceData.delete(tag);
-    else this.state.selAvailableFinanceData.add(tag);
+  onChangeContent(event): void {
+    this.setState({ ...this.state, content: event.target.value });
+  }
+
+  onChangeTag(tag: string): void {
+    this.state.selAvailableFinanceData.has(tag)
+      ? this.state.selAvailableFinanceData.delete(tag)
+      : this.state.selAvailableFinanceData.add(tag);
     this.setState({ ...this.state, selAvailableFinanceData: this.state.selAvailableFinanceData });
   }
 
   render() {
-    const userFinaceData = UserDC.getUserFinanceData();
     return (
       <RayonModalView isModalOpen={this.props.isModalOpen} onRequestClose={this.props.onRequestModalClose}>
         <div>
@@ -94,11 +98,11 @@ class ReverseInquiryRegisterModalView extends Component<
           </div>
           <TextInput title={'Title'} onChangeInputValue={this.onChangeTitle.bind(this)} />
           <TextInput title={'Content'} onChangeInputValue={this.onChangeContent.bind(this)} />
-          {userFinaceData && (
+          {this.state.userFinanceData && (
             <TagCheckboxGroup
               className={styles.FinanceTag}
               title={'personal data to be provided'}
-              tags={Object.keys(userFinaceData)}
+              tags={Object.keys(this.state.userFinanceData)}
               selTags={this.state.selAvailableFinanceData}
               onTagChecked={this.onChangeTag.bind(this)}
               tagColor={this.state.user.isBorrower ? RAYON_LAKE : RAYON_BERRY}
