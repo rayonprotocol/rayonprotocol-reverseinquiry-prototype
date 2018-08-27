@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import qs from 'query-string';
 
 // model
-import Message, { MsgTypes, FinanceProduct } from 'message/model/Message';
+import Message, { MsgTypes } from 'message/model/Message';
 import { RayonEvent, RayonEventResponse, LogSendReverseInquiryMessageArgs } from 'common/model/RayonEvent';
 import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
 import User from 'user/model/User';
@@ -27,7 +27,7 @@ import styles from './MessageContentVC.scss';
 interface MessageContentVCState {
   reverseInquiry: ReverseInquiry;
   messages: Message[];
-  productOfferInput: FinanceProduct;
+  productOfferInput: string[];
   isProductOfferModalOpen: boolean;
   isLoading: boolean;
   user: User;
@@ -40,6 +40,7 @@ class MessageContentVC extends Component<{}, MessageContentVCState> {
       ...this.state,
       isLoading: true,
       user: UserDC.getUser(),
+      productOfferInput: new Array<string>(3),
     };
     this.onReverseInquiriesFetched = this.onReverseInquiriesFetched.bind(this);
     this.onMessagesFetched = this.onMessagesFetched.bind(this);
@@ -89,7 +90,7 @@ class MessageContentVC extends Component<{}, MessageContentVCState> {
   }
 
   onResponseFinanceData(message: Message) {
-    const userFinanceData = UserDC.getUserFinaceData();
+    const userFinanceData = UserDC.getUserFinanceData();
     const requestFinanceDataKey = message.payload.split('%%');
     const responeseFinanceData = {};
 

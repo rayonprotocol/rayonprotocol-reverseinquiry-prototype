@@ -78,7 +78,7 @@ class ReverseInquiryRegisterModalView extends Component<
   }
 
   render() {
-    const userFinaceData = UserDC.getUserFinaceData();
+    const userFinaceData = UserDC.getUserFinanceData();
     return (
       <RayonModalView isModalOpen={this.props.isModalOpen} onRequestClose={this.props.onRequestModalClose}>
         <div>

@@ -85,13 +85,9 @@ class UserDC extends RayonDC {
     return this._user;
   }
 
-  public getUserFinaceData(): Object {
-    const rawUserFinaceData = localStorage.getItem(this.getUserAccount());
-    if (rawUserFinaceData === undefined) {
-      console.error('UserFinanceData is undefined');
-      return null;
-    }
-    return JSON.parse(rawUserFinaceData);
+  public getUserFinanceData(): Object {
+    const rawUserFinanceData = localStorage.getItem(this.getUserAccount()) || false;
+    return rawUserFinanceData ? JSON.parse(rawUserFinanceData) : null;
   }
 }
 

@@ -61,6 +61,7 @@ class MessageContentView extends Component<MessageContentViewProps, {}> {
           );
         });
       case MsgTypes.OFFER_PRODUCT:
+        console.log('payload', payload);
         return payload.split('##').map((tag, index) => {
           return (
             <TagView
@@ -160,7 +161,6 @@ class MessageContentView extends Component<MessageContentViewProps, {}> {
               >
                 <div className={classNames(styles.messageBody)}>
                   {this.renderMessageType(item.msgType, index === 0)}
-                  {/* {this} */}
                   <ThreeValueText title={'From'} firstValue={''} secondValue={item.fromAddress} />
                   <ThreeValueText title={'to'} firstValue={''} secondValue={item.toAddress} />
                   {this.renderPayload(item.msgType, item.payload)}

@@ -28,7 +28,7 @@ contract ReverseInquiryMessageDC {
     mapping (uint => ReverseInquiryMessage[]) public reverseInquiryMessages;  // key: auction id
 
     // events
-    event LogSendReverseInquiryMessage(uint reverseInquiryId, address fromAddress, address toAddress, uint msgType, string content, uint insertTime, bool isComplete);
+    event LogSendReverseInquiryMessage(uint reverseInquiryId, uint messageId, address fromAddress, address toAddress, uint msgType, string content, uint insertTime, bool isComplete);
 
     function setMessageComplete(uint _reverseInquiryId, uint _messageId) public {
         reverseInquiryMessages[_reverseInquiryId][_messageId].isComplete = true;
@@ -45,7 +45,7 @@ contract ReverseInquiryMessageDC {
             setMessageComplete(_reverseInquiryId, _messageId);
         }
 
-        emit LogSendReverseInquiryMessage(_reverseInquiryId, fromAddress, _toAddress, _msgType, _content, currentTime, false);
+        emit LogSendReverseInquiryMessage(_reverseInquiryId, newMessageId, fromAddress, _toAddress, _msgType, _content, currentTime, false);
     }
 
     function getMessage(uint _reverseInquiryId,uint _messageId) public view returns(uint, uint, address, address, uint, string, uint, bool
