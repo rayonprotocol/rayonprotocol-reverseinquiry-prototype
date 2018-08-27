@@ -19,8 +19,9 @@ class MessageServerAgent extends ServerAgent {
     previousMessageId: number,
     reverseInquiryId: number,
     msgType: number,
-    payload: string
+    payload: string = ''
   ) {
+    console.log(reverseInquiryId, previousMessageId, toAddress, msgType, payload);
     this._contractInstance.sendMessage(reverseInquiryId, previousMessageId, toAddress, msgType, payload, {
       from: ServerAgent.getUserAccount(),
     });

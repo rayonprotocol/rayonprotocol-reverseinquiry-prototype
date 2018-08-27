@@ -28,7 +28,7 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
     this.state = {
       ...this.state,
       inputLength: 1,
-      financeData: [],
+      financeData: new Array<FinanceData>(),
       user: UserDC.getUser(),
       isModalOpen: false,
     };
@@ -38,7 +38,7 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
     const userFinanceData = UserDC.getUserFinanceData();
     if (userFinanceData === null) return;
     const keys = Object.keys(userFinanceData);
-    const financeData: FinanceData[] = [];
+    const financeData: FinanceData[] = new Array<FinanceData>();
 
     keys.map(item => {
       const newFinanceData = {
@@ -52,13 +52,15 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
   }
 
   onChangeDataKeyText(event, index: number) {
+    console.log(event.target.value);
     this.state.financeData[index].dataKeys = event.target.value;
-    this.setState(this.state);
+    this.setState({ ...this.state, financeData: this.state.financeData });
   }
 
   onChangeDataValueText(event, index: number) {
+    console.log(event.target.value);
     this.state.financeData[index].dataValues = event.target.value;
-    this.setState(this.state);
+    this.setState({ ...this.state, financeData: this.state.financeData });
   }
 
   async onClickSubmitButton() {
@@ -76,14 +78,13 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
       dataValues: '',
     };
     this.state.financeData.push(newFinanceData);
-    this.setState(this.state);
+    this.setState({ ...this.state, financeData: this.state.financeData });
   }
 
   onClickRemoveInputButton(index: number) {
-    const { financeData } = this.state;
-    if (financeData.length === 1) return alert("can't remove last property");
-    financeData.splice(index, 1);
-    this.setState({ ...this.state, financeData });
+    if (this.state.financeData.length === 1) return alert("can't remove last property");
+    this.state.financeData.splice(index, 1);
+    this.setState({ ...this.state, financeData: this.state.financeData });
   }
 
   onRequestCloseModal() {
@@ -91,7 +92,7 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
   }
 
   render() {
-    const { financeData, isModalOpen } = this.state;
+    console.log(this.state.financeData);
     return (
       <Fragment>
         <Container className={styles.contentsContainer}>
@@ -121,14 +122,14 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
                         <input
                           onChange={event => this.onChangeDataKeyText(event, index)}
                           type={'text'}
-                          value={financeData[index].dataKeys}
+                          value={this.state.financeData[index].dataKeys}
                         />
                       </td>
                       <td>
                         <input
                           onChange={event => this.onChangeDataValueText(event, index)}
                           type={'text'}
-                          value={financeData[index].dataValues}
+                          value={this.state.financeData[index].dataValues}
                         />
                       </td>
                       <td className={styles.removeBtn}>
@@ -147,7 +148,7 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
             />
           </Fragment>
         </Container>
-        <RayonModalView onRequestClose={this.onRequestCloseModal.bind(this)} isModalOpen={isModalOpen}>
+        <RayonModalView onRequestClose={this.onRequestCloseModal.bind(this)} isModalOpen={this.state.isModalOpen}>
           <p> Your personal data was successfully saved</p>
           <RayonButton
             className={styles.confirmButton}

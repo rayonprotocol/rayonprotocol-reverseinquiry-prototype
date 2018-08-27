@@ -7,7 +7,7 @@ import styles from './TagView.scss';
 interface TagViewProps {
   className?: string;
   tag: string;
-  color: string;
+  tagColor: string;
 }
 
 class TagView extends Component<TagViewProps, {}> {
@@ -15,7 +15,7 @@ class TagView extends Component<TagViewProps, {}> {
     return (
       <div
         className={classNames(styles.tag, this.props.className)}
-        style={{ borderColor: this.props.color, color: this.props.color }}
+        style={{ borderColor: this.props.tagColor, color: this.props.tagColor }}
       >
         {this.props.tag}
       </div>

@@ -26,6 +26,7 @@ import styles from './ReverseInquiryContentVC.scss';
 
 interface ReverseInquiryVCState {
   user: User;
+  contentId: number;
   reverseInquiry: ReverseInquiry;
   selTags: Set<string>;
 }
@@ -36,13 +37,13 @@ class ReverseInquiryVC extends Component<{}, ReverseInquiryVCState> {
     this.state = {
       ...this.state,
       user: UserDC.getUser(),
+      contentId: UrlProcessor.readNumberFromPath(props.location.search, UrlProcessor.KEY_ID),
       selTags: new Set<string>(),
     };
   }
 
   async componentWillMount() {
-    const contentId = UrlProcessor.readNumberFromPath(this.props['location']['search'], UrlProcessor.KEY_ID);
-    const reverseInquiry = await ReverseInquiryDC.fetchReverseInquiry(contentId);
+    const reverseInquiry = await ReverseInquiryDC.fetchReverseInquiry(this.state.contentId);
     this.setState({ ...this.state, reverseInquiry });
   }
 

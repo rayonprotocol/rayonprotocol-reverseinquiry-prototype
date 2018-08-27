@@ -47,7 +47,7 @@ class MessageContentView extends Component<MessageContentViewProps, {}> {
     switch (msgType) {
       case MsgTypes.REQUEST_PERSONAL_DATA:
         return payload.split('%%').map((tag, index) => {
-          return <TagView key={index} tag={tag} color={this.props.user.isBorrower ? RAYON_LAKE : RAYON_BERRY} />;
+          return <TagView key={index} tag={tag} tagColor={this.props.user.isBorrower ? RAYON_LAKE : RAYON_BERRY} />;
         });
       case MsgTypes.RESPONSE_PERSONAL_DATA:
         const financeData = JSON.parse(payload);
@@ -56,7 +56,7 @@ class MessageContentView extends Component<MessageContentViewProps, {}> {
             <TagView
               key={index}
               tag={tag + ':' + financeData[tag]}
-              color={this.props.user.isBorrower ? RAYON_LAKE : RAYON_BERRY}
+              tagColor={this.props.user.isBorrower ? RAYON_LAKE : RAYON_BERRY}
             />
           );
         });
@@ -67,7 +67,7 @@ class MessageContentView extends Component<MessageContentViewProps, {}> {
             <TagView
               key={index}
               tag={FinanceProductType.getFinanceProductNames(index) + tag}
-              color={this.props.user.isBorrower ? RAYON_LAKE : RAYON_BERRY}
+              tagColor={this.props.user.isBorrower ? RAYON_LAKE : RAYON_BERRY}
             />
           );
         });
@@ -138,34 +138,34 @@ class MessageContentView extends Component<MessageContentViewProps, {}> {
     }
   }
 
+  isImageMessageType(msgType: number) {
+    return msgType === MsgTypes.ACCEPT_OFFER || msgType === MsgTypes.OFFER_PRODUCT;
+  }
+
   render() {
     return (
       <Fragment>
         {ArrayUtil.isEmpty(this.props.messages) ? (
           <div>No Messages</div>
         ) : (
-          this.props.messages.map((item, index) => {
+          this.props.messages.map((message, index) => {
             return (
               <div
                 key={index}
                 className={classNames(styles.message, {
                   [styles.latestBorrowerMessage]:
-                    index === 0 &&
-                    this.props.user.isBorrower &&
-                    (item.msgType === MsgTypes.ACCEPT_OFFER || item.msgType === MsgTypes.OFFER_PRODUCT),
+                    index === 0 && this.props.user.isBorrower && this.isImageMessageType(message.msgType),
                   [styles.latestLenderMessage]:
-                    index === 0 &&
-                    !this.props.user.isBorrower &&
-                    (item.msgType === MsgTypes.ACCEPT_OFFER || item.msgType === MsgTypes.OFFER_PRODUCT),
+                    index === 0 && !this.props.user.isBorrower && this.isImageMessageType(message.msgType),
                 })}
               >
-                <div className={classNames(styles.messageBody)}>
-                  {this.renderMessageType(item.msgType, index === 0)}
-                  <ThreeValueText title={'From'} firstValue={''} secondValue={item.fromAddress} />
-                  <ThreeValueText title={'to'} firstValue={''} secondValue={item.toAddress} />
-                  {this.renderPayload(item.msgType, item.payload)}
+                <div className={styles.messageBody}>
+                  {this.renderMessageType(message.msgType, index === 0)}
+                  <ThreeValueText title={'From'} firstValue={''} secondValue={message.fromAddress} />
+                  <ThreeValueText title={'to'} firstValue={''} secondValue={message.toAddress} />
+                  {this.renderPayload(message.msgType, message.payload)}
                 </div>
-                {!item.isComplete && this.renderButtonForm(item)}
+                {!message.isComplete && this.renderButtonForm(message)}
               </div>
             );
           })

@@ -36,6 +36,7 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
     super(props);
     this.state = {
       ...this.state,
+      messages: new Map<number, Message[]>(),
       user: UserDC.getUser(),
       isLoading: true,
     };
@@ -78,7 +79,7 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
       timeStamp: event.args.insertTime,
       isComplete: event.args.isComplete,
     };
-    this.state.messages[newReverseInquiryMessage.reverseInquiryId] = newReverseInquiryMessage;
+    this.state.messages[newReverseInquiryMessage.reverseInquiryId].push(newReverseInquiryMessage);
     this.setState({ ...this.state, messages: this.state.messages });
   }
 

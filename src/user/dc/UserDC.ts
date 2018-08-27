@@ -20,9 +20,28 @@ class UserDC extends RayonEventDC {
     UserServerAgent.setEventListner(this.onEvent.bind(this));
   }
 
-  /*
-  event handler
-  */
+  public addUserListener(listener: UserListner): void {
+    this._userListeners.add(listener);
+  }
+
+  public removeUserListener(listener: UserListner): void {
+    this._userListeners.delete(listener);
+  }
+
+  public async fetchUser(): Promise<void> {
+    if (this._user !== undefined) {
+      this.onUserFetched(this._user);
+      return;
+    }
+
+    this._user = await UserServerAgent.fetchUser();
+    this.onUserFetched(this._user);
+  }
+
+  private onUserFetched(user: User): void {
+    this._userListeners && this._userListeners.forEach(listener => listener(user));
+  }
+
   private onEvent(eventType: RayonEvent, event: any): void {
     switch (eventType) {
       case RayonEvent.LogUserSignUp:
@@ -41,35 +60,6 @@ class UserDC extends RayonEventDC {
       });
   }
 
-  /*
-  user handler
-  */
-  public addUserListener(listener: UserListner): void {
-    this._userListeners.add(listener);
-  }
-
-  public removeUserListener(listener: UserListner): void {
-    this._userListeners.delete(listener);
-  }
-
-  private onUserFetched(user: User): void {
-    this._userListeners && this._userListeners.forEach(listener => listener(user));
-  }
-
-  /*
-  Request functions to blockchain via server agent
-  */
-
-  public async fetchUser(): Promise<void> {
-    if (this._user !== undefined) {
-      this.onUserFetched(this._user);
-      return;
-    }
-
-    this._user = await UserServerAgent.fetchUser();
-    this.onUserFetched(this._user);
-  }
-
   public async isUser(): Promise<boolean> {
     return await UserServerAgent.isUser();
   }
@@ -78,9 +68,6 @@ class UserDC extends RayonEventDC {
     UserServerAgent.signUp(userName, isBorrower);
   }
 
-  /*
-  common function
-  */
   public getUser(): User {
     return this._user;
   }
