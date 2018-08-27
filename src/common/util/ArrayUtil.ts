@@ -1,5 +1,5 @@
 class ArrayUtil {
-  static isEmpty = (targetArray: Array<any>) => {
+  static isEmpty = (targetArray: Array<any>): boolean => {
     return targetArray === undefined || targetArray.length < 1;
   };
 

@@ -92,7 +92,7 @@ class MessageContentView extends Component<MessageContentViewProps, {}> {
     }
   }
 
-  renderSpecialForm(message: Message) {
+  renderButtonForm(message: Message) {
     switch (message.msgType) {
       case MsgTypes.REQUEST_PERSONAL_DATA:
         return (
@@ -165,7 +165,7 @@ class MessageContentView extends Component<MessageContentViewProps, {}> {
                   <ThreeValueText title={'to'} firstValue={''} secondValue={item.toAddress} />
                   {this.renderPayload(item.msgType, item.payload)}
                 </div>
-                {!item.isComplete && this.renderSpecialForm(item)}
+                {!item.isComplete && this.renderButtonForm(item)}
               </div>
             );
           })

@@ -1,35 +1,34 @@
 import React, { Component, Fragment } from 'react';
-import qs from 'query-string';
 
 // model
-import Message, { MsgTypes } from 'message/model/Message';
-import { RayonEvent, RayonEventResponse, LogSendReverseInquiryMessageArgs } from 'common/model/RayonEvent';
-import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
 import User from 'user/model/User';
+import Message, { MsgTypes } from 'message/model/Message';
+import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
+import { RayonEvent, RayonEventResponse, LogSendReverseInquiryMessageArgs } from 'common/model/RayonEvent';
 
 // dc
+import UserDC from 'user/dc/UserDC';
 import MessageDC from '../dc/MessageDC';
 import ReverseInquiryDC from 'reverseinquiry/dc/ReverseInquiryDC';
-import UserDC from 'user/dc/UserDC';
 
 // view
-
 import Container from 'common/view/container/Container';
 import MessageContentView from 'message/view/MessageContentView';
 import MessageProductOfferModalView from 'message/view/MessageProductOfferModalView';
 
 // util
 import history from 'common/util/Histroy';
+import UrlProcessor from 'common/util/UrlProcessor';
 
 // styles
 import styles from './MessageContentVC.scss';
 
 interface MessageContentVCState {
+  isLoading: boolean;
+  productOfferInput: string[];
   reverseInquiry: ReverseInquiry;
   messages: Message[];
-  productOfferInput: string[];
   isProductOfferModalOpen: boolean;
-  isLoading: boolean;
   user: User;
 }
 
@@ -39,8 +38,8 @@ class MessageContentVC extends Component<{}, MessageContentVCState> {
     this.state = {
       ...this.state,
       isLoading: true,
-      user: UserDC.getUser(),
       productOfferInput: new Array<string>(3),
+      user: UserDC.getUser(),
     };
     this.onReverseInquiriesFetched = this.onReverseInquiriesFetched.bind(this);
     this.onMessagesFetched = this.onMessagesFetched.bind(this);
@@ -61,17 +60,17 @@ class MessageContentVC extends Component<{}, MessageContentVCState> {
   }
 
   onReverseInquiriesFetched(_reverseInquiries: ReverseInquiry[]) {
-    const parsedReverseInquiryIndex = parseInt(qs.parse(this.props['location']['search']).id, 10);
-    const reverseInquiry = _reverseInquiries.find(content => content.id === parsedReverseInquiryIndex);
+    const contentId = UrlProcessor.readNumberFromPath(this.props['location']['search'], UrlProcessor.KEY_ID);
+    const reverseInquiry = _reverseInquiries.find(content => content.id === contentId);
     MessageDC.fetchMessages(_reverseInquiries);
     this.setState({ ...this.state, reverseInquiry });
   }
 
   onMessagesFetched(_messages: Map<number, Message[]>) {
-    const parsedReverseInquiryIndex = parseInt(qs.parse(this.props['location']['search']).id, 10);
+    const contentId = UrlProcessor.readNumberFromPath(this.props['location']['search'], UrlProcessor.KEY_ID);
     this.setState({
       ...this.state,
-      messages: _messages[parsedReverseInquiryIndex],
+      messages: _messages[contentId],
       isLoading: false,
     });
   }
@@ -85,7 +84,6 @@ class MessageContentVC extends Component<{}, MessageContentVCState> {
   }
 
   onRequestModalOpenStateToggle() {
-    // break out when click open button, modal background, close button
     this.setState({ ...this.state, isProductOfferModalOpen: !this.state.isProductOfferModalOpen });
   }
 

@@ -48,15 +48,6 @@
         .tag {
           float: left;
           @include set-font(16px, $rayon-berry, $fontweight-bold);
-          &.borrower {
-            color: $rayon-darklake;
-          }
-          &.lender {
-            color: $rayon-darkberry;
-          }
-          &.rejected {
-            color: $rayon-deepgray;
-          }
         }
         .timeColumn {
           float: right;
