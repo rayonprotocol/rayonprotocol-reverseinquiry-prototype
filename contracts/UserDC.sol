@@ -3,23 +3,17 @@ pragma solidity ^0.4.22;
 
 contract UserDC { 
 
-    // structs
     struct User {
-        uint index;
+        uint index; // isUser 메소드를 위해 사용됨
         string userName;
         bool isBorrower;
     }
 
-    // variables
     mapping (address => User) public users;
     address[] public userList;
 
-    // events
     event LogUserSignUp(address userAddress, string userName, bool isBorrower);
 
-    /*
-    functions
-    */
     function isUser(address _userAddress) public view returns(bool) {
         return (users[_userAddress].index > 0);
     }
@@ -34,13 +28,10 @@ contract UserDC {
 
     function signUp(string _userName, bool _isBorrower) public {
         address userAddress = msg.sender;
-        // validation
         require(!isUser(userAddress));
         
-        // make new user infomation
         users[userAddress] = User(userList.push(userAddress), _userName, _isBorrower);
 
-        // emit event
         emit LogUserSignUp(userAddress, _userName, _isBorrower);
     }
 }

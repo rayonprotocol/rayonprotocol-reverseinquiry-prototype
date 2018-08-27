@@ -2,7 +2,7 @@
 import UserServerAgent from 'user/agent/UserServerAgent';
 
 // dc
-import RayonDC from 'common/dc/RayonDC';
+import RayonEventDC from 'common/dc/RayonEventDC';
 
 // model
 import User from '../model/User';
@@ -10,7 +10,7 @@ import { RayonEvent, RayonEventResponse, LogUserSignUpArgs } from 'common/model/
 
 type UserListner = (user: User) => void;
 
-class UserDC extends RayonDC {
+class UserDC extends RayonEventDC {
   private _user: User;
   private _userListeners: Set<UserListner>;
 

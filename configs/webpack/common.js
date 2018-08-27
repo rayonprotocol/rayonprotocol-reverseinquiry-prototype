@@ -78,24 +78,23 @@ module.exports = {
               hash: 'sha512',
               digest: 'hex',
               name: '[hash].[ext]',
-              outputPath: '/img/'
-
-            }
+              outputPath: '/img/',
+            },
           },
           {
             loader: 'image-webpack-loader',
             options: {
               bypassOnDebug: true,
-              optipng:  {
+              optipng: {
                 enabled: true,
-                optimizationLevel: 7
+                optimizationLevel: 7,
               },
               gifsicle: {
                 enabled: true,
-                interlaced: false
-              }
-            }
-          }
+                interlaced: false,
+              },
+            },
+          },
         ],
       },
     ],

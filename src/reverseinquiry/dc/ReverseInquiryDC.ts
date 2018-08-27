@@ -2,7 +2,7 @@
 import ReverseInquiryServerAgent from 'reverseinquiry/agent/ReverseInquiryServerAgent';
 
 // dc
-import RayonDC from 'common/dc/RayonDC';
+import RayonEventDC from 'common/dc/RayonEventDC';
 
 // model
 import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
@@ -10,7 +10,7 @@ import { RayonEvent, RayonEventResponse, LogRegisterReverseInquiryArgs } from 'c
 
 type ReverseInquiriesListner = (reverseInquiries: ReverseInquiry[]) => void;
 
-class ReverseInquiryDC extends RayonDC {
+class ReverseInquiryDC extends RayonEventDC {
   private _reverseInquiries: ReverseInquiry[];
   private _reverseInquiriesListner: Set<ReverseInquiriesListner>;
 

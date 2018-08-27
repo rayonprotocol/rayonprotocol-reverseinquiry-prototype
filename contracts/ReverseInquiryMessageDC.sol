@@ -6,14 +6,12 @@ import "./UserDC.sol";
 contract ReverseInquiryMessageDC {
     using strings for *;
 
-    // constant variable
     uint constant MESSAGE_REQUESTPERSONALDATA = 1;
     uint constant MESSAGE_RESPONSEPERSONALDATA = 2;
     uint constant MESSAGE_OFFERPROPOSAL = 3;
     uint constant MESSAGE_ACCEPTOFFER = 4;
-    uint constant MESSAGE_ENY_OFFER = 5;
+    uint constant MESSAGE_DENY_OFFER = 5;
 
-    // structs
     struct ReverseInquiryMessage {
         uint messageId;
         address fromAddress;
@@ -24,10 +22,9 @@ contract ReverseInquiryMessageDC {
         uint insertTime;
     }
 
-    // variable
-    mapping (uint => ReverseInquiryMessage[]) public reverseInquiryMessages;  // key: auction id
+    mapping (uint => ReverseInquiryMessage[]) public reverseInquiryMessages;
 
-    // events
+    // privious message의 done 표시를 위해 reverseInquiryId이 필요
     event LogSendReverseInquiryMessage(uint reverseInquiryId, uint messageId, address fromAddress, address toAddress, uint msgType, string content, uint insertTime, bool isComplete);
 
     function setMessageComplete(uint _reverseInquiryId, uint _messageId) public {

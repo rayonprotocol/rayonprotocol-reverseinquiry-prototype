@@ -9,7 +9,9 @@ import { RayonEvent, RayonEventResponse, LogUserSignUpArgs } from 'common/model/
 import UserDC from 'user/dc/UserDC';
 
 // view
-import TabNav from 'common/view/nav/TabNav';
+// import TabNav from 'common/view/nav/TabNav';
+
+import RayonTabNavView from 'main/view/RayonTabNavView';
 import RayonIntroView from 'home/view/RayonIntroView';
 import MessageBoardVC from 'message/vc/MessageBoardVC';
 import MessageContentVC from 'message/vc/MessageContentVC';
@@ -64,12 +66,9 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
   async componentWillMount() {
     UserDC.addUserListener(this.onUserFetched.bind(this));
 
-    // check user registered
-    const isUser: boolean = await UserDC.isUser();
+    const isUserRegistered: boolean = await UserDC.isUser();
 
-    // if user does not exist on block chain, listen sign up event
-    // if user exist on block chain, fetch user information
-    if (isUser) UserDC.fetchUser();
+    if (isUserRegistered) UserDC.fetchUser();
     else UserDC.addEventListener(RayonEvent.LogUserSignUp, this.onUserSignUp.bind(this));
   }
 
@@ -86,29 +85,19 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
   }
 
   render() {
-    const { user } = this.state;
-    return (
-      <Fragment>
-        {user === undefined ? (
-          <RayonIntroView />
-        ) : (
-          <BrowserRouter>
-            <Fragment>
-              <TabNav />
-              {this.route.map((item, index) => {
-                return (
-                  <Route
-                    key={index}
-                    exact={item.exact}
-                    path={item.path}
-                    render={props => <item.component {...props} />}
-                  />
-                );
-              })}
-            </Fragment>
-          </BrowserRouter>
-        )}
-      </Fragment>
+    return this.state.user === undefined ? (
+      <RayonIntroView />
+    ) : (
+      <BrowserRouter>
+        <Fragment>
+          <RayonTabNavView />
+          {this.route.map((item, index) => {
+            return (
+              <Route key={index} exact={item.exact} path={item.path} render={props => <item.component {...props} />} />
+            );
+          })}
+        </Fragment>
+      </BrowserRouter>
     );
   }
 }

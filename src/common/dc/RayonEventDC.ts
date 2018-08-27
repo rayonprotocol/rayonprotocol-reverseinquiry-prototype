@@ -6,7 +6,7 @@ import { RayonEvent } from 'common/model/RayonEvent';
 
 type EventListner = (event) => void;
 
-abstract class RayonDC {
+abstract class RayonEventDC {
   protected _eventListeners: Map<RayonEvent, Set<EventListener>>;
 
   constructor() {
@@ -28,4 +28,4 @@ abstract class RayonDC {
   }
 }
 
-export default RayonDC;
+export default RayonEventDC;

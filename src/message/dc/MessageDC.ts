@@ -6,12 +6,12 @@ import Message from 'message/model/Message';
 import { RayonEvent, RayonEventResponse, LogSendReverseInquiryMessageArgs } from 'common/model/RayonEvent';
 
 // dc
-import RayonDC from 'common/dc/RayonDC';
+import RayonEventDC from 'common/dc/RayonEventDC';
 import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
 
 type MessagesListner = (reverseInquiries: Map<number, Message[]>) => void;
 
-class MessageDC extends RayonDC {
+class MessageDC extends RayonEventDC {
   _messagesListner: Set<MessagesListner>;
   _messages: Map<number, Message[]>;
 
