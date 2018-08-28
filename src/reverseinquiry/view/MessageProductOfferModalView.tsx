@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 // model
 import { RAYON_BERRY } from 'common/model/Style';
-import { FinanceProductType } from 'message/model/Message';
+import { FinanceProductType } from 'reverseinquiry/model/Message';
 
 // view
 import TextInput from 'common/view/input/TextInput';

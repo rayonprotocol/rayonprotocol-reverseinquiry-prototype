@@ -9,6 +9,7 @@ import ReverseInquiry, {
   ReverseInquiryResponse,
 } from 'reverseinquiry/model/ReverseInquiry';
 import { RayonEvent } from 'common/model/RayonEvent';
+import Message, { MessageResponse, MessageResponseIndex } from 'reverseinquiry/model/Message';
 
 // dc
 import UserDC from 'user/dc/UserDC';
@@ -18,7 +19,10 @@ import User from 'user/model/User';
 class ReverseInquiryServerAgent extends ServerAgent {
   constructor() {
     const ReverseInquiryDC = TruffleContract(require('../../../build/contracts/ReverseInquiryDC.json'));
-    const watchEvents: Set<RayonEvent> = new Set([RayonEvent.LogRegisterReverseInquiry]);
+    const watchEvents: Set<RayonEvent> = new Set([
+      RayonEvent.LogRegisterReverseInquiry,
+      RayonEvent.LogSendReverseInquiryMessage,
+    ]);
     super(ReverseInquiryDC, watchEvents);
   }
 
@@ -40,6 +44,7 @@ class ReverseInquiryServerAgent extends ServerAgent {
 
   public async fetchReverseInquiries(): Promise<ReverseInquiry[]> {
     const reverseInquiriesLength: number = await this._contractInstance.getReverseInquiriesLength();
+    console.log('reverseInquiriesLength', reverseInquiriesLength);
     const reverseInquiries: ReverseInquiry[] = [];
     for (let i = 0; i < reverseInquiriesLength; i++) {
       const reverseInquiry: ReverseInquiry = await this.fetchReverseInquiry(i);
@@ -55,6 +60,53 @@ class ReverseInquiryServerAgent extends ServerAgent {
     this._contractInstance.registerReverseInquiry(title, content, financeData, user.userName, {
       from: ReverseInquiryServerAgent.getUserAccount(),
     });
+  }
+
+  sendMessage(
+    toAddress: string,
+    previousMessageId: number,
+    reverseInquiryId: number,
+    msgType: number,
+    content: string = ''
+  ) {
+    this._contractInstance.sendMessage(reverseInquiryId, previousMessageId, toAddress, msgType, content, {
+      from: ServerAgent.getUserAccount(),
+    });
+  }
+
+  async fetchReverseInquiryMessage(reverseInquiryId: number, messageId: number): Promise<Message> {
+    const result: MessageResponse = await this._contractInstance.getMessage(reverseInquiryId, messageId);
+    const userAccount = ServerAgent.getUserAccount();
+    if (
+      result[MessageResponseIndex.fromAddress] !== userAccount &&
+      result[MessageResponseIndex.toAddress] !== userAccount
+    )
+      return undefined;
+
+    const message: Message = {
+      reverseInquiryId: result[MessageResponseIndex.reverseInquiryId].toNumber(),
+      messageId: result[MessageResponseIndex.messageId].toNumber(),
+      fromAddress: result[MessageResponseIndex.fromAddress],
+      toAddress: result[MessageResponseIndex.toAddress],
+      msgType: result[MessageResponseIndex.msgType].toNumber(),
+      content: result[MessageResponseIndex.content],
+      timeStamp: result[MessageResponseIndex.timeStamp],
+      isComplete: result[MessageResponseIndex.isComplete],
+    };
+
+    return message;
+  }
+
+  async fetchReverseInquiryMessages(reverseInquiryId: number): Promise<Message[]> {
+    const messagesLength: number = await this._contractInstance.getMessagesLength(reverseInquiryId);
+    const messages: Message[] = [];
+
+    for (let i = 0; i < messagesLength; i++) {
+      const message = await this.fetchReverseInquiryMessage(reverseInquiryId, i);
+      message && messages.push(message);
+    }
+
+    return messages.reverse();
   }
 }
 

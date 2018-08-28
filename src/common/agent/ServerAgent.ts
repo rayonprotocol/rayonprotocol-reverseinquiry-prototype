@@ -30,17 +30,11 @@ abstract class ServerAgent {
     this.fetchContractInstance();
   }
 
-  /*
-  Essential excuted functions
-  */
-
   private setWeb3 = (): Web3 => {
     let web3: Web3 = (window as any).web3 as Web3;
     typeof web3 !== 'undefined'
       ? (web3 = new Web3(web3.currentProvider))
-      : (web3 = new Web3(
-          new Web3.providers.HttpProvider(`http://localhost: ${ServerAgent.NETWORK_PORT}`)
-        ));
+      : (web3 = new Web3(new Web3.providers.HttpProvider(`http://localhost: ${ServerAgent.NETWORK_PORT}`)));
     return web3;
   };
 
@@ -61,9 +55,7 @@ abstract class ServerAgent {
   private startEventWatch() {
     if (this._watchEvents === undefined) return;
     if (this._contractInstance === undefined) {
-      console.error(
-        `contract Instance is undefined, please check network port ${ServerAgent.NETWORK_PORT}`
-      );
+      console.error(`contract Instance is undefined, please check network port ${ServerAgent.NETWORK_PORT}`);
       return;
     }
 
@@ -81,11 +73,6 @@ abstract class ServerAgent {
     !this._contractInstance && (await this.fetchContractInstance());
   }
 
-  /*
-  Watch blockchain event and set, notify to DataCcontroller.
-  and Event handler
-  */
-
   public setEventListner(listner: RayonEventListener) {
     this._eventListener = listner;
   }
@@ -97,9 +84,6 @@ abstract class ServerAgent {
     this._eventListener && this._eventListener(eventType, event);
   }
 
-  /*
-  Common value getter function
-  */
   public static getWeb3() {
     return web3;
   }

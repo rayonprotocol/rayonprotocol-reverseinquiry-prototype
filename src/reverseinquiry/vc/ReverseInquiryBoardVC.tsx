@@ -81,7 +81,7 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
 
   renderNoRequestToDate() {
     return (
-      <div className={classNames(styles.emptyNote, { [styles.berryColor]: this.state.user.isBorrower })}>
+      <div className={classNames(styles.emptyNote, { [styles.berryColor]: !this.state.user.isBorrower })}>
         No Requests To Date
       </div>
     );

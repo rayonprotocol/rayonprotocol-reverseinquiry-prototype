@@ -2,13 +2,12 @@ import React, { Component, Fragment } from 'react';
 
 // model
 import User from 'user/model/User';
-import { MsgTypes } from 'message/model/Message';
+import { MsgTypes } from 'reverseinquiry/model/Message';
 import { RAYON_BERRY, RAYON_LAKE } from 'common/model/Style';
 import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
 
 // dc
 import UserDC from 'user/dc/UserDC';
-import MessageDC from 'message/dc/MessageDC';
 import ReverseInquiryDC from 'reverseinquiry/dc/ReverseInquiryDC';
 
 // util
@@ -51,7 +50,7 @@ class ReverseInquiryVC extends Component<{}, ReverseInquiryVCState> {
     const selTags: string = this.serlalizeSelectedTagSet();
     try {
       // Register new user data on blockchain
-      MessageDC.sendMessage(toAddress, 0, reverseInquiryId, MsgTypes.REQUEST_PERSONAL_DATA, selTags);
+      ReverseInquiryDC.sendMessage(toAddress, 0, reverseInquiryId, MsgTypes.REQUEST_PERSONAL_DATA, selTags);
     } catch {
       console.error('send message failed');
     }

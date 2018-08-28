@@ -11,8 +11,8 @@ import UserDC from 'user/dc/UserDC';
 // view
 import RayonTabNavView from 'main/view/RayonTabNavView';
 import RayonIntroView from 'home/view/RayonIntroView';
-import MessageBoardVC from 'message/vc/MessageBoardVC';
-import MessageContentVC from 'message/vc/MessageContentVC';
+import MessageBoardVC from 'reverseinquiry/vc/MessageBoardVC';
+import MessageContentVC from 'reverseinquiry/vc/MessageContentVC';
 import RegisterFinanceInfoVC from 'user/vc/RegisterFinanceInfoVC';
 import ReverseInquiryBoardVC from 'reverseinquiry/vc/ReverseInquiryBoardVC';
 import ReverseInquiryContentVC from 'reverseinquiry/vc/ReverseInquiryContentVC';

@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 // model
 import User from 'user/model/User';
 import { RAYON_DARKLAKE, RAYON_DARKBERRY, RAYON_DEEPGRAY } from 'common/model/Style';
-import Message, { MsgTypes } from 'message/model/Message';
+import Message, { MsgTypes } from 'reverseinquiry/model/Message';
 import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
 import { RayonEvent, RayonEventResponse, LogSendReverseInquiryMessageArgs } from 'common/model/RayonEvent';
 
 // dc
 import UserDC from 'user/dc/UserDC';
-import MessageDC from 'message/dc/MessageDC';
 import ReverseInquiryDC from 'reverseinquiry/dc/ReverseInquiryDC';
 
 // util
@@ -46,19 +45,19 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
 
   async componentWillMount() {
     ReverseInquiryDC.addReverseInquiriesListeners(this.onReverseInquiriesFetched);
-    MessageDC.addMessagesListeners(this.onReverseInquiryMessagesFetched);
-    MessageDC.addEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onReverseInquiryMessageSent);
+    ReverseInquiryDC.addMessagesListeners(this.onReverseInquiryMessagesFetched);
+    ReverseInquiryDC.addEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onReverseInquiryMessageSent);
     ReverseInquiryDC.fetchReverseInquiries();
   }
 
   componentWillUnmount() {
     ReverseInquiryDC.removeEventListener(RayonEvent.LogRegisterReverseInquiry, this.onReverseInquiryMessageSent);
     ReverseInquiryDC.removeReverseInquiriesListeners(this.onReverseInquiriesFetched);
-    MessageDC.removeMessagesListeners(this.onReverseInquiryMessagesFetched);
+    ReverseInquiryDC.removeMessagesListeners(this.onReverseInquiryMessagesFetched);
   }
 
   onReverseInquiriesFetched(reverseInquiries: ReverseInquiry[]) {
-    MessageDC.fetchMessages(reverseInquiries);
+    ReverseInquiryDC.fetchMessages(reverseInquiries);
     this.setState({ ...this.state, reverseInquiries });
   }
 

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 // model
 import { RAYON_BERRY, RAYON_LAKE, RAYON_DARKBERRY, RAYON_DARKLAKE } from 'common/model/Style';
-import Message, { MsgTypes, FinanceProductType } from 'message/model/Message';
+import Message, { MsgTypes, FinanceProductType } from 'reverseinquiry/model/Message';
 import User from 'user/model/User';
 
 // view
