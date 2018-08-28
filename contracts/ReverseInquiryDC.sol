@@ -61,9 +61,6 @@ contract ReverseInquiryDC {
         return reverseInquiries.length;
     }
 
-
-    
-
     function setMessageComplete(uint _reverseInquiryId, uint _messageId) public {
         reverseInquiryMessages[_reverseInquiryId][_messageId].isComplete = true;
     }

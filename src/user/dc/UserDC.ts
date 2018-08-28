@@ -1,5 +1,5 @@
 // agent
-import UserServerAgent from 'user/agent/UserServerAgent';
+import UserContractAgent from 'user/agent/UserContractAgent';
 
 // dc
 import RayonEventDC from 'common/dc/RayonEventDC';
@@ -17,7 +17,7 @@ class UserDC extends RayonEventDC {
   constructor() {
     super();
     this._userListeners = new Set();
-    UserServerAgent.setEventListner(this.onEvent.bind(this));
+    UserContractAgent.setEventListner(this.onEvent.bind(this));
   }
 
   public addUserListener(listener: UserListner): void {
@@ -34,7 +34,7 @@ class UserDC extends RayonEventDC {
       return;
     }
 
-    this._user = await UserServerAgent.fetchUser();
+    this._user = await UserContractAgent.fetchUser();
     this.onUserFetched(this._user);
   }
 
@@ -61,11 +61,11 @@ class UserDC extends RayonEventDC {
   }
 
   public async isUser(): Promise<boolean> {
-    return await UserServerAgent.isUser();
+    return await UserContractAgent.isUser();
   }
 
   public signUp(userName: string, isBorrower: boolean): void {
-    UserServerAgent.signUp(userName, isBorrower);
+    UserContractAgent.signUp(userName, isBorrower);
   }
 
   public getUser(): User {

@@ -1,5 +1,5 @@
 // agent
-import ReverseInquiryServerAgent from 'reverseinquiry/agent/ReverseInquiryServerAgent';
+import ReverseInquiryContractAgent from 'reverseinquiry/agent/ReverseInquiryContractAgent';
 
 // model
 import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
@@ -24,21 +24,13 @@ class ReverseInquiryDC extends RayonEventDC {
   private _reverseInquiries: ReverseInquiry[];
   private _reverseInquiriesListner: Set<ReverseInquiriesListner>;
 
-  private _messages: Map<number, Message[]>;
-  private _messagesListner: Set<MessagesListner>;
-
   constructor() {
     super();
     this._reverseInquiriesListner = new Set();
-    this._messagesListner = new Set();
-    this._messages = new Map<number, Message[]>();
     this._reverseInquiries = new Array<ReverseInquiry>();
-    ReverseInquiryServerAgent.setEventListner(this.onEvent.bind(this));
+    ReverseInquiryContractAgent.setEventListner(this.onEvent.bind(this));
   }
 
-  /*
-  event handler
-  */
   private onEvent(eventType: RayonEvent, event: any): void {
     switch (eventType) {
       case RayonEvent.LogRegisterReverseInquiry:
@@ -83,25 +75,12 @@ class ReverseInquiryDC extends RayonEventDC {
   private onReverseInquiriesFetched(ReverseInquiries: ReverseInquiry[]): void {
     this._reverseInquiriesListner && this._reverseInquiriesListner.forEach(listener => listener(ReverseInquiries));
   }
-
-  public addMessagesListeners(listener: MessagesListner): void {
-    this._messagesListner.add(listener);
-  }
-
-  public removeMessagesListeners(listener: MessagesListner): void {
-    this._messagesListner.delete(listener);
-  }
-
-  private onMessagesFetched(messages: Map<number, Message[]>): void {
-    this._messagesListner && this._messagesListner.forEach(listener => listener(messages));
-  }
-
   /*
     communicate to server agent
     */
 
   public async fetchReverseInquiry(contentIndex: number): Promise<ReverseInquiry> {
-    return ReverseInquiryServerAgent.fetchReverseInquiry(contentIndex);
+    return ReverseInquiryContractAgent.fetchReverseInquiry(contentIndex);
   }
 
   public async fetchReverseInquiries(): Promise<void> {
@@ -110,13 +89,13 @@ class ReverseInquiryDC extends RayonEventDC {
       return;
     }
 
-    const reverseInquiriesResult = await ReverseInquiryServerAgent.fetchReverseInquiries();
+    const reverseInquiriesResult = await ReverseInquiryContractAgent.fetchReverseInquiries();
     this._reverseInquiries = reverseInquiriesResult.sort((a, b) => b.id - a.id);
     this.onReverseInquiriesFetched(this._reverseInquiries);
   }
 
   public registerReverseInquiry(title: string, content: string, tags: string[]): void {
-    ReverseInquiryServerAgent.registerReverseInquiry(title, content, tags);
+    ReverseInquiryContractAgent.registerReverseInquiry(title, content, tags);
   }
 
   public sendMessage(
@@ -126,22 +105,7 @@ class ReverseInquiryDC extends RayonEventDC {
     msgType: number,
     content?: string
   ): void {
-    ReverseInquiryServerAgent.sendMessage(toAddress, previousMessageId, reverseInquiryId, msgType, content);
-  }
-
-  public async fetchMessages(reverseInquiries: ReverseInquiry[]): Promise<void> {
-    if (this._messages.size !== 0) {
-      this.onMessagesFetched(this._messages);
-      return;
-    }
-    if (reverseInquiries === undefined) console.error('reverseInquiry is undefined');
-
-    for (let i = 0; i < reverseInquiries.length; i++) {
-      const reverseInquiryId = reverseInquiries[i].id;
-      this._messages[reverseInquiryId] = await ReverseInquiryServerAgent.fetchReverseInquiryMessages(reverseInquiryId);
-    }
-
-    this.onMessagesFetched(this._messages);
+    ReverseInquiryContractAgent.sendMessage(toAddress, previousMessageId, reverseInquiryId, msgType, content);
   }
 }
 

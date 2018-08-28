@@ -59,20 +59,9 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
     this.setState({ ...this.state, reverseInquiries });
   }
 
-  // TODO: 이 로직은 model로 이관
+  // 이벤트를 가공하기 위해서 reverse Inquiry, Message length, message 3번을 호출해야하므로 기존 agent 로직 사용.
   LogRegisterReverseInquiry(event: RayonEventResponse<LogRegisterReverseInquiryArgs>): void {
-    const registeredReverseInquiry: ReverseInquiry = {
-      id: event.args.id.toNumber(),
-      title: event.args.title,
-      description: event.args.description,
-      financeData: event.args.financeData.split('%%'),
-      userName: event.args.userName,
-      userAddress: event.args.userAddress,
-      insertTime: event.args.insertTime,
-    };
-    // add to array head because of order by insert time
-    this.state.reverseInquiries.unshift(registeredReverseInquiry);
-    this.setState({ ...this.state, reverseInquiries: this.state.reverseInquiries });
+    ReverseInquiryDC.fetchReverseInquiries();
   }
 
   onRequestModalOpenStateToggle(): void {

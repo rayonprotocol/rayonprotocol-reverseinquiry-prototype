@@ -26,7 +26,6 @@ interface MessageContentVCState {
   isLoading: boolean;
   productOfferInput: string[];
   reverseInquiry: ReverseInquiry;
-  messages: Message[];
   isProductOfferModalOpen: boolean;
   user: User;
 }
@@ -41,37 +40,24 @@ class MessageContentVC extends Component<{}, MessageContentVCState> {
       user: UserDC.getUser(),
     };
     this.onReverseInquiriesFetched = this.onReverseInquiriesFetched.bind(this);
-    this.onMessagesFetched = this.onMessagesFetched.bind(this);
     this.onMessageSent = this.onMessageSent.bind(this);
   }
 
   async componentWillMount() {
     ReverseInquiryDC.addReverseInquiriesListeners(this.onReverseInquiriesFetched);
-    ReverseInquiryDC.addMessagesListeners(this.onMessagesFetched);
     ReverseInquiryDC.addEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onMessageSent);
     ReverseInquiryDC.fetchReverseInquiries();
   }
 
   componentWillUnmount() {
     ReverseInquiryDC.removeReverseInquiriesListeners(this.onReverseInquiriesFetched);
-    ReverseInquiryDC.removeMessagesListeners(this.onMessagesFetched);
     ReverseInquiryDC.removeEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onMessageSent);
   }
 
   onReverseInquiriesFetched(_reverseInquiries: ReverseInquiry[]) {
     const contentId = UrlProcessor.readNumberFromPath(this.props['location']['search'], UrlProcessor.KEY_ID);
-    const reverseInquiry = _reverseInquiries.find(content => content.id === contentId);
-    ReverseInquiryDC.fetchMessages(_reverseInquiries);
-    this.setState({ ...this.state, reverseInquiry });
-  }
-
-  onMessagesFetched(_messages: Map<number, Message[]>) {
-    const contentId = UrlProcessor.readNumberFromPath(this.props['location']['search'], UrlProcessor.KEY_ID);
-    this.setState({
-      ...this.state,
-      messages: _messages[contentId],
-      isLoading: false,
-    });
+    const targetReverseInquiry = _reverseInquiries.find(reverseInquiry => reverseInquiry.id === contentId);
+    this.setState({ ...this.state, reverseInquiry: targetReverseInquiry, isLoading: false });
   }
 
   onMessageSent(event: RayonEventResponse<LogSendReverseInquiryMessageArgs>) {
@@ -106,7 +92,7 @@ class MessageContentVC extends Component<{}, MessageContentVCState> {
 
   onClickProductOfferSubmit() {
     const data = this.state.productOfferInput.join('##');
-    const message = this.state.messages[0];
+    const message = this.state.reverseInquiry.messages[0];
     ReverseInquiryDC.sendMessage(
       message.fromAddress,
       message.messageId,
@@ -134,7 +120,7 @@ class MessageContentVC extends Component<{}, MessageContentVCState> {
           ) : (
             <MessageContentView
               user={this.state.user}
-              messages={this.state.messages}
+              messages={this.state.reverseInquiry.messages}
               onRequestModalOpenStateToggle={this.onRequestModalOpenStateToggle.bind(this)}
               onResponseFinanceData={this.onResponseFinanceData.bind(this)}
               onClickProductRejectOrAccept={this.onClickProductRejectOrAccept.bind(this)}

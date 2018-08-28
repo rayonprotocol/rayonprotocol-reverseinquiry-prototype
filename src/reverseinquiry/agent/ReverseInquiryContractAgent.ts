@@ -1,7 +1,7 @@
 import TruffleContract from 'truffle-contract';
 
 // agent
-import ServerAgent from 'common/agent/ServerAgent';
+import ContractAgent from 'common/agent/ContractAgent';
 
 // model
 import ReverseInquiry, {
@@ -16,7 +16,7 @@ import UserDC from 'user/dc/UserDC';
 import User from 'user/model/User';
 
 // ReverseInquiryContractAgent
-class ReverseInquiryServerAgent extends ServerAgent {
+class ReverseInquiryContractAgent extends ContractAgent {
   constructor() {
     const ReverseInquiryDC = TruffleContract(require('../../../build/contracts/ReverseInquiryDC.json'));
     const watchEvents: Set<RayonEvent> = new Set([
@@ -28,8 +28,9 @@ class ReverseInquiryServerAgent extends ServerAgent {
 
   public async fetchReverseInquiry(index: number): Promise<ReverseInquiry> {
     const result: ReverseInquiryResponse = await this._contractInstance.getReverseInquiry(index, {
-      from: ReverseInquiryServerAgent.getUserAccount(),
+      from: ReverseInquiryContractAgent.getUserAccount(),
     });
+    const messages: Message[] = await this.fetchReverseInquiryMessages(index);
     const newReverseInquiry: ReverseInquiry = {
       id: result[ReverseInquiryResponseIndex.id].toNumber(),
       title: result[ReverseInquiryResponseIndex.title],
@@ -38,6 +39,7 @@ class ReverseInquiryServerAgent extends ServerAgent {
       userName: result[ReverseInquiryResponseIndex.userName],
       userAddress: result[ReverseInquiryResponseIndex.userAddress],
       insertTime: result[ReverseInquiryResponseIndex.insertTime],
+      messages,
     };
     return newReverseInquiry;
   }
@@ -58,7 +60,7 @@ class ReverseInquiryServerAgent extends ServerAgent {
     if (user === undefined || user.userName === undefined) return;
     const financeData: string = tags.join('%%');
     this._contractInstance.registerReverseInquiry(title, content, financeData, user.userName, {
-      from: ReverseInquiryServerAgent.getUserAccount(),
+      from: ReverseInquiryContractAgent.getUserAccount(),
     });
   }
 
@@ -70,13 +72,13 @@ class ReverseInquiryServerAgent extends ServerAgent {
     content: string = ''
   ) {
     this._contractInstance.sendMessage(reverseInquiryId, previousMessageId, toAddress, msgType, content, {
-      from: ServerAgent.getUserAccount(),
+      from: ContractAgent.getUserAccount(),
     });
   }
 
   async fetchReverseInquiryMessage(reverseInquiryId: number, messageId: number): Promise<Message> {
     const result: MessageResponse = await this._contractInstance.getMessage(reverseInquiryId, messageId);
-    const userAccount = ServerAgent.getUserAccount();
+    const userAccount = ContractAgent.getUserAccount();
     if (
       result[MessageResponseIndex.fromAddress] !== userAccount &&
       result[MessageResponseIndex.toAddress] !== userAccount
@@ -110,4 +112,4 @@ class ReverseInquiryServerAgent extends ServerAgent {
   }
 }
 
-export default new ReverseInquiryServerAgent();
+export default new ReverseInquiryContractAgent();

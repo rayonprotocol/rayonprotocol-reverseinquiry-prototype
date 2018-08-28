@@ -10,7 +10,7 @@ let userAccount: string;
 type RayonEventListener = ((eventType: RayonEvent, event: any) => void);
 type ContractDeployListner = () => void;
 
-abstract class ServerAgent {
+abstract class ContractAgent {
   public static FROM_BLOCK = 'latest'; // event watch start block
   public static NETWORK_PORT = 7545;
 
@@ -34,14 +34,14 @@ abstract class ServerAgent {
     let web3: Web3 = (window as any).web3 as Web3;
     typeof web3 !== 'undefined'
       ? (web3 = new Web3(web3.currentProvider))
-      : (web3 = new Web3(new Web3.providers.HttpProvider(`http://localhost: ${ServerAgent.NETWORK_PORT}`)));
+      : (web3 = new Web3(new Web3.providers.HttpProvider(`http://localhost: ${ContractAgent.NETWORK_PORT}`)));
     return web3;
   };
 
   private async fetchContractInstance() {
     // Bring a ABI, Make a TruffleContract object
     const contract = TruffleContract(this._contract);
-    contract.setProvider(ServerAgent.getWeb3().currentProvider);
+    contract.setProvider(ContractAgent.getWeb3().currentProvider);
 
     // find rayon token instance on blockchain
     try {
@@ -55,11 +55,11 @@ abstract class ServerAgent {
   private startEventWatch() {
     if (this._watchEvents === undefined) return;
     if (this._contractInstance === undefined) {
-      console.error(`contract Instance is undefined, please check network port ${ServerAgent.NETWORK_PORT}`);
+      console.error(`contract Instance is undefined, please check network port ${ContractAgent.NETWORK_PORT}`);
       return;
     }
 
-    const eventRange = ServerAgent.getEventRange();
+    const eventRange = ContractAgent.getEventRange();
 
     this._watchEvents.forEach(eventType => {
       const targetEventFunction = this._contractInstance[RayonEvent.getRayonEventName(eventType)]({}, eventRange);
@@ -93,8 +93,8 @@ abstract class ServerAgent {
   }
 
   public static getEventRange() {
-    return { fromBlock: ServerAgent.FROM_BLOCK, toBlock: 'latest' };
+    return { fromBlock: ContractAgent.FROM_BLOCK, toBlock: 'latest' };
   }
 }
 
-export default ServerAgent;
+export default ContractAgent;

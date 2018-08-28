@@ -1,6 +1,7 @@
 import { BigNumber } from 'bignumber.js';
+import Message from 'reverseinquiry/model/Message';
 
-interface ReverseInquiry {
+class ReverseInquiry {
   id: number;
   title: string;
   description: string;
@@ -8,6 +9,7 @@ interface ReverseInquiry {
   userName: string;
   userAddress: string;
   insertTime: number;
+  messages: Message[];
 }
 
 export type ReverseInquiryResponse = [BigNumber, string, string, string, string, string, number];

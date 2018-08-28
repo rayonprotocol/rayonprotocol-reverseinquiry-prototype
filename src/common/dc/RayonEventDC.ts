@@ -1,5 +1,5 @@
 // agent
-import ServerAgent from 'common/agent/ServerAgent';
+import ContractAgent from 'common/agent/ContractAgent';
 
 // model
 import { RayonEvent } from 'common/model/RayonEvent';
@@ -24,7 +24,7 @@ abstract class RayonEventDC {
   }
 
   public getUserAccount(): string {
-    return ServerAgent.getUserAccount();
+    return ContractAgent.getUserAccount();
   }
 }
 
