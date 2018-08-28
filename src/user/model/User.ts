@@ -4,9 +4,9 @@ interface User {
   userName: string;
 }
 
-export interface FinanceData {
-  dataKeys: string;
-  dataValues: string;
+export interface KeyValueObject {
+  objectKey: string;
+  objectValue: string;
 }
 
 export enum UserType {

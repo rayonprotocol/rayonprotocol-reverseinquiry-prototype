@@ -26,7 +26,6 @@ class MessageDC extends RayonEventDC {
   event handler
   */
   private onEvent(eventType: RayonEvent, event: any): void {
-    console.log('onEvent message');
     switch (eventType) {
       case RayonEvent.LogSendReverseInquiryMessage:
         this.onReverseInquiryMessageSent(event);

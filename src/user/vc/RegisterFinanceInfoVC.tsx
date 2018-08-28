@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 // model
-import User, { FinanceData } from 'user/model/User';
+import User, { KeyValueObject } from 'user/model/User';
 import { RAYON_BERRY, RAYON_LAKE } from 'common/model/Style';
 
 // dc
@@ -10,16 +10,16 @@ import UserDC from 'user/dc/UserDC';
 // view
 import Container from 'common/view/container/Container';
 import RayonButton from 'common/view/button/RayonButton';
-import RayonModalView from 'common/view/modal/RayonModalView';
+import RegisterSuccessModelView from 'user/view/RegisterSuccessModelView';
 
 // styles
 import styles from './RegisterFinanceInfoVC.scss';
 
 interface RegisterFinanceInfoVCState {
-  financeData: FinanceData[];
+  financeData: KeyValueObject[];
   inputLength: number;
   user: User;
-  isModalOpen: boolean;
+  isSuccessModalOpen: boolean;
 }
 
 class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
@@ -28,134 +28,144 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
     this.state = {
       ...this.state,
       inputLength: 1,
-      financeData: new Array<FinanceData>(),
+      financeData: new Array<KeyValueObject>(),
       user: UserDC.getUser(),
-      isModalOpen: false,
+      isSuccessModalOpen: false,
     };
   }
 
-  componentWillMount() {
+  componentWillMount(): void {
     const userFinanceData = UserDC.getUserFinanceData();
-    if (userFinanceData === null) return;
-    const keys = Object.keys(userFinanceData);
-    const financeData: FinanceData[] = new Array<FinanceData>();
+    userFinanceData === null ? this.addEmptyFinanceData() : this.makeFinanceDataObjectToKeyValueArray(userFinanceData);
+  }
 
-    keys.map(item => {
-      const newFinanceData = {
-        dataKeys: item,
-        dataValues: userFinanceData[item],
-      };
-      financeData.push(newFinanceData);
-    });
+  addEmptyFinanceData(): void {
+    this.state.financeData.push(this.makeFinanceData('', ''));
+  }
 
-    this.setState({ ...this.state, financeData });
+  makeFinanceDataObjectToKeyValueArray(userFinanceData: Object): void {
+    const financeDataKeys = Object.keys(userFinanceData);
+
+    financeDataKeys.map(key => this.state.financeData.push(this.makeFinanceData(key, userFinanceData[key])));
+    this.setState({ ...this.state, financeData: this.state.financeData });
+  }
+
+  makeFinanceData(key: any, value: any): KeyValueObject {
+    const newFinanceData = {
+      objectKey: key,
+      objectValue: value,
+    };
+    return newFinanceData;
   }
 
   onChangeDataKeyText(event, index: number): void {
-    this.state.financeData[index].dataKeys = event.target.value;
+    this.state.financeData[index].objectKey = event.target.value;
     this.setState({ ...this.state, financeData: this.state.financeData });
   }
 
   onChangeDataValueText(event, index: number): void {
-    this.state.financeData[index].dataValues = event.target.value;
+    this.state.financeData[index].objectValue = event.target.value;
     this.setState({ ...this.state, financeData: this.state.financeData });
   }
 
-  onClickSubmitButton(): void {
-    const object: Object = {};
-    this.state.financeData.forEach(item => {
-      object[item.dataKeys] = item.dataValues;
-    });
-    localStorage.setItem(UserDC.getUserAccount(), JSON.stringify(object));
-    this.setState({ ...this.state, isModalOpen: true });
+  onRequestModalOpenStateToggle(): void {
+    // break out when click open button, modal background, close button
+    this.setState({ ...this.state, isSuccessModalOpen: !this.state.isSuccessModalOpen });
   }
 
   onClickAddInputButton(): void {
-    const newFinanceData = {
-      dataKeys: '',
-      dataValues: '',
-    };
-    this.state.financeData.push(newFinanceData);
+    this.addEmptyFinanceData();
     this.setState({ ...this.state, financeData: this.state.financeData });
   }
 
   onClickRemoveInputButton(index: number): void {
-    if (this.state.financeData.length === 1) return alert("can't remove last property");
-    this.state.financeData.splice(index, 1);
-    this.setState({ ...this.state, financeData: this.state.financeData });
+    if (this.state.financeData.length === 1) {
+      alert("can't remove last property");
+    } else {
+      this.state.financeData.splice(index, 1);
+      this.setState({ ...this.state, financeData: this.state.financeData });
+    }
   }
 
-  onRequestCloseModal(): void {
-    this.setState({ ...this.state, isModalOpen: false });
+  onClickSubmitButton(): void {
+    localStorage.setItem(UserDC.getUserAccount(), this.stringifyFinanceData());
+    this.onRequestModalOpenStateToggle();
+  }
+
+  stringifyFinanceData(): string {
+    const object: Object = new Object();
+    this.state.financeData.forEach(item => {
+      object[item.objectKey] = item.objectValue;
+    });
+    return JSON.stringify(object);
+  }
+
+  renderRegisterDataTable() {
+    return (
+      <table>
+        <tbody>
+          <tr className={styles.headerRow}>
+            <th>ID</th>
+            <th>Data</th>
+            <th>Value</th>
+            <th>Remove</th>
+          </tr>
+          {this.state.financeData.map((item, index) => {
+            return (
+              <tr key={index} className={styles.inputRow}>
+                <td className={styles.id}>{index + 1}</td>
+                <td>
+                  <input
+                    onChange={event => this.onChangeDataKeyText(event, index)}
+                    type={'text'}
+                    value={this.state.financeData[index].objectKey}
+                  />
+                </td>
+                <td>
+                  <input
+                    onChange={event => this.onChangeDataValueText(event, index)}
+                    type={'text'}
+                    value={this.state.financeData[index].objectValue}
+                  />
+                </td>
+                <td className={styles.removeBtn}>
+                  <div onClick={() => this.onClickRemoveInputButton(index)}>x</div>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    );
   }
 
   render() {
-    console.log(this.state.financeData);
+    console.log('financeData', this.state.financeData);
     return (
-      <Fragment>
-        <Container className={styles.contentsContainer}>
-          <Fragment>
-            <div className={styles.titleSection}>
-              <p className={styles.title}>Register Data</p>
-              <RayonButton
-                className={styles.addBtn}
-                title={'Add Data'}
-                onClickButton={this.onClickAddInputButton.bind(this)}
-                buttonColor={this.state.user.isBorrower ? RAYON_LAKE : RAYON_BERRY}
-              />
-            </div>
-            <table>
-              <tbody>
-                <tr className={styles.headerRow}>
-                  <th>ID</th>
-                  <th>Data</th>
-                  <th>Value</th>
-                  <th>Remove</th>
-                </tr>
-                {this.state.financeData.map((item, index) => {
-                  return (
-                    <tr key={index} className={styles.inputRow}>
-                      <td className={styles.id}>{index + 1}</td>
-                      <td>
-                        <input
-                          onChange={event => this.onChangeDataKeyText(event, index)}
-                          type={'text'}
-                          value={this.state.financeData[index].dataKeys}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          onChange={event => this.onChangeDataValueText(event, index)}
-                          type={'text'}
-                          value={this.state.financeData[index].dataValues}
-                        />
-                      </td>
-                      <td className={styles.removeBtn}>
-                        <div onClick={() => this.onClickRemoveInputButton(index)}>x</div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-            <RayonButton
-              className={styles.dataSaveBtn}
-              title={'Save'}
-              onClickButton={this.onClickSubmitButton.bind(this)}
-              buttonColor={this.state.user.isBorrower ? RAYON_LAKE : RAYON_BERRY}
-            />
-          </Fragment>
-        </Container>
-        <RayonModalView onRequestClose={this.onRequestCloseModal.bind(this)} isModalOpen={this.state.isModalOpen}>
-          <p> Your personal data was successfully saved</p>
+      <Container className={styles.contentsContainer}>
+        <div className={styles.titleSection}>
+          <p className={styles.title}>Register Data</p>
           <RayonButton
-            className={styles.confirmButton}
-            title={'Confirm'}
-            onClickButton={this.onRequestCloseModal.bind(this)}
+            className={styles.addBtn}
+            title={'Add Data'}
+            onClickButton={this.onClickAddInputButton.bind(this)}
             buttonColor={this.state.user.isBorrower ? RAYON_LAKE : RAYON_BERRY}
           />
-        </RayonModalView>
-      </Fragment>
+        </div>
+        {this.renderRegisterDataTable()}
+        <RayonButton
+          className={styles.dataSaveBtn}
+          title={'Save'}
+          onClickButton={this.onClickSubmitButton.bind(this)}
+          buttonColor={this.state.user.isBorrower ? RAYON_LAKE : RAYON_BERRY}
+        />
+
+        <RegisterSuccessModelView
+          onRequestCloseModal={this.onRequestModalOpenStateToggle.bind(this)}
+          isModalOpen={this.state.isSuccessModalOpen}
+          buttonColor={this.state.user.isBorrower ? RAYON_LAKE : RAYON_BERRY}
+        />
+      </Container>
     );
   }
 }

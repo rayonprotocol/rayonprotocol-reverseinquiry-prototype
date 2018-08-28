@@ -7,7 +7,7 @@
     position: relative;
     .title {
       font-size: 24px;
-      font-weight:bold;
+      font-weight: bold;
     }
     .addBtn {
       @include pos-abs(0px, 0px, initial, initial);
@@ -33,6 +33,7 @@
         @include set-font(14px, $rayon-black);
       }
       input {
+        display: inline-block;
         width: 100%;
         outline: 0;
         border: 0;
@@ -53,8 +54,4 @@
     margin: 20px auto 0px;
     text-align: center;
   }
-}
-
-.confirmButton {
-  margin: 20px auto 0px;
 }
