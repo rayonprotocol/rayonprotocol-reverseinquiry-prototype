@@ -43,14 +43,15 @@ class ReverseInquiryVC extends Component<{}, ReverseInquiryVCState> {
   }
 
   async componentWillMount(): Promise<void> {
-    const reverseInquiry = await ReverseInquiryDC.fetchReverseInquiry(this.state.contentId);
+    const reverseInquiry: ReverseInquiry = await ReverseInquiryDC.fetchReverseInquiry(this.state.contentId);
     this.setState({ ...this.state, reverseInquiry });
   }
 
   onClickSendRequestButton(toAddress: string, reverseInquiryId: number): void {
-    const content = this.serlalizeSelectedTagSet();
+    const selTags: string = this.serlalizeSelectedTagSet();
     try {
-      MessageDC.sendMessage(toAddress, 0, reverseInquiryId, MsgTypes.REQUEST_PERSONAL_DATA, content);
+      // Register new user data on blockchain
+      MessageDC.sendMessage(toAddress, 0, reverseInquiryId, MsgTypes.REQUEST_PERSONAL_DATA, selTags);
     } catch {
       console.error('send message failed');
     }

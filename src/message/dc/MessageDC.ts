@@ -11,6 +11,7 @@ import ReverseInquiry from 'reverseinquiry/model/ReverseInquiry';
 
 type MessagesListner = (reverseInquiries: Map<number, Message[]>) => void;
 
+//REVIEW: ContractMessageDC
 class MessageDC extends RayonEventDC {
   _messagesListner: Set<MessagesListner>;
   _messages: Map<number, Message[]>;
@@ -67,9 +68,9 @@ class MessageDC extends RayonEventDC {
     previousMessageId: number,
     reverseInquiryId: number,
     msgType: number,
-    payload?: string
+    content?: string
   ): void {
-    MessageServerAgent.sendMessage(toAddress, previousMessageId, reverseInquiryId, msgType, payload);
+    MessageServerAgent.sendMessage(toAddress, previousMessageId, reverseInquiryId, msgType, content);
   }
 
   public async fetchMessages(reverseInquiries: ReverseInquiry[]): Promise<void> {

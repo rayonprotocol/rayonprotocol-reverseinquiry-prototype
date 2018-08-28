@@ -7,6 +7,7 @@ import ServerAgent from 'common/agent/ServerAgent';
 import Message, { MessageResponse, MessageResponseIndex } from 'message/model/Message';
 import { RayonEvent } from 'common/model/RayonEvent';
 
+// REVIEW: ContractMessageAgent
 class MessageServerAgent extends ServerAgent {
   constructor() {
     const ReverseInquiryMessageDC = TruffleContract(require('../../../build/contracts/ReverseInquiryMessageDC.json'));

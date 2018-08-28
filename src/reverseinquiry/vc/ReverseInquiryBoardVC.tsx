@@ -59,6 +59,7 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
     this.setState({ ...this.state, reverseInquiries });
   }
 
+  // TODO: 이 로직은 model로 이관
   LogRegisterReverseInquiry(event: RayonEventResponse<LogRegisterReverseInquiryArgs>): void {
     const registeredReverseInquiry: ReverseInquiry = {
       id: event.args.id.toNumber(),

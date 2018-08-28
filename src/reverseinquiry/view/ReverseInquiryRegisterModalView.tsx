@@ -62,6 +62,7 @@ class ReverseInquiryRegisterModalView extends Component<
     }
   }
 
+  // TODO: event가 아닌, string으로 받도록 한다.
   onChangeTitle(event): void {
     this.setState({ ...this.state, title: event.target.value });
   }
@@ -71,9 +72,8 @@ class ReverseInquiryRegisterModalView extends Component<
   }
 
   onChangeTag(tag: string): void {
-    this.state.selAvailableFinanceData.has(tag)
-      ? this.state.selAvailableFinanceData.delete(tag)
-      : this.state.selAvailableFinanceData.add(tag);
+    if (this.state.selAvailableFinanceData.has(tag)) this.state.selAvailableFinanceData.delete(tag);
+    else this.state.selAvailableFinanceData.add(tag);
     this.setState({ ...this.state, selAvailableFinanceData: this.state.selAvailableFinanceData });
   }
 
