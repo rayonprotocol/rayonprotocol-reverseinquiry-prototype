@@ -55,7 +55,7 @@ export interface LogSendReverseInquiryMessageArgs {
   fromAddress: string;
   toAddress: string;
   msgType: BigNumber;
-  payload: string;
+  content: string;
   insertTime: number;
   isComplete: boolean;
 }

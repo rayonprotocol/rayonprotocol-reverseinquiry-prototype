@@ -73,7 +73,7 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
       fromAddress: event.args.fromAddress,
       toAddress: event.args.toAddress,
       msgType: event.args.msgType.toNumber(),
-      payload: event.args.payload,
+      content: event.args.content,
       timeStamp: event.args.insertTime,
       isComplete: event.args.isComplete,
     };

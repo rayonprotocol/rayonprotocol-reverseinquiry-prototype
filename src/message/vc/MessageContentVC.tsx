@@ -89,7 +89,7 @@ class MessageContentVC extends Component<{}, MessageContentVCState> {
 
   onResponseFinanceData(message: Message) {
     const userFinanceData = UserDC.getUserFinanceData();
-    const requestFinanceDataKey = message.payload.split('%%');
+    const requestFinanceDataKey = message.content.split('%%');
     const responeseFinanceData = {};
 
     requestFinanceDataKey.forEach(item => {

@@ -50,7 +50,7 @@ interface Message {
   fromAddress: string;
   toAddress: string;
   msgType: MsgTypes;
-  payload: string;
+  content: string;
   timeStamp: number;
   isComplete: boolean;
 }
@@ -65,7 +65,7 @@ export enum MessageResponseIndex {
   fromAddress,
   toAddress,
   msgType,
-  payload,
+  content,
   timeStamp,
   isComplete,
 }

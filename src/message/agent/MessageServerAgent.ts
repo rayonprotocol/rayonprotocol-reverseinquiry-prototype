@@ -19,9 +19,9 @@ class MessageServerAgent extends ServerAgent {
     previousMessageId: number,
     reverseInquiryId: number,
     msgType: number,
-    payload: string = ''
+    content: string = ''
   ) {
-    this._contractInstance.sendMessage(reverseInquiryId, previousMessageId, toAddress, msgType, payload, {
+    this._contractInstance.sendMessage(reverseInquiryId, previousMessageId, toAddress, msgType, content, {
       from: ServerAgent.getUserAccount(),
     });
   }
@@ -41,7 +41,7 @@ class MessageServerAgent extends ServerAgent {
       fromAddress: result[MessageResponseIndex.fromAddress],
       toAddress: result[MessageResponseIndex.toAddress],
       msgType: result[MessageResponseIndex.msgType].toNumber(),
-      payload: result[MessageResponseIndex.payload],
+      content: result[MessageResponseIndex.content],
       timeStamp: result[MessageResponseIndex.timeStamp],
       isComplete: result[MessageResponseIndex.isComplete],
     };

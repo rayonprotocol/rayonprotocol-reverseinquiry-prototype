@@ -48,9 +48,9 @@ class ReverseInquiryVC extends Component<{}, ReverseInquiryVCState> {
   }
 
   onClickSendRequestButton(toAddress: string, reverseInquiryId: number): void {
-    const payload = this.serlalizeSelectedTagSet();
+    const content = this.serlalizeSelectedTagSet();
     try {
-      MessageDC.sendMessage(toAddress, 0, reverseInquiryId, MsgTypes.REQUEST_PERSONAL_DATA, payload);
+      MessageDC.sendMessage(toAddress, 0, reverseInquiryId, MsgTypes.REQUEST_PERSONAL_DATA, content);
     } catch {
       console.error('send message failed');
     }

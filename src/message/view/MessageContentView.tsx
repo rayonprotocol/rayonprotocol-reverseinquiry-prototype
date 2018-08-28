@@ -43,15 +43,15 @@ class MessageContentView extends Component<MessageContentViewProps, {}> {
     );
   };
 
-  renderPayload(msgType: MsgTypes, payload: string) {
+  rendercontent(msgType: MsgTypes, content: string) {
     switch (msgType) {
       case MsgTypes.REQUEST_PERSONAL_DATA:
-        return payload.split('%%').map((tag, index) => {
+        return content.split('%%').map((tag, index) => {
           return <TagView key={index} tag={tag} tagColor={this.props.user.isBorrower ? RAYON_LAKE : RAYON_BERRY} />;
         });
       case MsgTypes.RESPONSE_PERSONAL_DATA:
-        const financeData = JSON.parse(payload);
-        return Object.keys(JSON.parse(payload)).map((tag, index) => {
+        const financeData = JSON.parse(content);
+        return Object.keys(JSON.parse(content)).map((tag, index) => {
           return (
             <TagView
               key={index}
@@ -61,8 +61,8 @@ class MessageContentView extends Component<MessageContentViewProps, {}> {
           );
         });
       case MsgTypes.OFFER_PRODUCT:
-        console.log('payload', payload);
-        return payload.split('##').map((tag, index) => {
+        console.log('content', content);
+        return content.split('##').map((tag, index) => {
           return (
             <TagView
               key={index}
@@ -163,7 +163,7 @@ class MessageContentView extends Component<MessageContentViewProps, {}> {
                   {this.renderMessageType(message.msgType, index === 0)}
                   <ThreeValueText title={'From'} firstValue={''} secondValue={message.fromAddress} />
                   <ThreeValueText title={'to'} firstValue={''} secondValue={message.toAddress} />
-                  {this.renderPayload(message.msgType, message.payload)}
+                  {this.rendercontent(message.msgType, message.content)}
                 </div>
                 {!message.isComplete && this.renderButtonForm(message)}
               </div>
