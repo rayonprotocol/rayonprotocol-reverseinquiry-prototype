@@ -80,7 +80,7 @@ class ReverseInquiryDC extends RayonEventDC {
     */
 
   public async fetchReverseInquiry(contentIndex: number): Promise<ReverseInquiry> {
-    return ReverseInquiryContractAgent.fetchReverseInquiry(contentIndex);
+    return await ReverseInquiryContractAgent.fetchReverseInquiry(contentIndex);
   }
 
   public async fetchReverseInquiries(): Promise<void> {

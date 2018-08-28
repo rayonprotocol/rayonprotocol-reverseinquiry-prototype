@@ -15,7 +15,7 @@ import styles from './MessageProductOfferModalView.scss';
 
 interface MessageProductOfferModalViewProps {
   isModalOpen: boolean;
-  onChangeProductOfferInput: (event, target) => void;
+  onChangeProductOfferInput: (value, target) => void;
   onClickProductOfferSubmit: () => void;
   onRequestModalClose: () => void;
 }
@@ -32,17 +32,17 @@ class MessageProductOfferModalView extends Component<MessageProductOfferModalVie
         <TextInput
           className={styles.offerModalInput}
           title={FinanceProductType.getFinanceProductNames(FinanceProductType.amount)}
-          onChangeInputValue={event => this.props.onChangeProductOfferInput(event, FinanceProductType.amount)}
+          onChangeInputValue={amount => this.props.onChangeProductOfferInput(amount, FinanceProductType.amount)}
         />
         <TextInput
           className={styles.offerModalInput}
           title={FinanceProductType.getFinanceProductNames(FinanceProductType.interest)}
-          onChangeInputValue={event => this.props.onChangeProductOfferInput(event, FinanceProductType.interest)}
+          onChangeInputValue={interest => this.props.onChangeProductOfferInput(interest, FinanceProductType.interest)}
         />
         <TextInput
           className={styles.offerModalInput}
           title={FinanceProductType.getFinanceProductNames(FinanceProductType.maturity)}
-          onChangeInputValue={event => this.props.onChangeProductOfferInput(event, FinanceProductType.maturity)}
+          onChangeInputValue={maturity => this.props.onChangeProductOfferInput(maturity, FinanceProductType.maturity)}
         />
         <RayonButton
           className={styles.sendOfferBtn}

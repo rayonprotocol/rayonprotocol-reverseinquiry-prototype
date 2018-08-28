@@ -11,8 +11,8 @@ type RayonEventListener = ((eventType: RayonEvent, event: any) => void);
 type ContractDeployListner = () => void;
 
 abstract class ContractAgent {
-  public static FROM_BLOCK = 'latest'; // event watch start block
-  public static NETWORK_PORT = 7545;
+  public static FROM_BLOCK: string = 'latest'; // event watch start block
+  public static NETWORK_PORT: number = 7545;
 
   private _watchEvents: Set<RayonEvent>;
   protected _eventListener: RayonEventListener;
@@ -21,22 +21,26 @@ abstract class ContractAgent {
   protected _contractInstance;
 
   constructor(contract: JSON, watchEvents: Set<RayonEvent>) {
-    web3 = this.setWeb3();
-    web3.eth.getAccounts((err, accounts) => {
-      userAccount = accounts[0];
-    });
     this._contract = contract;
     this._watchEvents = watchEvents;
+    this.setWeb3();
+    this.setUserAccount();
     this.fetchContractInstance();
   }
 
-  private setWeb3 = (): Web3 => {
-    let web3: Web3 = (window as any).web3 as Web3;
-    typeof web3 !== 'undefined'
-      ? (web3 = new Web3(web3.currentProvider))
-      : (web3 = new Web3(new Web3.providers.HttpProvider(`http://localhost: ${ContractAgent.NETWORK_PORT}`)));
-    return web3;
-  };
+  private setUserAccount(): void {
+    web3.eth.getAccounts((err, accounts) => {
+      userAccount = accounts[0];
+    });
+  }
+
+  private setWeb3(): void {
+    let browserWeb3: Web3 = (window as any).web3 as Web3;
+    typeof browserWeb3 !== 'undefined'
+      ? (browserWeb3 = new Web3(browserWeb3.currentProvider))
+      : (browserWeb3 = new Web3(new Web3.providers.HttpProvider(`http://localhost: ${ContractAgent.NETWORK_PORT}`)));
+    web3 = browserWeb3;
+  }
 
   private async fetchContractInstance() {
     // Bring a ABI, Make a TruffleContract object
@@ -77,7 +81,6 @@ abstract class ContractAgent {
     this._eventListener = listner;
   }
 
-  // when event trigger on blockchain, this handler will occur
   private onEvent(eventType: RayonEvent, error, event): void {
     console.log('event', event);
     if (error) console.error(error);

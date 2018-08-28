@@ -45,7 +45,7 @@ class ReverseInquiryRegisterModalView extends Component<
     };
   }
 
-  async onClickRegisterButton(): Promise<void> {
+  onClickRegisterButton(): Promise<void> {
     if (this.state.selAvailableFinanceData.size === 0) {
       alert('Personal data must be provided with loan request');
       return;
@@ -62,13 +62,12 @@ class ReverseInquiryRegisterModalView extends Component<
     }
   }
 
-  // TODO: event가 아닌, string으로 받도록 한다.
-  onChangeTitle(event): void {
-    this.setState({ ...this.state, title: event.target.value });
+  onChangeTitle(title): void {
+    this.setState({ ...this.state, title });
   }
 
-  onChangeContent(event): void {
-    this.setState({ ...this.state, content: event.target.value });
+  onChangeContent(content: string): void {
+    this.setState({ ...this.state, content });
   }
 
   onChangeTag(tag: string): void {

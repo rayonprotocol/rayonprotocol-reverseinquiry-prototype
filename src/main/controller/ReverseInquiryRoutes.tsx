@@ -82,15 +82,8 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
     this.setState({ ...this.state, user });
   }
 
-  // TODO: callback은 가공된 데이터를 받는다. 데이터가공은 DC에서 처리.
   onUserSignUp(event: RayonEventResponse<LogUserSignUpArgs>): void {
-    const user: User = {
-      userAddress: event.args.userAddress,
-      userName: event.args.userName,
-      isBorrower: event.args.isBorrower,
-    };
-    UserDC.setUser(user);
-    this.setState({ ...this.state, user });
+    UserDC.fetchUser();
   }
 
   render() {

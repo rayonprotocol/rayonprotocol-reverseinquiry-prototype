@@ -43,7 +43,7 @@ class MessageContentVC extends Component<{}, MessageContentVCState> {
     this.onMessageSent = this.onMessageSent.bind(this);
   }
 
-  async componentWillMount() {
+  componentWillMount() {
     ReverseInquiryDC.addReverseInquiriesListeners(this.onReverseInquiriesFetched);
     ReverseInquiryDC.addEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onMessageSent);
     ReverseInquiryDC.fetchReverseInquiries();
@@ -103,8 +103,8 @@ class MessageContentVC extends Component<{}, MessageContentVCState> {
     this.setState({ ...this.state, isProductOfferModalOpen: false });
   }
 
-  onChangeOfferedProductInput(event, index) {
-    this.state.productOfferInput[index] = event.target.value;
+  onChangeOfferedProductInput(value: string, index: number) {
+    this.state.productOfferInput[index] = value;
     this.setState({ ...this.state, productOfferInput: this.state.productOfferInput });
   }
 

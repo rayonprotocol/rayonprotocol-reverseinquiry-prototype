@@ -40,7 +40,7 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
     // this.onReverseInquiryMessageSent = this.onReverseInquiryMessageSent.bind(this);
   }
 
-  async componentWillMount() {
+  componentWillMount() {
     ReverseInquiryDC.addReverseInquiriesListeners(this.onReverseInquiriesFetched);
     ReverseInquiryDC.addEventListener(RayonEvent.LogSendReverseInquiryMessage, this.onReverseInquiryMessageSent);
     ReverseInquiryDC.fetchReverseInquiries();

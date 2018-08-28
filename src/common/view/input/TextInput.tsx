@@ -7,7 +7,7 @@ import styles from './TextInput.scss';
 interface TextInputProps {
   title: string;
   className?: string;
-  onChangeInputValue: (event) => void;
+  onChangeInputValue: (text: string) => void;
 }
 
 class TextInput extends Component<TextInputProps, {}> {
@@ -15,7 +15,11 @@ class TextInput extends Component<TextInputProps, {}> {
     return (
       <div className={classNames(styles.commonInputText, this.props.className)}>
         <p className={styles.title}>{this.props.title}</p>
-        <input className={styles.textInput} onChange={this.props.onChangeInputValue} type="text" />
+        <input
+          className={styles.textInput}
+          onChange={event => this.props.onChangeInputValue(event.target.value)}
+          type="text"
+        />
       </div>
     );
   }
