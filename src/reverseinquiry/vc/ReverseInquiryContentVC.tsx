@@ -47,14 +47,18 @@ class ReverseInquiryVC extends Component<{}, ReverseInquiryVCState> {
     this.setState({ ...this.state, reverseInquiry });
   }
 
-  async onClickSendRequestButton(toAddress: string, reverseInquiryId: number): Promise<void> {
-    const payload = Array.from(this.state.selTags).join('%%');
+  onClickSendRequestButton(toAddress: string, reverseInquiryId: number): void {
+    const payload = this.serlalizeSelectedTagSet();
     try {
       MessageDC.sendMessage(toAddress, 0, reverseInquiryId, MsgTypes.REQUEST_PERSONAL_DATA, payload);
     } catch {
       console.error('send message failed');
     }
     history.goBack();
+  }
+
+  serlalizeSelectedTagSet() {
+    return Array.from(this.state.selTags).join('%%');
   }
 
   onTagChecked(tag: string): void {

@@ -67,7 +67,6 @@ class MessageBoardVC extends Component<{}, MessageBoardVCState> {
   }
 
   onReverseInquiryMessageSent(event: RayonEventResponse<LogSendReverseInquiryMessageArgs>) {
-    console.log('event', event);
     const newReverseInquiryMessage: Message = {
       reverseInquiryId: event.args.reverseInquiryId.toNumber(),
       messageId: event.args.messageId.toNumber(),

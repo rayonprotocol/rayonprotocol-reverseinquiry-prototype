@@ -46,7 +46,10 @@ class ReverseInquiryRegisterModalView extends Component<
   }
 
   async onClickRegisterButton(): Promise<void> {
-    if (!this.validSelAvailableFinanceData()) return;
+    if (this.state.selAvailableFinanceData.size === 0) {
+      alert('Personal data must be provided with loan request');
+      return;
+    }
     try {
       ReverseInquiryDC.registerReverseInquiry(
         this.state.title,
@@ -57,14 +60,6 @@ class ReverseInquiryRegisterModalView extends Component<
     } catch {
       console.error('ReverseInquiry register failed');
     }
-  }
-
-  validSelAvailableFinanceData(): boolean {
-    if (this.state.selAvailableFinanceData.size === 0) {
-      alert('Personal data must be provided with loan request');
-      return false;
-    }
-    return true;
   }
 
   onChangeTitle(event): void {

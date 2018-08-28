@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 // model
 import User from 'user/model/User';
@@ -79,7 +80,7 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
 
   renderNoRequestToDate() {
     return (
-      <div className={styles.emptyNote} style={{ color: this.state.user.isBorrower ? RAYON_LAKE : RAYON_BERRY }}>
+      <div className={classNames(styles.emptyNote, { [styles.berryColor]: this.state.user.isBorrower })}>
         No Requests To Date
       </div>
     );

@@ -15,6 +15,10 @@
     margin-top: 70px;
     text-align: center;
     font-size: 20px;
+    color: $rayon-lake;
+    &.berryColor {
+      color: $rayon-berry;
+    }
   }
   .reverseInquiryTable {
     width: 100%;
@@ -43,13 +47,6 @@
         padding-bottom: 5px;
         font-size: 14px;
       }
-    }
-  }
-
-  .contentsTitle {
-    cursor: pointer;
-    &:hover {
-      text-decoration: underline;
     }
   }
 
