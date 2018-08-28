@@ -72,7 +72,7 @@ class UserDC extends RayonEventDC {
     return this._user;
   }
 
-  public setUser(user: User) {
+  public setUser(user: User): void {
     this._user = user;
   }
 

@@ -51,19 +51,17 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
     this.setState({ ...this.state, financeData });
   }
 
-  onChangeDataKeyText(event, index: number) {
-    console.log(event.target.value);
+  onChangeDataKeyText(event, index: number): void {
     this.state.financeData[index].dataKeys = event.target.value;
     this.setState({ ...this.state, financeData: this.state.financeData });
   }
 
-  onChangeDataValueText(event, index: number) {
-    console.log(event.target.value);
+  onChangeDataValueText(event, index: number): void {
     this.state.financeData[index].dataValues = event.target.value;
     this.setState({ ...this.state, financeData: this.state.financeData });
   }
 
-  async onClickSubmitButton() {
+  onClickSubmitButton(): void {
     const object: Object = {};
     this.state.financeData.forEach(item => {
       object[item.dataKeys] = item.dataValues;
@@ -72,7 +70,7 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
     this.setState({ ...this.state, isModalOpen: true });
   }
 
-  onClickAddInputButton() {
+  onClickAddInputButton(): void {
     const newFinanceData = {
       dataKeys: '',
       dataValues: '',
@@ -81,13 +79,13 @@ class RegisterFinanceInfoVC extends Component<{}, RegisterFinanceInfoVCState> {
     this.setState({ ...this.state, financeData: this.state.financeData });
   }
 
-  onClickRemoveInputButton(index: number) {
+  onClickRemoveInputButton(index: number): void {
     if (this.state.financeData.length === 1) return alert("can't remove last property");
     this.state.financeData.splice(index, 1);
     this.setState({ ...this.state, financeData: this.state.financeData });
   }
 
-  onRequestCloseModal() {
+  onRequestCloseModal(): void {
     this.setState({ ...this.state, isModalOpen: false });
   }
 

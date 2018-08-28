@@ -21,13 +21,12 @@ class MessageServerAgent extends ServerAgent {
     msgType: number,
     payload: string = ''
   ) {
-    console.log(reverseInquiryId, previousMessageId, toAddress, msgType, payload);
     this._contractInstance.sendMessage(reverseInquiryId, previousMessageId, toAddress, msgType, payload, {
       from: ServerAgent.getUserAccount(),
     });
   }
 
-  async fetchReverseInquiryMessage(reverseInquiryId: number, messageId: number) {
+  async fetchReverseInquiryMessage(reverseInquiryId: number, messageId: number): Promise<Message> {
     const result: MessageResponse = await this._contractInstance.getMessage(reverseInquiryId, messageId);
     const userAccount = ServerAgent.getUserAccount();
     if (
@@ -50,7 +49,7 @@ class MessageServerAgent extends ServerAgent {
     return message;
   }
 
-  async fetchReverseInquiryMessages(reverseInquiryId: number) {
+  async fetchReverseInquiryMessages(reverseInquiryId: number): Promise<Message[]> {
     const messagesLength: number = await this._contractInstance.getMessagesLength(reverseInquiryId);
     const messages: Message[] = [];
 

@@ -20,7 +20,7 @@ class ReverseInquiryServerAgent extends ServerAgent {
     super(ReverseInquiryDC, watchEvents);
   }
 
-  public async fetchReverseInquiry(index: number) {
+  public async fetchReverseInquiry(index: number): Promise<ReverseInquiry> {
     const result: ReverseInquiryResponse = await this._contractInstance.getReverseInquiry(index, {
       from: ReverseInquiryServerAgent.getUserAccount(),
     });
@@ -36,7 +36,7 @@ class ReverseInquiryServerAgent extends ServerAgent {
     return newReverseInquiry;
   }
 
-  public async fetchReverseInquiries() {
+  public async fetchReverseInquiries(): Promise<ReverseInquiry[]> {
     const reverseInquiriesLength: number = await this._contractInstance.getReverseInquiriesLength();
     const reverseInquiries: ReverseInquiry[] = [];
     for (let i = 0; i < reverseInquiriesLength; i++) {
@@ -46,9 +46,9 @@ class ReverseInquiryServerAgent extends ServerAgent {
     return reverseInquiries;
   }
 
-  public registerReverseInquiry(title: string, content: string, tags: string[]) {
+  public registerReverseInquiry(title: string, content: string, tags: string[]): void {
     const user = UserDC.getUser();
-    if (user.userName === undefined) return false;
+    if (user.userName === undefined) return;
     const financeData = tags.join('%%');
     this._contractInstance.registerReverseInquiry(title, content, financeData, user.userName, {
       from: ReverseInquiryServerAgent.getUserAccount(),

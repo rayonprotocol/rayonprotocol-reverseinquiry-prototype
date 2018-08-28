@@ -42,12 +42,12 @@ class ReverseInquiryVC extends Component<{}, ReverseInquiryVCState> {
     };
   }
 
-  async componentWillMount() {
+  async componentWillMount(): Promise<void> {
     const reverseInquiry = await ReverseInquiryDC.fetchReverseInquiry(this.state.contentId);
     this.setState({ ...this.state, reverseInquiry });
   }
 
-  async onClickSendRequestButton(toAddress: string, reverseInquiryId: number) {
+  async onClickSendRequestButton(toAddress: string, reverseInquiryId: number): Promise<void> {
     const payload = Array.from(this.state.selTags).join('%%');
     try {
       MessageDC.sendMessage(toAddress, 0, reverseInquiryId, MsgTypes.REQUEST_PERSONAL_DATA, payload);
@@ -57,7 +57,7 @@ class ReverseInquiryVC extends Component<{}, ReverseInquiryVCState> {
     history.goBack();
   }
 
-  onTagChecked(tag: string) {
+  onTagChecked(tag: string): void {
     if (UserDC.getUser().isBorrower) return;
     this.state.selTags.has(tag) ? this.state.selTags.delete(tag) : this.state.selTags.add(tag);
     this.setState({ ...this.state, selTags: this.state.selTags });

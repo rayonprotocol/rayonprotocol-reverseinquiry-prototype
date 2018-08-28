@@ -63,7 +63,7 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
     },
   ];
 
-  async componentWillMount() {
+  async componentWillMount(): Promise<void> {
     UserDC.addUserListener(this.onUserFetched.bind(this));
 
     const isUserRegistered: boolean = await UserDC.isUser();
@@ -72,15 +72,15 @@ class ReverseInquiryRoutes extends Component<{}, ReverseInquiryRoutesState> {
     else UserDC.addEventListener(RayonEvent.LogUserSignUp, this.onUserSignUp);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     UserDC.removeEventListener(RayonEvent.LogUserSignUp, this.onUserSignUp);
   }
 
-  onUserFetched(user: User) {
+  onUserFetched(user: User): void {
     this.setState({ ...this.state, user });
   }
 
-  onUserSignUp(event: RayonEventResponse<LogUserSignUpArgs>) {
+  onUserSignUp(event: RayonEventResponse<LogUserSignUpArgs>): void {
     const user: User = {
       userAddress: event.args.userAddress,
       userName: event.args.userName,

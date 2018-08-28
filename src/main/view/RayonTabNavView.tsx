@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import classNames from 'classnames';
 
 // model
 import User from 'user/model/User';
@@ -33,7 +32,7 @@ class RayonTabNavView extends Component<{}, RayonTabNavViewState> {
     };
   }
 
-  onClickTabMenu(index: number) {
+  onClickTabMenu(index: number): void {
     this.setState({ ...this.state, activedTabIndex: index });
   }
 

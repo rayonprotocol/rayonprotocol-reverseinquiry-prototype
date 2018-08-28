@@ -23,7 +23,7 @@ abstract class RayonEventDC {
     this._eventListeners[eventType].delete(listner);
   }
 
-  public getUserAccount() {
+  public getUserAccount(): string {
     return ServerAgent.getUserAccount();
   }
 }

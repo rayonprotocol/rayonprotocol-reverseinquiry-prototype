@@ -43,22 +43,22 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
     this.onReverseInquiriesFetched = this.onReverseInquiriesFetched.bind(this);
   }
 
-  async componentWillMount() {
+  componentWillMount(): void {
     ReverseInquiryDC.addEventListener(RayonEvent.LogRegisterReverseInquiry, this.LogRegisterReverseInquiry);
     ReverseInquiryDC.addReverseInquiriesListeners(this.onReverseInquiriesFetched);
     ReverseInquiryDC.fetchReverseInquiries();
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     ReverseInquiryDC.removeEventListener(RayonEvent.LogRegisterReverseInquiry, this.LogRegisterReverseInquiry);
     ReverseInquiryDC.removeReverseInquiriesListeners(this.onReverseInquiriesFetched);
   }
 
-  onReverseInquiriesFetched(reverseInquiries: ReverseInquiry[]) {
+  onReverseInquiriesFetched(reverseInquiries: ReverseInquiry[]): void {
     this.setState({ ...this.state, reverseInquiries });
   }
 
-  LogRegisterReverseInquiry(event: RayonEventResponse<LogRegisterReverseInquiryArgs>) {
+  LogRegisterReverseInquiry(event: RayonEventResponse<LogRegisterReverseInquiryArgs>): void {
     const registeredReverseInquiry: ReverseInquiry = {
       id: event.args.id.toNumber(),
       title: event.args.title,
@@ -73,7 +73,7 @@ class ReverseInquiryBoardVC extends Component<{}, ReverseInquiryBoardVCState> {
     this.setState({ ...this.state, reverseInquiries: this.state.reverseInquiries });
   }
 
-  onRequestModalOpenStateToggle() {
+  onRequestModalOpenStateToggle(): void {
     this.setState({ ...this.state, isRegisterModalOpen: !this.state.isRegisterModalOpen });
   }
 

@@ -36,7 +36,7 @@ class MessageDC extends RayonEventDC {
     }
   }
 
-  private onReverseInquiryMessageSent(event: RayonEventResponse<LogSendReverseInquiryMessageArgs>) {
+  private onReverseInquiryMessageSent(event: RayonEventResponse<LogSendReverseInquiryMessageArgs>): void {
     const userAccount = this.getUserAccount();
     if (event.args.fromAddress !== userAccount && event.args.toAddress !== userAccount) return;
     this._eventListeners[RayonEvent.LogSendReverseInquiryMessage] &&
@@ -48,15 +48,15 @@ class MessageDC extends RayonEventDC {
   /*
   auction contents handler
   */
-  public addMessagesListeners(listener: MessagesListner) {
+  public addMessagesListeners(listener: MessagesListner): void {
     this._messagesListner.add(listener);
   }
 
-  public removeMessagesListeners(listener: MessagesListner) {
+  public removeMessagesListeners(listener: MessagesListner): void {
     this._messagesListner.delete(listener);
   }
 
-  private onMessagesFetched(messages: Map<number, Message[]>) {
+  private onMessagesFetched(messages: Map<number, Message[]>): void {
     this._messagesListner && this._messagesListner.forEach(listener => listener(messages));
   }
 
@@ -69,11 +69,11 @@ class MessageDC extends RayonEventDC {
     reverseInquiryId: number,
     msgType: number,
     payload?: string
-  ) {
+  ): void {
     MessageServerAgent.sendMessage(toAddress, previousMessageId, reverseInquiryId, msgType, payload);
   }
 
-  public async fetchMessages(reverseInquiries: ReverseInquiry[]) {
+  public async fetchMessages(reverseInquiries: ReverseInquiry[]): Promise<void> {
     if (this._messages.size !== 0) {
       this.onMessagesFetched(this._messages);
       return;

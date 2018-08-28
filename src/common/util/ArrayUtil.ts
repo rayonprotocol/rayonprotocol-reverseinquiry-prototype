@@ -3,11 +3,11 @@ class ArrayUtil {
     return targetArray === undefined || targetArray.length < 1;
   };
 
-  static makeLowerCase = (targetArray: Array<any>) => {
+  static makeLowerCase = (targetArray: Array<any>): Array<any> => {
     return targetArray.map(element => element.toLowerCase());
   };
 
-  static removeWhiteSpace = (targetArray: Array<any>) => {
+  static removeWhiteSpace = (targetArray: Array<any>): Array<any> => {
     return targetArray.map(element => element.replace(/\s/g, ''));
   };
 }

@@ -33,7 +33,7 @@ class ReverseInquiryDC extends RayonEventDC {
     }
   }
 
-  private onRegisterReverseInquiry(event: RayonEventResponse<LogRegisterReverseInquiryArgs>) {
+  private onRegisterReverseInquiry(event: RayonEventResponse<LogRegisterReverseInquiryArgs>): void {
     if (event.args.userAddress !== this.getUserAccount()) return;
     this._eventListeners[RayonEvent.LogRegisterReverseInquiry] &&
       this._eventListeners[RayonEvent.LogRegisterReverseInquiry].forEach(listner => {
@@ -44,15 +44,15 @@ class ReverseInquiryDC extends RayonEventDC {
   /*
   Reverse Inquiries handler
   */
-  public addReverseInquiriesListeners(listener: ReverseInquiriesListner) {
+  public addReverseInquiriesListeners(listener: ReverseInquiriesListner): void {
     this._reverseInquiriesListner.add(listener);
   }
 
-  public removeReverseInquiriesListeners(listener: ReverseInquiriesListner) {
+  public removeReverseInquiriesListeners(listener: ReverseInquiriesListner): void {
     this._reverseInquiriesListner.delete(listener);
   }
 
-  private onReverseInquiriesFetched(ReverseInquiries: ReverseInquiry[]) {
+  private onReverseInquiriesFetched(ReverseInquiries: ReverseInquiry[]): void {
     this._reverseInquiriesListner && this._reverseInquiriesListner.forEach(listener => listener(ReverseInquiries));
   }
 
@@ -60,11 +60,11 @@ class ReverseInquiryDC extends RayonEventDC {
     communicate to server agent
     */
 
-  public async fetchReverseInquiry(contentIndex: number) {
+  public async fetchReverseInquiry(contentIndex: number): Promise<ReverseInquiry> {
     return ReverseInquiryServerAgent.fetchReverseInquiry(contentIndex);
   }
 
-  public async fetchReverseInquiries() {
+  public async fetchReverseInquiries(): Promise<void> {
     if (this._reverseInquiries !== undefined) {
       this.onReverseInquiriesFetched(this._reverseInquiries);
       return;
@@ -75,7 +75,7 @@ class ReverseInquiryDC extends RayonEventDC {
     this.onReverseInquiriesFetched(this._reverseInquiries);
   }
 
-  public registerReverseInquiry(title: string, content: string, tags: string[]) {
+  public registerReverseInquiry(title: string, content: string, tags: string[]): void {
     ReverseInquiryServerAgent.registerReverseInquiry(title, content, tags);
   }
 }
