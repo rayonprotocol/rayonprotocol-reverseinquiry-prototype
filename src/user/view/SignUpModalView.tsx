@@ -46,11 +46,12 @@ class SignUpModalView extends Component<SignUpModalViewProps, SignUpModalViewSta
     });
   }
 
-  onChangeUserName(event) {
-    this.setState({ ...this.state, userName: event.target.value });
+  onChangeUserName(userName) {
+    this.setState({ ...this.state, userName });
   }
 
   onClickSubmitButton() {
+    console.log(this.state.userName, this.state.isBorrower);
     if (!this.validInputValues(this.state.userName, this.state.isBorrower)) {
       alert('type all input values');
       return;
